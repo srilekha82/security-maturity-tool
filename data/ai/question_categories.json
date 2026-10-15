@@ -1,0 +1,222 @@
+{
+  "description": "Question categories per AI RMF bank, plus the definitions the prompts and scripts share. Content, not code: the applicability pass maps each of the 72 subcategories to the categories it can produce practice-revealing questions for, and a subcategory applies to a bank iff it maps to at least one category of that bank. The generator reads the mapped categories to set `topic`. `governance` is a topic in addition to data_model, infra, reliability and ai_access, because outcomes about oversight, impact and vendors do not fit those four. Edit this file to change categories or definitions; scripts and prompts read it.",
+  "enums": {
+    "topics": [
+      "governance",
+      "data_model",
+      "infra",
+      "reliability",
+      "ai_access"
+    ],
+    "capability": [
+      "base",
+      "rag",
+      "mcp",
+      "agentic"
+    ],
+    "scope_tags": [
+      "internal",
+      "code_generation",
+      "customer_facing",
+      "third_party_embedded"
+    ],
+    "modifiers": [
+      "builds_on_base_model",
+      "self_hosted",
+      "poc",
+      "unsanctioned_use"
+    ]
+  },
+  "banks": {
+    "consumer": {
+      "description": "Org that uses AI (not a lower tier of producer). Includes fine-tuning an existing model for own use (self_hosted modifier).",
+      "categories": [
+        {
+          "id": "gov_accountability",
+          "name": "Governance and accountability for AI use",
+          "topic": "governance",
+          "covers": "Legal and regulatory duties for AI use, AI policies, roles and decision rights, risk appetite and tolerance, AI risk in the enterprise risk process, staff training, culture of challenge, leadership oversight."
+        },
+        {
+          "id": "inventory_shadow_ai",
+          "name": "Inventory, approval and unsanctioned use",
+          "topic": "governance",
+          "covers": "Which AI is in use and who approved it, owners, data touched, PoCs and experiments with end dates, shadow AI use, retirement and decommissioning of AI.",
+          "modifiers": [
+            "poc",
+            "unsanctioned_use"
+          ]
+        },
+        {
+          "id": "use_context_impact",
+          "name": "Purpose, context and impact of use",
+          "topic": "governance",
+          "covers": "Intended purpose and context of each AI use, who is affected, benefits and harms, impact assessment, fairness and bias in the way outputs are used, human oversight and review of outputs, transparency to users.",
+          "scope_tags": [
+            "internal",
+            "customer_facing",
+            "code_generation"
+          ]
+        },
+        {
+          "id": "third_party_supply",
+          "name": "Third-party and embedded AI",
+          "topic": "governance",
+          "covers": "Vendor AI features in tools the org uses, ability to opt out or control them, data flow to the vendor's model provider, vendor training on org data, contracts and assurances, upstream model changes or withdrawal.",
+          "scope_tags": [
+            "third_party_embedded"
+          ]
+        },
+        {
+          "id": "data_exposure",
+          "name": "Data and model protection",
+          "topic": "data_model",
+          "covers": "What data reaches the AI (prompts, attachments, RAG and knowledge-graph content), classification and handling rules, retention and training opt-out, protection of fine-tuned models, prompts and weights as assets.",
+          "capability": "base",
+          "modifiers": [
+            "self_hosted"
+          ]
+        },
+        {
+          "id": "infra_hosting",
+          "name": "Infrastructure and hosting",
+          "topic": "infra",
+          "covers": "Where the AI runs (endpoint, enterprise-hosted, SaaS API), who is responsible for what, protection of the hosts that hold sensitive things, secrets and keys, wording differs for SaaS vs self-hosted.",
+          "capability": "base",
+          "modifiers": [
+            "self_hosted"
+          ]
+        },
+        {
+          "id": "reliability_validation",
+          "name": "Reliability, testing and monitoring",
+          "topic": "reliability",
+          "covers": "Testing and validation before and during use, guardrails and harness, wrong or hostile inputs and outputs (normal model behaviour or attack), performance and drift monitoring, tracking of incidents and feedback, measurement of trustworthiness characteristics for the use.",
+          "capability": "base"
+        },
+        {
+          "id": "incident_recovery",
+          "name": "Incident response and ability to stop",
+          "topic": "reliability",
+          "covers": "Responding to AI incidents and harmful outputs, ability to suspend or roll back to a manual process, escalation and communication, post-incident learning, decommissioning."
+        },
+        {
+          "id": "ai_access_identity",
+          "name": "Access by AI (agents, MCP, RAG)",
+          "topic": "ai_access",
+          "covers": "AI as a new identity with permissions: what data it can reach, what it can do (read, write, execute), whose permissions it uses (own scoped identity vs the user's full rights), whether a human approves actions, tool and server vetting, audit of actions.",
+          "capability": "rag"
+        }
+      ]
+    },
+    "producer": {
+      "description": "Org that builds AI models where the model is the product or a core asset, or where the model is distributed to others (API, open weights, embedded).",
+      "categories": [
+        {
+          "id": "gov_accountability",
+          "name": "Governance and accountability for AI development",
+          "topic": "governance",
+          "covers": "Legal and regulatory duties for building and distributing AI, AI policies, roles and decision rights, risk appetite and tolerance, AI risk in the enterprise risk process, staff training, culture of challenge, leadership oversight, accountability across the lifecycle."
+        },
+        {
+          "id": "intended_use_impact",
+          "name": "Intended use, context and impact",
+          "topic": "governance",
+          "covers": "Documented purpose, intended and foreseeable uses, who receives the model, benefits and harms, impact assessment, affected communities, human oversight design, transparency and documentation for recipients."
+        },
+        {
+          "id": "fairness_safety_eval",
+          "name": "Fairness, safety, explainability and evaluation",
+          "topic": "reliability",
+          "covers": "Bias and fairness testing, explainability and interpretability, safety, validity and reliability test and evaluation, red teaming, test sets, evaluation documentation. Playbook-only content: the CIS guides do not cover it."
+        },
+        {
+          "id": "training_data",
+          "name": "Training and evaluation data",
+          "topic": "data_model",
+          "covers": "Data provenance, quality, licensing and rights, privacy, representativeness, poisoning and tampering protection, data lineage, handling of sensitive training data."
+        },
+        {
+          "id": "model_assets_ip",
+          "name": "Model assets and IP protection",
+          "topic": "data_model",
+          "covers": "Weights, fine-tuned models, prompts and system prompts as assets, IP protection and independence, protection against model extraction and theft, access to model artifacts, versioning and registry.",
+          "modifiers": [
+            "self_hosted"
+          ]
+        },
+        {
+          "id": "upstream_models",
+          "name": "Upstream models and third-party components",
+          "topic": "governance",
+          "covers": "Due diligence on a base model, licence terms, inherited bias or safety gaps, base-model change or withdrawal, third-party data, libraries and tooling in the build.",
+          "modifiers": [
+            "builds_on_base_model"
+          ]
+        },
+        {
+          "id": "build_infra",
+          "name": "Training and serving infrastructure",
+          "topic": "infra",
+          "covers": "Protecting where models are trained, stored and served, segregation of environments, secrets and keys, supply chain of the build pipeline, resource and cost abuse.",
+          "modifiers": [
+            "self_hosted"
+          ]
+        },
+        {
+          "id": "release_distribution",
+          "name": "Release, distribution and change management",
+          "topic": "governance",
+          "covers": "Decision to release, distribution channel (API, open weights, embedded), model cards and documentation for recipients, communication of limits, change and deprecation management, recipient feedback and issue intake."
+        },
+        {
+          "id": "reliability_robustness",
+          "name": "Robustness, monitoring and incident response",
+          "topic": "reliability",
+          "covers": "Guardrails and harness, adversarial and hostile input robustness, post-release monitoring and drift, incident response for model failures, ability to withdraw or roll back a release, decommissioning.",
+          "capability": "base"
+        },
+        {
+          "id": "ai_access_tools",
+          "name": "Tool, agent and MCP access in built systems",
+          "topic": "ai_access",
+          "covers": "For models or agents that are given tools: permissions, scoped identity, human approval, tool and server vetting, audit of actions. Same as the consumer category; only for producers whose product acts on systems.",
+          "capability": "mcp"
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "roles": {
+      "producer": "Builds AI models where the model is the product or a core asset, or where the model is distributed to others (API, open weights, embedded in products).",
+      "consumer": "Uses AI. Not a lower tier of producer: a different question set. Fine-tuning an existing model for own use (internal domain model, PoC) is consumer with the self_hosted modifier; a company whose product is a tuned model that others receive is a producer."
+    },
+    "capability": {
+      "base": "LLM use with no access beyond the prompt.",
+      "rag": "The LLM reads org data through retrieval (RAG, knowledge graph).",
+      "mcp": "The LLM has tools through MCP or similar: it can read, write and take actions.",
+      "agentic": "Operates with minimal human oversight; autonomous multi-step work.",
+      "note": "Each rung includes the ones below. A question's capability is the lowest rung at which it applies. Classic ML and vision models are out of scope."
+    },
+    "scope_tags": {
+      "internal": "Day-to-day business processes; output stays inside the org.",
+      "code_generation": "AI builds or maintains business applications; the output is a persistent executable artifact (insecure code, hallucinated dependencies, licensing, secrets, review gates).",
+      "customer_facing": "AI inside an app, or output reaching customers or end users, including calling a SaaS LLM API from the org's own app.",
+      "third_party_embedded": "AI bundled in a tool the org uses (ITSM, ticketing, RPA with a built-in LLM); less control, supply-chain focus.",
+      "note": "An empty list means the question applies to all usage contexts."
+    },
+    "modifiers": {
+      "builds_on_base_model": "Producer builds on an existing base model and inherits upstream risk (licence, inherited bias or safety gaps, base-model change or withdrawal).",
+      "self_hosted": "The org hosts the model or its infrastructure itself, so responsibility shifts from the provider to the org.",
+      "poc": "A proof of concept or experiment, often with real data, a larger exposure surface and fewer checks.",
+      "unsanctioned_use": "Shadow AI: use of AI tools nobody approved."
+    },
+    "topics": {
+      "governance": "Oversight, accountability, inventory, impact, third parties and release decisions.",
+      "data_model": "Data and model protection: RAG and knowledge-graph content, weights, fine-tuned models and prompts are assets.",
+      "infra": "Protecting where sensitive things are hosted; wording differs for SaaS vs self-hosted.",
+      "reliability": "Tuning, harness, guardrails, testing; wrong or hostile inputs and outputs, from normal model behaviour or from attack.",
+      "ai_access": "AI as a new identity with permissions (agents, MCP, RAG): what data it can reach, what it can do, whose permissions it uses, whether a human approves actions."
+    }
+  }
+}

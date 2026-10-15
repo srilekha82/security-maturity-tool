@@ -1,0 +1,118 @@
+{
+  "bank": "producer",
+  "enums": {
+    "topics": [
+      "governance",
+      "data_model",
+      "infra",
+      "reliability",
+      "ai_access"
+    ],
+    "capability": [
+      "base",
+      "rag",
+      "mcp",
+      "agentic"
+    ],
+    "scope_tags": [
+      "internal",
+      "code_generation",
+      "customer_facing",
+      "third_party_embedded"
+    ],
+    "modifiers": [
+      "builds_on_base_model",
+      "self_hosted",
+      "poc",
+      "unsanctioned_use"
+    ]
+  },
+  "definitions": {
+    "roles": {
+      "producer": "Builds AI models where the model is the product or a core asset, or where the model is distributed to others (API, open weights, embedded in products).",
+      "consumer": "Uses AI. Not a lower tier of producer: a different question set. Fine-tuning an existing model for own use (internal domain model, PoC) is consumer with the self_hosted modifier; a company whose product is a tuned model that others receive is a producer."
+    },
+    "capability": {
+      "base": "LLM use with no access beyond the prompt.",
+      "rag": "The LLM reads org data through retrieval (RAG, knowledge graph).",
+      "mcp": "The LLM has tools through MCP or similar: it can read, write and take actions.",
+      "agentic": "Operates with minimal human oversight; autonomous multi-step work.",
+      "note": "Each rung includes the ones below. A question's capability is the lowest rung at which it applies. Classic ML and vision models are out of scope."
+    },
+    "scope_tags": {
+      "internal": "Day-to-day business processes; output stays inside the org.",
+      "code_generation": "AI builds or maintains business applications; the output is a persistent executable artifact (insecure code, hallucinated dependencies, licensing, secrets, review gates).",
+      "customer_facing": "AI inside an app, or output reaching customers or end users, including calling a SaaS LLM API from the org's own app.",
+      "third_party_embedded": "AI bundled in a tool the org uses (ITSM, ticketing, RPA with a built-in LLM); less control, supply-chain focus.",
+      "note": "An empty list means the question applies to all usage contexts."
+    },
+    "modifiers": {
+      "builds_on_base_model": "Producer builds on an existing base model and inherits upstream risk (licence, inherited bias or safety gaps, base-model change or withdrawal).",
+      "self_hosted": "The org hosts the model or its infrastructure itself, so responsibility shifts from the provider to the org.",
+      "poc": "A proof of concept or experiment, often with real data, a larger exposure surface and fewer checks.",
+      "unsanctioned_use": "Shadow AI: use of AI tools nobody approved."
+    },
+    "topics": {
+      "governance": "Oversight, accountability, inventory, impact, third parties and release decisions.",
+      "data_model": "Data and model protection: RAG and knowledge-graph content, weights, fine-tuned models and prompts are assets.",
+      "infra": "Protecting where sensitive things are hosted; wording differs for SaaS vs self-hosted.",
+      "reliability": "Tuning, harness, guardrails, testing; wrong or hostile inputs and outputs, from normal model behaviour or from attack.",
+      "ai_access": "AI as a new identity with permissions (agents, MCP, RAG): what data it can reach, what it can do, whose permissions it uses, whether a human approves actions."
+    }
+  },
+  "items": [
+    {
+      "subcategory_id": "GOVERN 6.1",
+      "outcome": "Policies and procedures are in place that address AI risks associated with third-party entities, including risks of infringement of a third party’s intellectual property or other rights.",
+      "actions_preamble": "",
+      "suggested_actions": [
+        "Collaboratively establish policies that address third-party AI systems and data.",
+        "Establish policies related to:",
+        "Transparency into third-party system functions, including knowledge about training data, training and inference algorithms, and assumptions and limitations.",
+        "Thorough testing of third-party AI systems. (See MEASURE for more detail)",
+        "Requirements for clear and complete instructions for third-party system usage.",
+        "Evaluate policies for third-party technology.",
+        "Establish policies that address supply chain, full product lifecycle and associated processes, including legal, ethical, and other issues concerning procurement and use of third-party software or hardware systems and data."
+      ],
+      "categories": [
+        {
+          "id": "upstream_models",
+          "topic": "governance",
+          "covers": "Due diligence on a base model, licence terms, inherited bias or safety gaps, base-model change or withdrawal, third-party data, libraries and tooling in the build."
+        }
+      ],
+      "cis_safeguards": [
+        {
+          "id": "LLM-15.1",
+          "title": "Establish and Maintain an Inventory of Service Providers",
+          "ai_applicability": "Maintain a catalog of approved AI service providers. Clear documentation prevents accidental use of unapproved or insecure providers."
+        },
+        {
+          "id": "LLM-15.2",
+          "title": "Establish and Maintain a Service Provider Management Policy",
+          "ai_applicability": "The service provider management policy must enforce a “conservative default” posture by mandating a safe baseline: disabling history retention, opting out of model training, pinning specific model versions, and disabling risky capabilities (e.g., agents) until validated. Policies must also require evidence of tenant isolation, logging clarity, and AI- specific incident notification SLAs. Permissive SaaS defaults may expose sensitive data for training or introduce risks via unmanaged feature upd…"
+        },
+        {
+          "id": "LLM-15.4",
+          "title": "Ensure Service Provider Contracts Include Security Requirements",
+          "ai_applicability": "Mandate contractual guarantees for data residency, retention limits, and strict model version transparency. Standard cloud agreements often overlook the specific risks of generative AI. Contracts must explicitly enforce data sovereignty and retention limits to prevent providers from silently harvesting sensitive prompts for training or storing regulated data in non-compliant jurisdictions. Equally critical is the requirement for operational transparency regarding model versions. Unlike static s…"
+        },
+        {
+          "id": "MCP-15.4",
+          "title": "Ensure Service Provider Contracts Include Security Requirements",
+          "ai_applicability": "Ensure third-party MCP server providers are required to deliver signed code, record OAuth scopes and capability declarations, follow vulnerability disclosure processes, comply with logging requirements, and support current specification versions. Include contractual terms for data handling and retention, security update timelines, breach notification, log access, rapid authorization revocation during incidents, and exit procedures including workflow migration. Include contract terms for log acc…"
+        },
+        {
+          "id": "AGENT-15.4",
+          "title": "Ensure Service Provider Contracts Include Security Requirements",
+          "ai_applicability": "Mandate data isolation, strict retention limits, and incident response Service Level Agreements (SLAs) in service provider contracts. AI agents frequently rely on third-party inference providers and hosted tool execution environments, effectively outsourcing critical logic and memory. Contracts must explicitly govern the entire data life cycle, mandating strict retention limits, secure deletion capabilities, and proven cryptographic isolation to prevent cross-tenant data leakage. Furthermore, a…"
+        },
+        {
+          "id": "LLM-16.4",
+          "title": "Establish and Manage an Inventory of Third-Party Software Components",
+          "ai_applicability": "Maintain an AI-Bill of Materials (BOM)/Model BOM documenting provenance, integrity, and dependencies of all model artifacts. A Model BOM allows enterprises to understand upstream dependencies, verify authenticity, and trace vulnerabilities or harmful behavior back to specific sources or versions."
+        }
+      ]
+    }
+  ]
+}

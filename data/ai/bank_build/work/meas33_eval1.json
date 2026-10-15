@@ -1,0 +1,4 @@
+[
+  {"subcategory_id": "MEASURE 3.3", "question_number": 2, "check": 3, "reason": "scope_tags customer_facing claimed, but the question (a person disputing an AI-assisted outcome) applies equally to internal use; it does not depend on customer-facing."},
+  {"subcategory_id": "MEASURE 3.3", "question_number": 5, "check": 3, "reason": "scope_tags customer_facing claimed, but analysing end user/community feedback with domain experts does not depend on a customer-facing context."}
+]

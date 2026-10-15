@@ -1,0 +1,43 @@
+{
+  "description": "Policy for the AI RMF questionnaire at engagement time. build_ai_questions.py gives each subcategory a question type per bank from the usage profile (runs/<Org>_<date>/ai_usage.json), then selects candidates with the filters and ranking below. Change policy by editing this file, not the code. The type is set at topic level: the CSF tool already assesses general security (and the ISO 27001 SoA), so with a CSF assessment done or ISO 27001 held the AI RMF questionnaire only asks the AI angle of data, infrastructure and access topics.",
+  "function_order": ["GOVERN", "MAP", "MEASURE", "MANAGE"],
+  "bank_order": ["producer", "consumer"],
+  "max_questions": {"full_discovery": 4, "gap": 3, "confirmatory": 2},
+  "rung_order": ["base", "rag", "mcp", "agentic"],
+  "default_type": "full_discovery",
+  "gap_type": "gap",
+  "gap_topics": ["data_model", "infra", "ai_access"],
+  "gap_flags": {"csf_assessment_done": "CSF assessment", "iso27001_held": "ISO 27001"},
+  "no_effect_flags": {"iso42001_held": "ISO/IEC 42001 held: not used to relax any question type until the AI RMF to 42001 crosswalk is verified; everything stays full_discovery"},
+  "always_modifiers": ["unsanctioned_use"],
+  "gate": {
+    "none": {
+      "banks": ["consumer"],
+      "live_categories": ["inventory_shadow_ai"],
+      "live_modifier": "unsanctioned_use",
+      "live_type": "full_discovery",
+      "skip_reason": "No AI use declared: not applicable",
+      "live_reason": "No AI use declared; the unsanctioned-use check stays live"
+    },
+    "unsure": {
+      "profile": {"role": "consumer", "rung": "base", "usage_contexts": [], "modifiers": []},
+      "force_full_discovery": {"categories": ["inventory_shadow_ai"], "functions": ["MAP"]},
+      "reason": "AI use unconfirmed: scoped as consumer, base rung; discovery of what AI is in use comes first"
+    }
+  },
+  "ranking": {
+    "tag_match": 2,
+    "modifier_match": 2,
+    "poc_boost": 1,
+    "poc_boost_topics": ["data_model", "ai_access"],
+    "poc_boost_categories": ["inventory_shadow_ai"]
+  },
+  "reasons": {
+    "gap": "{flags} covers general security; this topic ({topic}) asks only what differs for AI",
+    "default": "No CSF assessment or ISO 27001 for the {topic} topic: full discovery",
+    "ungapped_topic": "{topic} topic is always full discovery",
+    "forced": "Forced to full discovery for an unconfirmed AI profile"
+  },
+  "gap_frame": "General security controls ({flags}) already cover the standard aspects of this area. What differs for AI: {text}",
+  "review_flag": "LOW — bank entry flagged for human review; assessor verification required"
+}

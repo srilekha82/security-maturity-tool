@@ -1,0 +1,173 @@
+"""Run: .venv/bin/python -m unittest discover -s tests -v
+
+The intake (numbers -> values), the shared options and the workbook writer. Everything is written to a temp dir."""
+
+import json
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+import intake as IN  # noqa: E402
+import options as OPT  # noqa: E402
+import write_questionnaire as WQ  # noqa: E402
+from paths import AI_CATEGORIES, AI_SCOPE_RULES  # noqa: E402
+
+
+def args(**over):
+    base = dict(replace=False, org="Acme Corp", domain="1", certs="2 3", ai_in_use="2", role="3", rung="3", usage_contexts="1 3",
+                modifiers="1 3", csf_assessment_done="1", iso42001_held="2", date="2026-10-14", runs_dir=None)
+    base.update(over)
+    return type("A", (), base)()
+
+
+class Options(unittest.TestCase):
+    def test_menus_match_the_enums_the_scripts_validate_against(self):
+        cats = json.loads(AI_CATEGORIES.read_text())
+        enums, rules = cats["enums"], json.loads(AI_SCOPE_RULES.read_text())
+        menu = {q["key"]: [o["value"] for o in q["options"]] for q in OPT.INTAKE_QUESTIONS}
+        self.assertEqual(set(menu["usage_contexts"]), set(enums["scope_tags"]))
+        self.assertEqual(set(menu["modifiers"]), set(enums["modifiers"]))
+        self.assertEqual(menu["rung"], rules["rung_order"])
+        self.assertEqual(set(menu["role"]), set(OPT.AI_BANK_NAMES) | {"both"})
+
+    def test_rung_order_matches_the_capability_enum(self):
+        # two files list the rungs; the order matters (each rung includes the ones below), so they must agree
+        enums = json.loads(AI_CATEGORIES.read_text())["enums"]
+        self.assertEqual(enums["capability"], json.loads(AI_SCOPE_RULES.read_text())["rung_order"])
+
+    def test_bank_names_match_the_categories_file(self):
+        self.assertEqual(set(OPT.AI_BANK_NAMES), set(json.loads(AI_CATEGORIES.read_text())["banks"]))
+
+    def test_every_domain_has_a_weight_key_and_every_cert_a_file(self):
+        self.assertEqual(set(OPT.WEIGHT_KEY), set(OPT.DOMAINS))
+        self.assertEqual(set(OPT.CERT_FILES), set(OPT.CERTS))
+
+
+class Intake(unittest.TestCase):
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp())
+
+    def go(self, **over):
+        a = args(runs_dir=str(self.tmp), **over)
+        try:
+            IN.write(a)
+            return 0
+        except SystemExit as e:
+            return e.code
+
+    def run_dir(self):
+        return self.tmp / "Acme_Corp_2026-10-14"
+
+    def test_numbers_become_values_and_the_iso_flag_is_derived(self):
+        self.assertEqual(self.go(), 0)
+        intake = json.loads((self.run_dir() / "intake.json").read_text())
+        self.assertEqual((intake["domain"], intake["certs"]), ("finance", ["iso27001", "pci_dss"]))
+        usage = json.loads((self.run_dir() / "ai_usage.json").read_text())
+        self.assertEqual((usage["role"], usage["rung"]), ("both", "mcp"))
+        self.assertEqual(usage["usage_contexts"], ["internal", "customer_facing"])
+        self.assertEqual(usage["engagement_flags"], {"csf_assessment_done": True, "iso27001_held": True,
+                                                     "iso42001_held": False})
+
+    def test_no_ai_leaves_the_profile_empty_and_pci_only_leaves_iso_false(self):
+        self.assertEqual(self.go(ai_in_use="1", role=None, rung=None, usage_contexts=None, modifiers=None, certs="3"), 0)
+        usage = json.loads((self.run_dir() / "ai_usage.json").read_text())
+        self.assertEqual((usage["role"], usage["rung"], usage["usage_contexts"]), (None, None, []))
+        self.assertFalse(usage["engagement_flags"]["iso27001_held"])
+
+    def test_blank_modifiers_are_allowed(self):
+        self.assertEqual(self.go(modifiers=""), 0)
+        self.assertEqual(json.loads((self.run_dir() / "ai_usage.json").read_text())["modifiers"], [])
+
+    def test_bad_input_is_rejected_and_writes_nothing(self):
+        for bad in (dict(domain="9"), dict(domain="x"), dict(domain="1 2"), dict(certs="1 2"), dict(certs=""),
+                    dict(role=None), dict(rung="7"), dict(ai_in_use="1"),            # role etc. given without "some"
+                    dict(role="1", modifiers="3"),                                    # builds_on_base_model, consumer
+                    dict(org="!!!")):
+            self.assertEqual(self.go(**bad), 1, bad)
+            self.assertFalse(self.run_dir().exists(), bad)
+
+    def test_an_existing_intake_is_not_overwritten_without_replace(self):
+        self.assertEqual(self.go(), 0)
+        self.assertEqual(self.go(domain="2"), 1)
+        self.assertEqual(json.loads((self.run_dir() / "intake.json").read_text())["domain"], "finance")
+        self.assertEqual(self.go(domain="2", replace=True), 0)
+        self.assertEqual(json.loads((self.run_dir() / "intake.json").read_text())["domain"], "healthcare")
+
+    def test_downstream_scripts_find_domain_and_certs(self):
+        self.go()
+        self.assertEqual(OPT.load_intake(self.run_dir())["certs"], ["iso27001", "pci_dss"])
+        with self.assertRaises(SystemExit):
+            OPT.load_intake(self.tmp / "missing")
+
+
+class RecordLog(unittest.TestCase):
+    """record_judgements.py log (assessor patch merge) now goes through audit.record_agent_output."""
+
+    def test_a_bad_patch_is_rejected_and_nothing_is_written(self):
+        import record_judgements as RJ
+        run = Path(tempfile.mkdtemp())
+        entry = {"subcategory_id": "GV.RM-01", "function": "GV", "outcome": "o", "question_type": "full_discovery",
+                 "questions": [{"question_text": "How is risk managed?"}], "evidence_prompt": "", "scope_reason": "",
+                 "confidence_flag": "", "assessor_note": None}
+        (run / "draft.json").write_text(json.dumps([entry]))
+        (run / "patch.json").write_text(json.dumps([entry]))          # identical to the draft, no note: invalid
+        argv = [str(run), "--step", "assessor", "--base", "draft.json", "--patch", "patch.json",
+                "--output", "assessed.json", "--model", "test"]
+        with self.assertRaises(SystemExit) as cm:
+            RJ.log_run_step(argv)
+        self.assertEqual(cm.exception.code, 1)
+        self.assertFalse((run / "assessed.json").exists())
+        self.assertFalse((run / "judgement_log").exists())
+        changed = dict(entry, assessor_note="Reworded.", questions=[{"question_text": "How is risk owned and reviewed?"}])
+        (run / "patch.json").write_text(json.dumps([changed]))
+        RJ.log_run_step(argv)
+        self.assertEqual(json.loads((run / "assessed.json").read_text())[0]["assessor_note"], "Reworded.")
+        self.assertEqual(len(list((run / "judgement_log").glob("*_assessor.json"))), 1)
+
+
+class Metadata(unittest.TestCase):
+    def test_a_refresh_updates_only_the_files_parsed(self):
+        import parse_crosswalk as PC
+        from datetime import date
+        path = Path(tempfile.mkdtemp()) / "metadata.json"
+        old = {"last_refreshed": "2020-01-01", "is_placeholder": True, "record_count": None, "notes": "n"}
+        path.write_text(json.dumps({"csf2_core.json": dict(old), "other.json": dict(old)}))
+        PC.record_refresh(path, {"csf2_core.json": 106})
+        doc = json.loads(path.read_text())
+        self.assertEqual(doc["csf2_core.json"], {"last_refreshed": date.today().isoformat(), "is_placeholder": False,
+                                                  "record_count": 106, "notes": "n"})
+        self.assertEqual(doc["other.json"], old)
+        self.assertIn("not recorded", PC.record_refresh(path.parent / "missing.json", {"x": 1}))
+
+
+class Workbook(unittest.TestCase):
+    def entries(self, function, sid, text, **extra):
+        return [{"subcategory_id": sid, "function": function, "outcome": "o", "question_type": "full_discovery",
+                 "questions": [{"question_text": text, "source_reference": "s"}], "evidence_prompt": "ep",
+                 "confidence_flag": "", **extra}]
+
+    def write(self, framework, *files, out):
+        argv = ["x", *map(str, files), str(out)] + (["--framework", framework] if framework != "csf" else [])
+        sys.argv = argv
+        WQ.main()
+
+    def test_either_sheet_can_be_rewritten_without_losing_the_other(self):
+        import openpyxl
+        tmp = Path(tempfile.mkdtemp())
+        csf, ai, out = tmp / "csf.json", tmp / "ai.json", tmp / "questionnaire.xlsx"
+        csf.write_text(json.dumps(self.entries("GV", "GV.RM-01", "How is risk managed?")))
+        ai.write_text(json.dumps(self.entries("GOVERN", "GOVERN 1.1", "How is AI governed?", bank="consumer")))
+        self.write("ai", ai, out=out)       # AI first
+        self.write("csf", csf, out=out)     # then CSF: used to wipe the AI sheet
+        self.write("csf", csf, out=out)     # and a CSF re-run must keep it
+        wb = openpyxl.load_workbook(out)
+        self.assertEqual(wb.sheetnames, ["CSF Questionnaire", "AI RMF Questionnaire"])
+        self.assertEqual(wb["AI RMF Questionnaire"].max_row, 2)
+        self.assertEqual(wb["CSF Questionnaire"].max_row, 2)
+
+
+if __name__ == "__main__":
+    unittest.main()

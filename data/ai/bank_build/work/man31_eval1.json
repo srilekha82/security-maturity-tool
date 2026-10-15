@@ -1,0 +1,4 @@
+[
+{"subcategory_id": "MANAGE 3.1", "question_number": 2, "check": 3, "reason": "scope_tags claims third_party_embedded, but the question covers all third-party AI systems (hosted LLM services too) and does not depend on that context."},
+{"subcategory_id": "MANAGE 3.1", "question_number": 3, "check": 3, "reason": "cis_refs includes AGENT-15.6 (monitoring agent interactions with third-party services), unrelated to a base-capability question about provider change monitoring."}
+]

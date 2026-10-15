@@ -1,0 +1,3549 @@
+{
+  "cset_commit": "e6e79b1862adf46307f0263d74e93bdbe25185b8",
+  "extracted_on": "2026-10-13",
+  "stats": {
+    "inserted": 170,
+    "text_updates": 0,
+    "answerable_updates": 27,
+    "deleted": 0,
+    "net_active_pairs": 312,
+    "questions": 170,
+    "dropped_deleted_questions": 0
+  },
+  "models": {
+    "1": "ACET",
+    "2": "CMMC",
+    "3": "EDM",
+    "4": "CRR",
+    "5": "RRA",
+    "6": "CMMC2",
+    "7": "VADR",
+    "8": "CIST",
+    "9": "CYOTE",
+    "10": "ISE",
+    "11": "CPG",
+    "12": "C2M2",
+    "13": "HYDRO",
+    "14": "SD",
+    "15": "IMR",
+    "16": "SD02-Owner",
+    "17": "CIE",
+    "18": "SSG Chemical",
+    "19": "CMMC2F",
+    "20": "SSG IT",
+    "21": "CPG2",
+    "22": "CRE+",
+    "23": "CRE+ Domain",
+    "24": "CRE+ MIL",
+    "25": "CISA VADR"
+  },
+  "questions": {
+    "172": {
+      "question_text": "Designated members of management are held accountable by the board or an appropriate board committee for implementing and managing the information security and business continuity programs.",
+      "title": "Stmt 1",
+      "category": "Governance",
+      "sub_category": "Oversight",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "174": {
+      "question_text": "Management provides a written report on the overall status of the information security and business continuity programs to the board or an appropriate board committee at least annually.",
+      "title": "Stmt 3",
+      "category": "Governance",
+      "sub_category": "Oversight",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "177": {
+      "question_text": "At least annually, the board or an appropriate board committee reviews\nand approves the institution’s cybersecurity program.",
+      "title": "Stmt 6",
+      "category": "Governance",
+      "sub_category": "Oversight",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "178": {
+      "question_text": "Management is responsible for ensuring compliance with legal and regulatory requirements related to cybersecurity.",
+      "title": "Stmt 7",
+      "category": "Governance",
+      "sub_category": "Oversight",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "181": {
+      "question_text": "The board or an appropriate board committee has cybersecurity expertise or engages experts to assist with oversight responsibilities.",
+      "title": "Stmt 10",
+      "category": "Governance",
+      "sub_category": "Oversight",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "183": {
+      "question_text": "The institution has a cyber risk appetite statement approved by the board or an appropriate board committee.",
+      "title": "Stmt 12",
+      "category": "Governance",
+      "sub_category": "Oversight",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "185": {
+      "question_text": "The board or an appropriate board committee ensures management’s annual cybersecurity self-assessment evaluates the institution’s ability to meet its cyber risk management standards.",
+      "title": "Stmt 14",
+      "category": "Governance",
+      "sub_category": "Oversight",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "190": {
+      "question_text": "Management has a formal process to continuously improve cybersecurity oversight.",
+      "title": "Stmt 19",
+      "category": "Governance",
+      "sub_category": "Oversight",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "199": {
+      "question_text": "The institution has policies commensurate with its risk and complexity that address the concepts of threat information sharing.",
+      "title": "Stmt 28",
+      "category": "Governance",
+      "sub_category": "Strategy / Policies",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "200": {
+      "question_text": "The institution has board-approved policies commensurate with its risk and complexity that address information security.",
+      "title": "Stmt 29",
+      "category": "Governance",
+      "sub_category": "Strategy / Policies",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "203": {
+      "question_text": "All elements of the information security program are coordinated enterprise-wide.",
+      "title": "Stmt 32",
+      "category": "Governance",
+      "sub_category": "Strategy / Policies",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "204": {
+      "question_text": "The institution augmented its information security strategy to incorporate cybersecurity and resilience.",
+      "title": "Stmt 33",
+      "category": "Governance",
+      "sub_category": "Strategy / Policies",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "205": {
+      "question_text": "The institution has a formal cybersecurity program that is based on technology and security industry standards or benchmarks.",
+      "title": "Stmt 34",
+      "category": "Governance",
+      "sub_category": "Strategy / Policies",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "209": {
+      "question_text": "The cybersecurity strategy is incorporated into, or conceptually fits within, the institution’s enterprise-wide risk management strategy.",
+      "title": "Stmt 38",
+      "category": "Governance",
+      "sub_category": "Strategy / Policies",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "214": {
+      "question_text": "The cybersecurity strategy identifies and communicates the institution’s role as a component of critical infrastructure in the financial services industry.",
+      "title": "Stmt 43",
+      "category": "Governance",
+      "sub_category": "Strategy / Policies",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "215": {
+      "question_text": "The risk appetite is informed by the institution’s role in critical infrastructure.",
+      "title": "Stmt 44",
+      "category": "Governance",
+      "sub_category": "Strategy / Policies",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "217": {
+      "question_text": "The cybersecurity strategy identifies and communicates the institution's role as it relates to other critical infrastructures.",
+      "title": "Stmt 46",
+      "category": "Governance",
+      "sub_category": "Strategy / Policies",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "218": {
+      "question_text": "An inventory of organizational assets (e.g., hardware, software, data, and systems hosted externally) is maintained.",
+      "title": "Stmt 47",
+      "category": "Governance",
+      "sub_category": "IT Asset Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "219": {
+      "question_text": "Organizational assets (e.g., hardware, systems, data, and applications) are prioritized for protection based on the data classification and business value.",
+      "title": "Stmt 48",
+      "category": "Governance",
+      "sub_category": "IT Asset Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "221": {
+      "question_text": "A change management process is in place to request and approve changes to systems configurations, hardware, software, applications, and security tools.",
+      "title": "Stmt 50",
+      "category": "Governance",
+      "sub_category": "IT Asset Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "223": {
+      "question_text": "The institution has a documented asset life-cycle process that considers whether assets to be acquired have appropriate security safeguards.",
+      "title": "Stmt 52",
+      "category": "Governance",
+      "sub_category": "IT Asset Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "224": {
+      "question_text": "The institution proactively manages system EOL (e.g., replacement) to limit security risks.",
+      "title": "Stmt 53",
+      "category": "Governance",
+      "sub_category": "IT Asset Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "236": {
+      "question_text": "Management reviews and uses the results of audits to improve existing cybersecurity policies, procedures, and controls.",
+      "title": "Stmt 65",
+      "category": "Risk Management",
+      "sub_category": "Risk Management Program",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "246": {
+      "question_text": "A process is in place to analyze the financial impact cyber incidents have on the institution’s capital.",
+      "title": "Stmt 75",
+      "category": "Risk Management",
+      "sub_category": "Risk Management Program",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "250": {
+      "question_text": "A risk assessment focused on safeguarding customer information identifies reasonable and foreseeable internal and external threats, the likelihood and potential damage of threats, and the sufficiency of policies, procedures, and customer information systems.",
+      "title": "Stmt 79",
+      "category": "Risk Management",
+      "sub_category": "Risk Assessment",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "253": {
+      "question_text": "Risk assessments are used to identify the cybersecurity risks stemming from new products, services, or relationships.",
+      "title": "Stmt 82",
+      "category": "Risk Management",
+      "sub_category": "Risk Assessment",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "254": {
+      "question_text": "The focus of the risk assessment has expanded beyond customer information to address all information assets.",
+      "title": "Stmt 83",
+      "category": "Risk Management",
+      "sub_category": "Risk Assessment",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "279": {
+      "question_text": "Information security roles and responsibilities have been identified.",
+      "title": "Stmt 108",
+      "category": "Resources",
+      "sub_category": "Staffing",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "283": {
+      "question_text": "Staff with cybersecurity responsibilities have the requisite qualifications to perform the necessary tasks of the position.",
+      "title": "Stmt 112",
+      "category": "Resources",
+      "sub_category": "Staffing",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "284": {
+      "question_text": "Employment candidates, contractors, and third parties are subject to background verification proportional to the confidentiality of the data accessed, business requirements, and acceptable risk.",
+      "title": "Stmt 113",
+      "category": "Resources",
+      "sub_category": "Staffing",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "290": {
+      "question_text": "Annual information security training includes incident response, current cyber threats (e.g., phishing, spear phishing, social engineering, and mobile security), and emerging issues.",
+      "title": "Stmt 119",
+      "category": "Training & Culture",
+      "sub_category": "Training",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "292": {
+      "question_text": "Customer awareness materials are readily available (e.g., DHS’ Cybersecurity Awareness Month materials).",
+      "title": "Stmt 121",
+      "category": "Training & Culture",
+      "sub_category": "Training",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "294": {
+      "question_text": "Management is provided cybersecurity training relevant to their job responsibilities.",
+      "title": "Stmt 123",
+      "category": "Training & Culture",
+      "sub_category": "Training",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "295": {
+      "question_text": "Employees with privileged account permissions receive additional cybersecurity training commensurate with their levels of responsibility.",
+      "title": "Stmt 124",
+      "category": "Training & Culture",
+      "sub_category": "Training",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "299": {
+      "question_text": "Cybersecurity awareness information is provided to retail customers and commercial clients at least annually.",
+      "title": "Stmt 128",
+      "category": "Training & Culture",
+      "sub_category": "Training",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "304": {
+      "question_text": "Management holds employees accountable for complying with the information security program.",
+      "title": "Stmt 133",
+      "category": "Training & Culture",
+      "sub_category": "Culture",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "313": {
+      "question_text": "The institution belongs or subscribes to a threat and vulnerability information sharing source(s) that provides information on threats (e.g., Financial Services Information Sharing and Analysis Center [FS-ISAC], U.S. Computer Emergency Readiness Team [US-CERT]).",
+      "title": "Stmt 142",
+      "category": "Threat Intelligence",
+      "sub_category": "Threat Intelligence and Information",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "314": {
+      "question_text": "Threat information is used to monitor threats and vulnerabilities.",
+      "title": "Stmt 143",
+      "category": "Threat Intelligence",
+      "sub_category": "Threat Intelligence and Information",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "325": {
+      "question_text": "Audit log records and other security event logs are reviewed and retained in a secure manner.",
+      "title": "Stmt 154",
+      "category": "Monitoring & Analyzing",
+      "sub_category": "Monitoring and Analyzing",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "326": {
+      "question_text": "Computer event logs are used for investigations once an event has occurred.",
+      "title": "Stmt 155",
+      "category": "Monitoring & Analyzing",
+      "sub_category": "Monitoring and Analyzing",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "327": {
+      "question_text": "A process is implemented to monitor threat information to discover emerging threats.",
+      "title": "Stmt 156",
+      "category": "Monitoring & Analyzing",
+      "sub_category": "Monitoring and Analyzing",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "330": {
+      "question_text": "Monitoring systems operate continuously with adequate support for efficient incident handling.",
+      "title": "Stmt 159",
+      "category": "Monitoring & Analyzing",
+      "sub_category": "Monitoring and Analyzing",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "332": {
+      "question_text": "A profile is created for each threat that identifies the likely intent, capability, and target of the threat.",
+      "title": "Stmt 161",
+      "category": "Monitoring & Analyzing",
+      "sub_category": "Monitoring and Analyzing",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "343": {
+      "question_text": "Information security threats are gathered and shared with applicable internal employees.",
+      "title": "Stmt 172",
+      "category": "Information Sharing",
+      "sub_category": "Information Sharing",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "347": {
+      "question_text": "A representative from the institution participates in law enforcement or information-sharing organization meetings.",
+      "title": "Stmt 176",
+      "category": "Information Sharing",
+      "sub_category": "Information Sharing",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "349": {
+      "question_text": "Information-sharing agreements are used as needed or required to facilitate sharing threat information with other financial sector organizations or third parties.",
+      "title": "Stmt 178",
+      "category": "Information Sharing",
+      "sub_category": "Information Sharing",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "358": {
+      "question_text": "Network perimeter defense tools (e.g., border router and firewall) are used.",
+      "title": "Stmt 187",
+      "category": "Preventative Controls",
+      "sub_category": "Infrastructure Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "362": {
+      "question_text": "Systems configurations (for servers, desktops, routers, etc.) follow industry standards and are enforced.",
+      "title": "Stmt 191",
+      "category": "Preventative Controls",
+      "sub_category": "Infrastructure Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "364": {
+      "question_text": "Access to make changes to systems configurations (including virtual machines and hypervisors) is controlled and monitored.",
+      "title": "Stmt 193",
+      "category": "Preventative Controls",
+      "sub_category": "Infrastructure Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "370": {
+      "question_text": "Technical controls prevent unauthorized devices, including rogue wireless access devices and removable media, from connecting to the internal network(s).",
+      "title": "Stmt 199",
+      "category": "Preventative Controls",
+      "sub_category": "Infrastructure Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "371": {
+      "question_text": "A risk-based solution is in place at the institution or Internet hosting provider to mitigate disruptive cyber-attacks (e.g., DDoS attacks).",
+      "title": "Stmt 200",
+      "category": "Preventative Controls",
+      "sub_category": "Infrastructure Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "376": {
+      "question_text": "The enterprise network is segmented in multiple, separate trust/security zones with defense-in-depth strategies (e.g., logical network segmentation, hard backups, air-gapping) to mitigate attacks.",
+      "title": "Stmt 205",
+      "category": "Preventative Controls",
+      "sub_category": "Infrastructure Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "377": {
+      "question_text": "Security controls are used for remote access to all administrative consoles, including restricted virtual systems.",
+      "title": "Stmt 206",
+      "category": "Preventative Controls",
+      "sub_category": "Infrastructure Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "389": {
+      "question_text": "Employee access is granted to systems and confidential data based on job responsibilities and the principles of least privilege.",
+      "title": "Stmt 218",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "390": {
+      "question_text": "Employee access to systems and confidential data provides for separation of duties.",
+      "title": "Stmt 219",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "391": {
+      "question_text": "Elevated privileges (e.g., administrator privileges) are limited and tightly controlled (e.g., assigned to individuals, not shared, and require stronger password controls).",
+      "title": "Stmt 220",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "392": {
+      "question_text": "User access reviews are performed periodically for all systems and applications based on the risk to the application or system.",
+      "title": "Stmt 221",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "393": {
+      "question_text": "Changes to physical and logical user access, including those that result from voluntary and involuntary terminations, are submitted to and approved by appropriate personnel.",
+      "title": "Stmt 222",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "394": {
+      "question_text": "Identification and authentication are required and managed for access to systems, applications, and hardware.",
+      "title": "Stmt 223",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "395": {
+      "question_text": "Access controls include password complexity and limits to password attempts and reuse.",
+      "title": "Stmt 224",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "398": {
+      "question_text": "Production and non-production environments are segregated to prevent unauthorized access or changes to information assets. (*N/A if no production environment exists at the institution or the institution’s third party.)",
+      "title": "Stmt 227",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "399": {
+      "question_text": "Physical security controls are used to prevent unauthorized access to information systems and telecommunication systems.",
+      "title": "Stmt 228",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "401": {
+      "question_text": "Confidential data are encrypted when transmitted across public or untrusted networks (e.g., Internet).",
+      "title": "Stmt 230",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "402": {
+      "question_text": "Mobile devices (e.g., laptops, tablets, and removable media) are encrypted if used to store confidential data. (*N/A if mobile devices are not used.)",
+      "title": "Stmt 231",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "403": {
+      "question_text": "Remote access to critical systems by employees, contractors, and third parties uses encrypted connections and multifactor authentication.",
+      "title": "Stmt 232",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "404": {
+      "question_text": "Administrative, physical, or technical controls are in place to prevent users without administrative responsibilities from installing unauthorized software.",
+      "title": "Stmt 233",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "406": {
+      "question_text": "Data is disposed of or destroyed according to documented requirements and within expected time frames.",
+      "title": "Stmt 235",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "412": {
+      "question_text": "The institution has implemented tools to prevent unauthorized access to or exfiltration of confidential data.",
+      "title": "Stmt 241",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "420": {
+      "question_text": "Encryption of select data at rest is determined by the institution’s data classification and risk assessment.",
+      "title": "Stmt 249",
+      "category": "Preventative Controls",
+      "sub_category": "Access and Data Management",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "427": {
+      "question_text": "Controls are in place to restrict the use of removable media to authorized personnel.",
+      "title": "Stmt 256",
+      "category": "Preventative Controls",
+      "sub_category": "Device / End-Point Security",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "432": {
+      "question_text": "Antivirus and anti-malware tools are deployed on end-point devices (e.g., workstations, laptops, and mobile devices).",
+      "title": "Stmt 261",
+      "category": "Preventative Controls",
+      "sub_category": "Device / End-Point Security",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "434": {
+      "question_text": "The institution wipes data remotely on mobile devices when a device is missing or stolen. (*N/A if mobile devices are not used.)",
+      "title": "Stmt 263",
+      "category": "Preventative Controls",
+      "sub_category": "Device / End-Point Security",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "435": {
+      "question_text": "Data loss prevention controls or devices are implemented for inbound and outbound communications (e.g., e-mail, FTP, Telnet, prevention of large file transfers).",
+      "title": "Stmt 264",
+      "category": "Preventative Controls",
+      "sub_category": "Device / End-Point Security",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "436": {
+      "question_text": "Mobile device management includes integrity scanning (e.g., jailbreak/rooted detection). (*N/A if mobile devices are not used.)",
+      "title": "Stmt 265",
+      "category": "Preventative Controls",
+      "sub_category": "Device / End-Point Security",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "441": {
+      "question_text": "Developers working for the institution follow secure program coding practices, as part of a system development life cycle (SDLC), that meet industry standards.",
+      "title": "Stmt 270",
+      "category": "Preventative Controls",
+      "sub_category": "Secure Coding",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "445": {
+      "question_text": "Security testing occurs at all post-design phases of the SDLC for all applications, including mobile applications. (*N/A if there is no software development.)",
+      "title": "Stmt 274",
+      "category": "Preventative Controls",
+      "sub_category": "Secure Coding",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "448": {
+      "question_text": "Software code executables and scripts are digitally signed to confirm the software author and guarantee that the code has not been altered or corrupted.",
+      "title": "Stmt 277",
+      "category": "Preventative Controls",
+      "sub_category": "Secure Coding",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "454": {
+      "question_text": "Independent testing (including penetration testing and vulnerability scanning) is conducted according to the risk assessment for external-facing systems and the internal network.",
+      "title": "Stmt 283",
+      "category": "Detective Controls",
+      "sub_category": "Threat and Vulnerability Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "455": {
+      "question_text": "Antivirus and anti-malware tools are used to detect attacks.",
+      "title": "Stmt 284",
+      "category": "Detective Controls",
+      "sub_category": "Threat and Vulnerability Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "462": {
+      "question_text": "Vulnerability scanning is conducted and analyzed before deployment/redeployment of new/existing devices.",
+      "title": "Stmt 291",
+      "category": "Detective Controls",
+      "sub_category": "Threat and Vulnerability Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "466": {
+      "question_text": "Weekly vulnerability scanning is rotated among environments to scan all environments throughout the year.",
+      "title": "Stmt 295",
+      "category": "Detective Controls",
+      "sub_category": "Threat and Vulnerability Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "471": {
+      "question_text": "The institution is able to detect anomalous activities through monitoring across the environment.",
+      "title": "Stmt 300",
+      "category": "Detective Controls",
+      "sub_category": "Anomalous Activity Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "488": {
+      "question_text": "A system is in place to monitor and analyze employee behavior (network use patterns, work hours, and known devices) to alert on anomalous activities.",
+      "title": "Stmt 317",
+      "category": "Detective Controls",
+      "sub_category": "Anomalous Activity Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "493": {
+      "question_text": "A normal network activity baseline is established.",
+      "title": "Stmt 322",
+      "category": "Detective Controls",
+      "sub_category": "Event Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "494": {
+      "question_text": "Mechanisms (e.g., antivirus alerts, log event alerts) are in place to alert management to potential attacks.",
+      "title": "Stmt 323",
+      "category": "Detective Controls",
+      "sub_category": "Event Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "495": {
+      "question_text": "Processes are in place to monitor for the presence of unauthorized users, devices, connections, and software.",
+      "title": "Stmt 324",
+      "category": "Detective Controls",
+      "sub_category": "Event Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "496": {
+      "question_text": "Responsibilities for monitoring and reporting suspicious systems activity have been assigned.",
+      "title": "Stmt 325",
+      "category": "Detective Controls",
+      "sub_category": "Event Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "498": {
+      "question_text": "A process is in place to correlate event information from multiple sources (e.g., network, application, or firewall).",
+      "title": "Stmt 327",
+      "category": "Detective Controls",
+      "sub_category": "Event Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "499": {
+      "question_text": "Controls or tools (e.g., data loss prevention) are in place to detect potential unauthorized or unintentional transmissions of confidential data.",
+      "title": "Stmt 328",
+      "category": "Detective Controls",
+      "sub_category": "Event Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "500": {
+      "question_text": "Event detection processes are proven reliable.",
+      "title": "Stmt 329",
+      "category": "Detective Controls",
+      "sub_category": "Event Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "523": {
+      "question_text": "Formal processes are in place to resolve weaknesses identified during penetration testing.",
+      "title": "Stmt 352",
+      "category": "Corrective Controls",
+      "sub_category": "Remediation",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "528": {
+      "question_text": "The maintenance and repair of organizational assets are performed by authorized individuals with approved and controlled tools.",
+      "title": "Stmt 357",
+      "category": "Corrective Controls",
+      "sub_category": "Remediation",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "529": {
+      "question_text": "The maintenance and repair of organizational assets are logged in a timely manner.",
+      "title": "Stmt 358",
+      "category": "Corrective Controls",
+      "sub_category": "Remediation",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "532": {
+      "question_text": "The critical business processes that are dependent on external connectivity have been identified.",
+      "title": "Stmt 361",
+      "category": "Connections",
+      "sub_category": "Connections",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "534": {
+      "question_text": "A network diagram is in place and identifies all external connections.",
+      "title": "Stmt 363",
+      "category": "Connections",
+      "sub_category": "Connections",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "535": {
+      "question_text": "Data flow diagrams are in place and document information flow to external parties.",
+      "title": "Stmt 364",
+      "category": "Connections",
+      "sub_category": "Connections",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "540": {
+      "question_text": "A validated asset inventory is used to create comprehensive diagrams depicting data repositories, data flow, infrastructure, and connectivity.",
+      "title": "Stmt 369",
+      "category": "Connections",
+      "sub_category": "Connections",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "549": {
+      "question_text": "A list of third-party service providers is maintained.",
+      "title": "Stmt 378",
+      "category": "Relationship Management",
+      "sub_category": "Due Diligence",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "559": {
+      "question_text": "Formal contracts that address relevant security and privacy requirements are in place for all third parties that process, store, or transmit confidential data or provide critical services.",
+      "title": "Stmt 388",
+      "category": "Relationship Management",
+      "sub_category": "Contracts",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "560": {
+      "question_text": "Contracts acknowledge that the third party is responsible for the security of the institution’s confidential data that it possesses, stores, processes, or transmits.",
+      "title": "Stmt 389",
+      "category": "Relationship Management",
+      "sub_category": "Contracts",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "563": {
+      "question_text": "Contracts establish responsibilities for responding to security incidents.",
+      "title": "Stmt 392",
+      "category": "Relationship Management",
+      "sub_category": "Contracts",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "579": {
+      "question_text": "Third-party employee access to the institution's confidential data are tracked actively based on the principles of least privilege.",
+      "title": "Stmt 408",
+      "category": "Relationship Management",
+      "sub_category": "Ongoing Monitoring",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "588": {
+      "question_text": "The institution plans to use business continuity, disaster recovery, and data backup programs to recover operations following an incident.",
+      "title": "Stmt 417",
+      "category": "Incident Resilience Planning and Strategy",
+      "sub_category": "Planning",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "597": {
+      "question_text": "Lessons learned from real-life cyber incidents and attacks on the institution and other organizations are used to improve the institution’s risk mitigation capabilities and response plan.",
+      "title": "Stmt 426",
+      "category": "Incident Resilience Planning and Strategy",
+      "sub_category": "Planning",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "601": {
+      "question_text": "The incident response plan is designed to ensure recovery from disruption of services, assurance of data integrity, and recovery of lost or corrupted data following a cybersecurity incident.",
+      "title": "Stmt 430",
+      "category": "Incident Resilience Planning and Strategy",
+      "sub_category": "Planning",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "602": {
+      "question_text": "The incident response process includes detailed actions and rule- based triggers for automated response.",
+      "title": "Stmt 431",
+      "category": "Incident Resilience Planning and Strategy",
+      "sub_category": "Planning",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "605": {
+      "question_text": "Systems, applications, and data recovery is tested at least annually.",
+      "title": "Stmt 434",
+      "category": "Incident Resilience Planning and Strategy",
+      "sub_category": "Testing",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "606": {
+      "question_text": "Recovery scenarios include plans to recover from data destruction and impacts to data integrity, data loss, and system and data availability.",
+      "title": "Stmt 435",
+      "category": "Incident Resilience Planning and Strategy",
+      "sub_category": "Testing",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "611": {
+      "question_text": "Resilience testing is based on analysis and identification of realistic and highly likely threats as well as new and emerging threats facing the institution.",
+      "title": "Stmt 440",
+      "category": "Incident Resilience Planning and Strategy",
+      "sub_category": "Testing",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "623": {
+      "question_text": "Alert parameters are set for detecting information security incidents that prompt mitigating actions.",
+      "title": "Stmt 452",
+      "category": "Detection, Response, and Mitigation",
+      "sub_category": "Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "625": {
+      "question_text": "Tools and processes are in place to detect, alert, and trigger the incident response program.",
+      "title": "Stmt 454",
+      "category": "Detection, Response, and Mitigation",
+      "sub_category": "Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "626": {
+      "question_text": "The institution has processes to detect and alert the incident response team when potential insider activity manifests that could lead to data theft or destruction.",
+      "title": "Stmt 455",
+      "category": "Detection, Response, and Mitigation",
+      "sub_category": "Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "627": {
+      "question_text": "The incident response program is triggered when anomalous behaviors and attack patterns or signatures are detected.",
+      "title": "Stmt 456",
+      "category": "Detection, Response, and Mitigation",
+      "sub_category": "Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "629": {
+      "question_text": "Incidents are detected in real time through automated processes that include instant alerts to appropriate personnel who can respond.",
+      "title": "Stmt 458",
+      "category": "Detection, Response, and Mitigation",
+      "sub_category": "Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "632": {
+      "question_text": "Sophisticated and adaptive technologies are deployed that can detect and alert the incident response team of specific tasks when threat indicators across the enterprise indicate potential external and internal threats.",
+      "title": "Stmt 461",
+      "category": "Detection, Response, and Mitigation",
+      "sub_category": "Detection",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "635": {
+      "question_text": "Appropriate steps are taken to contain and control an incident to prevent further unauthorized access to or use of customer information.",
+      "title": "Stmt 464",
+      "category": "Detection, Response, and Mitigation",
+      "sub_category": "Response and Mitigation",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "641": {
+      "question_text": "Records are generated to support incident investigation and mitigation.",
+      "title": "Stmt 470",
+      "category": "Detection, Response, and Mitigation",
+      "sub_category": "Response and Mitigation",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "643": {
+      "question_text": "Analysis of events is used to improve the institution's security measures and policies.",
+      "title": "Stmt 472",
+      "category": "Detection, Response, and Mitigation",
+      "sub_category": "Response and Mitigation",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "644": {
+      "question_text": "Analysis of security incidents is performed in the early stages of an intrusion to minimize the impact of the incident.",
+      "title": "Stmt 473",
+      "category": "Detection, Response, and Mitigation",
+      "sub_category": "Response and Mitigation",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "646": {
+      "question_text": "Processes are in place to ensure assets affected by a security incident that cannot be returned to operational status are quarantined, removed, disposed of, and/or replaced.",
+      "title": "Stmt 475",
+      "category": "Detection, Response, and Mitigation",
+      "sub_category": "Response and Mitigation",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "651": {
+      "question_text": "The institution’s risk management of significant cyber incidents results in limited to no disruptions to critical services.",
+      "title": "Stmt 480",
+      "category": "Detection, Response, and Mitigation",
+      "sub_category": "Response and Mitigation",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "653": {
+      "question_text": "A process exists to contact personnel who are responsible for analyzing and responding to an incident.",
+      "title": "Stmt 482",
+      "category": "Escalation and Reporting",
+      "sub_category": "Escalation and Reporting",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "655": {
+      "question_text": "The institution prepares an annual report of security incidents or violations for the board or an appropriate board committee.",
+      "title": "Stmt 484",
+      "category": "Escalation and Reporting",
+      "sub_category": "Escalation and Reporting",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "656": {
+      "question_text": "Incidents are classified, logged, and tracked.",
+      "title": "Stmt 485",
+      "category": "Escalation and Reporting",
+      "sub_category": "Escalation and Reporting",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "662": {
+      "question_text": "An external communication plan is used for notifying media regarding incidents when applicable.",
+      "title": "Stmt 491",
+      "category": "Escalation and Reporting",
+      "sub_category": "Escalation and Reporting",
+      "model_id": 1,
+      "model_name": "ACET",
+      "is_answerable": null,
+      "practice": {},
+      "flags": []
+    },
+    "8503": {
+      "question_text": "",
+      "title": "IT/SD.1",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Separate all environments used in software development",
+        "outcome": "All environments used in software development, including development, build, \ntest, and distribution environments, are separated from each other to prevent unauthorized access to sensitive data and systems.",
+        "scope": "All software development environments",
+        "risk_addressed": "Reduce the risk of lateral movement or privilege escalation between development and sensitive business environments.",
+        "recommend_action": "All software development environments should be logically separated from each other and enforced via controls such as network segmentation and access controls."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8504": {
+      "question_text": "",
+      "title": "IT/SD.2",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Regularly log, monitor, and review trust relationships used for authorization and access across software development environments",
+        "outcome": "All software development environments and tooling have associated logging and monitoring mechanisms.",
+        "scope": "All software development environments",
+        "risk_addressed": "Lateral movement, privilege escalation, insider threats, data exfiltration.",
+        "recommend_action": "Perform a review of all software development environments and tooling to verify associated logging capabilities and functions are enabled."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8505": {
+      "question_text": "",
+      "title": "IT/SD.3",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Enforce MFA across software development environments",
+        "outcome": "Users are required to authenticate into software development environments with MFA.",
+        "scope": "Software",
+        "risk_addressed": "Initial access, privilege escalation, lateral movement, code misconfigurations, outdated code dependencies",
+        "recommend_action": "Require MFA (ideally phishing-resistant MFA) to access all software development environments."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8506": {
+      "question_text": "",
+      "title": "IT/SD.4",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Establish and enforce security requirements for software products used across software development environments",
+        "outcome": "Organizations have defined processes, policies, and procedures for managing risks of software products used across software development environments.",
+        "scope": "Software",
+        "risk_addressed": "Misconfigurations, Shadow IT, supply chain vulnerabilities, insecure code",
+        "recommend_action": "Document processes, policies, and procedures for managing risks of software products used across software development environments. Maintain, replace, and remove software in accordance with policies, processes, and procedures.Assess the authenticity and integrity of software prior to use in environments."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8507": {
+      "question_text": "",
+      "title": "IT/SD.5",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Securely store and transmit credentials used in software development environments",
+        "outcome": "Organizations have eliminated the insecure storage and transmission of plaintext credentials.",
+        "scope": "All software development environments",
+        "risk_addressed": "Lateral movement, privilege escalation, insider threats, data exfiltration",
+        "recommend_action": "Do not store sensitive data or credentials in source code. Instead, store sensitive data and credentials in an encrypted manner, such as using a secret manager.Securely store and rotate SSH keys."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8508": {
+      "question_text": "",
+      "title": "IT/SD.6",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Implement effective perimeter and internal network monitoring solutions with streamlined, real-time alerting to aid responses to suspected and confirmed cyber incidents",
+        "outcome": "The organization monitors environments to determine the presence of indicators of compromise (IOCs).  Upon determination of suspected or actual IOCs, the incident response playbook is activated.",
+        "scope": "Hardware, software, and firmware",
+        "risk_addressed": "Initial access, lateral movement, command and control (C2), privilege escalation, data exfiltration, insider threats",
+        "recommend_action": "Establish an incident response playbook with criteria for declaring incidents, along with protocols that clearly define roles, responsibilities, and identifies stakeholders who require notification.Designate an enterprise incident response team and conduct frequent table top exercises."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8509": {
+      "question_text": "",
+      "title": "IT/SD.7",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Establish a software supply chain risk management program",
+        "outcome": "Cybersecurity supply chain risk management practices are integrated into the SDLC.",
+        "scope": "Software",
+        "risk_addressed": "Code tampering, outdated code dependencies, data breaches",
+        "recommend_action": "Conduct code testing and audit software supply chain practices and document the activities conducted."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8510": {
+      "question_text": "",
+      "title": "IT/SD.8",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Make a Software Bill of Materials (SBOM) available to customers",
+        "outcome": "Customers should be provided with documentation that demonstrates component provenance.",
+        "scope": "Software",
+        "risk_addressed": "Code tampering, outdated code dependencies, data breaches",
+        "recommend_action": "Develop a Software Bill of Materials (SBOM) and provide it to customers with each product."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8511": {
+      "question_text": "",
+      "title": "IT/SD.9",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Inspect source code for vulnerabilities through automated tools or comparable processes and mitigate known vulnerabilities prior to any release of products, versions, or update releases",
+        "outcome": "Security testing is conducted in a codified, repeatable, and time sensitive fashion on new and current products.",
+        "scope": "Software",
+        "risk_addressed": "Initial access, privilege escalation, lateral movement, code misconfigurations, outdated code dependencies",
+        "recommend_action": "Perform Static Application Security Testing (SAST), Dynamic Application Security Testing (DAST), and Software Composition Analysis (SCA) where appropriate."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8512": {
+      "question_text": "",
+      "title": "IT/SD.10",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Address identified vulernabilities prior to product release",
+        "outcome": "Identification of vulnerabilities prior to release triggers an action to either remediate or address the vulnerability before release.",
+        "scope": "Software",
+        "risk_addressed": "Initial access, privilege escalation, lateral movement, code misconfigurations, outdated code dependencies",
+        "recommend_action": "Develop, maintain, and execute a process or policy that governs actions to take upon identification of a security vulnerability prior to a product release."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8513": {
+      "question_text": "",
+      "title": "IT/SD.11",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Publish a vulnerability disclosure policy",
+        "outcome": "Publish a vulnerability disclosure policy that meets the defined criteria.",
+        "scope": "Software",
+        "risk_addressed": "Initial access, privilege escalation, lateral movement, code misconfigurations, outdated code dependencies",
+        "recommend_action": "Publish a vulnerability disclosure policy (VDP) that authorizes testing by members of the public on products offered by the manufacturer, commits to not recommending or pursuing legal action against anyone engaging in good faith efforts to follow the VDP, provides a clear channel to report vulnerabilities, and allows for public disclosure of vulnerabilities in line with coordinated vulnerability disclosure best practices and international standards.Address disclosed software vulnerabilities in a timely fashion."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8514": {
+      "question_text": "",
+      "title": "IT/PD.1",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Increase the use of multifactor authentication (MFA)",
+        "outcome": "More users use MFA to authenticate.",
+        "scope": "Software",
+        "risk_addressed": "Reduce the risk of password compromise or utilization of weak passwords.",
+        "recommend_action": "Increase the use of MFA, such as by implementing enabling MFA (ideally, phishing-resistant MFA) by default for users and administrators.Implementing “seat belt chimes” in products to nudge users towards enabling MFA. This could include, banners or interstitials notifying users or administrators that MFA is not enabled or suggesting that administrators enable phishing-resistant MFA.Supporting standards-based single sign-on (SSO) in the baseline version of the product, allowing customers to configure with their own identity provider that supports MFA."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8515": {
+      "question_text": "",
+      "title": "IT/PD.2",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Reduce default passwords",
+        "outcome": "The product does not use default passwords.",
+        "scope": "Software",
+        "risk_addressed": "Adversaries may leverage manufacturer or supplier set default credentials on control system devices.",
+        "recommend_action": "Eliminate default passwords from the organization's software products. Instead, take an alternate approach, such as:\n\nProviding random, instance-unique initial passwords for the product.Requiring the user who installs the product to create a strong password at the start of the installation process.Providing time-limited setup passwords that disable themselves when a setup process is complete and require configuration of a secure password (or more secure authentication approaches, such as phishing-resistant MFA).Requiring physical access for initial setup and the specification of instance-unique credentials.Conducting campaigns or offering updates that transition existing deployments from default passwords to more secure authentication mechanisms."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8516": {
+      "question_text": "",
+      "title": "IT/PD.3",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Reduce entire classes of vulnerabilities",
+        "outcome": "Organizations should  proactively reduce systemic classes of vulnerabilities.",
+        "scope": "Software",
+        "risk_addressed": "Code tampering, outdated code dependencies, data breaches",
+        "recommend_action": "Take approaches to work towards reduce entire classes of vulnerabilities, such as:\n\nImplement parameterized queries to reduce SQL injection vulnerabilities.Transition to utilizing memory safe languages to reduce memory safety vulnerabilities.Utilize web template frameworks to reduce cross-site scripting (XSS) vulnerabilities."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8517": {
+      "question_text": "",
+      "title": "IT/PD.4",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Provide customers with security patching in a timely manner",
+        "outcome": "Security patches are offered on a widespread basis to customers.",
+        "scope": "Software",
+        "risk_addressed": "Initial access, privilege escalation, lateral \nmovement",
+        "recommend_action": "Provide security patches to customers in a timely manner and on a widespread basis."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8518": {
+      "question_text": "",
+      "title": "IT/PD.5",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Ensure customers understand when products are nearing end of life support and security patches will no longer be provided",
+        "outcome": "Users understand when software is no longer supported and will transition to supported products.",
+        "scope": "Software",
+        "risk_addressed": "Inadequate patching of software vulnerabilities exposes systems to significant \nrisk",
+        "recommend_action": "Notify customers and confirm receipt of notification stating \nproduct(s) are nearing end of life support and security patches will no longer be provided."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8519": {
+      "question_text": "",
+      "title": "IT/PD.6",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Include Common Weakness Enumeration (CWE) and Common Platform Enumeration (CPE) fields in every Common Vulnerabilities and Exposures (CVE) record for the organization's products.",
+        "outcome": "CVEs that meet the defined criteria are published and CWE and CPE fields are included in all CVEs",
+        "scope": "Software",
+        "risk_addressed": "Initial access, privilege escalation, lateral movement, code misconfigurations, outdated code dependencies",
+        "recommend_action": "Include accurate Common Weakness Enumeration (CWE) and Common Platform Enumeration (CPE) fields in every Common Vulnerabilities and Exposures (CVE) record for the organization's products. Additionally, \nissue CVEs in a timely manner for, at minimum, all critical or high impact vulnerabilities (whether discovered internally or by a third party) that either require actions by a customer to patch or have evidence of active exploitation."
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8520": {
+      "question_text": "",
+      "title": "IT/PD.7",
+      "category": null,
+      "sub_category": null,
+      "model_id": 20,
+      "model_name": "SSG IT",
+      "is_answerable": null,
+      "practice": {
+        "security_practice": "Increase the ability for customers to gather evidence of cybersecurity intrusions affecting the organization's products",
+        "outcome": "Customers have access and ability to monitor and respond to intrusions affecting the product",
+        "scope": "Software",
+        "risk_addressed": "Initial access, privilege escalation, lateral movement",
+        "recommend_action": "Verify whether all products, to the extent possible, have logging capabilities"
+      },
+      "flags": [
+        "statement_only"
+      ]
+    },
+    "8541": {
+      "question_text": "",
+      "title": "1.B",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Monitor Supply Chain Incident Reporting & Vulnerability Disclosures",
+        "outcome": "Organizations more rapidly learn about and respond to known incidents or breaches across vendors and service providers.",
+        "scope": "Third party vendors and service providers",
+        "risk_addressed": "Insufficient Cybersecurity Supply Chain Risk Management (C-SCRM) practices that cannot securely support the organization's technologies & processes.",
+        "recommend_action": "Procurement documents and contracts, such as service-level agreements (SLAs), stipulate that vendors and/or service providers notify the procuring customer of security incidents within a risk-informed time frame as determined by the organization.Organization with OT assets need to document and track serial numbers, checksums, digital certificates/signatures or other \nidentifying features that can enable them to verify the authenticity of vendor-provided OT hardware, software and firmware."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8542": {
+      "question_text": "",
+      "title": "1.C",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Manage Cybersecurity Oversight",
+        "outcome": "The organization’s cybersecurity risk management strategy, expectations, and policies are established, communicated, and monitored to identify \nany necessary adjustments.",
+        "scope": "Organization-wide",
+        "risk_addressed": "Insufficient cybersecurity policies and procedures/practices that can securely support the organization's technologies & processes.",
+        "recommend_action": "Policies for managing the cybersecurity program are reviewed, updated, communicated, and enforced to reflect changes in requirements, threats, technology, and organizational mission. Policies are established based on organizational context, cybersecurity strategy, and priorities are communicated and enforced.  It is recommended that organizational governance encompass the policies, procedures, and processes necessary to manage the organization’s regulatory, legal, risk, environmental, and operational obligations.OT-specific policies and proceedures should consider the limitations of existing IT cybersecurity program to identify priorities for critical operational functions, OT-specific security concerns and compensating controls."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8543": {
+      "question_text": "",
+      "title": "1.D",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Govern Risks from Managed Service Providers (MSPs)",
+        "outcome": "The risks posed by an MSP are identified, recorded, assessed, prioritized, monitored, and updated over the course of the relationship.",
+        "scope": "Service providers that remotely manage an organization's IT and/or OT infrastructure, cyber security, and/or other related business operations.",
+        "risk_addressed": "Adversaries can exploit organizations with access to their targets by abusing trusted third-party relationships.",
+        "recommend_action": "Develop and maintain a thorough understanding of the services including security products a MSP and/or external vendors/integrators are providing via the contractual arrangement and address any security requirements that fall outside the scope of the contract."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8544": {
+      "question_text": "",
+      "title": "2.A",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Manage Organizational Assets",
+        "outcome": "A maintained asset inventory to improve cybersecurity resilience by reducing downtime, aiding recovery, bolstering defenses, and improving preparedness.",
+        "scope": "Data, Hardware, Software,\nSystems, Facilities, Personnel",
+        "risk_addressed": "Adversaries might use computer accessories, networking hardware, or other devices as entry points to infiltrate systems or networks.",
+        "recommend_action": "Maintain a regularly updated inventory of all organizational assets (i.e.  data, hardware, software, systems, facilities, and personnel).   IT and OT assets determined to be critical for business or operational functions are updated on a more frequent  basis."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8545": {
+      "question_text": "",
+      "title": "2.B",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Mitigate Known Vulnerabilities",
+        "outcome": "Reduced likelihood of threat actors exploiting known vulnerabilities to breach organizational networks.",
+        "scope": "Assets accessible through \nthe internet",
+        "risk_addressed": "Adversaries might exploit vulnerabilities in an Internet-facing host or system, such as software bugs, temporary glitches, or misconfigurations, to gain initial access to a network.",
+        "recommend_action": "Implement vulnerability management technologies to patch and mitigate misconfigured software in a timely manner. Monitor risk response progress through tools like  plan of action and milestones (POA&M), risk registers, and risk detail reports. Document potential risks of proposed changes and provide rollback guidance. Assign responsibilities and ensure procedures are followed for processing and responding to cybersecurity threats, vulnerabilities, or incident disclosures from various stakeholders. Incorporate compensating security controls (i.e., defense in depth) to address legacy systems where possible."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8546": {
+      "question_text": "",
+      "title": "2.C",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Obtain Independent Validation of Cybersecurity Controls",
+        "outcome": "Ability to identify TTPs that lack proper defenses, and establish confidence in organizational cyber defenses.",
+        "scope": "Internal and external organizational assets and networks",
+        "risk_addressed": "Reduce risk of gaps in cyber defenses or a false sense of security in existing protections.",
+        "recommend_action": "Organizations regularly engage third-party cybersecurity experts to validate their defenses through various exercises, to include penetration tests, bug bounties, incident simulations, and table-top exercises. These tests, both announced and unannounced, assess the ability of external and internal adversaries to infiltrate and move laterally within the network, targeting critical systems. High-impact findings from these tests are promptly addressed to prevent recurrence."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8547": {
+      "question_text": "",
+      "title": "2.D",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Maintain Incident Response (IR) Plans",
+        "outcome": "Identify improvements by practicing cybersecurity & Incident response plans to maintain and update the organization’s cybersecurity program.",
+        "scope": "Organization-wide",
+        "risk_addressed": "Inability to \nquickly and effectively  isolate, contain, eradicate, remediate, and communicate about cybersecurity incidents.",
+        "recommend_action": "Organizations have, maintain, update, and regularly drill IT and OT cybersecurity incident response plans for both common and organizationally-specific (e.g., by sector, locality) threat scenarios and TTPs. When conducted, tests or drills are as realistic as feasible. Drill IR plans at least annually, and update within a risk-informed time frame following the lessons learned portion \nof any exercise, drill, or real world event.OT IR plans, account for specific safety and containment considerations which differ from existing IT plans and priorities."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8549": {
+      "question_text": "",
+      "title": "3.A",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Change Default Passwords",
+        "outcome": "Prevent threat actors from using default passwords to achieve initial access or move laterally in a network.",
+        "scope": "Password-protected newly acquired and legacy IT and OT assets.",
+        "risk_addressed": "Adversaries might acquire and exploit default account credentials to gain initial access, maintain persistence, escalate privileges, or evade defenses.",
+        "recommend_action": "Implement a organization-wide policy that requires changing default manufacturer passwords for all hardware, software, and firmware before connecting them to any internal or external network. This includes IT assets used in OT, such as OT administration web pages.If changing default passwords is not feasible (e.g., due to hard-coded passwords in control systems), document and implement appropriate compensating security controls and monitor logs for network traffic and login attempts on these devices.For OT: Changing default passwords on existing OT systems is \nmore labor-intensive, recommend establishing a policy for changing default credentials on all new or future devices. This will reduce potential risk in the future if vulnerabilities change."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8553": {
+      "question_text": "",
+      "title": "3.E",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Detect Unsuccessful (Automated) Login Attempts",
+        "outcome": "Protect organizations from automated, credential-based attacks.",
+        "scope": "Password-protected assets, where safe and technically capable",
+        "risk_addressed": "Attackers may attempt to access accounts by guessing passwords without prior knowledge of legitimate credentials. They might use repetitive methods and lists of common passwords, sometimes disregarding password complexity policies. However, this approach risks numerous authentication failures and potential account lockouts based on the organization's policies.",
+        "recommend_action": "All unsuccessful logins are logged and sent to an organization's security team or relevant logging system. Security teams are notified (e.g., by an alert) after a specific number of consecutive unsuccessful login attempts in a short period and a deviation from normal user behavior. This alert is logged and stored in the relevant security or ticketing system for retroactive analysis. For IT assets, a system-enforced policy prevents future logins for the suspicious account. For example, this could be for some minimum time, or until the account is re-enabled by a privileged user. This configuration is enabled when available on an asset."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8554": {
+      "question_text": "",
+      "title": "3.F",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Establish Phishing-Resistant Multifactor Authentication (MFA)",
+        "outcome": "Add a critical, additional layer of security to protect assets accounts whose credentials have been compromised.",
+        "scope": "Organizational ssets with remote access, such as workstations and human-machine interfaces (HMIs), where safe and technically capable",
+        "risk_addressed": "Attackers without prior knowledge of legitimate credentials might try commonly used passwords across various accounts to gain access. They might also systematically guess passwords using repetitive or iterative methods.",
+        "recommend_action": "Organizations require MFA for access to assets using the strongest available \nmethod, if MFA is available for that asset. MFA options sorted by strength, high to low, are as follows:1. Phishing-resistant MFA (e.g., FIDO/WebAuthn or public key infrastructure (PKI)-based – see CISA guidance in “Resources”).2. If Phishing-resistant MFA is not available, then mobile app-based soft tokens (preferably push notification with number matching).3. MFA via short message service (SMS) or voice only used when no other options are possible.IT: All IT accounts leverage MFA to access organizational resources. Prioritize accounts with highest risk, such as privileged administrative accounts for key IT systems.OT:  MFA is enabled on all accounts and systems that can be accessed remotely, including vendors/maintenance accounts, remotely accessible user and engineering workstations, and remotely accessible HMIs when available.   If MFA is not available, remove remote access, introduce additional segmentation steps and credential management should be prioritized."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8555": {
+      "question_text": "",
+      "title": "3.G",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Separate User and Privileged Accounts",
+        "outcome": "Make it harder for threat actors to gain access to administrator or privileged accounts, even if common user accounts are compromised.",
+        "scope": "Organizational assets, where safe and technically capable",
+        "risk_addressed": "Attackers might obtain and exploit credentials from existing accounts for initial access, persistence, privilege escalation, or defense evasion. These compromised credentials can bypass network access controls and provide continuous access to remote systems and external services.",
+        "recommend_action": "User accounts do not have administrator privileges. Administrators maintain separate user accounts for activities unrelated to their admin role, such as business email and web browsing. Privileges are revaluated on a recurring basis to validate continued need for a given set of permissions."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8556": {
+      "question_text": "",
+      "title": "3.H",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Establish Physical/Network Segmentation",
+        "outcome": "Reduce the likelihood of adversaries accessing segmented networks if the primary enterprise network is compromised.",
+        "scope": "Organizational assets, where safe and technically capable",
+        "risk_addressed": "Attackers are able to gather details about device communication patterns and may also attempt to list services on remote hosts and local network devices, identifying ones vulnerable to remote software exploitation.",
+        "recommend_action": "All connections to OT and/or other segmented networks are denied by default unless explicitly allowed (e.g., by IP address and port) for specific system functionality. Necessary communications paths between the primary enterprise network and isolated networks must pass through an intermediary, such as a properly configured firewall, bastion host, \"jump box,\" or a demilitarized zone, which is closely monitored, captures network logs, and only allows connections from approved assets. When applicable physically segment OT networks."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8557": {
+      "question_text": "",
+      "title": "3.I",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Implement Cybersecurity Training",
+        "outcome": "Organizational users learn and perform more secure behaviors.",
+        "scope": "All employees, contractors, partners, suppliers, providers,  and all other users of the organization's non-public resources.",
+        "risk_addressed": "Train users on recognizing access or manipulation attempts by attackers to lower the risk of successful spearphishing, social engineering, and other techniques that involve user interaction.",
+        "recommend_action": "At least annual trainings for all organizational users to train personnel to recognize social engineering attempts and other common attacks, how to properly report attacks and suspicious activity, comply with acceptable use policies, and perform basic cyber hygiene tasks (e.g., choosing passwords, protecting credentials).Identify the specialized roles within the organization that require additional cybersecurity training, such as physical and cybersecurity personnel, system administrators, finance personnel, senior leadership, and anyone with access to business-critical data. Provide role-based cybersecurity training to all those in specialized roles, including contractors, partners, suppliers, and other third parties.Personnel should receive security awareness and training for the OT environment and specific application. In addition, organizations should identify, document and train all personnel who have significant OT roles and responsibilities.New employees receive initial cybersecurity training within 10 days of onboarding and recurring training on at least an annual basis."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8558": {
+      "question_text": "",
+      "title": "3.J",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Utilize Strong & Agile Encryption",
+        "outcome": "Effective encryption deployed to maintain confidentiality of sensitive data and integrity on the organization's network.",
+        "scope": "All IT traffic and remote OT assets (those that communicate with external entities)",
+        "risk_addressed": "Attackers can position themselves between networked devices to enable network sniffing, data manipulation, or other attacks.",
+        "recommend_action": "Use encryption, digital signatures, and cryptographic hashes to protect the confidentiality and integrity of network communications.  OT:  Use encryption for external connections and where latency issues would not result in an impact to the network."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8559": {
+      "question_text": "",
+      "title": "3.K",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Secure Sensitive Data",
+        "outcome": "Protect sensitive information from unauthorized access.",
+        "scope": "All passwords, credentials, secrets, and other sensitive or controlled information",
+        "risk_addressed": "Attackers can steal operational data from production environments for \npersonal gain or to plan future operations. This information can include design documents, schedules, and other artifacts that provide insights into operations.",
+        "recommend_action": "Sensitive data, including credentials, are not stored in plaintext anywhere in the organization and can only be accessed by authenticated and authorized users. Credentials are stored in a secure manner, such as with a credential/password manager or vault, or other privileged account management solution. Identify critical physical and electronic file types and data to protect while in transit and at rest. This may include personally identifiable information and sensitive, proprietary or trade secret information (e.g., PLC program code, robot programs, computer-aided drafting  (CAD) or computer aided manufacturing (MAC) files, operating manuals and documentation, electrical diagrams, network diagrams, historical production data)."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8561": {
+      "question_text": "",
+      "title": "3.M",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Disable Autorun & Macros by Default",
+        "outcome": "Reduce the risk from embedded macros and similar executive code, a common and highly effective threat actor TTP.",
+        "scope": "All organizational assets",
+        "risk_addressed": "Adversaries rely on users to open malicious files to execute code. Social engineering tactics could be used to convince users to open such files.",
+        "recommend_action": "A system-enforced policy that disables macros, or similar embedded code, by default on all devices to prevent automatic execution of code or application. If macros must be enabled in specific circumstances, there is a policy for authorized users to request that macros are enabled on specific assets."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8562": {
+      "question_text": "",
+      "title": "3.N",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Manage System Configurations & Changes",
+        "outcome": "Policies and procedures exist to manage system configurations and changes that are consistent with industry-accepted hardening standards.",
+        "scope": "Organizational assets",
+        "risk_addressed": "Configuration and change management enables the organization \nto control frequent changes to its high-value assets so that disruptions are mitigated and benefits are optimized.",
+        "recommend_action": "Implement policies and processes to develop, document, and maintain secure configurations for technology platforms, aligning with industry-accepted system hardening standards. Additionally, they enforce configuration restrictions to prevent unauthorized changes. Technical configuration change control processes, prohibiting unauthorized changes unless approved are in-place. Test and document proposed changes in a non-production environment and analyze potential security impacts before implementation."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8564": {
+      "question_text": "",
+      "title": "3.P",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Maintain System Backups & Restoration Integrity",
+        "outcome": "Organizations reduce data loss and service disruption risks while efficiently managing, responding to, and recovering from cyberattacks to ensure continuous service delivery.",
+        "scope": "Organizational assets necessary for business operations",
+        "risk_addressed": "Attackers can disrupt critical systems to halt the delivery of products or services. They can also delete or remove built-in data and disable recovery services, preventing system recovery. Adversaries may turn off services designed to aid in recovering a corrupted system.",
+        "recommend_action": "Develop a list of all maintained backups, including installation media, license keys, configuration information, and backup retention period of the information.Backup critical operations systems  in near-real-time, and frequently back up all systems necessary for operations at agreed-upon schedules.Securely store backups offsite and offline. Test backups and recovery on a recurring basis, no less than once per year.Before initiating restoration validate the integrity of backups and other \nassets intended for restoration. This verification process is to ensure that data is intact, accurate, and reliable, minimizing the risk of data corruption during the restoration process.Check restoration assets for indicators of compromise, file corruption, and other integrity issues before use.  Regularly test backup information to verify media reliability and information integrity.Stored information for OT assets includes at a minimum: configurations, roles, programmable logic controller (PLC), engineering drawings, and tools."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8565": {
+      "question_text": "",
+      "title": "3.Q",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Document Network Topology",
+        "outcome": "More efficiently and effectively respond to cyberattacks and maintain service continuity.",
+        "scope": "Organizational networks",
+        "risk_addressed": "Incomplete or inaccurate understanding of network topology inhibits effective incident response and recovery.",
+        "recommend_action": "Organizations maintain accurate documentation describing updated network topology and relevant information across all IT and OT networks. Network reviews should be performed and tracked on a annual basis and documentation updated when network topology changes are made."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8566": {
+      "question_text": "",
+      "title": "3.R",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Establish Hardware & Software Approval Process",
+        "outcome": "Increase visibility into deployed technology assets, and reduce the likelihood of breach by users installing unapproved hardware, firmware, or \nsoftware.",
+        "scope": "Organizational assets",
+        "risk_addressed": "Attackers can manipulate products or delivery mechanisms before they reach the final consumer, aiming to compromise data or systems. They can target devices that move across ICS and external networks, typically brought in by authorized personnel but not permanently staying in the environment.",
+        "recommend_action": "Implement an administrative policy and  process that requires review, testing, and approval before new hardware, firmware, or software (software version) is installed or deployed. Organizations maintain a list of approved hardware, firmware, and software that includes specification of approved versions, when technically feasible.Consider additional requirements for organizations with OT environments when deploying patches and updates. This includes testing and validation to ensure they do not impact operational capabilities or safety."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8567": {
+      "question_text": "",
+      "title": "3.S",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Maintain Log Collection & Storage",
+        "outcome": "Enhance visibility to detect and respond to cyberattacks while ensuring security logs are protected from unauthorized access and tampering.",
+        "scope": "Organizational assets",
+        "risk_addressed": "Adversaries can alter components within a victim's environment to disable defensive mechanisms. This includes impairing both preventative defenses like firewalls and anti-virus, as well as detection tools used to identify malicious behavior. This can affect both native and additional defenses set up by users and administrators.",
+        "recommend_action": "Administrative and security-focused logs (e.g., operating systems, applications, and services; intrusion detection systems/intrusion prevention systems, firewall, data loss prevention, virtual private network) are collected and stored for use in both detection and incident response activities (e.g., forensics). Typical events to be collected include maintenance functions (e.g., access control, configuration changes, backup and restore) OS functions and application (i.e., process) events. Logs are stored in a central system, such as a security information and event management tool or central database, and can only be accessed or modified by authorized and authenticated users. Logs are stored for a duration informed by risk or pertinent regulatory guidelines.  Security teams are notified when a critical log source is disabled.For OT assets where logs are non-standard or not available, network traffic and communications between those assets and other assets is collected."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8568": {
+      "question_text": "",
+      "title": "3.T",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Prohibit Connection of Unauthorized Devices",
+        "outcome": "Prevent malicious actors from achieving initial access or data exfiltration via unauthorized portable media devices.",
+        "scope": "Organizational assets",
+        "risk_addressed": "Attackers might infiltrate systems, including disconnected or air-gapped networks, by copying malware to removable media. They exploit Autorun features, causing the malware to execute once the media is inserted into a system.",
+        "recommend_action": "Organizations maintain policies and processes to ensure that unauthorized media and hardware are not connected to IT and OT assets, such as limiting use of USB devices and removable media or disabling AutoRun. OT: When feasible, establish procedures to remove, disable, or otherwise secure physical ports to prevent the connection of unauthorized devices or establish procedures for granting \naccess through approved exceptions."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8569": {
+      "question_text": "",
+      "title": "3.U",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "No Exploitable Services on The Internet",
+        "outcome": "Unauthorized users cannot gain an initial system foothold by exploiting known weaknesses in internet-facing assets.",
+        "scope": "Organizational assets on the public internet",
+        "risk_addressed": "Attackers might exploit weaknesses in internet-facing hosts or systems to gain initial network access, targeting software bugs, temporary glitches, or misconfigurations.",
+        "recommend_action": "Minimize internet-facing assets whenever possible. Where necessary, prioritize keeping your software up to date with timely patches and updates. If unable to apply updates, ensure appropriate compensating controls are implemented to prevent common forms of exploitation.  All unnecessary OS applications, software (bloatware) and network protocols are disabled on internet-facing assets.Logically segment organization networks and cloud-based platforms according to trust boundaries and platform types (e.g., IT, IoT, OT, mobile, guests), and permit required communications only between segments."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8570": {
+      "question_text": "",
+      "title": "4.A",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Implement Malicious Code Protection",
+        "outcome": "Monitoring for malware encompasses computing hardware, software, runtime environments, and their associated data to identify potentially adverse events.",
+        "scope": "Organization-wide",
+        "risk_addressed": "Malicious software can involve payloads, droppers, backdoors, and more. Attackers use malware to maintain control of remote machines, evade defenses, and execute post-compromise actions.",
+        "recommend_action": "Implement signature-based mechanisms (relying on known patterns or signatures of malicious code, used by antivirus software to identify and block threats) and non-signature-based mechanisms (focusing on zero-day attacks, behavior, heuristics, or anomalies) to detect and eradicate malicious code at system endpoints. Ensure antivirus software is updated, active, and configured to automatically scan emails and removable media (e.g., flash drives) for ransomware and other malware.Using antivirus software with OT devices may require special practices, including compatibility checks, change management, and performance impact metrics. These practices should be employed to test new signatures and new versions of antivirus software."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8571": {
+      "question_text": "",
+      "title": "4.B",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Identify Adverse Events",
+        "outcome": "Incidents are declared when adverse events meet the specified incident criteria.",
+        "scope": "Organization-wide",
+        "risk_addressed": "Initial Access, Privilege Escalation, Lateral Movement",
+        "recommend_action": "Ensure the organization has defined clear criteria and process for adverse events.If an adverse event is suspected, follow the protocol outlined in the incident response plan to escalate the situation.Automate event information analysis as much as possible to extend the investigative timeline for managing suspected adverse events. This will give analysts the time and capacity to mitigate these events effectively.Conduct role-specific training that informs analysts of the proper protocols and procedures to take in the event of a suspected cyber incident.Organizations should account for OT-specific events \nand anomalies in their processes and environments. It's important to recognize that certain tools and alerts for behaviors or events that could indicate an intrusion might actually be normal within the OT environment."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8572": {
+      "question_text": "",
+      "title": "5.A",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Establish Incident Communication Procedures",
+        "outcome": "Coordinate crisis communication methods between internal and external organization partners and its critical suppliers.",
+        "scope": "Organization-wide",
+        "risk_addressed": "The inability to appropriately respond to incidents in a timely manner.\n\nA compromise of a system, application or service that affects confidentiality, integrity, availability and/or safety.",
+        "recommend_action": "Securely share information consistent with response plans and information sharing agreements. Priorities for sharing information include preventing the spread of infections to other systems and networks.Regularly update senior leadership on the status of major incidents.Notify human resources when malicious insider activity has occurred.Establish and follow media communications procedures for incident response that comply with the organization’s policies on media interaction and information disclosure.Coordinating with partner organizations to share tactical and technical information on mitigating attacks across multiple entities is essential for enhancing security and resilience. This collaborative effort helps protect critical infrastructure from both cyber and physical threats."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    },
+    "8573": {
+      "question_text": "",
+      "title": "5.B",
+      "category": null,
+      "sub_category": null,
+      "model_id": 21,
+      "model_name": "CPG2",
+      "is_answerable": 0,
+      "practice": {
+        "security_practice": "Establish Incident Reporting Procedures",
+        "outcome": "CISA and other organizations are better able to provide assistance or understand the broader scope of a cyberattack.",
+        "scope": "Organization-wide",
+        "risk_addressed": "Without timely incident reporting, CISA and other groups are less able to assist affected organizations and lack critical insight into the broader threat landscape (such as whether a broader attack is occurring against a specific sector).",
+        "recommend_action": "Organizations maintain codified policy and procedures on to whom and how to report all confirmed cybersecurity incidents to appropriate external entities (e.g., state/federal regulators or \nSRMA’s as required, ISAC/ISAO, as well as CISA).Known incidents are reported to CISA as well as other necessary parties within time frames directed by applicable regulatory guidance or in the absence of guidance, as soon as safely capable."
+      },
+      "flags": [
+        "statement_only",
+        "not_answerable"
+      ]
+    }
+  },
+  "mappings": [
+    {
+      "qid": 172,
+      "subcategory_id": "GV.RM-01"
+    },
+    {
+      "qid": 172,
+      "subcategory_id": "GV.RM-03"
+    },
+    {
+      "qid": 172,
+      "subcategory_id": "GV.RM-06"
+    },
+    {
+      "qid": 172,
+      "subcategory_id": "GV.RR-03"
+    },
+    {
+      "qid": 174,
+      "subcategory_id": "GV.RM-03"
+    },
+    {
+      "qid": 177,
+      "subcategory_id": "GV.RM-03"
+    },
+    {
+      "qid": 178,
+      "subcategory_id": "GV.OC-03"
+    },
+    {
+      "qid": 181,
+      "subcategory_id": "GV.RM-03"
+    },
+    {
+      "qid": 183,
+      "subcategory_id": "GV.RM-02"
+    },
+    {
+      "qid": 183,
+      "subcategory_id": "GV.RM-03"
+    },
+    {
+      "qid": 183,
+      "subcategory_id": "GV.RM-04"
+    },
+    {
+      "qid": 185,
+      "subcategory_id": "GV.OC-01"
+    },
+    {
+      "qid": 190,
+      "subcategory_id": "ID.IM-03"
+    },
+    {
+      "qid": 199,
+      "subcategory_id": "PR.PS-04"
+    },
+    {
+      "qid": 200,
+      "subcategory_id": "GV.PO-01"
+    },
+    {
+      "qid": 200,
+      "subcategory_id": "GV.PO-02"
+    },
+    {
+      "qid": 200,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 200,
+      "subcategory_id": "PR.PS-01"
+    },
+    {
+      "qid": 203,
+      "subcategory_id": "GV.OC-02"
+    },
+    {
+      "qid": 203,
+      "subcategory_id": "GV.RR-02"
+    },
+    {
+      "qid": 204,
+      "subcategory_id": "GV.RM-03"
+    },
+    {
+      "qid": 205,
+      "subcategory_id": "GV.OC-01"
+    },
+    {
+      "qid": 209,
+      "subcategory_id": "GV.OC-01"
+    },
+    {
+      "qid": 214,
+      "subcategory_id": "GV.OC-05"
+    },
+    {
+      "qid": 215,
+      "subcategory_id": "GV.RM-02"
+    },
+    {
+      "qid": 217,
+      "subcategory_id": "GV.OC-01"
+    },
+    {
+      "qid": 218,
+      "subcategory_id": "ID.AM-01"
+    },
+    {
+      "qid": 218,
+      "subcategory_id": "ID.AM-02"
+    },
+    {
+      "qid": 219,
+      "subcategory_id": "GV.OC-04"
+    },
+    {
+      "qid": 219,
+      "subcategory_id": "GV.OC-05"
+    },
+    {
+      "qid": 219,
+      "subcategory_id": "ID.AM-05"
+    },
+    {
+      "qid": 221,
+      "subcategory_id": "ID.RA-07"
+    },
+    {
+      "qid": 221,
+      "subcategory_id": "PR.PS-01"
+    },
+    {
+      "qid": 223,
+      "subcategory_id": "ID.AM-08"
+    },
+    {
+      "qid": 223,
+      "subcategory_id": "PR.PS-03"
+    },
+    {
+      "qid": 224,
+      "subcategory_id": "ID.AM-08"
+    },
+    {
+      "qid": 224,
+      "subcategory_id": "PR.PS-03"
+    },
+    {
+      "qid": 236,
+      "subcategory_id": "ID.IM-03"
+    },
+    {
+      "qid": 246,
+      "subcategory_id": "DE.AE-04"
+    },
+    {
+      "qid": 250,
+      "subcategory_id": "ID.RA-05"
+    },
+    {
+      "qid": 253,
+      "subcategory_id": "ID.RA-05"
+    },
+    {
+      "qid": 253,
+      "subcategory_id": "ID.RA-06"
+    },
+    {
+      "qid": 254,
+      "subcategory_id": "ID.RA-01"
+    },
+    {
+      "qid": 254,
+      "subcategory_id": "ID.RA-05"
+    },
+    {
+      "qid": 279,
+      "subcategory_id": "GV.RR-02"
+    },
+    {
+      "qid": 279,
+      "subcategory_id": "GV.SC-02"
+    },
+    {
+      "qid": 283,
+      "subcategory_id": "PR.AT-02"
+    },
+    {
+      "qid": 284,
+      "subcategory_id": "GV.RR-04"
+    },
+    {
+      "qid": 290,
+      "subcategory_id": "PR.AT-01"
+    },
+    {
+      "qid": 292,
+      "subcategory_id": "PR.AT-01"
+    },
+    {
+      "qid": 292,
+      "subcategory_id": "PR.AT-02"
+    },
+    {
+      "qid": 294,
+      "subcategory_id": "PR.AT-02"
+    },
+    {
+      "qid": 295,
+      "subcategory_id": "PR.AT-02"
+    },
+    {
+      "qid": 299,
+      "subcategory_id": "PR.AT-01"
+    },
+    {
+      "qid": 299,
+      "subcategory_id": "PR.AT-02"
+    },
+    {
+      "qid": 304,
+      "subcategory_id": "GV.RR-02"
+    },
+    {
+      "qid": 304,
+      "subcategory_id": "GV.SC-02"
+    },
+    {
+      "qid": 313,
+      "subcategory_id": "ID.RA-02"
+    },
+    {
+      "qid": 314,
+      "subcategory_id": "ID.RA-01"
+    },
+    {
+      "qid": 325,
+      "subcategory_id": "PR.PS-04"
+    },
+    {
+      "qid": 326,
+      "subcategory_id": "PR.PS-04"
+    },
+    {
+      "qid": 327,
+      "subcategory_id": "ID.RA-03"
+    },
+    {
+      "qid": 330,
+      "subcategory_id": "ID.RA-03"
+    },
+    {
+      "qid": 332,
+      "subcategory_id": "ID.RA-03"
+    },
+    {
+      "qid": 343,
+      "subcategory_id": "ID.IM-03"
+    },
+    {
+      "qid": 347,
+      "subcategory_id": "ID.IM-03"
+    },
+    {
+      "qid": 349,
+      "subcategory_id": "GV.OC-03"
+    },
+    {
+      "qid": 358,
+      "subcategory_id": "PR.AA-06"
+    },
+    {
+      "qid": 358,
+      "subcategory_id": "PR.IR-01"
+    },
+    {
+      "qid": 362,
+      "subcategory_id": "PR.PS-01"
+    },
+    {
+      "qid": 364,
+      "subcategory_id": "ID.AM-08"
+    },
+    {
+      "qid": 364,
+      "subcategory_id": "PR.AA-01"
+    },
+    {
+      "qid": 364,
+      "subcategory_id": "PR.AA-05"
+    },
+    {
+      "qid": 364,
+      "subcategory_id": "PR.PS-02"
+    },
+    {
+      "qid": 370,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 370,
+      "subcategory_id": "PR.PS-01"
+    },
+    {
+      "qid": 371,
+      "subcategory_id": "PR.IR-04"
+    },
+    {
+      "qid": 376,
+      "subcategory_id": "PR.AA-06"
+    },
+    {
+      "qid": 376,
+      "subcategory_id": "PR.IR-01"
+    },
+    {
+      "qid": 377,
+      "subcategory_id": "PR.AA-03"
+    },
+    {
+      "qid": 377,
+      "subcategory_id": "PR.AA-05"
+    },
+    {
+      "qid": 377,
+      "subcategory_id": "PR.IR-01"
+    },
+    {
+      "qid": 389,
+      "subcategory_id": "PR.AA-05"
+    },
+    {
+      "qid": 390,
+      "subcategory_id": "PR.AA-05"
+    },
+    {
+      "qid": 391,
+      "subcategory_id": "PR.PS-01"
+    },
+    {
+      "qid": 392,
+      "subcategory_id": "PR.PS-01"
+    },
+    {
+      "qid": 393,
+      "subcategory_id": "PR.AA-05"
+    },
+    {
+      "qid": 394,
+      "subcategory_id": "PR.AA-01"
+    },
+    {
+      "qid": 394,
+      "subcategory_id": "PR.AA-05"
+    },
+    {
+      "qid": 395,
+      "subcategory_id": "PR.PS-01"
+    },
+    {
+      "qid": 398,
+      "subcategory_id": "PR.IR-01"
+    },
+    {
+      "qid": 399,
+      "subcategory_id": "PR.AA-06"
+    },
+    {
+      "qid": 399,
+      "subcategory_id": "PR.IR-01"
+    },
+    {
+      "qid": 399,
+      "subcategory_id": "PR.IR-02"
+    },
+    {
+      "qid": 401,
+      "subcategory_id": "PR.DS-02"
+    },
+    {
+      "qid": 402,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 403,
+      "subcategory_id": "PR.AA-03"
+    },
+    {
+      "qid": 403,
+      "subcategory_id": "PR.AA-05"
+    },
+    {
+      "qid": 403,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 403,
+      "subcategory_id": "PR.DS-02"
+    },
+    {
+      "qid": 403,
+      "subcategory_id": "PR.DS-10"
+    },
+    {
+      "qid": 403,
+      "subcategory_id": "PR.IR-01"
+    },
+    {
+      "qid": 404,
+      "subcategory_id": "PR.AA-06"
+    },
+    {
+      "qid": 406,
+      "subcategory_id": "ID.AM-08"
+    },
+    {
+      "qid": 412,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 412,
+      "subcategory_id": "PR.DS-02"
+    },
+    {
+      "qid": 412,
+      "subcategory_id": "PR.DS-10"
+    },
+    {
+      "qid": 420,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 427,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 427,
+      "subcategory_id": "PR.PS-01"
+    },
+    {
+      "qid": 432,
+      "subcategory_id": "DE.CM-01"
+    },
+    {
+      "qid": 432,
+      "subcategory_id": "DE.CM-09"
+    },
+    {
+      "qid": 434,
+      "subcategory_id": "PR.AA-03"
+    },
+    {
+      "qid": 434,
+      "subcategory_id": "PR.AA-05"
+    },
+    {
+      "qid": 434,
+      "subcategory_id": "PR.IR-01"
+    },
+    {
+      "qid": 435,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 435,
+      "subcategory_id": "PR.DS-02"
+    },
+    {
+      "qid": 435,
+      "subcategory_id": "PR.DS-10"
+    },
+    {
+      "qid": 436,
+      "subcategory_id": "DE.CM-09"
+    },
+    {
+      "qid": 436,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 441,
+      "subcategory_id": "ID.AM-08"
+    },
+    {
+      "qid": 441,
+      "subcategory_id": "PR.PS-06"
+    },
+    {
+      "qid": 445,
+      "subcategory_id": "ID.AM-08"
+    },
+    {
+      "qid": 445,
+      "subcategory_id": "PR.PS-06"
+    },
+    {
+      "qid": 448,
+      "subcategory_id": "DE.CM-09"
+    },
+    {
+      "qid": 448,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 454,
+      "subcategory_id": "ID.RA-01"
+    },
+    {
+      "qid": 455,
+      "subcategory_id": "DE.CM-01"
+    },
+    {
+      "qid": 455,
+      "subcategory_id": "DE.CM-09"
+    },
+    {
+      "qid": 462,
+      "subcategory_id": "ID.RA-01"
+    },
+    {
+      "qid": 466,
+      "subcategory_id": "ID.RA-01"
+    },
+    {
+      "qid": 471,
+      "subcategory_id": "ID.RA-03"
+    },
+    {
+      "qid": 488,
+      "subcategory_id": "DE.CM-03"
+    },
+    {
+      "qid": 493,
+      "subcategory_id": "ID.AM-03"
+    },
+    {
+      "qid": 494,
+      "subcategory_id": "DE.AE-06"
+    },
+    {
+      "qid": 495,
+      "subcategory_id": "DE.CM-01"
+    },
+    {
+      "qid": 495,
+      "subcategory_id": "DE.CM-03"
+    },
+    {
+      "qid": 495,
+      "subcategory_id": "DE.CM-06"
+    },
+    {
+      "qid": 495,
+      "subcategory_id": "DE.CM-09"
+    },
+    {
+      "qid": 496,
+      "subcategory_id": "GV.RR-02"
+    },
+    {
+      "qid": 498,
+      "subcategory_id": "DE.AE-03"
+    },
+    {
+      "qid": 498,
+      "subcategory_id": "DE.AE-07"
+    },
+    {
+      "qid": 499,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 499,
+      "subcategory_id": "PR.DS-02"
+    },
+    {
+      "qid": 499,
+      "subcategory_id": "PR.DS-10"
+    },
+    {
+      "qid": 500,
+      "subcategory_id": "ID.IM-02"
+    },
+    {
+      "qid": 523,
+      "subcategory_id": "ID.RA-01"
+    },
+    {
+      "qid": 523,
+      "subcategory_id": "PR.PS-02"
+    },
+    {
+      "qid": 528,
+      "subcategory_id": "ID.AM-08"
+    },
+    {
+      "qid": 528,
+      "subcategory_id": "PR.PS-03"
+    },
+    {
+      "qid": 529,
+      "subcategory_id": "ID.AM-08"
+    },
+    {
+      "qid": 529,
+      "subcategory_id": "PR.PS-03"
+    },
+    {
+      "qid": 532,
+      "subcategory_id": "GV.OC-04"
+    },
+    {
+      "qid": 532,
+      "subcategory_id": "GV.OC-05"
+    },
+    {
+      "qid": 534,
+      "subcategory_id": "ID.AM-04"
+    },
+    {
+      "qid": 535,
+      "subcategory_id": "ID.AM-03"
+    },
+    {
+      "qid": 540,
+      "subcategory_id": "ID.AM-03"
+    },
+    {
+      "qid": 549,
+      "subcategory_id": "ID.AM-04"
+    },
+    {
+      "qid": 559,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 560,
+      "subcategory_id": "GV.OC-02"
+    },
+    {
+      "qid": 560,
+      "subcategory_id": "GV.RR-02"
+    },
+    {
+      "qid": 563,
+      "subcategory_id": "GV.OC-02"
+    },
+    {
+      "qid": 563,
+      "subcategory_id": "GV.RR-02"
+    },
+    {
+      "qid": 579,
+      "subcategory_id": "DE.CM-06"
+    },
+    {
+      "qid": 579,
+      "subcategory_id": "PR.PS-01"
+    },
+    {
+      "qid": 588,
+      "subcategory_id": "ID.IM-04"
+    },
+    {
+      "qid": 588,
+      "subcategory_id": "ID.RA-06"
+    },
+    {
+      "qid": 588,
+      "subcategory_id": "RS.MA-01"
+    },
+    {
+      "qid": 597,
+      "subcategory_id": "RC.CO-04"
+    },
+    {
+      "qid": 597,
+      "subcategory_id": "RS.CO-02"
+    },
+    {
+      "qid": 601,
+      "subcategory_id": "RC.CO-04"
+    },
+    {
+      "qid": 601,
+      "subcategory_id": "RS.CO-02"
+    },
+    {
+      "qid": 602,
+      "subcategory_id": "PR.AT-01"
+    },
+    {
+      "qid": 605,
+      "subcategory_id": "ID.RA-04"
+    },
+    {
+      "qid": 606,
+      "subcategory_id": "ID.RA-06"
+    },
+    {
+      "qid": 611,
+      "subcategory_id": "RC.CO-04"
+    },
+    {
+      "qid": 611,
+      "subcategory_id": "RS.CO-02"
+    },
+    {
+      "qid": 623,
+      "subcategory_id": "DE.AE-06"
+    },
+    {
+      "qid": 623,
+      "subcategory_id": "RC.CO-03"
+    },
+    {
+      "qid": 625,
+      "subcategory_id": "GV.OC-04"
+    },
+    {
+      "qid": 625,
+      "subcategory_id": "PR.DS-11"
+    },
+    {
+      "qid": 625,
+      "subcategory_id": "PR.IR-04"
+    },
+    {
+      "qid": 626,
+      "subcategory_id": "PR.IR-04"
+    },
+    {
+      "qid": 626,
+      "subcategory_id": "RC.RP-01"
+    },
+    {
+      "qid": 626,
+      "subcategory_id": "RC.RP-02"
+    },
+    {
+      "qid": 627,
+      "subcategory_id": "ID.RA-06"
+    },
+    {
+      "qid": 629,
+      "subcategory_id": "GV.OC-04"
+    },
+    {
+      "qid": 629,
+      "subcategory_id": "PR.IR-04"
+    },
+    {
+      "qid": 632,
+      "subcategory_id": "RC.CO-03"
+    },
+    {
+      "qid": 635,
+      "subcategory_id": "DE.AE-02"
+    },
+    {
+      "qid": 635,
+      "subcategory_id": "ID.IM-03"
+    },
+    {
+      "qid": 635,
+      "subcategory_id": "ID.IM-04"
+    },
+    {
+      "qid": 641,
+      "subcategory_id": "ID.IM-02"
+    },
+    {
+      "qid": 641,
+      "subcategory_id": "ID.IM-04"
+    },
+    {
+      "qid": 643,
+      "subcategory_id": "ID.IM-02"
+    },
+    {
+      "qid": 643,
+      "subcategory_id": "ID.IM-04"
+    },
+    {
+      "qid": 644,
+      "subcategory_id": "DE.AE-04"
+    },
+    {
+      "qid": 646,
+      "subcategory_id": "PR.DS-11"
+    },
+    {
+      "qid": 651,
+      "subcategory_id": "ID.IM-03"
+    },
+    {
+      "qid": 653,
+      "subcategory_id": "RS.CO-02"
+    },
+    {
+      "qid": 653,
+      "subcategory_id": "RS.CO-03"
+    },
+    {
+      "qid": 655,
+      "subcategory_id": "RC.CO-04"
+    },
+    {
+      "qid": 655,
+      "subcategory_id": "RS.CO-02"
+    },
+    {
+      "qid": 656,
+      "subcategory_id": "DE.AE-04"
+    },
+    {
+      "qid": 656,
+      "subcategory_id": "DE.AE-06"
+    },
+    {
+      "qid": 656,
+      "subcategory_id": "ID.RA-04"
+    },
+    {
+      "qid": 662,
+      "subcategory_id": "RC.CO-04"
+    },
+    {
+      "qid": 8503,
+      "subcategory_id": "PR.IR-01"
+    },
+    {
+      "qid": 8503,
+      "subcategory_id": "PR.IR-03"
+    },
+    {
+      "qid": 8503,
+      "subcategory_id": "PR.PS-06"
+    },
+    {
+      "qid": 8504,
+      "subcategory_id": "DE.CM-03"
+    },
+    {
+      "qid": 8504,
+      "subcategory_id": "DE.CM-06"
+    },
+    {
+      "qid": 8504,
+      "subcategory_id": "DE.CM-09"
+    },
+    {
+      "qid": 8504,
+      "subcategory_id": "PR.PS-04"
+    },
+    {
+      "qid": 8505,
+      "subcategory_id": "PR.AA-01"
+    },
+    {
+      "qid": 8505,
+      "subcategory_id": "PR.AA-03"
+    },
+    {
+      "qid": 8505,
+      "subcategory_id": "PR.AA-04"
+    },
+    {
+      "qid": 8505,
+      "subcategory_id": "PR.AA-05"
+    },
+    {
+      "qid": 8506,
+      "subcategory_id": "ID.AM-08"
+    },
+    {
+      "qid": 8506,
+      "subcategory_id": "ID.RA-09"
+    },
+    {
+      "qid": 8506,
+      "subcategory_id": "PR.PS-02"
+    },
+    {
+      "qid": 8506,
+      "subcategory_id": "PR.PS-05"
+    },
+    {
+      "qid": 8507,
+      "subcategory_id": "ID.AM-08"
+    },
+    {
+      "qid": 8507,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 8507,
+      "subcategory_id": "PR.DS-02"
+    },
+    {
+      "qid": 8507,
+      "subcategory_id": "PR.DS-10"
+    },
+    {
+      "qid": 8508,
+      "subcategory_id": "DE.CM-01"
+    },
+    {
+      "qid": 8508,
+      "subcategory_id": "DE.CM-03"
+    },
+    {
+      "qid": 8508,
+      "subcategory_id": "DE.CM-06"
+    },
+    {
+      "qid": 8508,
+      "subcategory_id": "DE.CM-09"
+    },
+    {
+      "qid": 8509,
+      "subcategory_id": "GV.SC-01"
+    },
+    {
+      "qid": 8509,
+      "subcategory_id": "GV.SC-02"
+    },
+    {
+      "qid": 8509,
+      "subcategory_id": "GV.SC-03"
+    },
+    {
+      "qid": 8509,
+      "subcategory_id": "GV.SC-04"
+    },
+    {
+      "qid": 8509,
+      "subcategory_id": "GV.SC-05"
+    },
+    {
+      "qid": 8509,
+      "subcategory_id": "GV.SC-06"
+    },
+    {
+      "qid": 8509,
+      "subcategory_id": "GV.SC-07"
+    },
+    {
+      "qid": 8509,
+      "subcategory_id": "GV.SC-08"
+    },
+    {
+      "qid": 8509,
+      "subcategory_id": "GV.SC-09"
+    },
+    {
+      "qid": 8509,
+      "subcategory_id": "GV.SC-10"
+    },
+    {
+      "qid": 8509,
+      "subcategory_id": "ID.AM-02"
+    },
+    {
+      "qid": 8510,
+      "subcategory_id": "GV.SC-03"
+    },
+    {
+      "qid": 8510,
+      "subcategory_id": "GV.SC-06"
+    },
+    {
+      "qid": 8510,
+      "subcategory_id": "GV.SC-07"
+    },
+    {
+      "qid": 8511,
+      "subcategory_id": "ID.AM-02"
+    },
+    {
+      "qid": 8511,
+      "subcategory_id": "ID.AM-08"
+    },
+    {
+      "qid": 8511,
+      "subcategory_id": "ID.RA-09"
+    },
+    {
+      "qid": 8511,
+      "subcategory_id": "PR.PS-02"
+    },
+    {
+      "qid": 8511,
+      "subcategory_id": "PR.PS-06"
+    },
+    {
+      "qid": 8512,
+      "subcategory_id": "ID.AM-08"
+    },
+    {
+      "qid": 8512,
+      "subcategory_id": "ID.RA-01"
+    },
+    {
+      "qid": 8512,
+      "subcategory_id": "ID.RA-04"
+    },
+    {
+      "qid": 8512,
+      "subcategory_id": "ID.RA-05"
+    },
+    {
+      "qid": 8513,
+      "subcategory_id": "ID.RA-01"
+    },
+    {
+      "qid": 8513,
+      "subcategory_id": "ID.RA-04"
+    },
+    {
+      "qid": 8513,
+      "subcategory_id": "ID.RA-05"
+    },
+    {
+      "qid": 8513,
+      "subcategory_id": "ID.RA-08"
+    },
+    {
+      "qid": 8514,
+      "subcategory_id": "PR.AA-02"
+    },
+    {
+      "qid": 8514,
+      "subcategory_id": "PR.AA-03"
+    },
+    {
+      "qid": 8514,
+      "subcategory_id": "PR.AA-04"
+    },
+    {
+      "qid": 8515,
+      "subcategory_id": "PR.AA-01"
+    },
+    {
+      "qid": 8516,
+      "subcategory_id": "PR.PS-02"
+    },
+    {
+      "qid": 8516,
+      "subcategory_id": "PR.PS-06"
+    },
+    {
+      "qid": 8517,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 8517,
+      "subcategory_id": "PR.PS-02"
+    },
+    {
+      "qid": 8518,
+      "subcategory_id": "ID.AM-08"
+    },
+    {
+      "qid": 8518,
+      "subcategory_id": "PR.PS-06"
+    },
+    {
+      "qid": 8519,
+      "subcategory_id": "ID.RA-08"
+    },
+    {
+      "qid": 8520,
+      "subcategory_id": "DE.CM-09"
+    },
+    {
+      "qid": 8520,
+      "subcategory_id": "PR.PS-04"
+    },
+    {
+      "qid": 8541,
+      "subcategory_id": "GV.OV-03"
+    },
+    {
+      "qid": 8542,
+      "subcategory_id": "ID.IM-02"
+    },
+    {
+      "qid": 8542,
+      "subcategory_id": "ID.IM-04"
+    },
+    {
+      "qid": 8543,
+      "subcategory_id": "GV.SC-01"
+    },
+    {
+      "qid": 8543,
+      "subcategory_id": "GV.SC-05"
+    },
+    {
+      "qid": 8544,
+      "subcategory_id": "GV.SC-07"
+    },
+    {
+      "qid": 8545,
+      "subcategory_id": "ID.AM-01"
+    },
+    {
+      "qid": 8546,
+      "subcategory_id": "ID.RA-06"
+    },
+    {
+      "qid": 8546,
+      "subcategory_id": "ID.RA-08"
+    },
+    {
+      "qid": 8547,
+      "subcategory_id": "ID.RA-01"
+    },
+    {
+      "qid": 8547,
+      "subcategory_id": "ID.RA-03"
+    },
+    {
+      "qid": 8549,
+      "subcategory_id": "ID.AM-03"
+    },
+    {
+      "qid": 8549,
+      "subcategory_id": "PR.PS-01"
+    },
+    {
+      "qid": 8553,
+      "subcategory_id": "PR.AA-01"
+    },
+    {
+      "qid": 8554,
+      "subcategory_id": "PR.AA-01"
+    },
+    {
+      "qid": 8555,
+      "subcategory_id": "PR.AA-03"
+    },
+    {
+      "qid": 8556,
+      "subcategory_id": "PR.AA-05"
+    },
+    {
+      "qid": 8557,
+      "subcategory_id": "PR.AA-05"
+    },
+    {
+      "qid": 8558,
+      "subcategory_id": "DE.CM-01"
+    },
+    {
+      "qid": 8558,
+      "subcategory_id": "PR.IR-01"
+    },
+    {
+      "qid": 8559,
+      "subcategory_id": "PR.AT-01"
+    },
+    {
+      "qid": 8559,
+      "subcategory_id": "PR.AT-02"
+    },
+    {
+      "qid": 8561,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 8561,
+      "subcategory_id": "PR.DS-02"
+    },
+    {
+      "qid": 8561,
+      "subcategory_id": "PR.DS-10"
+    },
+    {
+      "qid": 8562,
+      "subcategory_id": "ID.RA-07"
+    },
+    {
+      "qid": 8564,
+      "subcategory_id": "DE.CM-01"
+    },
+    {
+      "qid": 8564,
+      "subcategory_id": "PR.IR-01"
+    },
+    {
+      "qid": 8565,
+      "subcategory_id": "ID.RA-07"
+    },
+    {
+      "qid": 8565,
+      "subcategory_id": "PR.PS-02"
+    },
+    {
+      "qid": 8565,
+      "subcategory_id": "PR.PS-03"
+    },
+    {
+      "qid": 8566,
+      "subcategory_id": "PR.PS-04"
+    },
+    {
+      "qid": 8567,
+      "subcategory_id": "PR.DS-01"
+    },
+    {
+      "qid": 8568,
+      "subcategory_id": "PR.IR-01"
+    },
+    {
+      "qid": 8569,
+      "subcategory_id": "DE.CM-09"
+    },
+    {
+      "qid": 8570,
+      "subcategory_id": "DE.AE-08"
+    },
+    {
+      "qid": 8571,
+      "subcategory_id": "RS.CO-03"
+    },
+    {
+      "qid": 8572,
+      "subcategory_id": "RS.CO-02"
+    },
+    {
+      "qid": 8572,
+      "subcategory_id": "RS.MA-01"
+    },
+    {
+      "qid": 8573,
+      "subcategory_id": "ID.IM-02"
+    },
+    {
+      "qid": 8573,
+      "subcategory_id": "ID.IM-04"
+    },
+    {
+      "qid": 8573,
+      "subcategory_id": "RC.RP-01"
+    }
+  ]
+}

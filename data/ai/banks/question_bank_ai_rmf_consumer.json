@@ -1,0 +1,299 @@
+{
+  "bank": "consumer",
+  "subcategories": {
+    "MANAGE 3.1": {
+      "categories": [
+        "third_party_supply"
+      ],
+      "status": "needs_human_review",
+      "turns": 2,
+      "review_reason": "Q4: cis_refs LLM-15.6 (monitor providers) does not support a contingency/continuity plan question; no cited safeguard backs it.",
+      "candidates": [
+        {
+          "question_text": "Describe how your organisation decides whether a third-party AI system or AI feature (a hosted LLM service, or an AI capability built into a tool you already use) is within your risk tolerance before and after it is adopted. Who makes that decision, and where is it recorded?",
+          "playbook_ref": "MANAGE 3.1 — suggested action 2",
+          "cis_refs": [
+            "LLM-15.5"
+          ],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance"
+        },
+        {
+          "question_text": "How do you keep an up-to-date record of the third-party AI systems and components your organisation depends on, including AI features embedded in vendor tools and the upstream model provider behind them? Who maintains it, and how often is it reviewed?",
+          "playbook_ref": "MANAGE 3.1 — suggested action 4",
+          "cis_refs": [
+            "LLM-15.5",
+            "LLM-16.5"
+          ],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance"
+        },
+        {
+          "question_text": "Describe how you monitor your AI service providers for changes that affect your risk, such as model version changes or withdrawal, new AI features switched on by default, changed terms on training with your data, or new sub-processors. What triggers a reassessment, and what record shows the last one?",
+          "playbook_ref": "MANAGE 3.1 — suggested action 9",
+          "cis_refs": [
+            "LLM-15.6"
+          ],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance"
+        },
+        {
+          "question_text": "For a mission-critical third-party AI system, what contingency plan exists if the vendor's model degrades, changes behaviour, is withdrawn or has an outage? Who owns the plan, and when was it last tested or walked through?",
+          "playbook_ref": "MANAGE 3.1 — suggested action 8",
+          "cis_refs": [
+            "LLM-15.6"
+          ],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance"
+        },
+        {
+          "question_text": "Describe a case where a third-party AI system or embedded AI feature was restricted, opted out of or decommissioned because it exceeded your risk tolerance. What indicators raised the concern, who made the decision, and what record exists? If none has occurred, explain how such a decision would be made and by whom.",
+          "playbook_ref": "MANAGE 3.1 — suggested action 10",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance"
+        }
+      ]
+    },
+    "MAP 1.1": {
+      "categories": [
+        "use_context_impact"
+      ],
+      "status": "needs_human_review",
+      "turns": 2,
+      "review_reason": "Q3: Chains several questions: how context of use is defined, who is affected, positive and negative impacts, where analysis is kept, and revisit frequency.",
+      "candidates": [
+        {
+          "question_text": "Describe how your organisation documents the intended purpose, minimum functionality and expected benefits of an AI tool before it is adopted for a business use. Who writes it, and where is it recorded?",
+          "playbook_ref": "MAP 1.1 — suggested action 4",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance",
+          "modifiers": []
+        },
+        {
+          "question_text": "When a team proposes using an AI tool for a task, how do you decide whether a non-AI or non-technology alternative would give a more trustworthy outcome? Show a recent example of that comparison and who made the call.",
+          "playbook_ref": "MAP 1.1 — suggested action 5",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance",
+          "modifiers": []
+        },
+        {
+          "question_text": "How do you define and record the acceptable context of use for an AI system you use, including who is affected by its outputs and the potential positive and negative impacts on them? Where is that context analysis kept and how often is it revisited?",
+          "playbook_ref": "MAP 1.1 — suggested action 9",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance",
+          "modifiers": []
+        },
+        {
+          "question_text": "For each AI tool you use in business processes, how do you record whether it supports a human decision or replaces it? Show where that is documented for one current tool.",
+          "playbook_ref": "MAP 1.1 — suggested action 16",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance",
+          "modifiers": []
+        },
+        {
+          "question_text": "Before adopting an AI tool, how do you consider uses beyond the intended purpose that users might reasonably put it to, and who is involved in that discussion? Where are the conclusions recorded?",
+          "playbook_ref": "MAP 1.1 — suggested action 3",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance",
+          "modifiers": []
+        }
+      ]
+    },
+    "MAP 2.2": {
+      "categories": [
+        "use_context_impact",
+        "ai_access_identity"
+      ],
+      "status": "needs_human_review",
+      "turns": 2,
+      "review_reason": "Q5: Topic ai_access does not fit: it asks where connections are recorded (a documentation/data-flow register, governance), not what the AI identity can reach or do; it also only asks where a record is kept and who updates it, and omits the negative-impact and go/no-go element of action 6.",
+      "candidates": [
+        {
+          "question_text": "Describe how your organisation documents the settings, environments and conditions in which each AI system you use is not meant to be used. Where is this recorded, who maintains it, and how do users learn about it?",
+          "playbook_ref": "MAP 2.2 — suggested action 1",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance"
+        },
+        {
+          "question_text": "Describe how end users and the business owner were involved in defining the workflow, concept of operations and expectations for how staff should review or rely on the output of an AI tool. What feedback was captured, and where is it recorded?",
+          "playbook_ref": "MAP 2.2 — suggested action 2",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance"
+        },
+        {
+          "question_text": "Before an AI tool was put into use, how did you test the human review or approval step under conditions close to real use, and where are the results documented? Give an example of a change made as a result.",
+          "playbook_ref": "MAP 2.2 — suggested action 3",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance"
+        },
+        {
+          "question_text": "How do you check, after deployment, whether users correctly understand the outputs of an AI tool and whether it is meeting its documented purpose? Describe the feedback mechanism, how often it runs, and where results are recorded.",
+          "playbook_ref": "MAP 2.2 — suggested action 4",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance"
+        },
+        {
+          "question_text": "For AI systems that can call tools through MCP or similar, where do you record the external networks, including the internet, and the downstream systems each one is connected to, and who keeps that record current?",
+          "playbook_ref": "MAP 2.2 — suggested action 6",
+          "cis_refs": [
+            "MCP-3.8"
+          ],
+          "scope_tags": [],
+          "capability": "mcp",
+          "topic": "ai_access"
+        }
+      ]
+    },
+    "MAP 3.5": {
+      "categories": [
+        "use_context_impact",
+        "ai_access_identity"
+      ],
+      "status": "pass",
+      "turns": 2,
+      "candidates": [
+        {
+          "question_text": "Describe how your organisation decides which AI-assisted activities need a human to review or approve the output before it is used. What criteria (impact, context of use, risk rating) drive that decision, and where is the resulting list of oversight-required uses recorded?",
+          "playbook_ref": "MAP 3.5 — suggested action 1",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance",
+          "modifiers": []
+        },
+        {
+          "question_text": "For AI uses where staff review outputs before acting on them, how is that review carried out in practice, who is accountable for it, and which organisational policy defines the expected practice? Provide an example of a recent review record.",
+          "playbook_ref": "MAP 3.5 — suggested action 2",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance",
+          "modifiers": []
+        },
+        {
+          "question_text": "What training or guidance do people who oversee AI outputs receive on the tool's known limitations, intended context of use, possible negative impacts and any warning labels? How is completion tracked, and how often is the material refreshed?",
+          "playbook_ref": "MAP 3.5 — suggested action 3",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance",
+          "modifiers": []
+        },
+        {
+          "question_text": "Before an AI use goes live, how do you test the planned human oversight steps with the people who will perform them, under conditions resembling real operation? What evidence of those trials is kept, and what was changed as a result?",
+          "playbook_ref": "MAP 3.5 — suggested action 4",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance",
+          "modifiers": []
+        },
+        {
+          "question_text": "For AI tools that can take actions through connected tools or act autonomously, how do you check that human approval of those actions is working as intended, for example through periodic reviews of action and approval logs, and where are the results of the most recent check recorded?",
+          "playbook_ref": "MAP 3.5 — suggested action 5",
+          "cis_refs": [
+            "AGENT-8.11"
+          ],
+          "scope_tags": [],
+          "capability": "mcp",
+          "topic": "ai_access",
+          "modifiers": []
+        }
+      ]
+    },
+    "MEASURE 3.3": {
+      "categories": [
+        "use_context_impact",
+        "incident_recovery"
+      ],
+      "status": "pass",
+      "turns": 2,
+      "candidates": [
+        {
+          "question_text": "Describe how people who use or are affected by your AI-enabled processes (staff operating the tools, and customers or other end users where relevant) report errors, harmful outputs or problems. How do you check that this reporting route actually works, and what do you review to judge it (for example submission volumes, time to acknowledge, share of reports resolved)?",
+          "playbook_ref": "MEASURE 3.3 — suggested action 1",
+          "cis_refs": [
+            "LLM-17.3"
+          ],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "reliability",
+          "modifiers": []
+        },
+        {
+          "question_text": "How are appeals or challenges against an AI-assisted outcome (for example a decision, recommendation or response a person disputes) recorded and categorised, and who analyses the type, rate and results of those appeals? Where can the last review of this analysis be seen?",
+          "playbook_ref": "MEASURE 3.3 — suggested action 2",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance",
+          "modifiers": []
+        },
+        {
+          "question_text": "How do you measure whether intended users and affected people know the feedback channel exists and actually use it? Describe the participation or awareness measures you track, how often you review them, and what you did the last time they were low.",
+          "playbook_ref": "MEASURE 3.3 — suggested action 3",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance",
+          "modifiers": []
+        },
+        {
+          "question_text": "Give an example of feedback or appeal data changing how your organisation evaluates or tests an AI system's performance or impact (for example a new metric, test case or review threshold). Who decided on the change, and where is the decision recorded?",
+          "playbook_ref": "MEASURE 3.3 — suggested action 4",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "reliability",
+          "modifiers": []
+        },
+        {
+          "question_text": "When end user or community feedback about an AI use is analysed, which domain experts (for example the business process owner, legal, or a subject-matter specialist) take part, how often does this happen, and what record shows their input and the resulting actions?",
+          "playbook_ref": "MEASURE 3.3 — suggested action 6",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance",
+          "modifiers": []
+        }
+      ]
+    }
+  },
+  "built_on": "2026-10-14",
+  "playbook_sha256_16": "65d6101d80650287",
+  "guide_sha256_16": {
+    "LLM": "fae3d032d78cd956",
+    "MCP": "4faa140a9b5f3071",
+    "AGENT": "824ab8a2e829a11a"
+  },
+  "summary": {
+    "subcategories": 5,
+    "passed": 2,
+    "needs_human_review": 3,
+    "candidates": 25
+  }
+}

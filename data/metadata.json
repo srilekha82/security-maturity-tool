@@ -1,0 +1,110 @@
+{
+  "csf2_core.json": {
+    "last_refreshed": "2026-07-27",
+    "source": "NIST CSF 2.0 Informative References (CPRT export)",
+    "download_url": "https://www.nist.gov/cyberframework/csf-20-informative-references",
+    "download_instructions": "Click 'Download English (xlsx)', save as data/csf/source/csf2.xlsx, then run: .venv/bin/python ./scripts/parse_crosswalk.py --output ./data",
+    "version": "CSF 2.0",
+    "record_count": 106,
+    "is_placeholder": false,
+    "refresh_threshold_days": 365,
+    "notes": "Stable — NIST updates only when a new CSF version is published. Parsed alongside OLIR files from csf2.xlsx."
+  },
+  "olir_iso27001.json": {
+    "last_refreshed": "2026-07-27",
+    "source": "NIST CSF 2.0 Informative References (CPRT export)",
+    "download_url": "https://www.nist.gov/cyberframework/csf-20-informative-references",
+    "download_instructions": "Same file as csf2_core — run parse_crosswalk.py after downloading data/csf/source/csf2.xlsx",
+    "version": "ISO/IEC 27001:2022 → CSF 2.0",
+    "record_count": null,
+    "is_placeholder": false,
+    "refresh_threshold_days": 365,
+    "notes": "Parsed from the ISO 27001 references column in the NIST CPRT export."
+  },
+  "olir_pcidss.json": {
+    "last_refreshed": "2026-07-27",
+    "source": "NIST CSF 2.0 Informative References (CPRT export)",
+    "download_url": "https://www.nist.gov/cyberframework/csf-20-informative-references",
+    "download_instructions": "Same file as csf2_core — run parse_crosswalk.py after downloading data/csf/source/csf2.xlsx",
+    "version": "PCI DSS v4.0.1 → CSF 2.0",
+    "record_count": null,
+    "is_placeholder": false,
+    "refresh_threshold_days": 365,
+    "notes": "Parsed from the PCI DSS references column in the NIST CPRT export. Not the official PCI SSC OLIR."
+  },
+  "domain_weights.json": {
+    "last_refreshed": "2026-07-27",
+    "source": "Caizin internal",
+    "download_url": null,
+    "version": "1.0",
+    "record_count": null,
+    "is_placeholder": false,
+    "refresh_threshold_days": null,
+    "notes": "Caizin internal judgment — update manually as engagement patterns evolve."
+  },
+  "tier_definitions.json": {
+    "last_refreshed": "2026-07-27",
+    "source": "NIST CSF 2.0 publication (NIST.CSWP.29)",
+    "download_url": null,
+    "version": "CSF 2.0",
+    "record_count": 4,
+    "is_placeholder": false,
+    "refresh_threshold_days": null,
+    "notes": "Static — tied to the CSF 2.0 framework version. Only changes if NIST publishes a new CSF version."
+  },
+  "ai/source/AI_RMF_Playbook.pdf": {
+    "last_refreshed": "2026-10-14",
+    "source": "NIST AI RMF Playbook (AI Resource Center)",
+    "download_url": "https://airc.nist.gov/airmf-resources/playbook/",
+    "download_instructions": "Download the Playbook PDF and save as data/ai/source/AI_RMF_Playbook.pdf",
+    "version": "AI RMF 1.0 Playbook, as downloaded",
+    "record_count": 72,
+    "is_placeholder": false,
+    "refresh_threshold_days": 90,
+    "notes": "Primary question-content source for the AI RMF banks (72 subcategories with Suggested Actions). Freshness: each AI output records the SHA-256 of the sources it was built from; check_freshness.py --ai-bank compares them with the files on disk."
+  },
+  "ai/source/CIS_Controls_v8.1_AI_and_LLM_Companion_Guide_April_2026.pdf": {
+    "last_refreshed": "2026-10-14",
+    "source": "CIS Controls v8.1 AI and LLM Companion Guide v1.0 (April 2026)",
+    "download_url": "https://www.cisecurity.org/controls",
+    "download_instructions": "Download from CIS and save under data/ai/source/",
+    "version": "v1.0, April 2026",
+    "record_count": null,
+    "is_placeholder": false,
+    "refresh_threshold_days": 90,
+    "notes": "Evidence prompts, context and tagging for the AI RMF banks (not question text). License CC BY-NC-ND 4.0: internal non-commercial use only; do not redistribute."
+  },
+  "ai/source/CIS_Controls_v8.1_Model_Context_Protocol_Companion_Guide_April_2026.pdf": {
+    "last_refreshed": "2026-10-14",
+    "source": "CIS Controls v8.1 Model Context Protocol (MCP) Companion Guide (April 2026)",
+    "download_url": "https://www.cisecurity.org/controls",
+    "download_instructions": "Download from CIS and save under data/ai/source/",
+    "version": "April 2026",
+    "record_count": null,
+    "is_placeholder": false,
+    "refresh_threshold_days": 90,
+    "notes": "Evidence prompts, context and tagging for the AI RMF banks (mcp rung). License CC BY-NC-ND 4.0: internal non-commercial use only; do not redistribute."
+  },
+  "ai/source/CIS_Controls_v8.1_AI_Agents_Companion_Guide_April_2026.pdf": {
+    "last_refreshed": "2026-10-14",
+    "source": "CIS Controls v8.1 AI Agents Companion Guide (April 2026)",
+    "download_url": "https://www.cisecurity.org/controls",
+    "download_instructions": "Download from CIS and save under data/ai/source/",
+    "version": "April 2026",
+    "record_count": null,
+    "is_placeholder": false,
+    "refresh_threshold_days": 90,
+    "notes": "Evidence prompts, context and tagging for the AI RMF banks (agentic rung). License CC BY-NC-ND 4.0: internal non-commercial use only; do not redistribute."
+  },
+  "ai/source/CIS_Controls_v8.1_Mapping_to_NIST_CSF_v2.0_2024-06-24.xlsx": {
+    "last_refreshed": "2026-10-14",
+    "source": "CIS Controls v8.1 Mapping to NIST CSF 2.0 (CIS, published 2024-06-25)",
+    "download_url": "https://www.cisecurity.org/insights/white-papers/cis-controls-v8-1-mapping-to-nist-csf-2-0",
+    "download_instructions": "Gated download form on the CIS page; save the xlsx under data/ai/source/",
+    "version": "CIS Controls v8.1 → CSF 2.0",
+    "record_count": null,
+    "is_placeholder": false,
+    "refresh_threshold_days": 365,
+    "notes": "Used only for the 'no AI but exposed' notes (CIS safeguard -> CSF subcategory join). Sparse: ~46 of 153 safeguards map; 48 of 106 CSF subcategories reached. Safeguard IDs are stored as numbers (4.10 collapses to 4.1): read as text. License CC BY-NC-ND 4.0: internal non-commercial use only."
+  }
+}

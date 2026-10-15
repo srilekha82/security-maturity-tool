@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(data/**)",
+      "Read(prompts/**)",
+      "Read(runs/**)",
+      "Edit(runs/**)",
+      "Read(.claude/**)",
+      "Bash(.venv/bin/python ./scripts/*)",
+      "Edit(data/ai/**)",
+      "Bash(find *)",
+      "Bash(ls *)"
+    ],
+    "deny": []
+  }
+}

@@ -1,0 +1,691 @@
+{
+  "decided_by": "agent",
+  "judged_on": "2026-10-14",
+  "source_sha256_16": "65d6101d80650287",
+  "categories_sha": "2c6495c1a19cf013",
+  "subcategories": {
+    "GOVERN 1.1": {
+      "producer": [
+        "gov_accountability"
+      ],
+      "consumer": [
+        "gov_accountability"
+      ],
+      "reason": "Legal and regulatory requirements for AI apply to builders and users alike."
+    },
+    "GOVERN 1.2": {
+      "producer": [
+        "gov_accountability"
+      ],
+      "consumer": [
+        "gov_accountability"
+      ],
+      "reason": "Both roles integrate trustworthy-AI characteristics into their own policies and procedures."
+    },
+    "GOVERN 1.3": {
+      "producer": [
+        "gov_accountability",
+        "intended_use_impact"
+      ],
+      "consumer": [
+        "gov_accountability",
+        "use_context_impact"
+      ],
+      "reason": "Risk-tolerance-based depth of risk management applies to both; its impact-assessment mechanics sit with intended use for builders and with use context for users."
+    },
+    "GOVERN 1.4": {
+      "producer": [
+        "gov_accountability",
+        "intended_use_impact"
+      ],
+      "consumer": [
+        "gov_accountability",
+        "inventory_shadow_ai"
+      ],
+      "reason": "Documentation policies cover purpose, scope and limitations for builders and a documentation inventory of AI in use for consumers."
+    },
+    "GOVERN 1.5": {
+      "producer": [
+        "gov_accountability",
+        "reliability_robustness"
+      ],
+      "consumer": [
+        "gov_accountability",
+        "incident_recovery"
+      ],
+      "reason": "Periodic review, monitoring ownership and incident-response policy apply to both, with post-release monitoring for builders and incident handling for users."
+    },
+    "GOVERN 1.6": {
+      "producer": [
+        "gov_accountability",
+        "model_assets_ip"
+      ],
+      "consumer": [
+        "inventory_shadow_ai"
+      ],
+      "reason": "Builders inventory the models they build and release; consumers inventory the AI in use, which is also where unapproved use is found."
+    },
+    "GOVERN 1.7": {
+      "producer": [
+        "reliability_robustness",
+        "release_distribution"
+      ],
+      "consumer": [
+        "inventory_shadow_ai",
+        "incident_recovery"
+      ],
+      "reason": "Decommissioning is deprecation and withdrawal of a release for builders and retirement of an AI use, with fallback to a manual process, for consumers."
+    },
+    "GOVERN 2.1": {
+      "producer": [
+        "gov_accountability"
+      ],
+      "consumer": [
+        "gov_accountability"
+      ],
+      "reason": "Documented roles and lines of communication for AI risk apply to any org with AI."
+    },
+    "GOVERN 2.2": {
+      "producer": [
+        "gov_accountability"
+      ],
+      "consumer": [
+        "gov_accountability"
+      ],
+      "reason": "AI risk training for personnel and partners applies to builders and users."
+    },
+    "GOVERN 2.3": {
+      "producer": [
+        "gov_accountability"
+      ],
+      "consumer": [
+        "gov_accountability"
+      ],
+      "reason": "Executive responsibility for AI risk decisions applies to both roles."
+    },
+    "GOVERN 3.1": {
+      "producer": [
+        "gov_accountability"
+      ],
+      "consumer": [
+        "gov_accountability"
+      ],
+      "reason": "Who takes part in AI risk decisions (diversity of disciplines and backgrounds) can be asked of both."
+    },
+    "GOVERN 3.2": {
+      "producer": [
+        "gov_accountability",
+        "intended_use_impact"
+      ],
+      "consumer": [
+        "gov_accountability",
+        "use_context_impact"
+      ],
+      "reason": "Defined roles for human-AI configurations and oversight apply to both; builders design the oversight, users operate and review outputs."
+    },
+    "GOVERN 4.1": {
+      "producer": [
+        "gov_accountability"
+      ],
+      "consumer": [
+        "gov_accountability"
+      ],
+      "reason": "A challenge and safety-first culture is asked about in the same way for both roles."
+    },
+    "GOVERN 4.2": {
+      "producer": [
+        "intended_use_impact"
+      ],
+      "consumer": [
+        "use_context_impact"
+      ],
+      "reason": "Impact assessment policy applies to both: builders assess intended and foreseeable use, consumers assess their own uses."
+    },
+    "GOVERN 4.3": {
+      "producer": [
+        "fairness_safety_eval",
+        "reliability_robustness"
+      ],
+      "consumer": [
+        "reliability_validation",
+        "incident_recovery"
+      ],
+      "reason": "Practices to enable testing, identify incidents and share information apply to builders (evaluation, post-release) and users (validation, incident handling)."
+    },
+    "GOVERN 5.1": {
+      "producer": [
+        "release_distribution",
+        "intended_use_impact"
+      ],
+      "consumer": [
+        "use_context_impact"
+      ],
+      "reason": "Builders take feedback from recipients and affected people on a release; consumers take it from users and affected people of their own uses."
+    },
+    "GOVERN 5.2": {
+      "producer": [
+        "gov_accountability",
+        "release_distribution"
+      ],
+      "consumer": [
+        "gov_accountability",
+        "inventory_shadow_ai"
+      ],
+      "reason": "Risk tolerance and approve, conditionally approve or reject decisions apply to releasing a model for builders and to approving an AI use for consumers."
+    },
+    "GOVERN 6.1": {
+      "producer": [
+        "upstream_models"
+      ],
+      "consumer": [
+        "third_party_supply"
+      ],
+      "reason": "Third-party AI, data and IP risk policy: builders for base models and components, consumers for vendor AI and embedded features."
+    },
+    "GOVERN 6.2": {
+      "producer": [
+        "upstream_models"
+      ],
+      "consumer": [
+        "third_party_supply",
+        "incident_recovery"
+      ],
+      "reason": "Contingency for third-party failures covers base-model change or withdrawal for builders and vendor AI failure with a fallback for consumers."
+    },
+    "MANAGE 1.1": {
+      "producer": [
+        "intended_use_impact",
+        "release_distribution"
+      ],
+      "consumer": [
+        "use_context_impact",
+        "reliability_validation"
+      ],
+      "reason": "The go or no-go decision on whether the system meets its purpose is a release decision for builders and a use decision, with evidence from testing, for consumers."
+    },
+    "MANAGE 1.2": {
+      "producer": [
+        "gov_accountability"
+      ],
+      "consumer": [
+        "gov_accountability"
+      ],
+      "reason": "Prioritising risk treatment by impact and likelihood applies to both roles."
+    },
+    "MANAGE 1.3": {
+      "producer": [
+        "gov_accountability"
+      ],
+      "consumer": [
+        "gov_accountability"
+      ],
+      "reason": "Documented responses (mitigate, transfer, avoid, accept) to high-priority AI risks apply to both roles."
+    },
+    "MANAGE 1.4": {
+      "producer": [
+        "release_distribution"
+      ],
+      "consumer": [
+        "use_context_impact"
+      ],
+      "reason": "Builders disclose residual risk and limits to downstream acquirers; consumers document the residual risk of their own use for the people it affects."
+    },
+    "MANAGE 2.1": {
+      "producer": [
+        "gov_accountability"
+      ],
+      "consumer": [
+        "gov_accountability"
+      ],
+      "reason": "Resourcing risk management and weighing non-AI alternatives applies to both roles."
+    },
+    "MANAGE 2.2": {
+      "producer": [
+        "reliability_robustness",
+        "build_infra"
+      ],
+      "consumer": [
+        "data_exposure",
+        "ai_access_identity"
+      ],
+      "reason": "Controls that sustain a deployed system include security countermeasures in the build and serving stack for builders, and data handling and authenticated, limited access for consumers."
+    },
+    "MANAGE 2.3": {
+      "producer": [
+        "reliability_robustness"
+      ],
+      "consumer": [
+        "reliability_validation",
+        "incident_recovery"
+      ],
+      "reason": "Responding to a newly found risk needs monitoring and drift detection (both) and the ability to deactivate and recover (consumers act on it in use, builders in the release)."
+    },
+    "MANAGE 2.4": {
+      "producer": [
+        "reliability_robustness"
+      ],
+      "consumer": [
+        "incident_recovery"
+      ],
+      "reason": "Superseding, disengaging or deactivating a system is withdrawal or rollback of a release for builders and suspension of an AI use for consumers."
+    },
+    "MANAGE 3.1": {
+      "producer": [
+        "upstream_models"
+      ],
+      "consumer": [
+        "third_party_supply"
+      ],
+      "reason": "Monitoring third-party AI risks: upstream models and components for builders, vendor AI for consumers."
+    },
+    "MANAGE 3.2": {
+      "producer": [
+        "upstream_models"
+      ],
+      "consumer": [
+        "third_party_supply"
+      ],
+      "reason": "Tracking pre-trained models as third-party risk applies to builders on a base model and to consumers who fine-tune or run a pre-trained model."
+    },
+    "MANAGE 4.1": {
+      "producer": [
+        "reliability_robustness"
+      ],
+      "consumer": [
+        "reliability_validation",
+        "incident_recovery"
+      ],
+      "reason": "Post-deployment monitoring, appeal and override, and incident response apply to both: builders monitor releases, consumers monitor and handle problems in use."
+    },
+    "MANAGE 4.2": {
+      "producer": [
+        "release_distribution",
+        "reliability_robustness"
+      ],
+      "consumer": [
+        "reliability_validation"
+      ],
+      "reason": "Continual improvement is change management of releases for builders and re-validation of the AI in use for consumers."
+    },
+    "MANAGE 4.3": {
+      "producer": [
+        "release_distribution",
+        "model_assets_ip"
+      ],
+      "consumer": [
+        "incident_recovery"
+      ],
+      "reason": "Builders keep an issue intake and version history of what they release; consumers track and communicate incidents and errors in their own use."
+    },
+    "MAP 1.1": {
+      "producer": [
+        "intended_use_impact"
+      ],
+      "consumer": [
+        "use_context_impact"
+      ],
+      "reason": "Documenting purpose, context and impacts applies to both: intended and foreseeable uses for builders, each AI use for consumers."
+    },
+    "MAP 1.2": {
+      "producer": [
+        "gov_accountability"
+      ],
+      "consumer": [
+        "gov_accountability"
+      ],
+      "reason": "Interdisciplinary participation in establishing context can be asked of both roles."
+    },
+    "MAP 1.3": {
+      "producer": [
+        "intended_use_impact"
+      ],
+      "consumer": [
+        "use_context_impact"
+      ],
+      "reason": "Checking the AI purpose against mission and values applies to builders and to consumers choosing uses."
+    },
+    "MAP 1.4": {
+      "producer": [
+        "intended_use_impact"
+      ],
+      "consumer": [
+        "use_context_impact"
+      ],
+      "reason": "Defining the business value or context of use applies to both roles."
+    },
+    "MAP 1.5": {
+      "producer": [
+        "gov_accountability"
+      ],
+      "consumer": [
+        "gov_accountability"
+      ],
+      "reason": "Documented organisational risk tolerance applies to both roles."
+    },
+    "MAP 1.6": {
+      "producer": [
+        "intended_use_impact"
+      ],
+      "consumer": [],
+      "reason": "Eliciting system requirements and making design decisions is the builder's work; a consumer's equivalent is covered by use context under MAP 1.x and procurement under GOVERN 6."
+    },
+    "MAP 2.1": {
+      "producer": [
+        "intended_use_impact"
+      ],
+      "consumer": [
+        "inventory_shadow_ai"
+      ],
+      "reason": "Builders define the task and method of the model; consumers record the task each AI in use supports in their inventory."
+    },
+    "MAP 2.2": {
+      "producer": [
+        "intended_use_impact",
+        "ai_access_tools"
+      ],
+      "consumer": [
+        "use_context_impact",
+        "ai_access_identity"
+      ],
+      "reason": "Documenting knowledge limits, human oversight of outputs and the system's connections to networks and other systems applies to both; what the AI can reach and act on is the access question."
+    },
+    "MAP 2.3": {
+      "producer": [
+        "fairness_safety_eval",
+        "training_data"
+      ],
+      "consumer": [],
+      "reason": "Experimental design, data collection and selection and construct validation are builder work; consumer validation before use is covered under MEASURE 2.x."
+    },
+    "MAP 3.1": {
+      "producer": [
+        "intended_use_impact"
+      ],
+      "consumer": [
+        "use_context_impact"
+      ],
+      "reason": "Examining benefits of intended functionality applies to builders and to consumers deciding on a use."
+    },
+    "MAP 3.2": {
+      "producer": [
+        "intended_use_impact"
+      ],
+      "consumer": [
+        "use_context_impact"
+      ],
+      "reason": "Examining costs and harms of expected or realised AI errors applies to both roles."
+    },
+    "MAP 3.3": {
+      "producer": [
+        "intended_use_impact"
+      ],
+      "consumer": [],
+      "reason": "Scoping of intended use is the builder's duty; a consumer's use context is covered under MAP 1.x."
+    },
+    "MAP 3.4": {
+      "producer": [
+        "intended_use_impact",
+        "release_distribution"
+      ],
+      "consumer": [
+        "gov_accountability"
+      ],
+      "reason": "Builders define operator proficiency and provide training material and limits to recipients; consumers ensure the people operating the AI are competent and trained."
+    },
+    "MAP 3.5": {
+      "producer": [
+        "intended_use_impact",
+        "ai_access_tools"
+      ],
+      "consumer": [
+        "use_context_impact",
+        "ai_access_identity"
+      ],
+      "reason": "Human oversight processes apply to both: designed oversight for builders, review and approval of AI outputs and actions for consumers."
+    },
+    "MAP 4.1": {
+      "producer": [
+        "upstream_models",
+        "training_data"
+      ],
+      "consumer": [
+        "third_party_supply"
+      ],
+      "reason": "Mapping legal and IP risk of components covers third-party data, software and models for builders and vendor AI terms and contracts for consumers."
+    },
+    "MAP 4.2": {
+      "producer": [
+        "upstream_models"
+      ],
+      "consumer": [
+        "third_party_supply",
+        "infra_hosting"
+      ],
+      "reason": "Internal controls for third-party components: builders vet upstream material, consumers apply procurement, security and privacy controls to vendor AI and where it runs."
+    },
+    "MAP 5.1": {
+      "producer": [
+        "intended_use_impact",
+        "fairness_safety_eval"
+      ],
+      "consumer": [
+        "use_context_impact"
+      ],
+      "reason": "Likelihood and magnitude of impacts is assessed by builders (with red teaming) and by consumers for their own uses."
+    },
+    "MAP 5.2": {
+      "producer": [
+        "intended_use_impact"
+      ],
+      "consumer": [
+        "use_context_impact"
+      ],
+      "reason": "Engagement with affected parties and integrating their feedback applies to both roles."
+    },
+    "MEASURE 1.1": {
+      "producer": [
+        "fairness_safety_eval",
+        "reliability_robustness"
+      ],
+      "consumer": [
+        "reliability_validation"
+      ],
+      "reason": "Choosing and documenting risk metrics applies to builders (evaluation and robustness) and consumers (validation of the AI in use)."
+    },
+    "MEASURE 1.2": {
+      "producer": [
+        "fairness_safety_eval"
+      ],
+      "consumer": [
+        "reliability_validation"
+      ],
+      "reason": "Regularly reassessing whether metrics and controls are effective applies to both roles."
+    },
+    "MEASURE 1.3": {
+      "producer": [
+        "fairness_safety_eval",
+        "gov_accountability"
+      ],
+      "consumer": [
+        "reliability_validation"
+      ],
+      "reason": "Independent assessors who are not front-line developers apply to builders; consumers use independent reviewers or domain experts in validating a use."
+    },
+    "MEASURE 2.1": {
+      "producer": [
+        "fairness_safety_eval"
+      ],
+      "consumer": [
+        "reliability_validation"
+      ],
+      "reason": "Documenting test sets, metrics and tools applies to builders and to consumers validating AI before and during use."
+    },
+    "MEASURE 2.2": {
+      "producer": [
+        "fairness_safety_eval",
+        "training_data"
+      ],
+      "consumer": [],
+      "reason": "Human-subject evaluations and building representative test datasets are builder work; consumer fairness is asked through use context under MEASURE 2.11."
+    },
+    "MEASURE 2.3": {
+      "producer": [
+        "fairness_safety_eval"
+      ],
+      "consumer": [
+        "reliability_validation"
+      ],
+      "reason": "Measuring performance under conditions like deployment applies to builders and to consumers testing in their own context."
+    },
+    "MEASURE 2.4": {
+      "producer": [
+        "reliability_robustness"
+      ],
+      "consumer": [
+        "reliability_validation"
+      ],
+      "reason": "Monitoring behaviour in production applies to builders (post-release) and consumers (the AI in use)."
+    },
+    "MEASURE 2.5": {
+      "producer": [
+        "fairness_safety_eval"
+      ],
+      "consumer": [
+        "reliability_validation"
+      ],
+      "reason": "Demonstrating validity and reliability and documenting limits applies to builders and to consumers before relying on a use."
+    },
+    "MEASURE 2.6": {
+      "producer": [
+        "fairness_safety_eval",
+        "reliability_robustness"
+      ],
+      "consumer": [
+        "reliability_validation",
+        "incident_recovery"
+      ],
+      "reason": "Safety evaluation and the ability to fail safely apply to both: stress testing for builders, validation and the ability to stop or fall back for consumers."
+    },
+    "MEASURE 2.7": {
+      "producer": [
+        "reliability_robustness",
+        "model_assets_ip"
+      ],
+      "consumer": [
+        "reliability_validation",
+        "ai_access_identity"
+      ],
+      "reason": "Security and resilience testing applies to both: red teaming and protection against model extraction for builders, hostile-input testing and authenticated, limited access for consumers."
+    },
+    "MEASURE 2.8": {
+      "producer": [
+        "reliability_robustness",
+        "ai_access_tools"
+      ],
+      "consumer": [
+        "use_context_impact",
+        "ai_access_identity"
+      ],
+      "reason": "Transparency and accountability measurement needs audit logs of what the AI did and human override statistics, for builders and for consumers."
+    },
+    "MEASURE 2.9": {
+      "producer": [
+        "fairness_safety_eval",
+        "release_distribution"
+      ],
+      "consumer": [
+        "use_context_impact"
+      ],
+      "reason": "Builders explain, validate and document the model (model cards); consumers apply it only through how outputs are interpreted and used."
+    },
+    "MEASURE 2.10": {
+      "producer": [
+        "training_data"
+      ],
+      "consumer": [
+        "data_exposure"
+      ],
+      "reason": "Privacy risk is asked as training-data privacy for builders and as what personal data reaches the AI, and how it is handled, for consumers."
+    },
+    "MEASURE 2.11": {
+      "producer": [
+        "fairness_safety_eval"
+      ],
+      "consumer": [
+        "use_context_impact"
+      ],
+      "reason": "Fairness testing is builder work; consumers apply it through how outputs are used in decisions about people."
+    },
+    "MEASURE 2.12": {
+      "producer": [
+        "intended_use_impact"
+      ],
+      "consumer": [],
+      "reason": "Environmental impact of training and operating a model is assessed by the builder; a consumer's footprint is the vendor's and has no practice question."
+    },
+    "MEASURE 2.13": {
+      "producer": [
+        "fairness_safety_eval"
+      ],
+      "consumer": [
+        "reliability_validation"
+      ],
+      "reason": "Evaluating whether TEVV metrics and processes work applies to builders and to consumers validating their uses."
+    },
+    "MEASURE 3.1": {
+      "producer": [
+        "reliability_robustness"
+      ],
+      "consumer": [
+        "reliability_validation"
+      ],
+      "reason": "Tracking existing and emergent risks against baselines and feedback applies to both roles."
+    },
+    "MEASURE 3.2": {
+      "producer": [
+        "reliability_robustness"
+      ],
+      "consumer": [
+        "reliability_validation"
+      ],
+      "reason": "Risk tracking where metrics are not yet available applies to both roles."
+    },
+    "MEASURE 3.3": {
+      "producer": [
+        "release_distribution"
+      ],
+      "consumer": [
+        "use_context_impact",
+        "incident_recovery"
+      ],
+      "reason": "Feedback and appeal channels: builders run issue intake for recipients; consumers give users a way to report problems and contest outcomes and track them."
+    },
+    "MEASURE 4.1": {
+      "producer": [
+        "fairness_safety_eval"
+      ],
+      "consumer": [
+        "reliability_validation"
+      ],
+      "reason": "Connecting measurement to the deployment context and consulting end users applies to both roles."
+    },
+    "MEASURE 4.2": {
+      "producer": [
+        "fairness_safety_eval"
+      ],
+      "consumer": [
+        "reliability_validation"
+      ],
+      "reason": "Validating trustworthiness results with domain experts and end users applies to both roles."
+    },
+    "MEASURE 4.3": {
+      "producer": [
+        "reliability_robustness"
+      ],
+      "consumer": [
+        "reliability_validation"
+      ],
+      "reason": "Baselines and tracking performance improvements or declines applies to both roles."
+    }
+  }
+}

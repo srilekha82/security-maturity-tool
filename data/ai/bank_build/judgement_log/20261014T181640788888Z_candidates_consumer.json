@@ -1,0 +1,76 @@
+{
+  "recorded_at": "2026-10-14T18:16:40.788746+00:00",
+  "step": "record_ai_bank_candidates",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_question_generator.md",
+      "sha": "0263979ea7829a77"
+    },
+    {
+      "path": "prompts/ai_rmf_question_evaluator.md",
+      "sha": "25e4cc7f1f399272"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/map22_record.json",
+    "sha": "6a8625b7cce05bf0"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_consumer.json",
+    "sha": "49c3f5653b586ac7"
+  },
+  "output_snapshot": {
+    "MAP 2.2": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "candidates": [
+        {
+          "question_text": "Describe how your organisation documents the settings, environments and conditions in which each AI system you use is not meant to be used. Where is this recorded, who maintains it, and how do users learn about it?",
+          "playbook_ref": "MAP 2.2 — suggested action 1",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance"
+        },
+        {
+          "question_text": "Describe how end users and the business owner were involved in defining the workflow, concept of operations and expectations for how staff should review or rely on the output of an AI tool. What feedback was captured, and where is it recorded?",
+          "playbook_ref": "MAP 2.2 — suggested action 2",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance"
+        },
+        {
+          "question_text": "Before an AI tool was put into use, how did you test the human review or approval step under conditions close to real use, and where are the results documented? Give an example of a change made as a result.",
+          "playbook_ref": "MAP 2.2 — suggested action 3",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance"
+        },
+        {
+          "question_text": "How do you check, after deployment, whether users correctly understand the outputs of an AI tool and whether it is meeting its documented purpose? Describe the feedback mechanism, how often it runs, and where results are recorded.",
+          "playbook_ref": "MAP 2.2 — suggested action 4",
+          "cis_refs": [],
+          "scope_tags": [],
+          "capability": "base",
+          "topic": "governance"
+        },
+        {
+          "question_text": "For AI systems that can call tools through MCP or similar, where do you record the external networks, including the internet, and the downstream systems each one is connected to, and who keeps that record current?",
+          "playbook_ref": "MAP 2.2 — suggested action 6",
+          "cis_refs": [
+            "MCP-3.8"
+          ],
+          "scope_tags": [],
+          "capability": "mcp",
+          "topic": "ai_access"
+        }
+      ],
+      "reason": "Q5: Topic ai_access does not fit: it asks where connections are recorded (a documentation/data-flow register, governance), not what the AI identity can reach or do; it also only asks where a record is kept and who updates it, and omits the negative-impact and go/no-go element of action 6."
+    }
+  }
+}

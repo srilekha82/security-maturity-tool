@@ -1,0 +1,13 @@
+{
+  "description": "What parse_ai_rmf_sources.py expects from the source files. A mismatch fails the parse; edit here, not in code, when a source is updated.",
+  "playbook": {"file": "AI_RMF_Playbook.pdf", "subcategories": 72},
+  "guides": {
+    "LLM": {"file": "CIS_Controls_v8.1_AI_and_LLM_Companion_Guide_April_2026.pdf", "applicability_header": "AI LLM Applicability"},
+    "MCP": {"file": "CIS_Controls_v8.1_Model_Context_Protocol_Companion_Guide_April_2026.pdf", "applicability_header": "MCP Applicability"},
+    "AGENT": {"file": "CIS_Controls_v8.1_AI_Agents_Companion_Guide_April_2026.pdf", "applicability_header": "AI Agent Applicability"}
+  },
+  "cis_v81_safeguards_per_control": {
+    "1": 5, "2": 7, "3": 14, "4": 12, "5": 6, "6": 8, "7": 7, "8": 12, "9": 7,
+    "10": 7, "11": 5, "12": 8, "13": 11, "14": 9, "15": 7, "16": 14, "17": 9, "18": 5
+  }
+}

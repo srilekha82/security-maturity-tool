@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+.DS_Store
+# client data
+runs/
+# CIS material is CC BY-NC-ND 4.0: internal non-commercial use only, do not redistribute
+data/ai/source/*.pdf
+data/ai/source/*.xlsx

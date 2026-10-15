@@ -1,0 +1,29 @@
+{
+  "_note": "NIST CSF 2.0 Tier definitions. Source: NIST.CSWP.29.pdf Section 2.4",
+  "tiers": {
+    "1": {
+      "name": "Partial",
+      "risk_management": "Ad hoc, reactive. Limited awareness of cybersecurity risk at organizational level.",
+      "integrated_risk": "Not integrated with organizational risk management.",
+      "external_participation": "No collaboration or information sharing with external parties."
+    },
+    "2": {
+      "name": "Risk Informed",
+      "risk_management": "Approved risk management practices exist but may not be organization-wide.",
+      "integrated_risk": "Cybersecurity risk awareness exists but not consistently applied.",
+      "external_participation": "Informal information sharing occurs."
+    },
+    "3": {
+      "name": "Repeatable",
+      "risk_management": "Formally approved and expressed as policy. Consistently updated.",
+      "integrated_risk": "Organization-wide approach. Risk-informed with senior leadership involvement.",
+      "external_participation": "Formal agreements for sharing cybersecurity information."
+    },
+    "4": {
+      "name": "Adaptive",
+      "risk_management": "Adapts based on lessons learned and predictive indicators.",
+      "integrated_risk": "Part of organizational culture. Proactive risk management.",
+      "external_participation": "Active real-time information sharing across the ecosystem."
+    }
+  }
+}

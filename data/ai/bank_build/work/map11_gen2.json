@@ -1,0 +1,12 @@
+{"MAP 1.1": {"candidates": [
+{"question_text": "Describe how your organisation documents the intended purpose, minimum functionality and expected benefits of an AI tool before it is adopted for a business use. Who writes it, and where is it recorded?",
+ "playbook_ref": "MAP 1.1 — suggested action 4", "cis_refs": [], "scope_tags": [], "capability": "base", "topic": "governance", "modifiers": []},
+{"question_text": "When a team proposes using an AI tool for a task, how do you decide whether a non-AI or non-technology alternative would give a more trustworthy outcome? Show a recent example of that comparison and who made the call.",
+ "playbook_ref": "MAP 1.1 — suggested action 5", "cis_refs": [], "scope_tags": [], "capability": "base", "topic": "governance", "modifiers": []},
+{"question_text": "How do you define and record the acceptable context of use for an AI system you use, including who is affected by its outputs and the potential positive and negative impacts on them? Where is that context analysis kept and how often is it revisited?",
+ "playbook_ref": "MAP 1.1 — suggested action 9", "cis_refs": [], "scope_tags": [], "capability": "base", "topic": "governance", "modifiers": []},
+{"question_text": "For each AI tool you use in business processes, how do you record whether it supports a human decision or replaces it? Show where that is documented for one current tool.",
+ "playbook_ref": "MAP 1.1 — suggested action 16", "cis_refs": [], "scope_tags": [], "capability": "base", "topic": "governance", "modifiers": []},
+{"question_text": "Before adopting an AI tool, how do you consider uses beyond the intended purpose that users might reasonably put it to, and who is involved in that discussion? Where are the conclusions recorded?",
+ "playbook_ref": "MAP 1.1 — suggested action 3", "cis_refs": [], "scope_tags": [], "capability": "base", "topic": "governance", "modifiers": []}
+]}}

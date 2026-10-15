@@ -1,0 +1,121 @@
+{
+  "bank": "consumer",
+  "enums": {
+    "topics": [
+      "governance",
+      "data_model",
+      "infra",
+      "reliability",
+      "ai_access"
+    ],
+    "capability": [
+      "base",
+      "rag",
+      "mcp",
+      "agentic"
+    ],
+    "scope_tags": [
+      "internal",
+      "code_generation",
+      "customer_facing",
+      "third_party_embedded"
+    ],
+    "modifiers": [
+      "builds_on_base_model",
+      "self_hosted",
+      "poc",
+      "unsanctioned_use"
+    ]
+  },
+  "definitions": {
+    "roles": {
+      "producer": "Builds AI models where the model is the product or a core asset, or where the model is distributed to others (API, open weights, embedded in products).",
+      "consumer": "Uses AI. Not a lower tier of producer: a different question set. Fine-tuning an existing model for own use (internal domain model, PoC) is consumer with the self_hosted modifier; a company whose product is a tuned model that others receive is a producer."
+    },
+    "capability": {
+      "base": "LLM use with no access beyond the prompt.",
+      "rag": "The LLM reads org data through retrieval (RAG, knowledge graph).",
+      "mcp": "The LLM has tools through MCP or similar: it can read, write and take actions.",
+      "agentic": "Operates with minimal human oversight; autonomous multi-step work.",
+      "note": "Each rung includes the ones below. A question's capability is the lowest rung at which it applies. Classic ML and vision models are out of scope."
+    },
+    "scope_tags": {
+      "internal": "Day-to-day business processes; output stays inside the org.",
+      "code_generation": "AI builds or maintains business applications; the output is a persistent executable artifact (insecure code, hallucinated dependencies, licensing, secrets, review gates).",
+      "customer_facing": "AI inside an app, or output reaching customers or end users, including calling a SaaS LLM API from the org's own app.",
+      "third_party_embedded": "AI bundled in a tool the org uses (ITSM, ticketing, RPA with a built-in LLM); less control, supply-chain focus.",
+      "note": "An empty list means the question applies to all usage contexts."
+    },
+    "modifiers": {
+      "builds_on_base_model": "Producer builds on an existing base model and inherits upstream risk (licence, inherited bias or safety gaps, base-model change or withdrawal).",
+      "self_hosted": "The org hosts the model or its infrastructure itself, so responsibility shifts from the provider to the org.",
+      "poc": "A proof of concept or experiment, often with real data, a larger exposure surface and fewer checks.",
+      "unsanctioned_use": "Shadow AI: use of AI tools nobody approved."
+    },
+    "topics": {
+      "governance": "Oversight, accountability, inventory, impact, third parties and release decisions.",
+      "data_model": "Data and model protection: RAG and knowledge-graph content, weights, fine-tuned models and prompts are assets.",
+      "infra": "Protecting where sensitive things are hosted; wording differs for SaaS vs self-hosted.",
+      "reliability": "Tuning, harness, guardrails, testing; wrong or hostile inputs and outputs, from normal model behaviour or from attack.",
+      "ai_access": "AI as a new identity with permissions (agents, MCP, RAG): what data it can reach, what it can do, whose permissions it uses, whether a human approves actions."
+    }
+  },
+  "items": [
+    {
+      "subcategory_id": "MANAGE 3.1",
+      "outcome": "AI risks and benefits from third-party resources are regularly monitored, and risk controls are applied and documented.",
+      "actions_preamble": "",
+      "suggested_actions": [
+        "Have legal requirements been addressed?",
+        "Apply organizational risk tolerance to third-party AI systems.",
+        "Apply and document organizational risk management plans and practices to third-party AI technology, personnel, or other resources.",
+        "Identify and maintain documentation for third-party AI systems and components.",
+        "Establish testing, evaluation, validation and verification processes for third-party AI systems which address the needs for transparency without exposing proprietary algorithms .",
+        "Establish processes to identify beneficial use and risk indicators in third-party systems or components, such as inconsistent software release schedule, sparse documentation, and incomplete software change management (e.g., lack of forward or backward compatibility).",
+        "Organizations can establish processes for third parties to report known and potential vulnerabilities, risks or biases in supplied resources.",
+        "Verify contingency processes for handling negative impacts associated with mission- critical third-party AI systems.",
+        "Monitor third-party AI systems for potential negative impacts and risks associated with trustworthiness characteristics.",
+        "Decommission third-party systems that exceed risk tolerances."
+      ],
+      "categories": [
+        {
+          "id": "third_party_supply",
+          "topic": "governance",
+          "covers": "Vendor AI features in tools the org uses, ability to opt out or control them, data flow to the vendor's model provider, vendor training on org data, contracts and assurances, upstream model changes or withdrawal."
+        }
+      ],
+      "cis_safeguards": [
+        {
+          "id": "LLM-15.5",
+          "title": "Assess Service Providers",
+          "ai_applicability": "Evaluate providers for rigorous data isolation, tenant segregation, and cross-modality safety defenses. Standard vendor assessments often miss AI-specific risks. Evaluations must verify that providers enforce strict multi-tenant isolation to prevent “data bleed-through” or inference cache contamination between customers. As models become multi- modal, providers must be assessed based on their ability to isolate multimodal inputs and prevent them from hijacking the model’s text-based system inst…"
+        },
+        {
+          "id": "LLM-15.6",
+          "title": "Monitor Service Providers",
+          "ai_applicability": "Continuously monitor AI service providers for changes in security posture, terms of service, or data handling practices. Ensures ongoing compliance with enterprise security requirements and allows for timely reaction to provider-side risks that could impact AI operations."
+        },
+        {
+          "id": "MCP-15.5",
+          "title": "Assess Service Providers",
+          "ai_applicability": "Assess third-party MCP server providers for compliance with security requirements including capability declaration accuracy, OAuth compliance, logging practices, and vulnerability management."
+        },
+        {
+          "id": "MCP-15.6",
+          "title": "Monitor Service Providers",
+          "ai_applicability": "Monitor third-party MCP server providers for security- relevant changes, including version updates, capability changes, authorization behavior changes, and advisories affecting MCP frameworks and dependencies. Review provider release notes and track risks introduced by new tools, resources, or prompts."
+        },
+        {
+          "id": "AGENT-15.6",
+          "title": "Monitor Service Providers",
+          "ai_applicability": "Monitor agent interactions with third-party services, including model calls, tool requests, retrieval pipelines, and file handling. Detect unexpected or excessive provider usage patterns. Conduct periodic reviews of provider controls, certifications, disclosure history, and architecture changes. Reevaluate risk when providers introduce new features or operational behaviors."
+        },
+        {
+          "id": "LLM-16.5",
+          "title": "Use Up-to-Date and Trusted Third-Party Software Components",
+          "ai_applicability": "Enforce strict integrity verification for all training data, model weights, and runtime components. In the AI supply chain, data functions as code. Using unvetted datasets invites “poisoning” attacks where adversaries embed backdoors directly into model logic. Equally critical is the runtime environment; model weights and custom operators (e.g., PyTorch pickles) are often capable of executing arbitrary code upon loading. Therefore, the SDLC must enforce a rigorous “chain of trust” that validate…"
+        }
+      ]
+    }
+  ]
+}

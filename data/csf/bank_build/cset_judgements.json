@@ -1,0 +1,510 @@
+{
+  "questions": {
+    "172": {
+      "fit": {
+        "GV.RM-01": {
+          "verdict": "accept",
+          "reason": "Board-level accountability for the security program evidences stakeholder-agreed risk management direction; closest of the four mappings."
+        },
+        "GV.RM-03": {
+          "verdict": "reject",
+          "reason": "About management accountability, not inclusion of cyber risk in enterprise risk management."
+        },
+        "GV.RM-06": {
+          "verdict": "reject",
+          "reason": "Does not test a standardized risk calculation or prioritization method."
+        },
+        "GV.RR-03": {
+          "verdict": "reject",
+          "reason": "Asks who is accountable, not whether resources are allocated."
+        }
+      },
+      "text_hash": "9fd9ea5ed9",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "200": {
+      "fit": {
+        "GV.PO-01": {
+          "verdict": "accept",
+          "reason": "Board-approved security policies directly evidence an established policy."
+        },
+        "GV.PO-02": {
+          "verdict": "reject",
+          "reason": "Asks whether policies exist and are approved, not whether they are reviewed, updated and enforced."
+        },
+        "PR.DS-01": {
+          "verdict": "reject",
+          "reason": "Generic policy question; says nothing about protecting data at rest."
+        },
+        "PR.PS-01": {
+          "verdict": "reject",
+          "reason": "Generic policy question; says nothing about configuration management."
+        }
+      },
+      "text_hash": "368e75e5a8",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "364": {
+      "fit": {
+        "PR.AA-05": {
+          "verdict": "accept",
+          "reason": "Controlled and monitored access to change system configurations is an access permission control."
+        },
+        "ID.AM-08": {
+          "verdict": "reject",
+          "reason": "Not about managing assets through their life cycle."
+        },
+        "PR.AA-01": {
+          "verdict": "reject",
+          "reason": "Not about issuing or managing identities and credentials."
+        },
+        "PR.PS-02": {
+          "verdict": "reject",
+          "reason": "Not about maintaining, replacing or removing software."
+        }
+      },
+      "text_hash": "f72b61eb13",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "403": {
+      "fit": {
+        "PR.AA-03": {
+          "verdict": "accept",
+          "reason": "MFA for remote access is user authentication."
+        },
+        "PR.DS-02": {
+          "verdict": "accept",
+          "reason": "Encrypted connections protect data in transit."
+        },
+        "PR.IR-01": {
+          "verdict": "accept",
+          "reason": "Remote access controls protect networks from unauthorized logical access."
+        },
+        "PR.AA-05": {
+          "verdict": "reject",
+          "reason": "About how remote users authenticate, not how permissions are defined and enforced."
+        },
+        "PR.DS-01": {
+          "verdict": "reject",
+          "reason": "Nothing about data at rest."
+        },
+        "PR.DS-10": {
+          "verdict": "reject",
+          "reason": "Nothing about data in use."
+        }
+      },
+      "text_hash": "b570e1bfab",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "495": {
+      "fit": {
+        "DE.CM-01": {
+          "verdict": "accept",
+          "reason": "Monitoring for unauthorized connections is network monitoring."
+        },
+        "DE.CM-03": {
+          "verdict": "accept",
+          "reason": "Monitoring for unauthorized users is personnel activity monitoring."
+        },
+        "DE.CM-09": {
+          "verdict": "accept",
+          "reason": "Monitoring for unauthorized devices and software covers computing hardware and software."
+        },
+        "DE.CM-06": {
+          "verdict": "reject",
+          "reason": "Nothing about external service providers."
+        }
+      },
+      "text_hash": "e35f6233dd",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8503": {
+      "domains": [
+        "all"
+      ],
+      "reason": "General software-development security practice; any organisation that develops software can answer it.",
+      "rewrite": "Are all environments used in software development (development, build, test and distribution) logically separated from each other, for example through network segmentation and access controls? Which environments are covered, which are not, and who owns these controls?",
+      "text_hash": "e4e07a0c01",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8504": {
+      "domains": [
+        "all"
+      ],
+      "reason": "General software-development security practice; any organisation that develops software can answer it.",
+      "rewrite": "Do all software development environments and tooling have logging and monitoring in place, including for the trust relationships used for authorization and access? How often is this reviewed, and who owns the review?",
+      "fit": {
+        "DE.CM-03": {
+          "verdict": "accept",
+          "reason": "Monitoring technology usage in development environments."
+        },
+        "DE.CM-09": {
+          "verdict": "accept",
+          "reason": "Monitoring of development environments and tooling."
+        },
+        "PR.PS-04": {
+          "verdict": "accept",
+          "reason": "Log records generated and available for monitoring."
+        },
+        "DE.CM-06": {
+          "verdict": "reject",
+          "reason": "Nothing about external service providers."
+        }
+      },
+      "text_hash": "452a54bcb7",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8505": {
+      "domains": [
+        "all"
+      ],
+      "reason": "General software-development security practice; any organisation that develops software can answer it.",
+      "rewrite": "Is MFA, ideally phishing-resistant, required to access all software development environments? Which environments or user groups are not covered, and who owns this control?",
+      "fit": {
+        "PR.AA-03": {
+          "verdict": "accept",
+          "reason": "MFA is user authentication."
+        },
+        "PR.AA-01": {
+          "verdict": "reject",
+          "reason": "Not about managing identities and credentials."
+        },
+        "PR.AA-04": {
+          "verdict": "reject",
+          "reason": "Not about identity assertions."
+        },
+        "PR.AA-05": {
+          "verdict": "reject",
+          "reason": "Not about defining access permissions."
+        }
+      },
+      "text_hash": "316b7b6dd2",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8506": {
+      "domains": [
+        "all"
+      ],
+      "reason": "General software-development security practice; any organisation that develops software can answer it.",
+      "rewrite": "Does the organisation have documented processes, policies and procedures for managing the risks of software products used across its development environments, covering maintenance, replacement, removal, and checks of authenticity and integrity before use? Who owns them, and how is compliance evidenced?",
+      "fit": {
+        "ID.AM-08": {
+          "verdict": "accept",
+          "reason": "Software managed through its life cycle."
+        },
+        "ID.RA-09": {
+          "verdict": "accept",
+          "reason": "Authenticity and integrity of software assessed before use."
+        },
+        "PR.PS-02": {
+          "verdict": "accept",
+          "reason": "Software maintained, replaced and removed per policy."
+        },
+        "PR.PS-05": {
+          "verdict": "reject",
+          "reason": "About preventing unauthorized software, which the practice does not require."
+        }
+      },
+      "text_hash": "23d4cb256a",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8507": {
+      "domains": [
+        "all"
+      ],
+      "reason": "General software-development security practice; any organisation that develops software can answer it.",
+      "rewrite": "How are credentials and sensitive data used in software development environments stored and transmitted? Are any kept in source code or in plaintext, how are SSH keys stored and rotated, and who owns this?",
+      "fit": {
+        "PR.DS-01": {
+          "verdict": "accept",
+          "reason": "Encrypted storage of credentials protects data at rest."
+        },
+        "PR.DS-02": {
+          "verdict": "accept",
+          "reason": "Secure transmission of credentials protects data in transit."
+        },
+        "ID.AM-08": {
+          "verdict": "reject",
+          "reason": "Not about asset life cycle."
+        },
+        "PR.DS-10": {
+          "verdict": "reject",
+          "reason": "Not about data in use."
+        }
+      },
+      "text_hash": "e2ae9e4108",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8508": {
+      "domains": [
+        "all"
+      ],
+      "reason": "General software-development security practice; any organisation that develops software can answer it.",
+      "rewrite": "Does the organisation monitor its environments for indicators of compromise, and have an incident response playbook with criteria for declaring incidents, defined roles and stakeholder notification? Is there a designated incident response team that runs table-top exercises, and how often?",
+      "fit": {
+        "DE.CM-01": {
+          "verdict": "accept",
+          "reason": "Monitoring networks for indicators of compromise."
+        },
+        "DE.CM-09": {
+          "verdict": "accept",
+          "reason": "Monitoring hardware and software for indicators of compromise."
+        },
+        "DE.CM-03": {
+          "verdict": "reject",
+          "reason": "Practice is about environment monitoring, not personnel activity."
+        },
+        "DE.CM-06": {
+          "verdict": "reject",
+          "reason": "Nothing about external service providers."
+        }
+      },
+      "text_hash": "9f6f36179f",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8509": {
+      "domains": [
+        "all"
+      ],
+      "reason": "General software-development security practice; any organisation that develops software can answer it.",
+      "rewrite": "Is there a software supply chain risk management program built into the software development lifecycle, including code testing and audits of supply chain practices? Who owns it, and how are the activities documented?",
+      "fit": {
+        "GV.SC-01": {
+          "verdict": "accept",
+          "reason": "A supply chain risk management program is the practice itself."
+        },
+        "GV.SC-07": {
+          "verdict": "accept",
+          "reason": "Code testing and audits assess and monitor supplier-related risk."
+        },
+        "GV.SC-09": {
+          "verdict": "accept",
+          "reason": "Supply chain practices integrated into the lifecycle."
+        },
+        "GV.SC-02": {
+          "verdict": "reject",
+          "reason": "About roles and responsibilities."
+        },
+        "GV.SC-03": {
+          "verdict": "reject",
+          "reason": "About enterprise risk management integration, not the SDLC."
+        },
+        "GV.SC-04": {
+          "verdict": "reject",
+          "reason": "About knowing and prioritizing suppliers."
+        },
+        "GV.SC-05": {
+          "verdict": "reject",
+          "reason": "About contractual requirements."
+        },
+        "GV.SC-06": {
+          "verdict": "reject",
+          "reason": "About pre-contract due diligence."
+        },
+        "GV.SC-08": {
+          "verdict": "reject",
+          "reason": "About incident planning with suppliers."
+        },
+        "GV.SC-10": {
+          "verdict": "reject",
+          "reason": "About post-contract activities."
+        },
+        "ID.AM-02": {
+          "verdict": "reject",
+          "reason": "About software inventories."
+        }
+      },
+      "text_hash": "61afdb10f3",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8510": {
+      "domains": [
+        "saas_cloud",
+        "manufacturing_ot"
+      ],
+      "reason": "Applies to organisations that ship software products to customers, not to every organisation.",
+      "rewrite": "Does the organisation develop a Software Bill of Materials (SBOM) for its products and provide it to customers with each product? Who owns this?",
+      "text_hash": "b9f7fbfef5",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8511": {
+      "domains": [
+        "all"
+      ],
+      "reason": "General software-development security practice; any organisation that develops software can answer it.",
+      "rewrite": "Is source code inspected for vulnerabilities with automated tools or comparable processes (for example SAST, DAST and software composition analysis), and are known vulnerabilities mitigated before any release or update? Which products or pipelines are covered, and who owns this?",
+      "fit": {
+        "PR.PS-06": {
+          "verdict": "accept",
+          "reason": "Secure development practices integrated and monitored."
+        },
+        "ID.AM-02": {
+          "verdict": "reject",
+          "reason": "About inventories."
+        },
+        "ID.AM-08": {
+          "verdict": "reject",
+          "reason": "About life cycle management."
+        },
+        "ID.RA-09": {
+          "verdict": "reject",
+          "reason": "About acquisition-time assessment."
+        },
+        "PR.PS-02": {
+          "verdict": "reject",
+          "reason": "About maintaining software, not testing it."
+        }
+      },
+      "text_hash": "a5d8b65917",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8512": {
+      "domains": [
+        "all"
+      ],
+      "reason": "General software-development security practice; any organisation that develops software can answer it.",
+      "rewrite": "Is there a documented process or policy that governs what happens when a security vulnerability is found before a product release, and is it followed? Who owns it, and how is it evidenced?",
+      "fit": {
+        "ID.RA-05": {
+          "verdict": "accept",
+          "reason": "Using vulnerabilities to prioritise risk responses before release."
+        },
+        "ID.AM-08": {
+          "verdict": "reject",
+          "reason": "Not about asset life cycle."
+        },
+        "ID.RA-01": {
+          "verdict": "reject",
+          "reason": "About identifying vulnerabilities, not acting on them."
+        },
+        "ID.RA-04": {
+          "verdict": "reject",
+          "reason": "About impact and likelihood analysis."
+        }
+      },
+      "text_hash": "b94c4f27fd",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8513": {
+      "domains": [
+        "saas_cloud",
+        "manufacturing_ot"
+      ],
+      "reason": "Applies to organisations that ship software products to customers, not to every organisation.",
+      "rewrite": "Has the organisation published a vulnerability disclosure policy for its products that authorises good-faith testing, provides a clear reporting channel and allows coordinated public disclosure? How are disclosed vulnerabilities addressed in a timely way?",
+      "fit": {
+        "ID.RA-08": {
+          "verdict": "accept",
+          "reason": "A vulnerability disclosure policy is a process for receiving and responding to disclosures."
+        },
+        "ID.RA-01": {
+          "verdict": "reject",
+          "reason": "About finding vulnerabilities internally."
+        },
+        "ID.RA-04": {
+          "verdict": "reject",
+          "reason": "About impact analysis."
+        },
+        "ID.RA-05": {
+          "verdict": "reject",
+          "reason": "About risk prioritisation."
+        }
+      },
+      "text_hash": "fba72a222f",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8514": {
+      "domains": [
+        "saas_cloud",
+        "manufacturing_ot"
+      ],
+      "reason": "Applies to organisations that ship software products to customers, not to every organisation.",
+      "rewrite": "What does the organisation do to increase the use of MFA among users and administrators of its products, for example enabling it by default or supporting standards-based single sign-on? Who owns this?",
+      "text_hash": "1d395e3986",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8515": {
+      "domains": [
+        "saas_cloud",
+        "manufacturing_ot"
+      ],
+      "reason": "Applies to organisations that ship software products to customers, not to every organisation.",
+      "rewrite": "Do the organisation's software products ship with default passwords? If not, what approach replaces them, for example unique initial passwords per instance or a required password change at installation?",
+      "text_hash": "fd78653c09",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8516": {
+      "domains": [
+        "saas_cloud",
+        "manufacturing_ot"
+      ],
+      "reason": "Applies to organisations that ship software products to customers, not to every organisation.",
+      "rewrite": "What approaches does the organisation take to reduce entire classes of vulnerabilities in its software, for example parameterised queries, memory-safe languages or web template frameworks? Who owns this?",
+      "text_hash": "9a3de4935e",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8517": {
+      "domains": [
+        "saas_cloud",
+        "manufacturing_ot"
+      ],
+      "reason": "Applies to organisations that ship software products to customers, not to every organisation.",
+      "rewrite": "Does the organisation provide security patches to customers in a timely manner and on a widespread basis? What is the target timeframe, and how is delivery evidenced?",
+      "text_hash": "edc6cec503",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8518": {
+      "domains": [
+        "saas_cloud",
+        "manufacturing_ot"
+      ],
+      "reason": "Applies to organisations that ship software products to customers, not to every organisation.",
+      "rewrite": "Does the organisation notify customers, and confirm receipt, when products are nearing end of life and security patches will no longer be provided? Who owns this process?",
+      "text_hash": "8e7ce933c3",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8519": {
+      "domains": [
+        "saas_cloud",
+        "manufacturing_ot"
+      ],
+      "reason": "Applies to organisations that ship software products to customers, not to every organisation.",
+      "rewrite": "Does the organisation include accurate CWE and CPE fields in every CVE record it publishes for its products, and issue CVEs in a timely manner for critical or high impact vulnerabilities that need customer action or are being actively exploited? Who owns this?",
+      "text_hash": "dfddbb66b1",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    },
+    "8520": {
+      "domains": [
+        "saas_cloud",
+        "manufacturing_ot"
+      ],
+      "reason": "Applies to organisations that ship software products to customers, not to every organisation.",
+      "rewrite": "Do all of the organisation's products, to the extent possible, have logging capabilities that let customers gather evidence of intrusions? Which products do not, and who owns closing those gaps?",
+      "text_hash": "82673d2b3a",
+      "judged_on": "2026-10-13",
+      "decided_by": "agent"
+    }
+  }
+}

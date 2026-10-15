@@ -1,0 +1,60 @@
+{
+  "description": "Policy for assigning a question type per CSF subcategory. compute_scope.py works out a STATE for each subcategory (a fact), then looks it up here. Change policy by editing this table, not the code.",
+  "function_order": ["GV", "ID", "PR", "DE", "RS", "RC"],
+  "domain_bump_steps": 1,
+  "max_questions": {"full_discovery": 4, "gap": 3, "confirmatory": 2},
+  "frames": {
+    "gap": "{cert} covers control(s) {controls}, which partially addresses this area. Beyond that coverage: {text}",
+    "confirmatory": "{cert} should cover control(s) {controls}. Please confirm and provide named evidence: {text}",
+    "no_controls": "existing controls",
+    "fallback_question": "How does your organisation address: {outcome}? Who owns this?"
+  },
+  "function_states": {"GV": "govern"},
+  "exclusion_classes": ["covered_elsewhere", "not_relevant", "unclear"],
+  "states": {
+    "govern": {
+      "type": "full_discovery", "confidence": "high",
+      "reason": "GV function — always full_discovery"
+    },
+    "no_cert": {
+      "type": "full_discovery", "confidence": "high",
+      "reason": "No certification — full discovery required"
+    },
+    "no_mapping": {
+      "type": "full_discovery", "confidence": "high",
+      "reason": "{cert}: no OLIR mapping"
+    },
+    "no_soa": {
+      "type": "confirmatory", "confidence": "LOW",
+      "reason": "{cert}: no SoA provided, OLIR mapped — assuming coverage"
+    },
+    "not_in_soa": {
+      "type": "confirmatory", "confidence": "LOW",
+      "reason": "{cert}: mapped controls not in SoA (mandatory clauses only) — assuming coverage"
+    },
+    "implemented": {
+      "type": "gap", "confidence": "high",
+      "reason": "{control} implemented per SoA"
+    },
+    "applicable_not_implemented": {
+      "type": "full_discovery", "confidence": "high",
+      "reason": "{control} applicable but not implemented per SoA"
+    },
+    "implementation_unknown": {
+      "type": "confirmatory", "confidence": "LOW",
+      "reason": "{control} applicable but implementation status not stated in SoA — confirm with evidence"
+    },
+    "covered_elsewhere": {
+      "type": "confirmatory", "confidence": "high",
+      "reason": "{control} excluded in SoA as covered elsewhere"
+    },
+    "not_relevant": {
+      "type": "full_discovery", "confidence": "high",
+      "reason": "{control} excluded in SoA as not relevant — assessor to check whether the outcome still applies"
+    },
+    "unclear": {
+      "type": "full_discovery", "confidence": "high",
+      "reason": "{control} excluded in SoA, reason unclear — assessor to check whether the outcome still applies"
+    }
+  }
+}

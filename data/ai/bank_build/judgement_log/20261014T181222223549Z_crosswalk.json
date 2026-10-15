@@ -1,0 +1,249 @@
+{
+  "recorded_at": "2026-10-14T18:12:22.223375+00:00",
+  "step": "record_ai_bank_crosswalk",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": null,
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_cis_linker.md",
+      "sha": "c52fa0878fe10aa0"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/crosswalk_verdicts.json",
+    "sha": "b1892005d009f310"
+  },
+  "store": {
+    "path": "data/ai/crosswalks/airmf_to_cis.json",
+    "sha": "b39f324884f92e02"
+  },
+  "output_snapshot": {
+    "GOVERN 1.1": [
+      "LLM-3.1",
+      "LLM-3.4"
+    ],
+    "GOVERN 1.2": [],
+    "GOVERN 1.3": [],
+    "GOVERN 1.4": [
+      "LLM-3.8",
+      "LLM-12.4"
+    ],
+    "GOVERN 1.5": [
+      "LLM-17.4",
+      "LLM-8.1",
+      "LLM-17.9"
+    ],
+    "GOVERN 1.6": [
+      "LLM-1.1",
+      "LLM-2.1",
+      "LLM-2.3",
+      "MCP-2.1",
+      "AGENT-2.1",
+      "AGENT-5.1"
+    ],
+    "GOVERN 1.7": [
+      "LLM-3.5",
+      "LLM-15.7",
+      "MCP-15.7",
+      "AGENT-15.7"
+    ],
+    "GOVERN 2.1": [],
+    "GOVERN 2.2": [
+      "LLM-14.1",
+      "LLM-14.4",
+      "LLM-14.9",
+      "MCP-14.9",
+      "AGENT-14.9"
+    ],
+    "GOVERN 2.3": [],
+    "GOVERN 3.1": [],
+    "GOVERN 3.2": [],
+    "GOVERN 4.1": [],
+    "GOVERN 4.2": [],
+    "GOVERN 4.3": [
+      "LLM-17.3",
+      "LLM-17.8",
+      "LLM-18.1"
+    ],
+    "GOVERN 5.1": [
+      "LLM-16.2"
+    ],
+    "GOVERN 5.2": [],
+    "GOVERN 6.1": [
+      "LLM-15.1",
+      "LLM-15.2",
+      "LLM-15.4",
+      "MCP-15.4",
+      "AGENT-15.4",
+      "LLM-16.4"
+    ],
+    "GOVERN 6.2": [
+      "LLM-15.6",
+      "LLM-17.4",
+      "MCP-15.6",
+      "AGENT-15.6"
+    ],
+    "MANAGE 1.1": [],
+    "MANAGE 1.2": [],
+    "MANAGE 1.3": [],
+    "MANAGE 1.4": [],
+    "MANAGE 2.1": [],
+    "MANAGE 2.2": [
+      "LLM-3.3",
+      "LLM-6.8",
+      "LLM-13.10",
+      "MCP-6.8",
+      "AGENT-6.8",
+      "AGENT-6.1"
+    ],
+    "MANAGE 2.3": [
+      "LLM-17.4",
+      "LLM-13.1",
+      "LLM-8.11",
+      "MCP-13.1",
+      "AGENT-13.1",
+      "AGENT-17.4"
+    ],
+    "MANAGE 2.4": [
+      "LLM-17.4",
+      "MCP-6.2",
+      "AGENT-6.2",
+      "AGENT-17.4"
+    ],
+    "MANAGE 3.1": [
+      "LLM-15.5",
+      "LLM-15.6",
+      "MCP-15.5",
+      "MCP-15.6",
+      "AGENT-15.6",
+      "LLM-16.5"
+    ],
+    "MANAGE 3.2": [
+      "LLM-16.4",
+      "LLM-16.5",
+      "LLM-15.6"
+    ],
+    "MANAGE 4.1": [
+      "LLM-8.11",
+      "LLM-13.1",
+      "LLM-17.4",
+      "LLM-18.1",
+      "MCP-8.11",
+      "AGENT-8.11"
+    ],
+    "MANAGE 4.2": [],
+    "MANAGE 4.3": [
+      "LLM-17.3",
+      "LLM-17.8",
+      "LLM-8.10",
+      "AGENT-17.8"
+    ],
+    "MAP 1.1": [],
+    "MAP 1.2": [],
+    "MAP 1.3": [],
+    "MAP 1.4": [],
+    "MAP 1.5": [],
+    "MAP 1.6": [],
+    "MAP 2.1": [],
+    "MAP 2.2": [
+      "LLM-12.4",
+      "LLM-3.8",
+      "MCP-3.8",
+      "AGENT-3.8",
+      "AGENT-12.2",
+      "MCP-12.2"
+    ],
+    "MAP 2.3": [],
+    "MAP 3.1": [],
+    "MAP 3.2": [],
+    "MAP 3.3": [],
+    "MAP 3.4": [
+      "LLM-14.9",
+      "AGENT-14.9"
+    ],
+    "MAP 3.5": [
+      "AGENT-6.8",
+      "AGENT-8.11",
+      "MCP-6.8"
+    ],
+    "MAP 4.1": [
+      "LLM-16.4",
+      "LLM-16.5",
+      "LLM-15.1",
+      "LLM-15.4",
+      "MCP-16.4",
+      "AGENT-16.4"
+    ],
+    "MAP 4.2": [
+      "LLM-15.5",
+      "LLM-16.5",
+      "LLM-16.11",
+      "MCP-15.5",
+      "AGENT-15.5",
+      "LLM-2.6"
+    ],
+    "MAP 5.1": [],
+    "MAP 5.2": [],
+    "MEASURE 1.1": [],
+    "MEASURE 1.2": [],
+    "MEASURE 1.3": [
+      "LLM-18.2"
+    ],
+    "MEASURE 2.1": [],
+    "MEASURE 2.2": [],
+    "MEASURE 2.3": [],
+    "MEASURE 2.4": [
+      "LLM-8.2",
+      "LLM-8.5",
+      "LLM-13.1",
+      "LLM-13.11",
+      "MCP-8.2",
+      "AGENT-8.2"
+    ],
+    "MEASURE 2.5": [],
+    "MEASURE 2.6": [
+      "LLM-17.7"
+    ],
+    "MEASURE 2.7": [
+      "LLM-7.1",
+      "LLM-8.2",
+      "LLM-18.1",
+      "LLM-16.13",
+      "MCP-16.13",
+      "AGENT-16.13"
+    ],
+    "MEASURE 2.8": [
+      "LLM-8.2",
+      "LLM-8.5",
+      "MCP-8.5",
+      "AGENT-8.5",
+      "AGENT-8.11",
+      "LLM-3.14"
+    ],
+    "MEASURE 2.9": [],
+    "MEASURE 2.10": [
+      "LLM-3.1",
+      "LLM-3.3",
+      "LLM-3.7",
+      "LLM-3.14",
+      "LLM-3.13",
+      "MCP-3.13"
+    ],
+    "MEASURE 2.11": [],
+    "MEASURE 2.12": [],
+    "MEASURE 2.13": [],
+    "MEASURE 3.1": [
+      "LLM-8.11",
+      "LLM-13.1"
+    ],
+    "MEASURE 3.2": [],
+    "MEASURE 3.3": [
+      "LLM-17.3",
+      "LLM-16.2"
+    ],
+    "MEASURE 4.1": [],
+    "MEASURE 4.2": [],
+    "MEASURE 4.3": []
+  }
+}

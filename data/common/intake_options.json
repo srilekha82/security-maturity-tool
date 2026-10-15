@@ -1,0 +1,56 @@
+{
+  "description": "Facts shared by the CSF and AI RMF tracks: the intake menus (scripts/intake.py turns the typed numbers into these values), the domains and certifications, and the question types in order of how demanding they are. Read through scripts/options.py; no script keeps its own copy.",
+  "severity_order": ["skip", "confirmatory", "gap", "full_discovery"],
+  "domains": [
+    {"value": "finance", "label": "Financial", "weight_key": "financial"},
+    {"value": "healthcare", "label": "Healthcare", "weight_key": "healthcare"},
+    {"value": "manufacturing_ot", "label": "Manufacturing / OT", "weight_key": "manufacturing_ot"},
+    {"value": "saas_cloud", "label": "SaaS / Cloud", "weight_key": "saas_cloud"},
+    {"value": "consulting", "label": "Consulting", "weight_key": "consulting"},
+    {"value": "other", "label": "Other", "weight_key": "other"}
+  ],
+  "certs": [
+    {"value": "none", "label": "None"},
+    {"value": "iso27001", "label": "ISO 27001", "file": "olir_iso27001.json"},
+    {"value": "pci_dss", "label": "PCI DSS", "file": "olir_pcidss.json"}
+  ],
+  "questions": [
+    {"key": "domain", "prompt": "Domain", "multi": false, "options": "domains"},
+    {"key": "certs", "prompt": "Certifications held (pick all that apply, e.g. \"2 3\")", "multi": true, "options": "certs"},
+    {"key": "ai_in_use", "prompt": "AI in use (the gate)", "multi": false,
+     "options": [
+       {"value": "none", "label": "None - no AI in use or planned"},
+       {"value": "some", "label": "Some - AI is in use, or being built or piloted"},
+       {"value": "unsure", "label": "Unsure - not known (shadow use is possible)"}]},
+    {"key": "role", "prompt": "Role", "multi": false, "ask_if": {"ai_in_use": "some"},
+     "options": [
+       {"value": "consumer", "label": "Consumer - uses AI (including fine-tuning an existing model for own use)"},
+       {"value": "producer", "label": "Producer - builds models that are the product or a core asset, or distributes models to others"},
+       {"value": "both", "label": "Both"}]},
+    {"key": "rung", "prompt": "Highest technology rung reached (each includes the ones below)", "multi": false,
+     "ask_if": {"ai_in_use": "some"},
+     "options": [
+       {"value": "base", "label": "base - LLM use, no access beyond the prompt"},
+       {"value": "rag", "label": "rag - the LLM reads org data through retrieval (RAG, knowledge graph)"},
+       {"value": "mcp", "label": "mcp - the LLM has tools: it can read, write and take actions"},
+       {"value": "agentic", "label": "agentic - operates with minimal human oversight; autonomous multi-step work"}]},
+    {"key": "usage_contexts", "prompt": "Usage contexts (pick all that apply)", "multi": true,
+     "ask_if": {"ai_in_use": "some"},
+     "options": [
+       {"value": "internal", "label": "internal - day-to-day business processes; output stays inside the org"},
+       {"value": "code_generation", "label": "code_generation - AI builds or maintains business applications"},
+       {"value": "customer_facing", "label": "customer_facing - AI inside an app, or output reaching customers (including calling a SaaS LLM API from your own app)"},
+       {"value": "third_party_embedded", "label": "third_party_embedded - AI bundled in a tool you use (ITSM, ticketing, RPA with a built-in LLM)"}]},
+    {"key": "modifiers", "prompt": "Modifiers (pick all that apply, or leave blank for none)", "multi": true, "optional": true,
+     "ask_if": {"ai_in_use": "some"},
+     "options": [
+       {"value": "poc", "label": "poc - any PoCs or experiments running"},
+       {"value": "self_hosted", "label": "self_hosted - you host the model or its infrastructure yourself (including a fine-tuned model)"},
+       {"value": "builds_on_base_model", "label": "builds_on_base_model - producers only: you build on an existing base model"},
+       {"value": "unsanctioned_use", "label": "unsanctioned_use - shadow AI is known or suspected"}]},
+    {"key": "csf_assessment_done", "prompt": "Is the CSF assessment part of this engagement and done before the AI RMF assessment?",
+     "multi": false, "options": [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]},
+    {"key": "iso42001_held", "prompt": "Does the org hold ISO/IEC 42001?",
+     "multi": false, "options": [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]}
+  ]
+}

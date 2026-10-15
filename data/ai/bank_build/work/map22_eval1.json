@@ -1,0 +1,1 @@
+[{"subcategory_id": "MAP 2.2", "question_number": 5, "check": 3, "reason": "capability is rag but the question covers systems that call tools (needs mcp), and cis_refs MCP-3.8/AGENT-3.8 are above the tagged rung; also chains sources, networks, downstream systems and pre-go-live review into one question."}]

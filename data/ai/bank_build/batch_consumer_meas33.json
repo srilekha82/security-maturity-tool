@@ -1,0 +1,102 @@
+{
+  "bank": "consumer",
+  "enums": {
+    "topics": [
+      "governance",
+      "data_model",
+      "infra",
+      "reliability",
+      "ai_access"
+    ],
+    "capability": [
+      "base",
+      "rag",
+      "mcp",
+      "agentic"
+    ],
+    "scope_tags": [
+      "internal",
+      "code_generation",
+      "customer_facing",
+      "third_party_embedded"
+    ],
+    "modifiers": [
+      "builds_on_base_model",
+      "self_hosted",
+      "poc",
+      "unsanctioned_use"
+    ]
+  },
+  "definitions": {
+    "roles": {
+      "producer": "Builds AI models where the model is the product or a core asset, or where the model is distributed to others (API, open weights, embedded in products).",
+      "consumer": "Uses AI. Not a lower tier of producer: a different question set. Fine-tuning an existing model for own use (internal domain model, PoC) is consumer with the self_hosted modifier; a company whose product is a tuned model that others receive is a producer."
+    },
+    "capability": {
+      "base": "LLM use with no access beyond the prompt.",
+      "rag": "The LLM reads org data through retrieval (RAG, knowledge graph).",
+      "mcp": "The LLM has tools through MCP or similar: it can read, write and take actions.",
+      "agentic": "Operates with minimal human oversight; autonomous multi-step work.",
+      "note": "Each rung includes the ones below. A question's capability is the lowest rung at which it applies. Classic ML and vision models are out of scope."
+    },
+    "scope_tags": {
+      "internal": "Day-to-day business processes; output stays inside the org.",
+      "code_generation": "AI builds or maintains business applications; the output is a persistent executable artifact (insecure code, hallucinated dependencies, licensing, secrets, review gates).",
+      "customer_facing": "AI inside an app, or output reaching customers or end users, including calling a SaaS LLM API from the org's own app.",
+      "third_party_embedded": "AI bundled in a tool the org uses (ITSM, ticketing, RPA with a built-in LLM); less control, supply-chain focus.",
+      "note": "An empty list means the question applies to all usage contexts."
+    },
+    "modifiers": {
+      "builds_on_base_model": "Producer builds on an existing base model and inherits upstream risk (licence, inherited bias or safety gaps, base-model change or withdrawal).",
+      "self_hosted": "The org hosts the model or its infrastructure itself, so responsibility shifts from the provider to the org.",
+      "poc": "A proof of concept or experiment, often with real data, a larger exposure surface and fewer checks.",
+      "unsanctioned_use": "Shadow AI: use of AI tools nobody approved."
+    },
+    "topics": {
+      "governance": "Oversight, accountability, inventory, impact, third parties and release decisions.",
+      "data_model": "Data and model protection: RAG and knowledge-graph content, weights, fine-tuned models and prompts are assets.",
+      "infra": "Protecting where sensitive things are hosted; wording differs for SaaS vs self-hosted.",
+      "reliability": "Tuning, harness, guardrails, testing; wrong or hostile inputs and outputs, from normal model behaviour or from attack.",
+      "ai_access": "AI as a new identity with permissions (agents, MCP, RAG): what data it can reach, what it can do, whose permissions it uses, whether a human approves actions."
+    }
+  },
+  "items": [
+    {
+      "subcategory_id": "MEASURE 3.3",
+      "outcome": "Feedback processes for end users and impacted communities to report problems and appeal system outcomes are established and integrated into AI system evaluation metrics.",
+      "actions_preamble": "",
+      "suggested_actions": [
+        "Measure efficacy of end user and operator error reporting processes.",
+        "Categorize and analyze type and rate of end user appeal requests and results.",
+        "Measure feedback activity participation rates and awareness of feedback activity availability.",
+        "Utilize feedback to analyze measurement approaches and determine subsequent courses of action.",
+        "Evaluate measurement approaches to determine efficacy for enhancing organizational understanding of real world impacts.",
+        "Analyze end user and community feedback in close collaboration with domain experts."
+      ],
+      "categories": [
+        {
+          "id": "use_context_impact",
+          "topic": "governance",
+          "covers": "Intended purpose and context of each AI use, who is affected, benefits and harms, impact assessment, fairness and bias in the way outputs are used, human oversight and review of outputs, transparency to users."
+        },
+        {
+          "id": "incident_recovery",
+          "topic": "reliability",
+          "covers": "Responding to AI incidents and harmful outputs, ability to suspend or roll back to a manual process, escalation and communication, post-incident learning, decommissioning."
+        }
+      ],
+      "cis_safeguards": [
+        {
+          "id": "LLM-17.3",
+          "title": "Establish and Maintain an Enterprise Process for Reporting Incidents",
+          "ai_applicability": "Define a clear process for employees to report suspected AI security incidents, including specific indicators to look for. Encourages timely reporting of anomalies, enabling the security team to investigate and contain threats earlier in the attack life cycle."
+        },
+        {
+          "id": "LLM-16.2",
+          "title": "Establish and Maintain a Process to Accept and Address Software Vulnerabilities",
+          "ai_applicability": "Monitor for published model/family vulnerabilities and update inventories accordingly. Vulnerabilities affecting specific model families, tokenizers, or serving frameworks must be tracked alongside traditional Common Vulnerabilities and Exposures (CVEs) to ensure timely mitigation."
+        }
+      ]
+    }
+  ]
+}

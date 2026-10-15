@@ -1,0 +1,32 @@
+{
+  "_note": "Priority weights per domain. Weight > 0 bumps question type one level up (skip→confirmatory, confirmatory→gap, gap→full_discovery).",
+  "healthcare": {
+    "PR.DS-01": 1,
+    "PR.DS-02": 1,
+    "RC.RP-01": 1,
+    "ID.RA-01": 1,
+    "GV.SC-01": 1
+  },
+  "financial": {
+    "PR.DS-01": 1,
+    "PR.DS-02": 1,
+    "RS.MI-01": 1,
+    "DE.CM-01": 1,
+    "GV.RM-01": 1
+  },
+  "manufacturing_ot": {
+    "DE.CM-01": 1,
+    "RC.RP-01": 1,
+    "PR.PS-01": 1,
+    "RS.MI-01": 1
+  },
+  "saas_cloud": {
+    "PR.DS-01": 1,
+    "PR.DS-02": 1,
+    "ID.AM-02": 1,
+    "GV.SC-01": 1,
+    "PR.AA-01": 1
+  },
+  "consulting": {},
+  "other": {}
+}

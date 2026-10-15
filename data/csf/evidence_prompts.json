@@ -1,0 +1,28 @@
+{
+  "description": "Evidence an assessor should ask for, by CSF category. Used by build_questions.py; the default is used for any category not listed.",
+  "default": "Policy document, tool screenshot, or named process owner",
+  "by_category": {
+    "GV.OC": "Strategic plans, board minutes, mission statement",
+    "GV.RM": "Risk register, risk appetite statement, risk committee charter",
+    "GV.RR": "Org chart, RACI, job descriptions with security responsibilities",
+    "GV.PO": "Cybersecurity policy with version history and approval sign-off",
+    "GV.OV": "Audit report, management review minutes, KPI dashboard",
+    "GV.SC": "Supplier list, vendor contracts with security clauses, TPRM policy",
+    "ID.AM": "Asset inventory (hardware/software/data), CMDB export",
+    "ID.RA": "Risk assessment report, threat model, vulnerability scan results",
+    "ID.IM": "Improvement log, lessons-learned records, corrective action register",
+    "PR.AA": "IAM policy, MFA config, access review records, PAM tool screenshots",
+    "PR.AT": "Training completion records, security awareness metrics, phishing test results",
+    "PR.DS": "Data classification policy, DLP config, encryption standards",
+    "PR.PS": "Hardening standards, patch management reports, config baselines",
+    "PR.IR": "Network architecture diagrams, segmentation rules, capacity and resilience test records",
+    "DE.AE": "SIEM alert rules, anomaly detection config, baseline definitions",
+    "DE.CM": "Monitoring dashboards, log retention policy, alert tickets",
+    "RS.MA": "Incident response plan, escalation matrix, communication templates",
+    "RS.AN": "Incident post-mortem reports, forensic tool list, chain of custody",
+    "RS.CO": "Breach notification procedures, regulator contact list",
+    "RS.MI": "Containment runbooks, eradication procedures, recovery checklists",
+    "RC.RP": "Business continuity plan, RTO/RPO targets, recovery test records",
+    "RC.CO": "Stakeholder communication plan, post-incident report"
+  }
+}

@@ -1,0 +1,3223 @@
+{
+  "domain": "finance",
+  "cset_commit": "e6e79b1862adf46307f0263d74e93bdbe25185b8",
+  "built_on": "2026-10-13",
+  "total_subcategories": 106,
+  "with_candidates": 68,
+  "empty": 38,
+  "pending_judgements": 0,
+  "questions": {
+    "GV.OC-01": {
+      "subcategory_text": "The organizational mission is understood and informs cybersecurity risk management",
+      "iso_mapping": [
+        "Mandatory Clause: 4.1",
+        "Mandatory Clause: 6.1",
+        "Mandatory Clause: 8.1",
+        "Mandatory Clause: 8.2",
+        "Mandatory Clause: 8.3"
+      ],
+      "evidence_prompt": "Strategic plans, board minutes, mission statement",
+      "candidates": [
+        {
+          "cset_question_id": 185,
+          "question_text": "The board or an appropriate board committee ensures management’s annual cybersecurity self-assessment evaluates the institution’s ability to meet its cyber risk management standards.",
+          "category": "Governance",
+          "sub_category": "Oversight",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 205,
+          "question_text": "The institution has a formal cybersecurity program that is based on technology and security industry standards or benchmarks.",
+          "category": "Governance",
+          "sub_category": "Strategy / Policies",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 209,
+          "question_text": "The cybersecurity strategy is incorporated into, or conceptually fits within, the institution’s enterprise-wide risk management strategy.",
+          "category": "Governance",
+          "sub_category": "Strategy / Policies",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 217,
+          "question_text": "The cybersecurity strategy identifies and communicates the institution's role as it relates to other critical infrastructures.",
+          "category": "Governance",
+          "sub_category": "Strategy / Policies",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "GV.OC-02": {
+      "subcategory_text": "Internal and external stakeholders are understood, and their needs and expectations regarding cybersecurity risk management are understood and considered",
+      "iso_mapping": [
+        "Mandatory Clause: 4.1",
+        "Mandatory Clause: 4.2",
+        "Mandatory Clause: 4.4",
+        "Mandatory Clause: 6.1",
+        "Mandatory Clause: 8.1",
+        "Mandatory Clause: 8.2",
+        "Mandatory Clause: 8.3"
+      ],
+      "evidence_prompt": "Strategic plans, board minutes, mission statement",
+      "candidates": [
+        {
+          "cset_question_id": 203,
+          "question_text": "All elements of the information security program are coordinated enterprise-wide.",
+          "category": "Governance",
+          "sub_category": "Strategy / Policies",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 560,
+          "question_text": "Contracts acknowledge that the third party is responsible for the security of the institution’s confidential data that it possesses, stores, processes, or transmits.",
+          "category": "Relationship Management",
+          "sub_category": "Contracts",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 563,
+          "question_text": "Contracts establish responsibilities for responding to security incidents.",
+          "category": "Relationship Management",
+          "sub_category": "Contracts",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "GV.OC-03": {
+      "subcategory_text": "Legal, regulatory, and contractual requirements regarding cybersecurity - including privacy and civil liberties obligations - are understood and managed",
+      "iso_mapping": [
+        "Annex A Controls: 5.20",
+        "Annex A Controls: 5.31",
+        "Mandatory Clause: 4.2(a)",
+        "Mandatory Clause: 4.2(b)"
+      ],
+      "evidence_prompt": "Strategic plans, board minutes, mission statement",
+      "candidates": [
+        {
+          "cset_question_id": 178,
+          "question_text": "Management is responsible for ensuring compliance with legal and regulatory requirements related to cybersecurity.",
+          "category": "Governance",
+          "sub_category": "Oversight",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 349,
+          "question_text": "Information-sharing agreements are used as needed or required to facilitate sharing threat information with other financial sector organizations or third parties.",
+          "category": "Information Sharing",
+          "sub_category": "Information Sharing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "GV.OC-04": {
+      "subcategory_text": "Critical objectives, capabilities, and services that external stakeholders depend on or expect from the organization are understood and communicated",
+      "iso_mapping": [
+        "Annex A Controls: 5.20",
+        "Annex A Controls: 5.31",
+        "Mandatory Clause: 4.2(a)",
+        "Mandatory Clause: 4.2(b)"
+      ],
+      "evidence_prompt": "Strategic plans, board minutes, mission statement",
+      "candidates": [
+        {
+          "cset_question_id": 219,
+          "question_text": "Organizational assets (e.g., hardware, systems, data, and applications) are prioritized for protection based on the data classification and business value.",
+          "category": "Governance",
+          "sub_category": "IT Asset Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 532,
+          "question_text": "The critical business processes that are dependent on external connectivity have been identified.",
+          "category": "Connections",
+          "sub_category": "Connections",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 625,
+          "question_text": "Tools and processes are in place to detect, alert, and trigger the incident response program.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 629,
+          "question_text": "Incidents are detected in real time through automated processes that include instant alerts to appropriate personnel who can respond.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "GV.OC-05": {
+      "subcategory_text": "Outcomes, capabilities, and services that the organization depends on are understood and communicated",
+      "iso_mapping": [
+        "Annex A Controls: 5.3",
+        "Control 5.8",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Strategic plans, board minutes, mission statement",
+      "candidates": [
+        {
+          "cset_question_id": 214,
+          "question_text": "The cybersecurity strategy identifies and communicates the institution’s role as a component of critical infrastructure in the financial services industry.",
+          "category": "Governance",
+          "sub_category": "Strategy / Policies",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 219,
+          "question_text": "Organizational assets (e.g., hardware, systems, data, and applications) are prioritized for protection based on the data classification and business value.",
+          "category": "Governance",
+          "sub_category": "IT Asset Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 532,
+          "question_text": "The critical business processes that are dependent on external connectivity have been identified.",
+          "category": "Connections",
+          "sub_category": "Connections",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "GV.OV-01": {
+      "subcategory_text": "Cybersecurity risk management strategy outcomes are reviewed to inform and adjust strategy and direction",
+      "iso_mapping": [
+        "Annex A Controls: 5.1",
+        "Annex A Controls: 5.19",
+        "Control 5.24",
+        "Control 5.5",
+        "Control 5.6",
+        "Mandatory Clause: 9.1"
+      ],
+      "evidence_prompt": "Audit report, management review minutes, KPI dashboard",
+      "candidates": []
+    },
+    "GV.OV-02": {
+      "subcategory_text": "The cybersecurity risk management strategy is reviewed and adjusted to ensure coverage of organizational requirements and risks",
+      "iso_mapping": [
+        "Annex A Controls: 5.1",
+        "Annex A Controls: 5.19",
+        "Control 5.27",
+        "Control 5.35",
+        "Control 5.36",
+        "Mandatory Clause: 9.1"
+      ],
+      "evidence_prompt": "Audit report, management review minutes, KPI dashboard",
+      "candidates": []
+    },
+    "GV.OV-03": {
+      "subcategory_text": "Organizational cybersecurity risk management performance is evaluated and reviewed for adjustments needed",
+      "iso_mapping": [
+        "Annex A Controls: 5.1",
+        "Annex A Controls: 5.19",
+        "Annex A Controls: 5.20",
+        "Control 8.30",
+        "Control 8.32",
+        "Control 8.34",
+        "Mandatory Clause: 9.1"
+      ],
+      "evidence_prompt": "Audit report, management review minutes, KPI dashboard",
+      "candidates": []
+    },
+    "GV.PO-01": {
+      "subcategory_text": "Policy for managing cybersecurity risks is established based on organizational context, cybersecurity strategy, and priorities and is communicated and enforced",
+      "iso_mapping": [
+        "Annex A Controls: 5.1",
+        "Control 5.1",
+        "Control 5.37",
+        "Control 6.1",
+        "Control 6.2",
+        "Control 6.4",
+        "Control 6.5",
+        "Control 6.7",
+        "Control 6.8",
+        "Mandatory Clause: 5.2"
+      ],
+      "evidence_prompt": "Cybersecurity policy with version history and approval sign-off",
+      "candidates": [
+        {
+          "cset_question_id": 200,
+          "question_text": "The institution has board-approved policies commensurate with its risk and complexity that address information security.",
+          "category": "Governance",
+          "sub_category": "Strategy / Policies",
+          "model_name": "ACET",
+          "decided_by": "agent",
+          "reworded": false
+        }
+      ]
+    },
+    "GV.PO-02": {
+      "subcategory_text": "Policy for managing cybersecurity risks is reviewed, updated, communicated, and enforced to reflect changes in requirements, threats, technology, and organizational mission",
+      "iso_mapping": [
+        "Annex A Controls: 5.1",
+        "Control 5.31",
+        "Control 5.32",
+        "Control 5.34",
+        "Mandatory Clause: 5.2"
+      ],
+      "evidence_prompt": "Cybersecurity policy with version history and approval sign-off",
+      "candidates": []
+    },
+    "GV.RM-01": {
+      "subcategory_text": "Risk management objectives are established and agreed to by organizational stakeholders",
+      "iso_mapping": [
+        "Annex A Controls: 5.1",
+        "Mandatory Clause: 6.1.1",
+        "Mandatory Clause: 6.1.2"
+      ],
+      "evidence_prompt": "Risk register, risk appetite statement, risk committee charter",
+      "candidates": [
+        {
+          "cset_question_id": 172,
+          "question_text": "Designated members of management are held accountable by the board or an appropriate board committee for implementing and managing the information security and business continuity programs.",
+          "category": "Governance",
+          "sub_category": "Oversight",
+          "model_name": "ACET",
+          "decided_by": "agent",
+          "reworded": false
+        }
+      ]
+    },
+    "GV.RM-02": {
+      "subcategory_text": "Risk appetite and risk tolerance statements are established, communicated, and maintained",
+      "iso_mapping": [
+        "Annex A Controls: 5.1",
+        "Mandatory Clause: 6.1.2"
+      ],
+      "evidence_prompt": "Risk register, risk appetite statement, risk committee charter",
+      "candidates": [
+        {
+          "cset_question_id": 183,
+          "question_text": "The institution has a cyber risk appetite statement approved by the board or an appropriate board committee.",
+          "category": "Governance",
+          "sub_category": "Oversight",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 215,
+          "question_text": "The risk appetite is informed by the institution’s role in critical infrastructure.",
+          "category": "Governance",
+          "sub_category": "Strategy / Policies",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "GV.RM-03": {
+      "subcategory_text": "Cybersecurity risk management activities and outcomes are included in enterprise risk management processes",
+      "iso_mapping": [
+        "Annex A Controls: 5.1",
+        "Mandatory Clause: 6.1.3"
+      ],
+      "evidence_prompt": "Risk register, risk appetite statement, risk committee charter",
+      "candidates": [
+        {
+          "cset_question_id": 174,
+          "question_text": "Management provides a written report on the overall status of the information security and business continuity programs to the board or an appropriate board committee at least annually.",
+          "category": "Governance",
+          "sub_category": "Oversight",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 177,
+          "question_text": "At least annually, the board or an appropriate board committee reviews\nand approves the institution’s cybersecurity program.",
+          "category": "Governance",
+          "sub_category": "Oversight",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 181,
+          "question_text": "The board or an appropriate board committee has cybersecurity expertise or engages experts to assist with oversight responsibilities.",
+          "category": "Governance",
+          "sub_category": "Oversight",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 183,
+          "question_text": "The institution has a cyber risk appetite statement approved by the board or an appropriate board committee.",
+          "category": "Governance",
+          "sub_category": "Oversight",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 204,
+          "question_text": "The institution augmented its information security strategy to incorporate cybersecurity and resilience.",
+          "category": "Governance",
+          "sub_category": "Strategy / Policies",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "GV.RM-04": {
+      "subcategory_text": "Strategic direction that describes appropriate risk response options is established and communicated",
+      "iso_mapping": [
+        "Annex A Controls: 5.1",
+        "Mandatory Clause: 6.1.3"
+      ],
+      "evidence_prompt": "Risk register, risk appetite statement, risk committee charter",
+      "candidates": [
+        {
+          "cset_question_id": 183,
+          "question_text": "The institution has a cyber risk appetite statement approved by the board or an appropriate board committee.",
+          "category": "Governance",
+          "sub_category": "Oversight",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "GV.RM-05": {
+      "subcategory_text": "Lines of communication across the organization are established for cybersecurity risks, including risks from suppliers and other third parties",
+      "iso_mapping": [
+        "Annex A Controls: 5.1",
+        "Annex A Controls: 5.19",
+        "Mandatory Clause: 6.1.1",
+        "Mandatory Clause: 6.1.3"
+      ],
+      "evidence_prompt": "Risk register, risk appetite statement, risk committee charter",
+      "candidates": []
+    },
+    "GV.RM-06": {
+      "subcategory_text": "A standardized method for calculating, documenting, categorizing, and prioritizing cybersecurity risks is established and communicated",
+      "iso_mapping": [
+        "Annex A Controls: 5.1",
+        "Mandatory Clause: 6.1.2"
+      ],
+      "evidence_prompt": "Risk register, risk appetite statement, risk committee charter",
+      "candidates": []
+    },
+    "GV.RM-07": {
+      "subcategory_text": "Strategic opportunities (i.e., positive risks) are characterized and are included in organizational cybersecurity risk discussions",
+      "iso_mapping": [
+        "Annex A Controls: None",
+        "Mandatory Clause: 6.11"
+      ],
+      "evidence_prompt": "Risk register, risk appetite statement, risk committee charter",
+      "candidates": []
+    },
+    "GV.RR-01": {
+      "subcategory_text": "Organizational leadership is responsible and accountable for cybersecurity risk and fosters a culture that is risk-aware, ethical, and continually improving",
+      "iso_mapping": [
+        "Annex A Controls: 5.4",
+        "Control 5.4",
+        "Mandatory Clause: 7.2"
+      ],
+      "evidence_prompt": "Org chart, RACI, job descriptions with security responsibilities",
+      "candidates": []
+    },
+    "GV.RR-02": {
+      "subcategory_text": "Roles, responsibilities, and authorities related to cybersecurity risk management are established, communicated, understood, and enforced",
+      "iso_mapping": [
+        "Annex A Controls: None",
+        "Control 5.2",
+        "Control 5.3",
+        "Mandatory Clause: 7.2"
+      ],
+      "evidence_prompt": "Org chart, RACI, job descriptions with security responsibilities",
+      "candidates": [
+        {
+          "cset_question_id": 203,
+          "question_text": "All elements of the information security program are coordinated enterprise-wide.",
+          "category": "Governance",
+          "sub_category": "Strategy / Policies",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 279,
+          "question_text": "Information security roles and responsibilities have been identified.",
+          "category": "Resources",
+          "sub_category": "Staffing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 304,
+          "question_text": "Management holds employees accountable for complying with the information security program.",
+          "category": "Training & Culture",
+          "sub_category": "Culture",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 496,
+          "question_text": "Responsibilities for monitoring and reporting suspicious systems activity have been assigned.",
+          "category": "Detective Controls",
+          "sub_category": "Event Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 560,
+          "question_text": "Contracts acknowledge that the third party is responsible for the security of the institution’s confidential data that it possesses, stores, processes, or transmits.",
+          "category": "Relationship Management",
+          "sub_category": "Contracts",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 563,
+          "question_text": "Contracts establish responsibilities for responding to security incidents.",
+          "category": "Relationship Management",
+          "sub_category": "Contracts",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "GV.RR-03": {
+      "subcategory_text": "Adequate resources are allocated commensurate with the cybersecurity risk strategy, roles, responsibilities, and policies",
+      "iso_mapping": [
+        "Control 6.6",
+        "Mandatory Clause: 7.1, 7.2"
+      ],
+      "evidence_prompt": "Org chart, RACI, job descriptions with security responsibilities",
+      "candidates": []
+    },
+    "GV.RR-04": {
+      "subcategory_text": "Cybersecurity is included in human resources practices",
+      "iso_mapping": [
+        "Annex A Controls: 6.1",
+        "Annex A Controls: 6.2",
+        "Annex A Controls: 6.3",
+        "Annex A Controls: 6.4",
+        "Annex A Controls: 6.5",
+        "Annex A Controls: 6.6",
+        "Annex A Controls: 6.7",
+        "Annex A Controls: 6.8",
+        "Mandatory Clause: 7.3"
+      ],
+      "evidence_prompt": "Org chart, RACI, job descriptions with security responsibilities",
+      "candidates": [
+        {
+          "cset_question_id": 284,
+          "question_text": "Employment candidates, contractors, and third parties are subject to background verification proportional to the confidentiality of the data accessed, business requirements, and acceptable risk.",
+          "category": "Resources",
+          "sub_category": "Staffing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "GV.SC-01": {
+      "subcategory_text": "A cybersecurity supply chain risk management program, strategy, objectives, policies, and processes are established and agreed to by organizational stakeholders",
+      "iso_mapping": [
+        "Annex A Controls: 5.1",
+        "Annex A Controls: 5.19",
+        "Annex A Controls: 5.20",
+        "Annex A Controls: 5.21",
+        "Annex A Controls: 5.22",
+        "Control 5.19",
+        "Control 5.21",
+        "Mandatory Clause: 8.1"
+      ],
+      "evidence_prompt": "Supplier list, vendor contracts with security clauses, TPRM policy",
+      "candidates": [
+        {
+          "cset_question_id": 8509,
+          "question_text": "Is there a software supply chain risk management program built into the software development lifecycle, including code testing and audits of supply chain practices? Who owns it, and how are the activities documented?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "GV.SC-02": {
+      "subcategory_text": "Cybersecurity roles and responsibilities for suppliers, customers, and partners are established, communicated, and coordinated internally and externally",
+      "iso_mapping": [
+        "Annex A Controls: 5.2",
+        "Annex A Controls: 5.4",
+        "Mandatory Clause: 5.3"
+      ],
+      "evidence_prompt": "Supplier list, vendor contracts with security clauses, TPRM policy",
+      "candidates": [
+        {
+          "cset_question_id": 279,
+          "question_text": "Information security roles and responsibilities have been identified.",
+          "category": "Resources",
+          "sub_category": "Staffing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 304,
+          "question_text": "Management holds employees accountable for complying with the information security program.",
+          "category": "Training & Culture",
+          "sub_category": "Culture",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "GV.SC-03": {
+      "subcategory_text": "Cybersecurity supply chain risk management is integrated into cybersecurity and enterprise risk management, risk assessment, and improvement processes",
+      "iso_mapping": [
+        "Annex A Controls: 5.1",
+        "Annex A Controls: 5.19",
+        "Annex A Controls: 5.20",
+        "Annex A Controls: 5.21",
+        "Mandatory Clause: 8.1"
+      ],
+      "evidence_prompt": "Supplier list, vendor contracts with security clauses, TPRM policy",
+      "candidates": []
+    },
+    "GV.SC-04": {
+      "subcategory_text": "Suppliers are known and prioritized by criticality",
+      "iso_mapping": [
+        "Annex A Controls: 5.19",
+        "Annex A Controls: 5.22",
+        "Mandatory Clause: 6.1.1",
+        "Mandatory Clause: 6.1.2",
+        "Mandatory Clause: 6.1.3"
+      ],
+      "evidence_prompt": "Supplier list, vendor contracts with security clauses, TPRM policy",
+      "candidates": []
+    },
+    "GV.SC-05": {
+      "subcategory_text": "Requirements to address cybersecurity risks in supply chains are established, prioritized, and integrated into contracts and other types of agreements with suppliers and other relevant third parties",
+      "iso_mapping": [
+        "Annex A Controls: 5.19",
+        "Annex A Controls: 5.20",
+        "Annex A Controls: 5.31",
+        "Control 5.20",
+        "Mandatory Clause: 4.2 (a)"
+      ],
+      "evidence_prompt": "Supplier list, vendor contracts with security clauses, TPRM policy",
+      "candidates": []
+    },
+    "GV.SC-06": {
+      "subcategory_text": "Planning and due diligence are performed to reduce risks before entering into formal supplier or other third-party relationships",
+      "iso_mapping": [
+        "Annex A Controls: 5.19",
+        "Annex A Controls: 5.20",
+        "Annex A Controls: 5.31",
+        "Mandatory Clause: 4.2 (a)"
+      ],
+      "evidence_prompt": "Supplier list, vendor contracts with security clauses, TPRM policy",
+      "candidates": []
+    },
+    "GV.SC-07": {
+      "subcategory_text": "The risks posed by a supplier, their products and services, and other third parties are understood, recorded, prioritized, assessed, responded to, and monitored over the course of the relationship",
+      "iso_mapping": [
+        "Annex A Controls: 5.19",
+        "Annex A Controls: 5.20",
+        "Annex A Controls: 5.31",
+        "Control 5.22",
+        "Mandatory Clause: 6.1.1",
+        "Mandatory Clause: 6.1.2",
+        "Mandatory Clause: 6.1.3"
+      ],
+      "evidence_prompt": "Supplier list, vendor contracts with security clauses, TPRM policy",
+      "candidates": [
+        {
+          "cset_question_id": 8509,
+          "question_text": "Is there a software supply chain risk management program built into the software development lifecycle, including code testing and audits of supply chain practices? Who owns it, and how are the activities documented?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "GV.SC-08": {
+      "subcategory_text": "Relevant suppliers and other third parties are included in incident planning, response, and recovery activities",
+      "iso_mapping": [
+        "Annex A Controls: 5.26",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Supplier list, vendor contracts with security clauses, TPRM policy",
+      "candidates": []
+    },
+    "GV.SC-09": {
+      "subcategory_text": "Supply chain security practices are integrated into cybersecurity and enterprise risk management programs, and their performance is monitored throughout the technology product and service life cycle",
+      "iso_mapping": [
+        "Annex A Controls: 5.19",
+        "Annex A Controls: 5.20",
+        "Annex A Controls: 5.21",
+        "Annex A Controls: 5.22",
+        "Mandatory Clause: 6.1.1",
+        "Mandatory Clause: 6.1.2"
+      ],
+      "evidence_prompt": "Supplier list, vendor contracts with security clauses, TPRM policy",
+      "candidates": [
+        {
+          "cset_question_id": 8509,
+          "question_text": "Is there a software supply chain risk management program built into the software development lifecycle, including code testing and audits of supply chain practices? Who owns it, and how are the activities documented?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "GV.SC-10": {
+      "subcategory_text": "Cybersecurity supply chain risk management plans include provisions for activities that occur after the conclusion of a partnership or service agreement",
+      "iso_mapping": [
+        "Annex A Controls: 5.19",
+        "Annex A Controls: 5.20",
+        "Annex A Controls: 5.21",
+        "Annex A Controls: 5.22",
+        "Mandatory Clause: 6.1.1",
+        "Mandatory Clause: 6.1.2",
+        "Mandatory Clause: 6.1.3"
+      ],
+      "evidence_prompt": "Supplier list, vendor contracts with security clauses, TPRM policy",
+      "candidates": []
+    },
+    "ID.AM-01": {
+      "subcategory_text": "Inventories of hardware managed by the organization are maintained",
+      "iso_mapping": [
+        "Annex A Controls: 5.9",
+        "Control 5.9",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Asset inventory (hardware/software/data), CMDB export",
+      "candidates": [
+        {
+          "cset_question_id": 218,
+          "question_text": "An inventory of organizational assets (e.g., hardware, software, data, and systems hosted externally) is maintained.",
+          "category": "Governance",
+          "sub_category": "IT Asset Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "ID.AM-02": {
+      "subcategory_text": "Inventories of software, services, and systems managed by the organization are maintained",
+      "iso_mapping": [
+        "Annex A Controls: 5.9",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Asset inventory (hardware/software/data), CMDB export",
+      "candidates": [
+        {
+          "cset_question_id": 218,
+          "question_text": "An inventory of organizational assets (e.g., hardware, software, data, and systems hosted externally) is maintained.",
+          "category": "Governance",
+          "sub_category": "IT Asset Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "ID.AM-03": {
+      "subcategory_text": "Representations of the organization's authorized network communication and internal and external network data flows are maintained",
+      "iso_mapping": [
+        "Annex A Controls: 5.14",
+        "Annex A Controls: 8.20",
+        "Annex A Controls: 8.21",
+        "Annex A Controls: 8.22",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Asset inventory (hardware/software/data), CMDB export",
+      "candidates": [
+        {
+          "cset_question_id": 493,
+          "question_text": "A normal network activity baseline is established.",
+          "category": "Detective Controls",
+          "sub_category": "Event Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 535,
+          "question_text": "Data flow diagrams are in place and document information flow to external parties.",
+          "category": "Connections",
+          "sub_category": "Connections",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 540,
+          "question_text": "A validated asset inventory is used to create comprehensive diagrams depicting data repositories, data flow, infrastructure, and connectivity.",
+          "category": "Connections",
+          "sub_category": "Connections",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "ID.AM-04": {
+      "subcategory_text": "Inventories of services provided by suppliers are maintained",
+      "iso_mapping": [
+        "Annex A Controls: 5.22",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Asset inventory (hardware/software/data), CMDB export",
+      "candidates": [
+        {
+          "cset_question_id": 534,
+          "question_text": "A network diagram is in place and identifies all external connections.",
+          "category": "Connections",
+          "sub_category": "Connections",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 549,
+          "question_text": "A list of third-party service providers is maintained.",
+          "category": "Relationship Management",
+          "sub_category": "Due Diligence",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "ID.AM-05": {
+      "subcategory_text": "Assets are prioritized based on classification, criticality, resources, and impact on the mission",
+      "iso_mapping": [
+        "Annex A Controls: 5.12",
+        "Annex A Controls: 5.13",
+        "Annex A Controls: 5.9",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Asset inventory (hardware/software/data), CMDB export",
+      "candidates": [
+        {
+          "cset_question_id": 219,
+          "question_text": "Organizational assets (e.g., hardware, systems, data, and applications) are prioritized for protection based on the data classification and business value.",
+          "category": "Governance",
+          "sub_category": "IT Asset Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "ID.AM-07": {
+      "subcategory_text": "Inventories of data and corresponding metadata for designated data types are maintained",
+      "iso_mapping": [
+        "Annex A Controls: 5.9",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Asset inventory (hardware/software/data), CMDB export",
+      "candidates": []
+    },
+    "ID.AM-08": {
+      "subcategory_text": "Systems, hardware, software, services, and data are managed throughout their life cycles",
+      "iso_mapping": [
+        "Annex A Controls: 5.12",
+        "Annex A Controls: 5.13",
+        "Annex A Controls: 5.19",
+        "Annex A Controls: 5.22",
+        "Annex A Controls: 5.8",
+        "Annex A Controls: 5.9",
+        "Annex A Controls: 7.10",
+        "Annex A Controls: 7.13",
+        "Annex A Controls: 7.14",
+        "Control 5.11",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Asset inventory (hardware/software/data), CMDB export",
+      "candidates": [
+        {
+          "cset_question_id": 223,
+          "question_text": "The institution has a documented asset life-cycle process that considers whether assets to be acquired have appropriate security safeguards.",
+          "category": "Governance",
+          "sub_category": "IT Asset Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 224,
+          "question_text": "The institution proactively manages system EOL (e.g., replacement) to limit security risks.",
+          "category": "Governance",
+          "sub_category": "IT Asset Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 406,
+          "question_text": "Data is disposed of or destroyed according to documented requirements and within expected time frames.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 441,
+          "question_text": "Developers working for the institution follow secure program coding practices, as part of a system development life cycle (SDLC), that meet industry standards.",
+          "category": "Preventative Controls",
+          "sub_category": "Secure Coding",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 445,
+          "question_text": "Security testing occurs at all post-design phases of the SDLC for all applications, including mobile applications. (*N/A if there is no software development.)",
+          "category": "Preventative Controls",
+          "sub_category": "Secure Coding",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 528,
+          "question_text": "The maintenance and repair of organizational assets are performed by authorized individuals with approved and controlled tools.",
+          "category": "Corrective Controls",
+          "sub_category": "Remediation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 529,
+          "question_text": "The maintenance and repair of organizational assets are logged in a timely manner.",
+          "category": "Corrective Controls",
+          "sub_category": "Remediation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 8506,
+          "question_text": "Does the organisation have documented processes, policies and procedures for managing the risks of software products used across its development environments, covering maintenance, replacement, removal, and checks of authenticity and integrity before use? Who owns them, and how is compliance evidenced?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "ID.IM-01": {
+      "subcategory_text": "Improvements are identified from evaluations",
+      "iso_mapping": [
+        "Annex A Controls: 5.35",
+        "Mandatory Clause: 10.1",
+        "Mandatory Clause: 10.2",
+        "Mandatory Clause: 9.2"
+      ],
+      "evidence_prompt": "Improvement log, lessons-learned records, corrective action register",
+      "candidates": []
+    },
+    "ID.IM-02": {
+      "subcategory_text": "Improvements are identified from security tests and exercises, including those done in coordination with suppliers and relevant third parties",
+      "iso_mapping": [
+        "Annex A Controls: 5.19",
+        "Annex A Controls: 5.35",
+        "Mandatory Clause: 10.1",
+        "Mandatory Clause: 10.2",
+        "Mandatory Clause: 9.2",
+        "Mandatory Clause: 9.3"
+      ],
+      "evidence_prompt": "Improvement log, lessons-learned records, corrective action register",
+      "candidates": [
+        {
+          "cset_question_id": 500,
+          "question_text": "Event detection processes are proven reliable.",
+          "category": "Detective Controls",
+          "sub_category": "Event Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 641,
+          "question_text": "Records are generated to support incident investigation and mitigation.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Response and Mitigation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 643,
+          "question_text": "Analysis of events is used to improve the institution's security measures and policies.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Response and Mitigation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "ID.IM-03": {
+      "subcategory_text": "Improvements are identified from execution of operational processes, procedures, and activities",
+      "iso_mapping": [
+        "Annex A Controls: 5.27",
+        "Mandatory Clause: 9.1"
+      ],
+      "evidence_prompt": "Improvement log, lessons-learned records, corrective action register",
+      "candidates": [
+        {
+          "cset_question_id": 190,
+          "question_text": "Management has a formal process to continuously improve cybersecurity oversight.",
+          "category": "Governance",
+          "sub_category": "Oversight",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 236,
+          "question_text": "Management reviews and uses the results of audits to improve existing cybersecurity policies, procedures, and controls.",
+          "category": "Risk Management",
+          "sub_category": "Risk Management Program",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 343,
+          "question_text": "Information security threats are gathered and shared with applicable internal employees.",
+          "category": "Information Sharing",
+          "sub_category": "Information Sharing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 347,
+          "question_text": "A representative from the institution participates in law enforcement or information-sharing organization meetings.",
+          "category": "Information Sharing",
+          "sub_category": "Information Sharing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 635,
+          "question_text": "Appropriate steps are taken to contain and control an incident to prevent further unauthorized access to or use of customer information.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Response and Mitigation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 651,
+          "question_text": "The institution’s risk management of significant cyber incidents results in limited to no disruptions to critical services.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Response and Mitigation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "ID.IM-04": {
+      "subcategory_text": "Incident response plans and other cybersecurity plans that affect operations are established, communicated, maintained, and improved",
+      "iso_mapping": [
+        "Annex A Controls: 5.24",
+        "Annex A Controls: 5.26",
+        "Annex A Controls: 5.27",
+        "Mandatory Clause: 9.1"
+      ],
+      "evidence_prompt": "Improvement log, lessons-learned records, corrective action register",
+      "candidates": [
+        {
+          "cset_question_id": 588,
+          "question_text": "The institution plans to use business continuity, disaster recovery, and data backup programs to recover operations following an incident.",
+          "category": "Incident Resilience Planning and Strategy",
+          "sub_category": "Planning",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 635,
+          "question_text": "Appropriate steps are taken to contain and control an incident to prevent further unauthorized access to or use of customer information.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Response and Mitigation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 641,
+          "question_text": "Records are generated to support incident investigation and mitigation.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Response and Mitigation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 643,
+          "question_text": "Analysis of events is used to improve the institution's security measures and policies.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Response and Mitigation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "ID.RA-01": {
+      "subcategory_text": "Vulnerabilities in assets are identified, validated, and recorded",
+      "iso_mapping": [
+        "Annex A Controls: 8.8",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Risk assessment report, threat model, vulnerability scan results",
+      "candidates": [
+        {
+          "cset_question_id": 254,
+          "question_text": "The focus of the risk assessment has expanded beyond customer information to address all information assets.",
+          "category": "Risk Management",
+          "sub_category": "Risk Assessment",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 314,
+          "question_text": "Threat information is used to monitor threats and vulnerabilities.",
+          "category": "Threat Intelligence",
+          "sub_category": "Threat Intelligence and Information",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 454,
+          "question_text": "Independent testing (including penetration testing and vulnerability scanning) is conducted according to the risk assessment for external-facing systems and the internal network.",
+          "category": "Detective Controls",
+          "sub_category": "Threat and Vulnerability Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 462,
+          "question_text": "Vulnerability scanning is conducted and analyzed before deployment/redeployment of new/existing devices.",
+          "category": "Detective Controls",
+          "sub_category": "Threat and Vulnerability Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 466,
+          "question_text": "Weekly vulnerability scanning is rotated among environments to scan all environments throughout the year.",
+          "category": "Detective Controls",
+          "sub_category": "Threat and Vulnerability Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 523,
+          "question_text": "Formal processes are in place to resolve weaknesses identified during penetration testing.",
+          "category": "Corrective Controls",
+          "sub_category": "Remediation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "ID.RA-02": {
+      "subcategory_text": "Cyber threat intelligence is received from information sharing forums and sources",
+      "iso_mapping": [
+        "Annex A Controls: 5.22",
+        "Annex A Controls: 5.7",
+        "Annex A Controls: 8.16",
+        "Control 5.7",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Risk assessment report, threat model, vulnerability scan results",
+      "candidates": [
+        {
+          "cset_question_id": 313,
+          "question_text": "The institution belongs or subscribes to a threat and vulnerability information sharing source(s) that provides information on threats (e.g., Financial Services Information Sharing and Analysis Center [FS-ISAC], U.S. Computer Emergency Readiness Team [US-CERT]).",
+          "category": "Threat Intelligence",
+          "sub_category": "Threat Intelligence and Information",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "ID.RA-03": {
+      "subcategory_text": "Internal and external threats to the organization are identified and recorded",
+      "iso_mapping": [
+        "Annex A Controls: 5.22",
+        "Annex A Controls: 5.7",
+        "Annex A Controls: 8.16",
+        "Mandatory Clause: 6.1.1",
+        "Mandatory Clause: 6.1.2",
+        "Mandatory Clause: 6.1.3"
+      ],
+      "evidence_prompt": "Risk assessment report, threat model, vulnerability scan results",
+      "candidates": [
+        {
+          "cset_question_id": 327,
+          "question_text": "A process is implemented to monitor threat information to discover emerging threats.",
+          "category": "Monitoring & Analyzing",
+          "sub_category": "Monitoring and Analyzing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 330,
+          "question_text": "Monitoring systems operate continuously with adequate support for efficient incident handling.",
+          "category": "Monitoring & Analyzing",
+          "sub_category": "Monitoring and Analyzing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 332,
+          "question_text": "A profile is created for each threat that identifies the likely intent, capability, and target of the threat.",
+          "category": "Monitoring & Analyzing",
+          "sub_category": "Monitoring and Analyzing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 471,
+          "question_text": "The institution is able to detect anomalous activities through monitoring across the environment.",
+          "category": "Detective Controls",
+          "sub_category": "Anomalous Activity Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "ID.RA-04": {
+      "subcategory_text": "Potential impacts and likelihoods of threats exploiting vulnerabilities are identified and recorded",
+      "iso_mapping": [
+        "Annex A Controls: None",
+        "Mandatory Clause: 6.1.1",
+        "Mandatory Clause: 6.1.2",
+        "Mandatory Clause: 6.1.3"
+      ],
+      "evidence_prompt": "Risk assessment report, threat model, vulnerability scan results",
+      "candidates": [
+        {
+          "cset_question_id": 605,
+          "question_text": "Systems, applications, and data recovery is tested at least annually.",
+          "category": "Incident Resilience Planning and Strategy",
+          "sub_category": "Testing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 656,
+          "question_text": "Incidents are classified, logged, and tracked.",
+          "category": "Escalation and Reporting",
+          "sub_category": "Escalation and Reporting",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "ID.RA-05": {
+      "subcategory_text": "Threats, vulnerabilities, likelihoods, and impacts are used to understand inherent risk and inform risk response prioritization",
+      "iso_mapping": [
+        "Annex A Controls: 5.7",
+        "Mandatory Clause: 6.1.1",
+        "Mandatory Clause: 6.1.2",
+        "Mandatory Clause: 6.1.3"
+      ],
+      "evidence_prompt": "Risk assessment report, threat model, vulnerability scan results",
+      "candidates": [
+        {
+          "cset_question_id": 250,
+          "question_text": "A risk assessment focused on safeguarding customer information identifies reasonable and foreseeable internal and external threats, the likelihood and potential damage of threats, and the sufficiency of policies, procedures, and customer information systems.",
+          "category": "Risk Management",
+          "sub_category": "Risk Assessment",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 253,
+          "question_text": "Risk assessments are used to identify the cybersecurity risks stemming from new products, services, or relationships.",
+          "category": "Risk Management",
+          "sub_category": "Risk Assessment",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 254,
+          "question_text": "The focus of the risk assessment has expanded beyond customer information to address all information assets.",
+          "category": "Risk Management",
+          "sub_category": "Risk Assessment",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 8512,
+          "question_text": "Is there a documented process or policy that governs what happens when a security vulnerability is found before a product release, and is it followed? Who owns it, and how is it evidenced?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "ID.RA-06": {
+      "subcategory_text": "Risk responses are chosen, prioritized, planned, tracked, and communicated",
+      "iso_mapping": [
+        "Annex A Controls: 5.7",
+        "Mandatory Clause: 6.13"
+      ],
+      "evidence_prompt": "Risk assessment report, threat model, vulnerability scan results",
+      "candidates": [
+        {
+          "cset_question_id": 253,
+          "question_text": "Risk assessments are used to identify the cybersecurity risks stemming from new products, services, or relationships.",
+          "category": "Risk Management",
+          "sub_category": "Risk Assessment",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 588,
+          "question_text": "The institution plans to use business continuity, disaster recovery, and data backup programs to recover operations following an incident.",
+          "category": "Incident Resilience Planning and Strategy",
+          "sub_category": "Planning",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 606,
+          "question_text": "Recovery scenarios include plans to recover from data destruction and impacts to data integrity, data loss, and system and data availability.",
+          "category": "Incident Resilience Planning and Strategy",
+          "sub_category": "Testing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 627,
+          "question_text": "The incident response program is triggered when anomalous behaviors and attack patterns or signatures are detected.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "ID.RA-07": {
+      "subcategory_text": "Changes and exceptions are managed, assessed for risk impact, recorded, and tracked",
+      "iso_mapping": [
+        "Annex A Controls: 8.32",
+        "Mandatory Clause: 6.1.3"
+      ],
+      "evidence_prompt": "Risk assessment report, threat model, vulnerability scan results",
+      "candidates": [
+        {
+          "cset_question_id": 221,
+          "question_text": "A change management process is in place to request and approve changes to systems configurations, hardware, software, applications, and security tools.",
+          "category": "Governance",
+          "sub_category": "IT Asset Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "ID.RA-08": {
+      "subcategory_text": "Processes for receiving, analyzing, and responding to vulnerability disclosures are established",
+      "iso_mapping": [
+        "Annex A Controls: None",
+        "Mandatory Clause: 6.1.2"
+      ],
+      "evidence_prompt": "Risk assessment report, threat model, vulnerability scan results",
+      "candidates": []
+    },
+    "ID.RA-09": {
+      "subcategory_text": "The authenticity and integrity of hardware and software are assessed prior to acquisition and use",
+      "iso_mapping": [
+        "Annex A Controls: 5.19",
+        "Annex A Controls: 5.20",
+        "Annex A Controls: 5.22",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Risk assessment report, threat model, vulnerability scan results",
+      "candidates": [
+        {
+          "cset_question_id": 8506,
+          "question_text": "Does the organisation have documented processes, policies and procedures for managing the risks of software products used across its development environments, covering maintenance, replacement, removal, and checks of authenticity and integrity before use? Who owns them, and how is compliance evidenced?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "ID.RA-10": {
+      "subcategory_text": "Critical suppliers are assessed prior to acquisition",
+      "iso_mapping": [
+        "Annex A Controls: 5.19",
+        "Annex A Controls: 5.20",
+        "Annex A Controls: 5.22",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Risk assessment report, threat model, vulnerability scan results",
+      "candidates": []
+    },
+    "PR.AA-01": {
+      "subcategory_text": "Identities and credentials for authorized users, services, and hardware are managed by the organization",
+      "iso_mapping": [
+        "Annex A Controls: 5.15",
+        "Annex A Controls: 5.18",
+        "Annex A Controls: 8.2",
+        "Annex A Controls: 8.5",
+        "Control 5.16",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "IAM policy, MFA config, access review records, PAM tool screenshots",
+      "candidates": [
+        {
+          "cset_question_id": 394,
+          "question_text": "Identification and authentication are required and managed for access to systems, applications, and hardware.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "PR.AA-02": {
+      "subcategory_text": "Identities are proofed and bound to credentials based on the context of interactions",
+      "iso_mapping": [
+        "Annex A Controls: 8.2",
+        "Annex A Controls: 8.3",
+        "Annex A Controls: 8.5",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "IAM policy, MFA config, access review records, PAM tool screenshots",
+      "candidates": []
+    },
+    "PR.AA-03": {
+      "subcategory_text": "Users, services, and hardware are authenticated",
+      "iso_mapping": [
+        "Annex A Controls: 5.15",
+        "Annex A Controls: 5.16",
+        "Annex A Controls: 5.17",
+        "Annex A Controls: 5.18",
+        "Annex A Controls: 8.5",
+        "Control 5.17",
+        "Control 8.5",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "IAM policy, MFA config, access review records, PAM tool screenshots",
+      "candidates": [
+        {
+          "cset_question_id": 377,
+          "question_text": "Security controls are used for remote access to all administrative consoles, including restricted virtual systems.",
+          "category": "Preventative Controls",
+          "sub_category": "Infrastructure Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 403,
+          "question_text": "Remote access to critical systems by employees, contractors, and third parties uses encrypted connections and multifactor authentication.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "agent",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 434,
+          "question_text": "The institution wipes data remotely on mobile devices when a device is missing or stolen. (*N/A if mobile devices are not used.)",
+          "category": "Preventative Controls",
+          "sub_category": "Device / End-Point Security",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 8505,
+          "question_text": "Is MFA, ideally phishing-resistant, required to access all software development environments? Which environments or user groups are not covered, and who owns this control?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "PR.AA-04": {
+      "subcategory_text": "Identity assertions are protected, conveyed, and verified",
+      "iso_mapping": [
+        "Annex A Controls: 5.16",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "IAM policy, MFA config, access review records, PAM tool screenshots",
+      "candidates": []
+    },
+    "PR.AA-05": {
+      "subcategory_text": "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties",
+      "iso_mapping": [
+        "Annex A Controls: 5.1",
+        "Annex A Controls: 5.14",
+        "Annex A Controls: 5.15",
+        "Annex A Controls: 5.16",
+        "Annex A Controls: 5.17",
+        "Annex A Controls: 5.18",
+        "Annex A Controls: 5.3",
+        "Annex A Controls: 8.18",
+        "Annex A Controls: 8.2",
+        "Annex A Controls: 8.3",
+        "Annex A Controls: 8.5",
+        "Control 5.15",
+        "Control 5.18",
+        "Control 8.18",
+        "Control 8.2",
+        "Control 8.3",
+        "Control 8.4",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "IAM policy, MFA config, access review records, PAM tool screenshots",
+      "candidates": [
+        {
+          "cset_question_id": 364,
+          "question_text": "Access to make changes to systems configurations (including virtual machines and hypervisors) is controlled and monitored.",
+          "category": "Preventative Controls",
+          "sub_category": "Infrastructure Management",
+          "model_name": "ACET",
+          "decided_by": "agent",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 377,
+          "question_text": "Security controls are used for remote access to all administrative consoles, including restricted virtual systems.",
+          "category": "Preventative Controls",
+          "sub_category": "Infrastructure Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 389,
+          "question_text": "Employee access is granted to systems and confidential data based on job responsibilities and the principles of least privilege.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 390,
+          "question_text": "Employee access to systems and confidential data provides for separation of duties.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 393,
+          "question_text": "Changes to physical and logical user access, including those that result from voluntary and involuntary terminations, are submitted to and approved by appropriate personnel.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 394,
+          "question_text": "Identification and authentication are required and managed for access to systems, applications, and hardware.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 434,
+          "question_text": "The institution wipes data remotely on mobile devices when a device is missing or stolen. (*N/A if mobile devices are not used.)",
+          "category": "Preventative Controls",
+          "sub_category": "Device / End-Point Security",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "PR.AA-06": {
+      "subcategory_text": "Physical access to assets is managed, monitored, and enforced commensurate with risk",
+      "iso_mapping": [
+        "Annex A Controls: 7.1",
+        "Annex A Controls: 7.12",
+        "Annex A Controls: 7.2",
+        "Annex A Controls: 7.3",
+        "Annex A Controls: 7.4",
+        "Control 7.1",
+        "Control 7.2",
+        "Control 7.3",
+        "Control 7.4",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "IAM policy, MFA config, access review records, PAM tool screenshots",
+      "candidates": [
+        {
+          "cset_question_id": 358,
+          "question_text": "Network perimeter defense tools (e.g., border router and firewall) are used.",
+          "category": "Preventative Controls",
+          "sub_category": "Infrastructure Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 376,
+          "question_text": "The enterprise network is segmented in multiple, separate trust/security zones with defense-in-depth strategies (e.g., logical network segmentation, hard backups, air-gapping) to mitigate attacks.",
+          "category": "Preventative Controls",
+          "sub_category": "Infrastructure Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 399,
+          "question_text": "Physical security controls are used to prevent unauthorized access to information systems and telecommunication systems.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 404,
+          "question_text": "Administrative, physical, or technical controls are in place to prevent users without administrative responsibilities from installing unauthorized software.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "PR.AT-01": {
+      "subcategory_text": "Personnel are provided with awareness and training so that they possess the knowledge and skills to perform general tasks with cybersecurity risks in mind",
+      "iso_mapping": [
+        "Annex A Controls: 6.3",
+        "Control 6.3",
+        "Mandatory Clause: 7.3"
+      ],
+      "evidence_prompt": "Training completion records, security awareness metrics, phishing test results",
+      "candidates": [
+        {
+          "cset_question_id": 290,
+          "question_text": "Annual information security training includes incident response, current cyber threats (e.g., phishing, spear phishing, social engineering, and mobile security), and emerging issues.",
+          "category": "Training & Culture",
+          "sub_category": "Training",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 292,
+          "question_text": "Customer awareness materials are readily available (e.g., DHS’ Cybersecurity Awareness Month materials).",
+          "category": "Training & Culture",
+          "sub_category": "Training",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 299,
+          "question_text": "Cybersecurity awareness information is provided to retail customers and commercial clients at least annually.",
+          "category": "Training & Culture",
+          "sub_category": "Training",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 602,
+          "question_text": "The incident response process includes detailed actions and rule- based triggers for automated response.",
+          "category": "Incident Resilience Planning and Strategy",
+          "sub_category": "Planning",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "PR.AT-02": {
+      "subcategory_text": "Individuals in specialized roles are provided with awareness and training so that they possess the knowledge and skills to perform relevant tasks with cybersecurity risks in mind",
+      "iso_mapping": [
+        "Annex A Controls: 5.2",
+        "Annex A Controls: 6.3",
+        "Mandatory Clause: 7.3"
+      ],
+      "evidence_prompt": "Training completion records, security awareness metrics, phishing test results",
+      "candidates": [
+        {
+          "cset_question_id": 283,
+          "question_text": "Staff with cybersecurity responsibilities have the requisite qualifications to perform the necessary tasks of the position.",
+          "category": "Resources",
+          "sub_category": "Staffing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 292,
+          "question_text": "Customer awareness materials are readily available (e.g., DHS’ Cybersecurity Awareness Month materials).",
+          "category": "Training & Culture",
+          "sub_category": "Training",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 294,
+          "question_text": "Management is provided cybersecurity training relevant to their job responsibilities.",
+          "category": "Training & Culture",
+          "sub_category": "Training",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 295,
+          "question_text": "Employees with privileged account permissions receive additional cybersecurity training commensurate with their levels of responsibility.",
+          "category": "Training & Culture",
+          "sub_category": "Training",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 299,
+          "question_text": "Cybersecurity awareness information is provided to retail customers and commercial clients at least annually.",
+          "category": "Training & Culture",
+          "sub_category": "Training",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "PR.DS-01": {
+      "subcategory_text": "The confidentiality, integrity, and availability of data-at-rest are protected",
+      "iso_mapping": [
+        "Annex A Controls: 5.1",
+        "Annex A Controls: 5.10",
+        "Annex A Controls: 5.13",
+        "Annex A Controls: 5.14",
+        "Annex A Controls: 5.15",
+        "Annex A Controls: 5.3",
+        "Annex A Controls: 6.1",
+        "Annex A Controls: 6.2",
+        "Annex A Controls: 6.5",
+        "Annex A Controls: 7.10",
+        "Annex A Controls: 7.7",
+        "Annex A Controls: 8.17",
+        "Annex A Controls: 8.19",
+        "Annex A Controls: 8.2",
+        "Annex A Controls: 8.22",
+        "Annex A Controls: 8.26",
+        "Annex A Controls: 8.3",
+        "Annex A Controls: 8.4",
+        "Annex A Controls: 8.7",
+        "Annex A Controls: 8.8",
+        "Control 5.10",
+        "Control 5.12",
+        "Control 5.13",
+        "Control 5.33",
+        "Control 7.10",
+        "Control 7.9",
+        "Control 8.10",
+        "Control 8.11",
+        "Control 8.12",
+        "Control 8.13",
+        "Control 8.33",
+        "Mandatory Clause: 4.2(b)",
+        "Mandatory Clause: 5.2"
+      ],
+      "evidence_prompt": "Data classification policy, DLP config, encryption standards",
+      "candidates": [
+        {
+          "cset_question_id": 370,
+          "question_text": "Technical controls prevent unauthorized devices, including rogue wireless access devices and removable media, from connecting to the internal network(s).",
+          "category": "Preventative Controls",
+          "sub_category": "Infrastructure Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 402,
+          "question_text": "Mobile devices (e.g., laptops, tablets, and removable media) are encrypted if used to store confidential data. (*N/A if mobile devices are not used.)",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 412,
+          "question_text": "The institution has implemented tools to prevent unauthorized access to or exfiltration of confidential data.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 420,
+          "question_text": "Encryption of select data at rest is determined by the institution’s data classification and risk assessment.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 427,
+          "question_text": "Controls are in place to restrict the use of removable media to authorized personnel.",
+          "category": "Preventative Controls",
+          "sub_category": "Device / End-Point Security",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 435,
+          "question_text": "Data loss prevention controls or devices are implemented for inbound and outbound communications (e.g., e-mail, FTP, Telnet, prevention of large file transfers).",
+          "category": "Preventative Controls",
+          "sub_category": "Device / End-Point Security",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 436,
+          "question_text": "Mobile device management includes integrity scanning (e.g., jailbreak/rooted detection). (*N/A if mobile devices are not used.)",
+          "category": "Preventative Controls",
+          "sub_category": "Device / End-Point Security",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 448,
+          "question_text": "Software code executables and scripts are digitally signed to confirm the software author and guarantee that the code has not been altered or corrupted.",
+          "category": "Preventative Controls",
+          "sub_category": "Secure Coding",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 499,
+          "question_text": "Controls or tools (e.g., data loss prevention) are in place to detect potential unauthorized or unintentional transmissions of confidential data.",
+          "category": "Detective Controls",
+          "sub_category": "Event Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 559,
+          "question_text": "Formal contracts that address relevant security and privacy requirements are in place for all third parties that process, store, or transmit confidential data or provide critical services.",
+          "category": "Relationship Management",
+          "sub_category": "Contracts",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 8507,
+          "question_text": "How are credentials and sensitive data used in software development environments stored and transmitted? Are any kept in source code or in plaintext, how are SSH keys stored and rotated, and who owns this?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "PR.DS-02": {
+      "subcategory_text": "The confidentiality, integrity, and availability of data-in-transit are protected",
+      "iso_mapping": [
+        "Annex A Controls: 5.10",
+        "Annex A Controls: 5.13",
+        "Annex A Controls: 5.14",
+        "Annex A Controls: 5.15",
+        "Annex A Controls: 5.3",
+        "Annex A Controls: 6.1",
+        "Annex A Controls: 6.2",
+        "Annex A Controls: 6.5",
+        "Annex A Controls: 8.17",
+        "Annex A Controls: 8.2",
+        "Annex A Controls: 8.20",
+        "Annex A Controls: 8.22",
+        "Annex A Controls: 8.26",
+        "Annex A Controls: 8.3",
+        "Annex A Controls: 8.4",
+        "Control 5.14",
+        "Control 8.24",
+        "Mandatory Clause: 4.2(b)",
+        "Mandatory Clause: 5.2"
+      ],
+      "evidence_prompt": "Data classification policy, DLP config, encryption standards",
+      "candidates": [
+        {
+          "cset_question_id": 401,
+          "question_text": "Confidential data are encrypted when transmitted across public or untrusted networks (e.g., Internet).",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 403,
+          "question_text": "Remote access to critical systems by employees, contractors, and third parties uses encrypted connections and multifactor authentication.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "agent",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 412,
+          "question_text": "The institution has implemented tools to prevent unauthorized access to or exfiltration of confidential data.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 435,
+          "question_text": "Data loss prevention controls or devices are implemented for inbound and outbound communications (e.g., e-mail, FTP, Telnet, prevention of large file transfers).",
+          "category": "Preventative Controls",
+          "sub_category": "Device / End-Point Security",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 499,
+          "question_text": "Controls or tools (e.g., data loss prevention) are in place to detect potential unauthorized or unintentional transmissions of confidential data.",
+          "category": "Detective Controls",
+          "sub_category": "Event Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 8507,
+          "question_text": "How are credentials and sensitive data used in software development environments stored and transmitted? Are any kept in source code or in plaintext, how are SSH keys stored and rotated, and who owns this?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "PR.DS-10": {
+      "subcategory_text": "The confidentiality, integrity, and availability of data-in-use are protected",
+      "iso_mapping": [
+        "Annex A Controls: 5.10",
+        "Annex A Controls: 5.13",
+        "Annex A Controls: 5.14",
+        "Annex A Controls: 5.15",
+        "Annex A Controls: 5.3",
+        "Annex A Controls: 6.1",
+        "Annex A Controls: 6.2",
+        "Annex A Controls: 6.5",
+        "Annex A Controls: 8.17",
+        "Annex A Controls: 8.2",
+        "Annex A Controls: 8.22",
+        "Annex A Controls: 8.26",
+        "Annex A Controls: 8.3",
+        "Annex A Controls: 8.4",
+        "Control 5.23",
+        "Mandatory Clause: 4.2(b)",
+        "Mandatory Clause: 5.2"
+      ],
+      "evidence_prompt": "Data classification policy, DLP config, encryption standards",
+      "candidates": [
+        {
+          "cset_question_id": 412,
+          "question_text": "The institution has implemented tools to prevent unauthorized access to or exfiltration of confidential data.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 435,
+          "question_text": "Data loss prevention controls or devices are implemented for inbound and outbound communications (e.g., e-mail, FTP, Telnet, prevention of large file transfers).",
+          "category": "Preventative Controls",
+          "sub_category": "Device / End-Point Security",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 499,
+          "question_text": "Controls or tools (e.g., data loss prevention) are in place to detect potential unauthorized or unintentional transmissions of confidential data.",
+          "category": "Detective Controls",
+          "sub_category": "Event Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "PR.DS-11": {
+      "subcategory_text": "Backups of data are created, protected, maintained, and tested",
+      "iso_mapping": [
+        "Annex A Controls: 8.13",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Data classification policy, DLP config, encryption standards",
+      "candidates": [
+        {
+          "cset_question_id": 625,
+          "question_text": "Tools and processes are in place to detect, alert, and trigger the incident response program.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 646,
+          "question_text": "Processes are in place to ensure assets affected by a security incident that cannot be returned to operational status are quarantined, removed, disposed of, and/or replaced.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Response and Mitigation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "PR.IR-01": {
+      "subcategory_text": "Networks and environments are protected from unauthorized logical access and usage",
+      "iso_mapping": [
+        "Annex A Controls: 8.20",
+        "Annex A Controls: 8.21",
+        "Annex A Controls: 8.22",
+        "Control 8.20",
+        "Control 8.21",
+        "Control 8.22",
+        "Control 8.23",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Incident response plan, tabletop exercise records, playbooks",
+      "candidates": [
+        {
+          "cset_question_id": 358,
+          "question_text": "Network perimeter defense tools (e.g., border router and firewall) are used.",
+          "category": "Preventative Controls",
+          "sub_category": "Infrastructure Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 376,
+          "question_text": "The enterprise network is segmented in multiple, separate trust/security zones with defense-in-depth strategies (e.g., logical network segmentation, hard backups, air-gapping) to mitigate attacks.",
+          "category": "Preventative Controls",
+          "sub_category": "Infrastructure Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 377,
+          "question_text": "Security controls are used for remote access to all administrative consoles, including restricted virtual systems.",
+          "category": "Preventative Controls",
+          "sub_category": "Infrastructure Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 398,
+          "question_text": "Production and non-production environments are segregated to prevent unauthorized access or changes to information assets. (*N/A if no production environment exists at the institution or the institution’s third party.)",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 399,
+          "question_text": "Physical security controls are used to prevent unauthorized access to information systems and telecommunication systems.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 403,
+          "question_text": "Remote access to critical systems by employees, contractors, and third parties uses encrypted connections and multifactor authentication.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "agent",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 434,
+          "question_text": "The institution wipes data remotely on mobile devices when a device is missing or stolen. (*N/A if mobile devices are not used.)",
+          "category": "Preventative Controls",
+          "sub_category": "Device / End-Point Security",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 8503,
+          "question_text": "Are all environments used in software development (development, build, test and distribution) logically separated from each other, for example through network segmentation and access controls? Which environments are covered, which are not, and who owns these controls?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "PR.IR-02": {
+      "subcategory_text": "The organization's technology assets are protected from environmental threats",
+      "iso_mapping": [
+        "Annex A Controls: 7.5",
+        "Control 7.11",
+        "Control 7.12",
+        "Control 7.13",
+        "Control 7.14",
+        "Control 7.5",
+        "Control 7.6",
+        "Control 7.7",
+        "Control 7.8",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Incident response plan, tabletop exercise records, playbooks",
+      "candidates": [
+        {
+          "cset_question_id": 399,
+          "question_text": "Physical security controls are used to prevent unauthorized access to information systems and telecommunication systems.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "PR.IR-03": {
+      "subcategory_text": "Mechanisms are implemented to achieve resilience requirements in normal and adverse situations",
+      "iso_mapping": [
+        "Annex A Controls: 5.29",
+        "Annex A Controls: 8.14",
+        "Control 8.14",
+        "Control 8.17",
+        "Control 8.27",
+        "Mandatory Clause: 4.2(b)",
+        "Mandatory Clause: 6.1.1"
+      ],
+      "evidence_prompt": "Incident response plan, tabletop exercise records, playbooks",
+      "candidates": [
+        {
+          "cset_question_id": 8503,
+          "question_text": "Are all environments used in software development (development, build, test and distribution) logically separated from each other, for example through network segmentation and access controls? Which environments are covered, which are not, and who owns these controls?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "PR.IR-04": {
+      "subcategory_text": "Adequate resource capacity to ensure availability is maintained",
+      "iso_mapping": [
+        "Annex A Controls: 8.6",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Incident response plan, tabletop exercise records, playbooks",
+      "candidates": [
+        {
+          "cset_question_id": 371,
+          "question_text": "A risk-based solution is in place at the institution or Internet hosting provider to mitigate disruptive cyber-attacks (e.g., DDoS attacks).",
+          "category": "Preventative Controls",
+          "sub_category": "Infrastructure Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 625,
+          "question_text": "Tools and processes are in place to detect, alert, and trigger the incident response program.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 626,
+          "question_text": "The institution has processes to detect and alert the incident response team when potential insider activity manifests that could lead to data theft or destruction.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 629,
+          "question_text": "Incidents are detected in real time through automated processes that include instant alerts to appropriate personnel who can respond.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "PR.PS-01": {
+      "subcategory_text": "Configuration management practices are established and applied",
+      "iso_mapping": [
+        "Annex A Controls: 8.9",
+        "Control 8.8",
+        "Control 8.9",
+        "Mandatory Clause: 9.3"
+      ],
+      "evidence_prompt": "Hardening standards, patch management reports, config baselines",
+      "candidates": [
+        {
+          "cset_question_id": 221,
+          "question_text": "A change management process is in place to request and approve changes to systems configurations, hardware, software, applications, and security tools.",
+          "category": "Governance",
+          "sub_category": "IT Asset Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 362,
+          "question_text": "Systems configurations (for servers, desktops, routers, etc.) follow industry standards and are enforced.",
+          "category": "Preventative Controls",
+          "sub_category": "Infrastructure Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 370,
+          "question_text": "Technical controls prevent unauthorized devices, including rogue wireless access devices and removable media, from connecting to the internal network(s).",
+          "category": "Preventative Controls",
+          "sub_category": "Infrastructure Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 391,
+          "question_text": "Elevated privileges (e.g., administrator privileges) are limited and tightly controlled (e.g., assigned to individuals, not shared, and require stronger password controls).",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 392,
+          "question_text": "User access reviews are performed periodically for all systems and applications based on the risk to the application or system.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 395,
+          "question_text": "Access controls include password complexity and limits to password attempts and reuse.",
+          "category": "Preventative Controls",
+          "sub_category": "Access and Data Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 427,
+          "question_text": "Controls are in place to restrict the use of removable media to authorized personnel.",
+          "category": "Preventative Controls",
+          "sub_category": "Device / End-Point Security",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 579,
+          "question_text": "Third-party employee access to the institution's confidential data are tracked actively based on the principles of least privilege.",
+          "category": "Relationship Management",
+          "sub_category": "Ongoing Monitoring",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "PR.PS-02": {
+      "subcategory_text": "Software is maintained, replaced, and removed commensurate with risk",
+      "iso_mapping": [
+        "Annex A Controls: 5.9",
+        "Control 8.7",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Hardening standards, patch management reports, config baselines",
+      "candidates": [
+        {
+          "cset_question_id": 523,
+          "question_text": "Formal processes are in place to resolve weaknesses identified during penetration testing.",
+          "category": "Corrective Controls",
+          "sub_category": "Remediation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 8506,
+          "question_text": "Does the organisation have documented processes, policies and procedures for managing the risks of software products used across its development environments, covering maintenance, replacement, removal, and checks of authenticity and integrity before use? Who owns them, and how is compliance evidenced?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "PR.PS-03": {
+      "subcategory_text": "Hardware is maintained, replaced, and removed commensurate with risk",
+      "iso_mapping": [
+        "Annex A Controls: 5.9",
+        "Control 8.1",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Hardening standards, patch management reports, config baselines",
+      "candidates": [
+        {
+          "cset_question_id": 223,
+          "question_text": "The institution has a documented asset life-cycle process that considers whether assets to be acquired have appropriate security safeguards.",
+          "category": "Governance",
+          "sub_category": "IT Asset Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 224,
+          "question_text": "The institution proactively manages system EOL (e.g., replacement) to limit security risks.",
+          "category": "Governance",
+          "sub_category": "IT Asset Management",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 528,
+          "question_text": "The maintenance and repair of organizational assets are performed by authorized individuals with approved and controlled tools.",
+          "category": "Corrective Controls",
+          "sub_category": "Remediation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 529,
+          "question_text": "The maintenance and repair of organizational assets are logged in a timely manner.",
+          "category": "Corrective Controls",
+          "sub_category": "Remediation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "PR.PS-04": {
+      "subcategory_text": "Log records are generated and made available for continuous monitoring",
+      "iso_mapping": [
+        "Annex A Controls: 8.15",
+        "Annex A Controls: 8.17",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Hardening standards, patch management reports, config baselines",
+      "candidates": [
+        {
+          "cset_question_id": 199,
+          "question_text": "The institution has policies commensurate with its risk and complexity that address the concepts of threat information sharing.",
+          "category": "Governance",
+          "sub_category": "Strategy / Policies",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 325,
+          "question_text": "Audit log records and other security event logs are reviewed and retained in a secure manner.",
+          "category": "Monitoring & Analyzing",
+          "sub_category": "Monitoring and Analyzing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 326,
+          "question_text": "Computer event logs are used for investigations once an event has occurred.",
+          "category": "Monitoring & Analyzing",
+          "sub_category": "Monitoring and Analyzing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 8504,
+          "question_text": "Do all software development environments and tooling have logging and monitoring in place, including for the trust relationships used for authorization and access? How often is this reviewed, and who owns the review?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "PR.PS-05": {
+      "subcategory_text": "Installation and execution of unauthorized software are prevented",
+      "iso_mapping": [
+        "Annex A Controls: 8.19",
+        "Control 8.19",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Hardening standards, patch management reports, config baselines",
+      "candidates": []
+    },
+    "PR.PS-06": {
+      "subcategory_text": "Secure software development practices are integrated, and their performance is monitored throughout the software development life cycle",
+      "iso_mapping": [
+        "Annex A Controls: 8.25",
+        "Annex A Controls: 8.28",
+        "Control 8.25",
+        "Control 8.26",
+        "Control 8.28",
+        "Control 8.29",
+        "Control 8.31",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Hardening standards, patch management reports, config baselines",
+      "candidates": [
+        {
+          "cset_question_id": 441,
+          "question_text": "Developers working for the institution follow secure program coding practices, as part of a system development life cycle (SDLC), that meet industry standards.",
+          "category": "Preventative Controls",
+          "sub_category": "Secure Coding",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 445,
+          "question_text": "Security testing occurs at all post-design phases of the SDLC for all applications, including mobile applications. (*N/A if there is no software development.)",
+          "category": "Preventative Controls",
+          "sub_category": "Secure Coding",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 8503,
+          "question_text": "Are all environments used in software development (development, build, test and distribution) logically separated from each other, for example through network segmentation and access controls? Which environments are covered, which are not, and who owns these controls?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        },
+        {
+          "cset_question_id": 8511,
+          "question_text": "Is source code inspected for vulnerabilities with automated tools or comparable processes (for example SAST, DAST and software composition analysis), and are known vulnerabilities mitigated before any release or update? Which products or pipelines are covered, and who owns this?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "DE.AE-02": {
+      "subcategory_text": "Potentially adverse events are analyzed to better understand associated activities",
+      "iso_mapping": [
+        "Annex A Controls: 5.24",
+        "Annex A Controls: 5.25",
+        "Control 5.25",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "SIEM alert rules, anomaly detection config, baseline definitions",
+      "candidates": [
+        {
+          "cset_question_id": 635,
+          "question_text": "Appropriate steps are taken to contain and control an incident to prevent further unauthorized access to or use of customer information.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Response and Mitigation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "DE.AE-03": {
+      "subcategory_text": "Information is correlated from multiple sources",
+      "iso_mapping": [
+        "Annex A Controls: 8.15",
+        "Annex A Controls: 8.16",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "SIEM alert rules, anomaly detection config, baseline definitions",
+      "candidates": [
+        {
+          "cset_question_id": 498,
+          "question_text": "A process is in place to correlate event information from multiple sources (e.g., network, application, or firewall).",
+          "category": "Detective Controls",
+          "sub_category": "Event Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "DE.AE-04": {
+      "subcategory_text": "The estimated impact and scope of adverse events are understood",
+      "iso_mapping": [
+        "Annex A Controls: 5.25",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "SIEM alert rules, anomaly detection config, baseline definitions",
+      "candidates": [
+        {
+          "cset_question_id": 246,
+          "question_text": "A process is in place to analyze the financial impact cyber incidents have on the institution’s capital.",
+          "category": "Risk Management",
+          "sub_category": "Risk Management Program",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 644,
+          "question_text": "Analysis of security incidents is performed in the early stages of an intrusion to minimize the impact of the incident.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Response and Mitigation",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 656,
+          "question_text": "Incidents are classified, logged, and tracked.",
+          "category": "Escalation and Reporting",
+          "sub_category": "Escalation and Reporting",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "DE.AE-06": {
+      "subcategory_text": "Information on adverse events is provided to authorized staff and tools",
+      "iso_mapping": [
+        "Annex A Controls: 5.26",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "SIEM alert rules, anomaly detection config, baseline definitions",
+      "candidates": [
+        {
+          "cset_question_id": 494,
+          "question_text": "Mechanisms (e.g., antivirus alerts, log event alerts) are in place to alert management to potential attacks.",
+          "category": "Detective Controls",
+          "sub_category": "Event Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 623,
+          "question_text": "Alert parameters are set for detecting information security incidents that prompt mitigating actions.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 656,
+          "question_text": "Incidents are classified, logged, and tracked.",
+          "category": "Escalation and Reporting",
+          "sub_category": "Escalation and Reporting",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "DE.AE-07": {
+      "subcategory_text": "Cyber threat intelligence and other contextual information are integrated into the analysis",
+      "iso_mapping": [
+        "Annex A Controls: 5.7",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "SIEM alert rules, anomaly detection config, baseline definitions",
+      "candidates": [
+        {
+          "cset_question_id": 498,
+          "question_text": "A process is in place to correlate event information from multiple sources (e.g., network, application, or firewall).",
+          "category": "Detective Controls",
+          "sub_category": "Event Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "DE.AE-08": {
+      "subcategory_text": "Incidents are declared when adverse events meet the defined incident criteria",
+      "iso_mapping": [
+        "Annex A Controls: 5.25",
+        "Annex A Controls: 5.26",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "SIEM alert rules, anomaly detection config, baseline definitions",
+      "candidates": []
+    },
+    "DE.CM-01": {
+      "subcategory_text": "Networks and network services are monitored to find potentially adverse events",
+      "iso_mapping": [
+        "Annex A Controls: 8.16",
+        "Control 8.15",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Monitoring dashboards, log retention policy, alert tickets",
+      "candidates": [
+        {
+          "cset_question_id": 432,
+          "question_text": "Antivirus and anti-malware tools are deployed on end-point devices (e.g., workstations, laptops, and mobile devices).",
+          "category": "Preventative Controls",
+          "sub_category": "Device / End-Point Security",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 455,
+          "question_text": "Antivirus and anti-malware tools are used to detect attacks.",
+          "category": "Detective Controls",
+          "sub_category": "Threat and Vulnerability Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 495,
+          "question_text": "Processes are in place to monitor for the presence of unauthorized users, devices, connections, and software.",
+          "category": "Detective Controls",
+          "sub_category": "Event Detection",
+          "model_name": "ACET",
+          "decided_by": "agent",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 8508,
+          "question_text": "Does the organisation monitor its environments for indicators of compromise, and have an incident response playbook with criteria for declaring incidents, defined roles and stakeholder notification? Is there a designated incident response team that runs table-top exercises, and how often?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "DE.CM-02": {
+      "subcategory_text": "The physical environment is monitored to find potentially adverse events",
+      "iso_mapping": [
+        "Annex A Controls: 7.4",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Monitoring dashboards, log retention policy, alert tickets",
+      "candidates": []
+    },
+    "DE.CM-03": {
+      "subcategory_text": "Personnel activity and technology usage are monitored to find potentially adverse events",
+      "iso_mapping": [
+        "Annex A Controls: 7.4",
+        "Annex A Controls: 8.16",
+        "Control 8.16",
+        "Mandatory Clause: 9.1"
+      ],
+      "evidence_prompt": "Monitoring dashboards, log retention policy, alert tickets",
+      "candidates": [
+        {
+          "cset_question_id": 488,
+          "question_text": "A system is in place to monitor and analyze employee behavior (network use patterns, work hours, and known devices) to alert on anomalous activities.",
+          "category": "Detective Controls",
+          "sub_category": "Anomalous Activity Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 495,
+          "question_text": "Processes are in place to monitor for the presence of unauthorized users, devices, connections, and software.",
+          "category": "Detective Controls",
+          "sub_category": "Event Detection",
+          "model_name": "ACET",
+          "decided_by": "agent",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 8504,
+          "question_text": "Do all software development environments and tooling have logging and monitoring in place, including for the trust relationships used for authorization and access? How often is this reviewed, and who owns the review?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "DE.CM-06": {
+      "subcategory_text": "External service provider activities and services are monitored to find potentially adverse events",
+      "iso_mapping": [
+        "Annex A Controls: 5.22",
+        "Annex A Controls: 8.16",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Monitoring dashboards, log retention policy, alert tickets",
+      "candidates": [
+        {
+          "cset_question_id": 579,
+          "question_text": "Third-party employee access to the institution's confidential data are tracked actively based on the principles of least privilege.",
+          "category": "Relationship Management",
+          "sub_category": "Ongoing Monitoring",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "DE.CM-09": {
+      "subcategory_text": "Computing hardware and software, runtime environments, and their data are monitored to find potentially adverse events",
+      "iso_mapping": [
+        "Annex A Controls: 8.16",
+        "Control 8.6",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Monitoring dashboards, log retention policy, alert tickets",
+      "candidates": [
+        {
+          "cset_question_id": 432,
+          "question_text": "Antivirus and anti-malware tools are deployed on end-point devices (e.g., workstations, laptops, and mobile devices).",
+          "category": "Preventative Controls",
+          "sub_category": "Device / End-Point Security",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 436,
+          "question_text": "Mobile device management includes integrity scanning (e.g., jailbreak/rooted detection). (*N/A if mobile devices are not used.)",
+          "category": "Preventative Controls",
+          "sub_category": "Device / End-Point Security",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 448,
+          "question_text": "Software code executables and scripts are digitally signed to confirm the software author and guarantee that the code has not been altered or corrupted.",
+          "category": "Preventative Controls",
+          "sub_category": "Secure Coding",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 455,
+          "question_text": "Antivirus and anti-malware tools are used to detect attacks.",
+          "category": "Detective Controls",
+          "sub_category": "Threat and Vulnerability Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 495,
+          "question_text": "Processes are in place to monitor for the presence of unauthorized users, devices, connections, and software.",
+          "category": "Detective Controls",
+          "sub_category": "Event Detection",
+          "model_name": "ACET",
+          "decided_by": "agent",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 8504,
+          "question_text": "Do all software development environments and tooling have logging and monitoring in place, including for the trust relationships used for authorization and access? How often is this reviewed, and who owns the review?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        },
+        {
+          "cset_question_id": 8508,
+          "question_text": "Does the organisation monitor its environments for indicators of compromise, and have an incident response playbook with criteria for declaring incidents, defined roles and stakeholder notification? Is there a designated incident response team that runs table-top exercises, and how often?",
+          "category": null,
+          "sub_category": null,
+          "model_name": "SSG IT",
+          "decided_by": "agent",
+          "reworded": true
+        }
+      ]
+    },
+    "RS.AN-03": {
+      "subcategory_text": "Analysis is performed to establish what has taken place during an incident and the root cause of the incident",
+      "iso_mapping": [
+        "Annex A Controls: 5.25",
+        "Annex A Controls: 5.27",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Incident post-mortem reports, forensic tool list, chain of custody",
+      "candidates": []
+    },
+    "RS.AN-06": {
+      "subcategory_text": "Actions performed during an investigation are recorded, and the records' integrity and provenance are preserved",
+      "iso_mapping": [
+        "Annex A Controls: 5.28",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Incident post-mortem reports, forensic tool list, chain of custody",
+      "candidates": []
+    },
+    "RS.AN-07": {
+      "subcategory_text": "Incident data and metadata are collected, and their integrity and provenance are preserved",
+      "iso_mapping": [
+        "Annex A Controls: 5.28",
+        "Control 5.28",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Incident post-mortem reports, forensic tool list, chain of custody",
+      "candidates": []
+    },
+    "RS.AN-08": {
+      "subcategory_text": "An incident's magnitude is estimated and validated",
+      "iso_mapping": [
+        "Annex A Controls: 5.25",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Incident post-mortem reports, forensic tool list, chain of custody",
+      "candidates": []
+    },
+    "RS.CO-02": {
+      "subcategory_text": "Internal and external stakeholders are notified of incidents",
+      "iso_mapping": [
+        "Annex A Controls: 5.26",
+        "Mandatory Clause: 7.4"
+      ],
+      "evidence_prompt": "Breach notification procedures, regulator contact list",
+      "candidates": [
+        {
+          "cset_question_id": 597,
+          "question_text": "Lessons learned from real-life cyber incidents and attacks on the institution and other organizations are used to improve the institution’s risk mitigation capabilities and response plan.",
+          "category": "Incident Resilience Planning and Strategy",
+          "sub_category": "Planning",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 601,
+          "question_text": "The incident response plan is designed to ensure recovery from disruption of services, assurance of data integrity, and recovery of lost or corrupted data following a cybersecurity incident.",
+          "category": "Incident Resilience Planning and Strategy",
+          "sub_category": "Planning",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 611,
+          "question_text": "Resilience testing is based on analysis and identification of realistic and highly likely threats as well as new and emerging threats facing the institution.",
+          "category": "Incident Resilience Planning and Strategy",
+          "sub_category": "Testing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 653,
+          "question_text": "A process exists to contact personnel who are responsible for analyzing and responding to an incident.",
+          "category": "Escalation and Reporting",
+          "sub_category": "Escalation and Reporting",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 655,
+          "question_text": "The institution prepares an annual report of security incidents or violations for the board or an appropriate board committee.",
+          "category": "Escalation and Reporting",
+          "sub_category": "Escalation and Reporting",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "RS.CO-03": {
+      "subcategory_text": "Information is shared with designated internal and external stakeholders",
+      "iso_mapping": [
+        "Annex A Controls: 5.26",
+        "Mandatory Clause: 7.4"
+      ],
+      "evidence_prompt": "Breach notification procedures, regulator contact list",
+      "candidates": [
+        {
+          "cset_question_id": 653,
+          "question_text": "A process exists to contact personnel who are responsible for analyzing and responding to an incident.",
+          "category": "Escalation and Reporting",
+          "sub_category": "Escalation and Reporting",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "RS.MA-01": {
+      "subcategory_text": "The incident response plan is executed in coordination with relevant third parties once an incident is declared",
+      "iso_mapping": [
+        "Annex A Controls: 5.26",
+        "Annex A Controls: 5.27",
+        "Annex A Controls: 5.28",
+        "Control 5.26",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Incident response plan, escalation matrix, communication templates",
+      "candidates": [
+        {
+          "cset_question_id": 588,
+          "question_text": "The institution plans to use business continuity, disaster recovery, and data backup programs to recover operations following an incident.",
+          "category": "Incident Resilience Planning and Strategy",
+          "sub_category": "Planning",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "RS.MA-02": {
+      "subcategory_text": "Incident reports are triaged and validated",
+      "iso_mapping": [
+        "Annex A Controls: 5.24",
+        "Annex A Controls: 5.26",
+        "Annex A Controls: 5.27",
+        "Annex A Controls: 5.28",
+        "Annex A Controls: 6.8",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Incident response plan, escalation matrix, communication templates",
+      "candidates": []
+    },
+    "RS.MA-03": {
+      "subcategory_text": "Incidents are categorized and prioritized",
+      "iso_mapping": [
+        "Annex A Controls: 5.25",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Incident response plan, escalation matrix, communication templates",
+      "candidates": []
+    },
+    "RS.MA-04": {
+      "subcategory_text": "Incidents are escalated or elevated as needed",
+      "iso_mapping": [
+        "Annex A Controls: 5.26",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Incident response plan, escalation matrix, communication templates",
+      "candidates": []
+    },
+    "RS.MA-05": {
+      "subcategory_text": "The criteria for initiating incident recovery are applied",
+      "iso_mapping": [
+        "Annex A Controls: 5.25",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Incident response plan, escalation matrix, communication templates",
+      "candidates": []
+    },
+    "RS.MI-01": {
+      "subcategory_text": "Incidents are contained",
+      "iso_mapping": [
+        "Annex A Controls: 5.26",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Containment runbooks, eradication procedures, recovery checklists",
+      "candidates": []
+    },
+    "RS.MI-02": {
+      "subcategory_text": "Incidents are eradicated",
+      "iso_mapping": [
+        "Annex A Controls: 5.26",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Containment runbooks, eradication procedures, recovery checklists",
+      "candidates": []
+    },
+    "RC.CO-03": {
+      "subcategory_text": "Recovery activities and progress in restoring operational capabilities are communicated to designated internal and external stakeholders",
+      "iso_mapping": [
+        "Annex A Controls: 5.28",
+        "Mandatory Clause: 7.4"
+      ],
+      "evidence_prompt": "Stakeholder communication plan, post-incident report",
+      "candidates": [
+        {
+          "cset_question_id": 623,
+          "question_text": "Alert parameters are set for detecting information security incidents that prompt mitigating actions.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 632,
+          "question_text": "Sophisticated and adaptive technologies are deployed that can detect and alert the incident response team of specific tasks when threat indicators across the enterprise indicate potential external and internal threats.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "RC.CO-04": {
+      "subcategory_text": "Public updates on incident recovery are shared using approved methods and messaging",
+      "iso_mapping": [
+        "Annex A Controls: None",
+        "Mandatory Clause: 7.4"
+      ],
+      "evidence_prompt": "Stakeholder communication plan, post-incident report",
+      "candidates": [
+        {
+          "cset_question_id": 597,
+          "question_text": "Lessons learned from real-life cyber incidents and attacks on the institution and other organizations are used to improve the institution’s risk mitigation capabilities and response plan.",
+          "category": "Incident Resilience Planning and Strategy",
+          "sub_category": "Planning",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 601,
+          "question_text": "The incident response plan is designed to ensure recovery from disruption of services, assurance of data integrity, and recovery of lost or corrupted data following a cybersecurity incident.",
+          "category": "Incident Resilience Planning and Strategy",
+          "sub_category": "Planning",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 611,
+          "question_text": "Resilience testing is based on analysis and identification of realistic and highly likely threats as well as new and emerging threats facing the institution.",
+          "category": "Incident Resilience Planning and Strategy",
+          "sub_category": "Testing",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 655,
+          "question_text": "The institution prepares an annual report of security incidents or violations for the board or an appropriate board committee.",
+          "category": "Escalation and Reporting",
+          "sub_category": "Escalation and Reporting",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        },
+        {
+          "cset_question_id": 662,
+          "question_text": "An external communication plan is used for notifying media regarding incidents when applicable.",
+          "category": "Escalation and Reporting",
+          "sub_category": "Escalation and Reporting",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "RC.RP-01": {
+      "subcategory_text": "The recovery portion of the incident response plan is executed once initiated from the incident response process",
+      "iso_mapping": [
+        "Annex A Controls: 5.26",
+        "Control 5.29",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Business continuity plan, RTO/RPO targets, recovery test records",
+      "candidates": [
+        {
+          "cset_question_id": 626,
+          "question_text": "The institution has processes to detect and alert the incident response team when potential insider activity manifests that could lead to data theft or destruction.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "RC.RP-02": {
+      "subcategory_text": "Recovery actions are selected, scoped, prioritized, and performed",
+      "iso_mapping": [
+        "Annex A Controls: 5.26",
+        "Control 5.30",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Business continuity plan, RTO/RPO targets, recovery test records",
+      "candidates": [
+        {
+          "cset_question_id": 626,
+          "question_text": "The institution has processes to detect and alert the incident response team when potential insider activity manifests that could lead to data theft or destruction.",
+          "category": "Detection, Response, and Mitigation",
+          "sub_category": "Detection",
+          "model_name": "ACET",
+          "decided_by": "schema",
+          "reworded": false
+        }
+      ]
+    },
+    "RC.RP-03": {
+      "subcategory_text": "The integrity of backups and other restoration assets is verified before using them for restoration",
+      "iso_mapping": [
+        "Annex A Controls: 8.13",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Business continuity plan, RTO/RPO targets, recovery test records",
+      "candidates": []
+    },
+    "RC.RP-04": {
+      "subcategory_text": "Critical mission functions and cybersecurity risk management are considered to establish post-incident operational norms",
+      "iso_mapping": [
+        "Annex A Controls: None",
+        "Mandatory Clause: 8.1"
+      ],
+      "evidence_prompt": "Business continuity plan, RTO/RPO targets, recovery test records",
+      "candidates": []
+    },
+    "RC.RP-05": {
+      "subcategory_text": "The integrity of restored assets is verified, systems and services are restored, and normal operating status is confirmed",
+      "iso_mapping": [
+        "Annex A Controls: 5.26",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Business continuity plan, RTO/RPO targets, recovery test records",
+      "candidates": []
+    },
+    "RC.RP-06": {
+      "subcategory_text": "The end of incident recovery is declared based on criteria, and incident-related documentation is completed",
+      "iso_mapping": [
+        "Annex A Controls: 5.27",
+        "Annex A Controls: 8.13",
+        "Mandatory Clause: None"
+      ],
+      "evidence_prompt": "Business continuity plan, RTO/RPO targets, recovery test records",
+      "candidates": []
+    }
+  }
+}

@@ -1,0 +1,61 @@
+"""Single source of truth for where data lives. Scripts import from here; nothing hard-codes a path."""
+
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+DATA = REPO_ROOT / "data"
+METADATA = DATA / "metadata.json"
+RUNS = REPO_ROOT / "runs"                  # one folder per engagement: <Org>_<date>/ (client data)
+DATA_AUDIT = DATA / "audit.jsonl"          # reference data refresh and freshness checks (see audit.py)
+
+# Shared by both tracks
+COMMON = DATA / "common"
+INTAKE_OPTIONS = COMMON / "intake_options.json"   # intake menus, domains, certs, question types (see options.py)
+
+# CSF track
+CSF = DATA / "csf"
+CSF_SOURCE = CSF / "source" / "csf2.xlsx"   # NIST CPRT export; input to parse_crosswalk.py (refreshed ~yearly)
+CSF_CORE = CSF / "csf2_core.json"
+DOMAIN_WEIGHTS = CSF / "domain_weights.json"
+SCOPE_RULES = CSF / "scope_rules.json"   # state -> question type policy, max questions per type
+EVIDENCE_PROMPTS = CSF / "evidence_prompts.json"   # evidence an assessor asks for, by CSF category
+CSF_CROSSWALKS = CSF / "crosswalks"      # olir_iso27001.json, olir_pcidss.json
+CSF_BANKS = CSF / "banks"                # question_bank_<domain>.json (shared, rebuilt when CSET changes)
+BANK_BUILD = CSF / "bank_build"          # cset_candidates.json, cset_judgements.json, pending/verdicts
+
+# AI track
+AI = DATA / "ai"
+AI_SOURCE = AI / "source"                # Playbook, CIS companion guides, CIS -> CSF xlsx (not redistributed)
+AI_CROSSWALKS = AI / "crosswalks"        # airmf_to_cis.json
+AI_CROSSWALK_CIS = AI_CROSSWALKS / "airmf_to_cis.json"   # AI RMF subcategory -> CIS companion-guide safeguards
+AI_PILOT = AI / "bank_build" / "pilot_accepted.json"  # written by ai_pilot.py accept
+AI_CORE = AI / "ai_rmf_core.json"        # 72 subcategories + Playbook suggested actions (parse_ai_rmf_sources.py)
+AI_SAFEGUARDS = AI / "cis_ai_safeguards.json"   # CIS companion guide safeguards (parse_ai_rmf_sources.py)
+AI_PARSE_CONFIG = AI / "parse_config.json"      # expected counts and source file names for the parser
+AI_CATEGORIES = AI / "question_categories.json" # question categories per bank (content)
+AI_APPLICABILITY = AI / "applicability.json"    # subcategory -> bank applicability (agent, recorded)
+AI_SCOPE_RULES = AI / "scope_rules.json"        # engagement-time policy for the AI RMF questionnaire
+AI_EVIDENCE_PROMPTS = AI / "evidence_prompts.json"  # evidence hint per question topic
+AI_BANKS = AI / "banks"                  # question_bank_ai_rmf_<producer|consumer>.json
+AI_BUILD = AI / "bank_build"             # audit.jsonl, pending/verdict files, judgement_log/
+AI_CIS_CSF_XLSX = AI_SOURCE / "CIS_Controls_v8.1_Mapping_to_NIST_CSF_v2.0_2024-06-24.xlsx"
+CSF_IMPACT_NOTES = CSF / "ai_impact_notes.json"  # AI-world notes per CSF subcategory (Step 5)
+
+# Which folder each crosswalk file lives in (also used to resolve metadata.json keys)
+CROSSWALK_DIRS = {
+    "olir_iso27001.json": CSF_CROSSWALKS,
+    "olir_pcidss.json": CSF_CROSSWALKS,
+}
+
+
+def crosswalk_path(filename: str, base: Path = DATA) -> Path:
+    """Path of a crosswalk file under `base` (the data root)."""
+    return base / CROSSWALK_DIRS[filename].relative_to(DATA) / filename
+
+
+def ai_bank_path(bank: str, banks_dir: Path = AI_BANKS) -> Path:
+    return banks_dir / f"question_bank_ai_rmf_{bank}.json"
+
+
+def bank_path(domain: str, banks_dir: Path = CSF_BANKS) -> Path:
+    return banks_dir / f"question_bank_{domain}.json"
