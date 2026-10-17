@@ -1,7 +1,18 @@
-# TODO (last updated 2026-10-14)
+# TODO (last updated 2026-10-17)
 
 State: the commands and scripts were restructured this session (all 42 tests pass). The AI bank pilot has been run and recorded
 but NOT accepted. Full details of the pilot, with the judgement calls, are in `AI_RMF_Pilot_Decisions.md`.
+
+## First, next session: build the AI RMF mapping sheet (supersedes steps 3 and 4 below)
+Design agreed on 2026-10-17 in `AI_RMF_Mapping_Sheet_Design.md`: replace the applicability judge and CIS linker as
+decision makers with a mapping (check area x AI RMF subcategory x CIS safeguards x impact), drafted by an agent,
+evaluated by a fresh agent, recorded by a script, exported to a spreadsheet for human review, imported back, accepted.
+1. Settle the open points: training data as its own area; fairness split out of "Testing".
+2. Areas sheet (11 areas, human) in `data/ai/authoring/`.
+3. Drafter and evaluator prompts; recording, export and import scripts; accept gate; tests.
+4. Switch `prepare_ai_bank.py batch`, `build_ai_questions.py` and the generator input to mapping rows; re-run the pilot.
+5. Code review findings (two reproduced bugs in `parse_soa.py` and `extract_cset_candidates.py`) are listed at the end
+   of the design note.
 
 ## Next session: finish the AI bank pilot
 1. **Review the 6 pilot entries** in `data/ai/banks/question_bank_ai_rmf_producer.json` (GOVERN 6.1) and
