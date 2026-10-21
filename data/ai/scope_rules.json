@@ -10,6 +10,18 @@
   "gap_flags": {"csf_assessment_done": "CSF assessment", "iso27001_held": "ISO 27001"},
   "no_effect_flags": {"iso42001_held": "ISO/IEC 42001 held: not used to relax any question type until the AI RMF to 42001 crosswalk is verified; everything stays full_discovery"},
   "always_modifiers": ["unsanctioned_use"],
+  "ai_area_rules": {
+    "description": "Which AI areas (data/ai/ai_areas.json) a client gets, besides the ones ticked in the intake menus ai_usage and ai_components. Every AI area must be reachable exactly one way: a menu, always, any_ai or a with-rule (a test checks it).",
+    "always": ["invisible_usage"],
+    "any_ai": ["input", "output"],
+    "with": {"producer": ["model", "test_tuning_data"], "agent": ["mcp_tools"]}
+  },
+  "legacy_profile": {
+    "description": "Until question selection works on AI areas (TODO step 4), intake.py also writes the old profile fields, worked out from the AI areas with these tables. Removed in step 4.",
+    "usage_contexts": {"internal_process": "internal", "code_generation": "code_generation",
+                       "customer_facing": "customer_facing", "vendor_ai": "third_party_embedded"},
+    "rung": [["agent", "agentic"], ["mcp_tools", "mcp"], ["source_data", "rag"]]
+  },
   "gate": {
     "none": {
       "banks": ["consumer"],

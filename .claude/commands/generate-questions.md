@@ -13,13 +13,13 @@ from the user.
 
 ## 1 — Intake (numbers, asked once)
 `.venv/bin/python ./scripts/intake.py menu` prints every numbered menu. Ask the user the organisation name (free text),
-then each menu one at a time, in order, and take the number(s) typed. Ask role, rung, usage contexts and modifiers only
-if AI in use is option 2 (the menu says so). If the user asks what an option means, answer from the `definitions` block
+then each menu one at a time, in order, and take the number(s) typed. Ask "How do you use AI?" and "What does your AI
+include?" only if AI in use is option 2 (the menu says so); both may be left blank. If the user asks what an option means, answer from the `definitions` block
 of `data/ai/question_categories.json`. Then:
 
 ```bash
 .venv/bin/python ./scripts/intake.py write --org "<name>" --domain N --certs "N N" --ai-in-use N \
-    [--role N --rung N --usage-contexts "N N" --modifiers "N N"] --csf-assessment-done N --iso42001-held N
+    [--ai-usage "N N" --ai-components "N N"] --csf-assessment-done N --iso42001-held N
 ```
 
 It maps the numbers to values, rejects anything not on a menu (exit 1: ask the user again for those questions only; if it

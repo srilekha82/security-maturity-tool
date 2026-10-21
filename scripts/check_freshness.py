@@ -10,7 +10,8 @@ hashes each output records about its own inputs, one line per stage: parse (ai_r
 applicability, crosswalk, each bank, notes, and pilot. A stage is `current` only if it exists, was built from these exact
 sources (applicability also from the current question_categories.json) and, for a bank, covers every applicable
 subcategory. `pilot` is current when the user accepted the pilot (ai_pilot.py accept) for the current
-generator and evaluator prompts. Exit 0 = every stage current (skip the rebuild); exit 1 = something is missing, stale
+generator and evaluator prompts. `ai areas` is current when data/ai/ai_areas.json was imported from
+data/ai/authoring/ai_areas.xlsx as the spreadsheet is now (sheet_io.py import ai_areas). Exit 0 = every stage current (skip the rebuild); exit 1 = something is missing, stale
 or incomplete.
 
 Everything at the start of an engagement (CSF and AI together), --all. The domain and certifications come from the run's
@@ -29,9 +30,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from options import AI_BANK_NAMES, CERT_FILES, DOMAINS, load_intake  # noqa: E402
 from paths import (AI_APPLICABILITY, AI_BANKS, AI_CATEGORIES, AI_CIS_CSF_XLSX, AI_CORE, AI_CROSSWALK_CIS,  # noqa: E402
-                   AI_PARSE_CONFIG, AI_PILOT, AI_SAFEGUARDS, AI_SOURCE, CSF_IMPACT_NOTES, DATA_AUDIT, METADATA,
-                   bank_path)
+                   AI_PARSE_CONFIG, AI_PILOT, AI_SAFEGUARDS, AI_SOURCE, AI_AREAS, AI_AREAS_XLSX, CSF_IMPACT_NOTES,
+                   DATA_AUDIT, METADATA, bank_path)
 import audit  # noqa: E402
+from sheet_io import sheet_status  # noqa: E402
 from extract_cset_candidates import DEFAULT_CSET_PATH, git, sql_changed  # noqa: E402
 from ai_pilot import pilot_status  # noqa: E402
 
@@ -78,6 +80,7 @@ def ai_stages() -> list[tuple[str, bool, str]]:
     stages.append(verdict("notes", notes, notes and notes.get("sources_sha256_16") == {
         "cis_csf": cis_csf, "MCP": guides["MCP"], "AGENT": guides["AGENT"]}))
     stages.append(("pilot", *pilot_status(AI_PILOT)))
+    stages.append(("ai areas", *sheet_status("ai_areas", AI_AREAS_XLSX, AI_AREAS)))
     return stages
 
 

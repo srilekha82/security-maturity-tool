@@ -10,28 +10,39 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
+import build_ai_questions as BQ  # noqa: E402
 import intake as IN  # noqa: E402
 import options as OPT  # noqa: E402
 import write_questionnaire as WQ  # noqa: E402
-from paths import AI_CATEGORIES, AI_SCOPE_RULES  # noqa: E402
+from paths import AI_AREAS, AI_CATEGORIES, AI_SCOPE_RULES  # noqa: E402
 
 
 def args(**over):
-    base = dict(replace=False, org="Acme Corp", domain="1", certs="2 3", ai_in_use="2", role="3", rung="3", usage_contexts="1 3",
-                modifiers="1 3", csf_assessment_done="1", iso42001_held="2", date="2026-10-14", runs_dir=None)
+    base = dict(replace=False, org="Acme Corp", domain="1", certs="2 3", ai_in_use="2", ai_usage="1 3", ai_components="2",
+                csf_assessment_done="1", iso42001_held="2", date="2026-10-14", runs_dir=None)
     base.update(over)
     return type("A", (), base)()
 
 
 class Options(unittest.TestCase):
-    def test_menus_match_the_enums_the_scripts_validate_against(self):
-        cats = json.loads(AI_CATEGORIES.read_text())
-        enums, rules = cats["enums"], json.loads(AI_SCOPE_RULES.read_text())
+    def test_every_ai_area_is_reachable(self):
+        # every AI area comes from a menu or ai_area_rules; automatic ones (always, any_ai) are never also on a menu.
+        # A with-rule may add a menu item too (agents add MCP / tools, which can also be ticked).
+        areas = {a["id"] for a in json.loads(AI_AREAS.read_text())["ai_areas"]}
         menu = {q["key"]: [o["value"] for o in q["options"]] for q in OPT.INTAKE_QUESTIONS}
-        self.assertEqual(set(menu["usage_contexts"]), set(enums["scope_tags"]))
-        self.assertEqual(set(menu["modifiers"]), set(enums["modifiers"]))
-        self.assertEqual(menu["rung"], rules["rung_order"])
-        self.assertEqual(set(menu["role"]), set(OPT.AI_BANK_NAMES) | {"both"})
+        r = json.loads(AI_SCOPE_RULES.read_text())["ai_area_rules"]
+        menus, auto = set(menu["ai_usage"]) | set(menu["ai_components"]), set(r["always"]) | set(r["any_ai"])
+        added = {a for adds in r["with"].values() for a in adds}
+        self.assertEqual(menus | auto | added, areas)
+        self.assertFalse(menus & auto)
+        self.assertTrue(set(r["with"]) <= areas)
+
+    def test_legacy_tables_match_the_enums_the_question_filter_reads(self):
+        enums = json.loads(AI_CATEGORIES.read_text())["enums"]
+        rules = json.loads(AI_SCOPE_RULES.read_text())
+        lp = rules["legacy_profile"]
+        self.assertTrue(set(lp["usage_contexts"].values()) <= set(enums["scope_tags"]))
+        self.assertTrue({rung for _, rung in lp["rung"]} <= set(rules["rung_order"]))
 
     def test_rung_order_matches_the_capability_enum(self):
         # two files list the rungs; the order matters (each rung includes the ones below), so they must agree
@@ -61,30 +72,49 @@ class Intake(unittest.TestCase):
     def run_dir(self):
         return self.tmp / "Acme_Corp_2026-10-14"
 
-    def test_numbers_become_values_and_the_iso_flag_is_derived(self):
+    def usage(self):
+        return json.loads((self.run_dir() / "ai_usage.json").read_text())
+
+    def test_numbers_become_ai_areas_and_the_iso_flag_is_derived(self):
         self.assertEqual(self.go(), 0)
         intake = json.loads((self.run_dir() / "intake.json").read_text())
         self.assertEqual((intake["domain"], intake["certs"]), ("finance", ["iso27001", "pci_dss"]))
-        usage = json.loads((self.run_dir() / "ai_usage.json").read_text())
-        self.assertEqual((usage["role"], usage["rung"]), ("both", "mcp"))
+        usage = self.usage()
+        self.assertEqual(usage["ai_areas"], ["internal_process", "customer_facing", "invisible_usage", "input", "output",
+                                             "mcp_tools"])
+        # the old fields the current question filter reads, worked out from the areas
+        self.assertEqual((usage["role"], usage["rung"], usage["hosts_model"]), ("consumer", "mcp", False))
         self.assertEqual(usage["usage_contexts"], ["internal", "customer_facing"])
         self.assertEqual(usage["engagement_flags"], {"csf_assessment_done": True, "iso27001_held": True,
                                                      "iso42001_held": False})
 
-    def test_no_ai_leaves_the_profile_empty_and_pci_only_leaves_iso_false(self):
-        self.assertEqual(self.go(ai_in_use="1", role=None, rung=None, usage_contexts=None, modifiers=None, certs="3"), 0)
-        usage = json.loads((self.run_dir() / "ai_usage.json").read_text())
+    def test_no_ai_keeps_only_invisible_usage_and_pci_only_leaves_iso_false(self):
+        self.assertEqual(self.go(ai_in_use="1", ai_usage=None, ai_components=None, certs="3"), 0)
+        usage = self.usage()
+        self.assertEqual(usage["ai_areas"], ["invisible_usage"])
         self.assertEqual((usage["role"], usage["rung"], usage["usage_contexts"]), (None, None, []))
         self.assertFalse(usage["engagement_flags"]["iso27001_held"])
 
-    def test_blank_modifiers_are_allowed(self):
-        self.assertEqual(self.go(modifiers=""), 0)
-        self.assertEqual(json.loads((self.run_dir() / "ai_usage.json").read_text())["modifiers"], [])
+    def test_producer_and_agents_bring_their_areas(self):
+        self.assertEqual(self.go(ai_usage="5", ai_components="3 4"), 0)   # producer; agents, hosts a model
+        usage = self.usage()
+        for area in ("producer", "model", "test_tuning_data", "agent", "mcp_tools", "hosting"):
+            self.assertIn(area, usage["ai_areas"])
+        self.assertEqual((usage["role"], usage["rung"], usage["hosts_model"]), ("producer", "agentic", True))
+        rules = json.loads(AI_SCOPE_RULES.read_text())
+        self.assertIn("self_hosted", BQ.effective_profile(usage, rules)["modifiers"])   # the bank filter still sees it
+
+    def test_blank_menus_are_allowed(self):
+        self.assertEqual(self.go(ai_usage="", ai_components=""), 0)
+        usage = self.usage()
+        self.assertEqual(usage["ai_areas"], ["invisible_usage", "input", "output"])
+        self.assertEqual((usage["role"], usage["rung"]), ("consumer", "base"))
 
     def test_bad_input_is_rejected_and_writes_nothing(self):
         for bad in (dict(domain="9"), dict(domain="x"), dict(domain="1 2"), dict(certs="1 2"), dict(certs=""),
-                    dict(role=None), dict(rung="7"), dict(ai_in_use="1"),            # role etc. given without "some"
-                    dict(role="1", modifiers="3"),                                    # builds_on_base_model, consumer
+                    dict(ai_usage="9"), dict(ai_components="1 7"),
+                    dict(ai_in_use="1"),                                      # menus answered without "some"
+                    dict(ai_in_use="3", ai_usage=None, ai_components="1"),
                     dict(org="!!!")):
             self.assertEqual(self.go(**bad), 1, bad)
             self.assertFalse(self.run_dir().exists(), bad)

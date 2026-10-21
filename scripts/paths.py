@@ -40,6 +40,10 @@ AI_BANKS = AI / "banks"                  # question_bank_ai_rmf_<producer|consum
 AI_BUILD = AI / "bank_build"             # audit.jsonl, pending/verdict files, judgement_log/
 AI_CIS_CSF_XLSX = AI_SOURCE / "CIS_Controls_v8.1_Mapping_to_NIST_CSF_v2.0_2024-06-24.xlsx"
 CSF_IMPACT_NOTES = CSF / "ai_impact_notes.json"  # AI-world notes per CSF subcategory (Step 5)
+AI_AUTHORING = AI / "authoring"          # spreadsheets a person writes or reviews (committed; not source/)
+AI_AREAS_XLSX = AI_AUTHORING / "ai_areas.xlsx"   # AI areas (usage and ecosystem components): the decision, by a person
+AI_AREAS = AI / "ai_areas.json"          # generated from ai_areas.xlsx by sheet_io.py import; scripts read this
+SHEET_SPECS = COMMON / "sheet_specs.json"   # columns and allowed values of every spreadsheet sheet_io.py converts
 
 # Which folder each crosswalk file lives in (also used to resolve metadata.json keys)
 CROSSWALK_DIRS = {

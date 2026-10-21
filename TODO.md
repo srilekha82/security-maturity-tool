@@ -1,18 +1,28 @@
-# TODO (last updated 2026-10-17)
+# TODO (last updated 2026-10-21)
 
-State: the commands and scripts were restructured this session (all 42 tests pass). The AI bank pilot has been run and recorded
-but NOT accepted. Full details of the pilot, with the judgement calls, are in `AI_RMF_Pilot_Decisions.md`.
+State: the AI bank pilot has been run and recorded but NOT accepted (`AI_RMF_Pilot_Decisions.md`). The AI RMF model was
+redesigned: AI areas (usage and components) -> attack areas -> AI RMF function -> subcategory, in `AI_RMF_Mapping_Sheet_Design.md`. That note is
+the starting point; it supersedes steps 3 and 4 of "finish the AI bank pilot" below.
 
-## First, next session: build the AI RMF mapping sheet (supersedes steps 3 and 4 below)
-Design agreed on 2026-10-17 in `AI_RMF_Mapping_Sheet_Design.md`: replace the applicability judge and CIS linker as
-decision makers with a mapping (check area x AI RMF subcategory x CIS safeguards x impact), drafted by an agent,
-evaluated by a fresh agent, recorded by a script, exported to a spreadsheet for human review, imported back, accepted.
-1. Settle the open points: training data as its own area; fairness split out of "Testing".
-2. Areas sheet (11 areas, human) in `data/ai/authoring/`.
-3. Drafter and evaluator prompts; recording, export and import scripts; accept gate; tests.
-4. Switch `prepare_ai_bank.py batch`, `build_ai_questions.py` and the generator input to mapping rows; re-run the pilot.
-5. Code review findings (two reproduced bugs in `parse_soa.py` and `extract_cset_candidates.py`) are listed at the end
-   of the design note.
+## Build the AI RMF mapping (steps of the design note)
+0. ~~Write the model down (design note, sector rule in `DESIGN_RULES.md`, this TODO).~~ Done 2026-10-21.
+1. ~~AI areas sheet `data/ai/authoring/ai_areas.xlsx` (the decision; 14 areas, kind, applies to, impact) ->
+   `data/ai/ai_areas.json` via `scripts/sheet_io.py`; intake asks "How do you use AI?" and "What does your AI include?"
+   and writes the client's `ai_areas` (automatic ones in `scope_rules.json` `ai_area_rules`), plus the old fields derived
+   for the current filter.~~ Done 2026-10-21. Open for the producer: ask "pure or modified" (only if base-model
+   questions are wanted) and "is the model given to others?" (release questions only then).
+2. Draft the mapping: a script crosses the AI areas with the four functions and prepares a compact input per area;
+   drafter and evaluator prompts; recording script (ids, safeguards, impacts, coverage of all 72, and the required
+   checks of the design note: inventory, audit trail, incident response, reliability). Pilot on one area
+   first (MCP / tools) to check quality and tokens.
+3. Review and accept: `sheet_io.py export` / `import` for the mapping, `decided_by: human` on changed rows, accept gate.
+4. Rewire question generation to mapping rows: `prepare_ai_bank.py batch`, generator prompt, `build_ai_questions.py`
+   (the client's `ai_areas` from the intake; gap rule from the CIS -> CSF mapping per row). Retire the old profile
+   fields (`legacy_profile`), the modifiers and `question_categories.json` here.
+5. Severity: the standard criticality question (USD under 100k / 100k-500k / over 500k; reputation; safety) and the
+   priority rules (domain floor, process criticality, data classification) for the Stage 2 writer.
+6. Re-run the pilot (same 6 subcategories), accept, then the full producer and consumer banks.
+7. Tests and docs; fix the code review findings listed at the end of the design note (two are reproduced bugs).
 
 ## Next session: finish the AI bank pilot
 1. **Review the 6 pilot entries** in `data/ai/banks/question_bank_ai_rmf_producer.json` (GOVERN 6.1) and

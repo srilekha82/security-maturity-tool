@@ -13,10 +13,13 @@ under data/ai/banks/. Writes, per bank the profile selects:
 ai_usage.json:
 {
   "ai_in_use": "none" | "some" | "unsure",
+  "ai_areas": ["invisible_usage", "input", ...],             # the client's AI areas (intake.ai_areas); not read here
+                                                              # until TODO step 4. The fields below are derived from them.
   "role": "producer" | "consumer" | "both" | null,           # needed for "some"
   "rung": "base" | "rag" | "mcp" | "agentic" | null,          # highest technology rung reached; needed for "some"
   "usage_contexts": ["internal", "code_generation", "customer_facing", "third_party_embedded"],
   "modifiers": ["poc", "self_hosted", "builds_on_base_model", "unsanctioned_use"],
+  "hosts_model": true | false,                                # optional (default false); true adds self_hosted
   "engagement_flags": {"csf_assessment_done": true, "iso27001_held": false, "iso42001_held": false},
   "captured_on": "YYYY-MM-DD"
 }
@@ -75,6 +78,8 @@ def validate_profile(p: dict, enums: dict, rules: dict) -> list[str]:
             errors.append(f"{key} must be a list from {allowed}")
     if "builds_on_base_model" in p.get("modifiers", []) and p.get("role") not in ("producer", "both"):
         errors.append("builds_on_base_model applies to producers only")
+    if not isinstance(p.get("hosts_model", False), bool):
+        errors.append("hosts_model must be true or false")
     flags = p.get("engagement_flags")
     known = set(rules["gap_flags"]) | set(rules["no_effect_flags"])
     if not isinstance(flags, dict) or set(flags) != known or not all(isinstance(x, bool) for x in flags.values()):
@@ -88,6 +93,8 @@ def effective_profile(p: dict, rules: dict) -> dict:
     if gate == "some":
         e = {"role": p["role"], "rung": p["rung"], "usage_contexts": list(p["usage_contexts"]),
              "modifiers": list(p["modifiers"])}
+        if p.get("hosts_model") and "self_hosted" not in e["modifiers"]:
+            e["modifiers"].append("self_hosted")   # the intake asks "hosts a model?"; bank candidates are tagged self_hosted
     elif gate == "unsure":
         e = dict(rules["gate"]["unsure"]["profile"])
     else:

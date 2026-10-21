@@ -1,0 +1,155 @@
+{
+  "description": "AI areas of the AI RMF assessment: the ways AI is used and the components of the AI ecosystem, each with the attack areas it impacts. Generated from data/ai/authoring/ai_areas.xlsx by scripts/sheet_io.py import; the spreadsheet is the decision, edit it, not this file. Model: AI_RMF_Mapping_Sheet_Design.md.",
+  "source": "data/ai/authoring/ai_areas.xlsx",
+  "source_sha": "331ce538d8e86395",
+  "generated_by": "scripts/sheet_io.py import ai_areas",
+  "ai_areas": [
+    {
+      "id": "internal_process",
+      "name": "Internal process",
+      "kind": "usage",
+      "applies_to": "both",
+      "impact": [
+        "process",
+        "data"
+      ],
+      "covers": "AI output driving internal decisions and workflows (HR, finance, approvals, operations). Staff are the users: over-reliance, misuse by insiders, decisions made on wrong output."
+    },
+    {
+      "id": "code_generation",
+      "name": "Code generation",
+      "kind": "usage",
+      "applies_to": "both",
+      "impact": [
+        "assets",
+        "data"
+      ],
+      "covers": "Only the AI-specific part; secure development (review, testing, scanning) is assessed by the CSF. Made-up or untrusted dependencies, secrets placed in prompts, AI code merged without review."
+    },
+    {
+      "id": "customer_facing",
+      "name": "Customer-facing application",
+      "kind": "usage",
+      "applies_to": "both",
+      "impact": [
+        "process",
+        "data"
+      ],
+      "covers": "Public users can attack the AI (prompt injection, abuse), and AI output reaches customers directly: wrong, harmful or leaked answers in front of customers."
+    },
+    {
+      "id": "vendor_ai",
+      "name": "Vendor AI",
+      "kind": "usage",
+      "applies_to": "both",
+      "impact": [
+        "data"
+      ],
+      "covers": "Vendors and products the org uses run AI on the org's data (Jira, Slack, ServiceNow, GitHub, RPA). The org does not control the model: data flows to the vendor's model provider, the vendor may keep or train on it, features change without notice."
+    },
+    {
+      "id": "producer",
+      "name": "Producer",
+      "kind": "usage",
+      "applies_to": "producer",
+      "impact": [
+        "assets"
+      ],
+      "covers": "The org owns a model: built from scratch, or modified by domain-specific training or tuning of an existing model. If the model is given to others (API, weights, embedded in a product), recipients depend on it: limits not communicated, unsafe changes, no way to withdraw a release."
+    },
+    {
+      "id": "invisible_usage",
+      "name": "Invisible AI usage (unapproved or external)",
+      "kind": "usage",
+      "applies_to": "both",
+      "impact": [
+        "data",
+        "access"
+      ],
+      "covers": "AI use the org did not choose and may not see. Inside out: staff using AI tools or features nobody approved (including PoCs and experiments), so data leaves through them. Outside in: other people's agents, MCP clients and scrapers reaching the org's systems (signing in on behalf of users, calling APIs, at machine speed). Applies even when no AI is in use."
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "kind": "component",
+      "applies_to": "both",
+      "impact": [
+        "data"
+      ],
+      "covers": "Prompts, pasted text and files people and systems send to the model. Sensitive data can leave the org or reach a provider that keeps it. Prompt and response logs kept as a record belong here (retention, access)."
+    },
+    {
+      "id": "output",
+      "name": "Output",
+      "kind": "component",
+      "applies_to": "both",
+      "impact": [
+        "process"
+      ],
+      "covers": "Answers that are wrong and are then trusted by people and systems, so they become a wrong decision or action. Two kinds: steered by an attacker (prompt injection through user input or retrieved content, poisoned answers), or simply inaccurate with no attacker (made-up facts, different answers to the same question, quality drifting over time)."
+    },
+    {
+      "id": "test_tuning_data",
+      "name": "Test, tuning and evaluation data",
+      "kind": "component",
+      "applies_to": "producer",
+      "impact": [
+        "data",
+        "assets"
+      ],
+      "covers": "Training and tuning sets, evaluation and test sets, the harness (the test cases reliability is measured with), and feedback or logs reused for tuning. Poisoning, tampering with the evaluation set or harness to hide failures, sensitive data in feedback, rights to the data."
+    },
+    {
+      "id": "model",
+      "name": "Model",
+      "kind": "component",
+      "applies_to": "producer",
+      "impact": [
+        "assets"
+      ],
+      "covers": "The model itself as IP: weights, fine-tuned versions, system prompts and configurations. Theft, copying, extraction through the API, tampering with versions."
+    },
+    {
+      "id": "source_data",
+      "name": "Source data (RAG / knowledge graph)",
+      "kind": "component",
+      "applies_to": "both",
+      "impact": [
+        "data",
+        "access"
+      ],
+      "covers": "The data the AI retrieves to answer. The AI becomes a new path to it: anyone who can ask the AI may see what the store holds, poisoned content changes answers, and the content can be copied out through the AI. Includes data classification."
+    },
+    {
+      "id": "mcp_tools",
+      "name": "MCP / tools (inside or outside)",
+      "kind": "component",
+      "applies_to": "both",
+      "impact": [
+        "access"
+      ],
+      "covers": "Tools and MCP servers the AI can call, hosted by the org or used from outside, and the credentials they use. The AI can read, write and act with those permissions, often sized for a human or borrowed from the user. An outside server is also a supplier: who runs it and whether it is trusted."
+    },
+    {
+      "id": "agent",
+      "name": "Agent",
+      "kind": "component",
+      "applies_to": "both",
+      "impact": [
+        "access",
+        "process"
+      ],
+      "covers": "Agents acting inside processes with little or no human oversight: chains of actions, irreversible changes, actions triggered by manipulated input."
+    },
+    {
+      "id": "hosting",
+      "name": "Hosting",
+      "kind": "component",
+      "applies_to": "both",
+      "impact": [
+        "assets"
+      ],
+      "covers": "Where the org hosts a model, as a producer or for a consumer's PoC on its own infrastructure: servers, GPUs, model registry, serving endpoints, secrets and keys. Compromise, outage, cost abuse."
+    }
+  ]
+}

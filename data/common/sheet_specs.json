@@ -1,0 +1,44 @@
+{
+  "description": "One entry per spreadsheet that scripts/sheet_io.py converts between XLSX (for people) and JSON (for scripts and agents). Columns, required cells and allowed values live here, not in code. `xlsx`, `json` and `audit` name constants in scripts/paths.py. A column with \"in_json\": false is kept in the spreadsheet only.",
+  "sheets": {
+    "ai_areas": {
+      "xlsx": "AI_AREAS_XLSX",
+      "json": "AI_AREAS",
+      "audit": "AI_BUILD",
+      "sheet": "AI areas",
+      "list_key": "ai_areas",
+      "key": "id",
+      "json_description": "AI areas of the AI RMF assessment: the ways AI is used and the components of the AI ecosystem, each with the attack areas it impacts. Generated from data/ai/authoring/ai_areas.xlsx by scripts/sheet_io.py import; the spreadsheet is the decision, edit it, not this file. Model: AI_RMF_Mapping_Sheet_Design.md.",
+      "columns": [
+        {"key": "id", "header": "ID", "type": "id", "required": true, "width": 20,
+         "help": "Short lowercase id, letters, digits and _ only. The intake menus use it; never reuse an id for a different area."},
+        {"key": "name", "header": "AI area", "type": "text", "required": true, "width": 34,
+         "help": "Plain name of the way AI is used, or of the part of the AI ecosystem."},
+        {"key": "kind", "header": "Kind", "type": "enum", "required": true, "width": 13,
+         "allowed": ["usage", "component"],
+         "help": "usage: a way AI is used (or used around you). component: a part of the AI ecosystem."},
+        {"key": "applies_to", "header": "Applies to", "type": "enum", "required": true, "width": 12,
+         "allowed": ["both", "consumer", "producer"],
+         "help": "Which question bank: consumer, producer or both."},
+        {"key": "impact", "header": "Impact", "type": "list", "required": true, "width": 18,
+         "allowed": ["data", "access", "process", "assets"],
+         "help": "The attack areas a failure here hits, one or more: data (exposed, leaked, poisoned), access (permissions and credentials used or abused), process (a business process or decision goes wrong), assets (model, code or infrastructure stolen, damaged or taken down)."},
+        {"key": "covers", "header": "What it covers", "type": "text", "required": true, "width": 60,
+         "help": "What is exposed and what can go wrong. The agents that draft the mapping read this."},
+        {"key": "example_question", "header": "Example question", "type": "text", "required": false, "width": 50,
+         "in_json": false,
+         "help": "One question that shows the area, for people reading the sheet. Not copied to the JSON."}
+      ],
+      "readme": [
+        "AI areas of the AI RMF assessment: how AI is used (usage) and what the AI is made of (component), and which attack areas each one impacts.",
+        "This spreadsheet is the decision. Scripts never read it directly: after editing, run",
+        "  .venv/bin/python ./scripts/sheet_io.py import ai_areas",
+        "which checks every row and writes data/ai/ai_areas.json. If anything is wrong it lists the problems and writes nothing.",
+        "The freshness check reports this sheet as stale until it has been imported.",
+        "Which areas a client gets comes from the intake: the usage and component menus list these ids, and data/ai/scope_rules.json (ai_area_rules) adds the automatic ones.",
+        "Each area is checked through the four AI RMF functions (GOVERN, MAP, MEASURE, MANAGE) in the mapping step; see AI_RMF_Mapping_Sheet_Design.md.",
+        "Dropdowns limit Kind and Applies to; Impact takes one or more of data, access, process, assets separated by commas. Column help is below."
+      ]
+    }
+  }
+}

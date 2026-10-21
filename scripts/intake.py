@@ -1,7 +1,7 @@
 """
 Usage: .venv/bin/python ./scripts/intake.py menu [KEY]
        .venv/bin/python ./scripts/intake.py write --org NAME --domain N --certs "N N" --ai-in-use N
-              [--role N --rung N --usage-contexts "N N" --modifiers "N N"] --csf-assessment-done N --iso42001-held N
+              [--ai-usage "N N" --ai-components "N N"] --csf-assessment-done N --iso42001-held N
               [--date YYYY-MM-DD] [--runs-dir DIR] [--replace]
 
 The engagement intake, as numbered choices (the menus live in data/common/intake_options.json).
@@ -12,11 +12,15 @@ The engagement intake, as numbered choices (the menus live in data/common/intake
            intake.json     org, date, domain, certs     read by compute_scope, build_questions and check_freshness
            ai_usage.json   the AI usage profile (no org)  read by build_ai_questions
          iso27001_held is derived from the certifications, so the two cannot disagree.
-         Role, rung, usage contexts and modifiers are asked only when AI in use is "some" (option 2); giving them
-         otherwise is rejected. Modifiers may be left blank. Exit 1 with the problems listed, writing nothing, if a
-         number is not on its menu, a single-choice question gets several, "None" is combined with a certification, or
-         the profile breaks a rule of build_ai_questions.validate_profile, or the run folder already has an intake.json
-         (same org and date): --replace overwrites it, and the later files in that folder (scope, drafts) are then stale.
+         "How do you use AI?" (ai_usage) and "What does your AI include?" (ai_components) list AI area ids from
+         data/ai/ai_areas.json; they are asked only when AI in use is "some" (option 2), may be left blank, and giving
+         them otherwise is rejected. ai_areas() turns the answers into the client's AI areas, adding the automatic ones
+         from scope_rules.json ai_area_rules. Until question selection works on AI areas, the old profile fields (role,
+         rung, usage contexts, hosts_model) are also written, worked out from the areas (scope_rules.json legacy_profile).
+         Exit 1 with the problems listed, writing nothing, if a number is not on its menu, a single-choice question gets
+         several, "None" is combined with a certification, the profile breaks a rule of
+         build_ai_questions.validate_profile, or the run folder already has an intake.json (same org and date):
+         --replace overwrites it, and the later files in that folder (scope, drafts) are then stale.
 """
 
 import argparse
@@ -27,7 +31,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from paths import AI_CATEGORIES, AI_SCOPE_RULES, RUNS  # noqa: E402
+from paths import AI_AREAS, AI_CATEGORIES, AI_SCOPE_RULES, RUNS  # noqa: E402
 from options import INTAKE_QUESTIONS  # noqa: E402
 from build_ai_questions import validate_profile  # noqa: E402
 import audit  # noqa: E402
@@ -72,6 +76,30 @@ def run_folder_name(org: str, day: str) -> str:
     return f"{re.sub(r'[^A-Za-z0-9._-]+', '_', org.strip()).strip('_')}_{day}"
 
 
+def ai_areas(gate: str, usage: list, components: list, rules: dict, order: list) -> list[str]:
+    """The client's AI areas, in ai_areas.json order: the ones ticked, plus the automatic ones (ai_area_rules)."""
+    r = rules["ai_area_rules"]
+    got = set(r["always"])
+    if gate != "none":
+        got |= set(r["any_ai"]) | set(usage) | set(components)
+        for area, adds in r["with"].items():
+            if area in got:
+                got |= set(adds)
+    return [a for a in order if a in got]
+
+
+def legacy_fields(gate: str, areas: list, rules: dict) -> dict:
+    """The old profile fields the current question filter reads, worked out from the AI areas (removed in step 4)."""
+    if gate != "some":
+        return {"role": None, "rung": None, "usage_contexts": [], "modifiers": [], "hosts_model": False}
+    lp = rules["legacy_profile"]
+    others = [a for a in areas if a in lp["usage_contexts"]]
+    role = ("both" if others else "producer") if "producer" in areas else "consumer"
+    rung = next((rung for area, rung in lp["rung"] if area in areas), "base")
+    return {"role": role, "rung": rung, "usage_contexts": [lp["usage_contexts"][a] for a in others],
+            "modifiers": [], "hosts_model": "hosting" in areas}
+
+
 def write(args) -> None:
     errors, values = [], {}
     if not re.search(r"[A-Za-z0-9]", args.org):
@@ -90,16 +118,19 @@ def write(args) -> None:
 
     gate = values["ai_in_use"]
     certs = [c for c in values["certs"] if c != "none"]
+    rules = json.loads(AI_SCOPE_RULES.read_text())
+    order = [a["id"] for a in json.loads(AI_AREAS.read_text())["ai_areas"]]
+    areas = ai_areas(gate, values.get("ai_usage", []), values.get("ai_components", []), rules, order)
     profile = {
         "ai_in_use": gate,
-        "role": values.get("role"), "rung": values.get("rung"),
-        "usage_contexts": values.get("usage_contexts", []), "modifiers": values.get("modifiers", []),
+        "ai_areas": areas,
+        **legacy_fields(gate, areas, rules),
         "engagement_flags": {"csf_assessment_done": values["csf_assessment_done"],
                              "iso27001_held": "iso27001" in certs, "iso42001_held": values["iso42001_held"]},
         "captured_on": args.date,
     }
     enums = json.loads(AI_CATEGORIES.read_text())["enums"]
-    problems = validate_profile(profile, enums, json.loads(AI_SCOPE_RULES.read_text()))
+    problems = validate_profile(profile, enums, rules)
     if problems:
         fail(problems)
 
@@ -114,8 +145,7 @@ def write(args) -> None:
     for name, doc in (("intake.json", intake), ("ai_usage.json", profile)):
         (run_dir / name).write_text(json.dumps(doc, indent=2, ensure_ascii=False))
         outputs.append(run_dir / name)
-    ai = gate if gate != "some" else f"some ({profile['role']}, rung {profile['rung']})"
-    detail = f"{values['domain']}; certs {', '.join(certs) or 'none'}; AI {ai}"
+    detail = f"{values['domain']}; certs {', '.join(certs) or 'none'}; AI {gate}: {', '.join(areas)}"
     print(f"[intake] {run_dir}: {detail} → intake.json, ai_usage.json")
     ev.finish(outputs=outputs, detail=detail)
 

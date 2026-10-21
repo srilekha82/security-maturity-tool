@@ -386,6 +386,7 @@ class FreshnessGate(unittest.TestCase):
         CF.AI_APPLICABILITY, CF.AI_CROSSWALK_CIS = self.tmp / "app.json", self.tmp / "xw.json"
         CF.AI_BANKS, CF.CSF_IMPACT_NOTES = self.tmp / "banks", self.tmp / "notes.json"
         CF.AI_PILOT = self.tmp / "pilot.json"
+        CF.AI_AREAS, CF.AI_AREAS_XLSX = self.tmp / "ai_areas.json", self.tmp / "ai_areas.xlsx"
         CF.AI_BANKS.mkdir()
 
     def sha(self, name):
@@ -411,6 +412,8 @@ class FreshnessGate(unittest.TestCase):
         CF.CSF_IMPACT_NOTES.write_text(json.dumps({"sources_sha256_16": {"cis_csf": self.sha("mapping.xlsx"),
                                                                          "MCP": g["MCP"], "AGENT": g["AGENT"]}}))
         self.accept_pilot()
+        CF.AI_AREAS_XLSX.write_text("a spreadsheet")
+        CF.AI_AREAS.write_text(json.dumps({"source_sha": self.audit.sha(CF.AI_AREAS_XLSX)}))
 
     def states(self):
         return {stage: ok for stage, ok, _ in CF.ai_stages()}
@@ -450,6 +453,14 @@ class FreshnessGate(unittest.TestCase):
         stages = CF.ai_stages()
         self.assertEqual([s[0] for s in stages], ["sources"])
         self.assertIn("MCP", stages[0][2])
+
+    def test_ai_areas_stage(self):
+        self.build_everything()
+        self.assertTrue(self.states()["ai areas"])
+        CF.AI_AREAS_XLSX.write_text("edited, not imported")
+        stages = {s: (ok, text) for s, ok, text in CF.ai_stages()}
+        self.assertFalse(stages["ai areas"][0])
+        self.assertIn("sheet_io.py import ai_areas", stages["ai areas"][1])
 
     def test_pilot_stage(self):
         self.build_everything()

@@ -1,109 +1,146 @@
-# AI RMF mapping sheet: design decisions (2026-10-16/17)
+# AI RMF assessment model and mapping (agreed 2026-10-16 to 2026-10-21)
 
-Agreed in a design review of the AI RMF track. Nothing here is built yet; the build is planned for the next session.
-It replaces the applicability judge and the CIS linker as decision makers. Read with `AI_RMF_QuestionBank_Decisions.md`
-and `AI_RMF_Pilot_Decisions.md`.
+The model the AI RMF track is built on: **how AI is used and what the AI is made of (AI areas) -> the attack areas they
+impact -> questions per AI RMF function -> maturity per AI RMF subcategory**. Start every design discussion from this
+note. It replaces the applicability judge and the CIS linker as decision makers. Build steps are in `TODO.md`.
 
-## Why
-- `prompts/ai_rmf_applicability_judge.md` decides everything; `record_ai_bank.py` checks only the format (72 ids, known
-  category ids, a reason). Nothing checks whether a mapping is right.
-- The recorded applicability (2026-10-14) left the critical asset categories almost empty: consumer `data_exposure`
-  2 of 72 subcategories, `infra_hosting` 1, producer `build_infra` 1. Governance and reliability got 16 to 20 each. The
-  Playbook says little about security, so an agent mapping from Playbook text alone always under-maps the asset areas.
-- `question_categories.json` reflects the usage model, but it is hard to read, the consumer assets (knowledge graph /
-  RAG, IP) are hidden inside `data_exposure`, and the category-level fields (`capability`, `modifiers`, `scope_tags`)
-  are read by no script and never shown to an agent.
-- Usage connects to the Playbook and CIS only through agent decisions (applicability, question tags). Nothing links them
-  deterministically.
+## Why the change
+- `prompts/ai_rmf_applicability_judge.md` decided everything; `record_ai_bank.py` checked only the format. The recorded
+  applicability (2026-10-14) left the asset categories almost empty: consumer `data_exposure` 2 of 72 subcategories,
+  `infra_hosting` 1, producer `build_infra` 1, while governance and reliability got 16 to 20 each. The Playbook says
+  little about security, so an agent mapping from Playbook text alone under-maps the attack surface.
+- `question_categories.json` held the usage model, but it was hard to read, hid the consumer assets inside
+  `data_exposure`, and its category-level fields were read by no script.
+- Usage met the Playbook and CIS only through agent decisions. Nothing linked them deterministically.
 
-## The usage model (confirmed)
-1. **Who:** producer / consumer.
-2. **Type of use:** internal; code generation; customer-facing; third party (vendors and products that run AI on the
-   org's data: Jira, Slack, ServiceNow, GitHub ...); modified LLM (a model the org tuned for itself, may serve internal or
-   external applications; not a direct call to an LLM hosted elsewhere).
-3. **Depth of use:** LLM -> RAG -> MCP -> agents (the existing rung).
-4. **Critical assets:**
-   - Hosting: checked when the org hosts the LLM (producer; consumer only for a PoC or a modified LLM). Critical then.
-   - Model as IP: always. Producer: the model (weights, training data, versions). Consumer: prompts, system
-     instructions, agent configurations, plus RAG content and the knowledge graph. Modified LLM: both.
-   - Knowledge graph / RAG: checked at depth RAG or higher. One area with both views: data (classification, exposure)
-     and IP (theft, extraction).
-5. **Rule:** the intake asks only about capability. Every control (including data classification) is assessed by the
-   questions, never asked up front. Having RAG means classification should exist; whether it does is maturity.
+## 1. AI areas: the decision, in a spreadsheet
+`data/ai/authoring/ai_areas.xlsx` is written by a person and is the decision. `scripts/sheet_io.py import ai_areas`
+checks it and writes `data/ai/ai_areas.json`, which scripts and agents read. Columns: ID, AI area, Kind, Applies to,
+Impact, What it covers, Example question (spreadsheet only).
 
-The existing implementation already holds most of this (roles, rung, `third_party_supply`, `self_hosted`,
-`model_assets_ip`, `data_exposure`). The model is right; the naming, grouping and enforcement are what change.
+| AI area | Kind | Applies to | Impact |
+|---|---|---|---|
+| Internal process | usage | both | process, data |
+| Code generation (AI-specific part only; secure development is assessed by the CSF) | usage | both | assets, data |
+| Customer-facing application | usage | both | process, data |
+| Vendor AI (vendors and products running AI on the org's data: Jira, Slack, ServiceNow, GitHub, RPA) | usage | both | data |
+| Producer (owns a model: built from scratch, or trained / tuned on an existing model) | usage | producer | assets |
+| Invisible AI usage (unapproved inside, or others' agents, MCP clients and scrapers reaching in) | usage | both | data, access |
+| Input | component | both | data |
+| Output (wrong answers that are then trusted: steered by an attacker, or simply inaccurate, inconsistent or drifting) | component | both | process |
+| Test, tuning and evaluation data (incl. the harness reliability is measured with, feedback reused for tuning) | component | producer | data, assets |
+| Model (as IP) | component | producer | assets |
+| Source data (RAG / knowledge graph; includes data classification) | component | both | data, access |
+| MCP / tools (hosted inside or used from outside; an outside server is also a supplier) | component | both | access |
+| Agent | component | both | access, process |
+| Hosting (a model the org hosts, as a producer or for a PoC) | component | both | assets |
 
-## Check areas (draft, to review)
-| # | Area | Applies to | Checked when | Replaces |
-|---|---|---|---|---|
-| 1 | Ownership and rules | Both | Always | `gov_accountability` |
-| 2 | Which AI we use, who approved it (shadow AI, PoCs) | Both | Always | `inventory_shadow_ai` |
-| 3 | What it is for, who it affects | Both | Always | `use_context_impact`, `intended_use_impact` |
-| 4 | Suppliers, vendors and outside models | Both | Always | `third_party_supply`, `upstream_models` |
-| 5 | Testing it works safely and fairly | Both | Always | `reliability_validation`, `reliability_robustness`, `fairness_safety_eval` |
-| 6 | When things go wrong | Both | Always | `incident_recovery` |
-| 7 | Model and prompts as IP | Both | Always (contents by role) | `model_assets_ip`, IP part of `data_exposure` |
-| 8 | Knowledge graph and RAG data | Both | Depth RAG or higher | RAG part of `data_exposure` |
-| 9 | Hosting infrastructure | Both | The org hosts (producer, PoC, modified LLM) | `infra_hosting`, `build_infra` |
-| 10 | What the AI can access and do | Both | Depth MCP or agents | `ai_access_identity`, `ai_access_tools` |
-| 11 | Releasing AI to others | Producer | Always for producers | `release_distribution` |
+- **Kind:** usage is a way AI is used (or used around the org); component is a part of the AI ecosystem.
+- **Impact** is the attack area a failure hits: **data** (exposed, leaked, poisoned), **access** (permissions and
+  credentials used or abused), **process** (a business process or decision goes wrong), **assets** (model, code or
+  infrastructure stolen, damaged or taken down).
+- Org-wide AI RMF outcomes that belong to no AI area (GOVERN 3 to 5, MANAGE 1: risk tolerance, teams, culture,
+  engaging affected people) are asked once through the GOVERN function, not through an AI area.
+- Whether general security (CSF, ISO 27001) already covers a question is decided per mapping row, not per area: when a
+  row's CIS safeguard maps (official CIS -> CSF mapping) to a CSF subcategory the client was assessed on, the question
+  asks only the AI-specific part.
 
-Open: training data (producer) as its own area 12 or inside 7; fairness split out of 5 or not.
+## 2. Intake: the client's AI areas
+The intake asks only what the org has (capability); every control is assessed by the questions.
+- AI in use: none / some / unsure.
+- "How do you use AI?" (pick all): internal process, code generation, customer-facing application, vendor AI, producer.
+- "What does your AI include?" (pick all): RAG / knowledge graph, MCP / tools, agents, a model you host.
+- Engagement flags (CSF assessment done, ISO 42001); ISO 27001 from the certifications.
 
-## Impact
-Use the AI RMF harm categories (NIST AI 100-1, section 1.1, Figure 1): **People** (individuals, groups, society),
-**Organization** (business operations, security breach and monetary loss, reputation), **Ecosystem** (supply chains,
-financial system, environment). Data and operations sit under Organization. Impact is set per mapping row, not only
-per area (MEASURE 2.10 under area 8 is People; MEASURE 2.7 under area 8 is Organization). MEASURE 2.12 is Ecosystem
-(the applicability pass had forced it into `intended_use_impact`). Add NIST AI 100-1 to the sources if the figure is cited.
+`intake.py` writes the client's areas to `ai_usage.json` (`ai_areas`): the ones ticked, plus the automatic ones in
+`data/ai/scope_rules.json` `ai_area_rules`:
+- always (even with no AI in use): invisible AI usage
+- any AI in use: input, output
+- producer adds model and test / tuning / evaluation data; agents add MCP / tools.
 
-## The mapping (like CSET: every question lands on a subcategory)
-Spreadsheet, review view of a JSON store:
-- **Areas** sheet (human): one row per area: id, name, applies to, checked when, what we check, risk / attack
-  surface, covered by general security (the gap rule, replaces topics), replaces.
-- **Mapping** sheet (agent drafts, human reviews): one row per area x AI RMF subcategory: area id, subcategory,
-  outcome, why the area covers it, CIS safeguards that prove it, impact. An area has many rows.
+Until question selection works on AI areas (TODO step 4) the intake also writes the old fields (role, rung, usage
+contexts, hosts_model), worked out from the areas (`legacy_profile` in `scope_rules.json`).
 
-Example rows for area 8 (draft):
-| Subcategory | Why | CIS safeguards (lowest IG) |
-|---|---|---|
-| GOVERN 1.6 | Each store is inventoried with owner and data held | LLM-3.2 (IG1) |
-| MAP 4.1 | Rights and sources of the data fed into the store | LLM-3.1 (IG1) |
-| MEASURE 2.10 | Data classified; sensitive data detected, access logged | LLM-3.7 (IG2), LLM-3.13 (IG3), LLM-3.14 (IG3) |
-| MEASURE 2.7 | Retrieval respects rights; encrypted, separated; extraction | LLM-3.3 (IG1), LLM-3.11 (IG2), LLM-3.12 (IG2) |
+Open, for the producer only (they decide which producer questions are asked, not the AI areas): whether to ask
+"pure or modified" (only needed if questions about the base model are wanted) and "is the model given to others?"
+(release questions only when it is).
 
-Rules for the mapping:
-- Score per subcategory (the 72-row profile XLS stays the score); areas are a view on top, so nothing counts twice.
-- All 72 subcategories covered by at least one area; each asset area (7 to 10) has a minimum number of rows.
-- CIS controls prove the asset and security areas; governance areas (42 subcategories have no CIS link) are proved by
-  Playbook practices.
-- CIS Implementation Groups give a deterministic maturity ladder (IG1 basic, IG2, IG3); `data/tier_definitions.json`
-  (NIST tiers 1-4, unused today) maps to it.
-- List `LLM-` safeguards; a script adds the `MCP-` / `AGENT-` equivalents when the client's depth is MCP or agents
-  (the CIS guides are organised by depth).
-- Areas and the categories file live in a committed folder such as `data/ai/authoring/`, not `data/ai/source/`
-  (`.gitignore` excludes `data/ai/source/*.xlsx`; that folder is for third-party material).
+## 3. Controls: the four AI RMF functions, asked per AI area
+| Function | What it asks about an AI area |
+|---|---|
+| GOVERN | Owned, in the inventory, approved, policies and roles |
+| MAP | What it connects to, what it can reach, context and impact |
+| MEASURE | Tested and evaluated: security, reliability, safety, fairness, privacy; monitored |
+| MANAGE | Risks treated (access control, encryption, separation), can be switched off, incidents responded to and recorded |
 
-## Pipeline (to build)
-1. Areas sheet (human).
-2. Drafter agent: Playbook JSON + CIS JSON + areas -> mapping rows with reasons.
-3. Evaluator agent (fresh context): returns failing rows only; one revision turn.
-4. Recording script: validates the whole file (ids, coverage of all 72, safeguards exist, minimum rows per asset area),
-   stores the JSON, write-once record.
-5. Export script: JSON -> spreadsheet for review.
-6. Human review in the spreadsheet.
-7. Import script: spreadsheet -> JSON; changed rows `decided_by: human`; change logged. Freshness flags a spreadsheet
-   that changed but was not imported.
-8. Accept gate (human), like `ai_pilot.py accept`: only an accepted mapping feeds bank generation.
-9. Bank generation: generator + evaluator per mapping row (area + subcategory) instead of per subcategory.
+**A question = one AI area x one function**, landing on one AI RMF subcategory. The function is not in the AI area
+sheet: a script crosses every area with the four functions and the drafter fills each pair (or marks it "no question"
+with a reason). The AI RMF has no "protect" function: access control and encryption are risk treatments (MANAGE) and are
+checked in MEASURE 2.7. Audit trails sit in MEASURE 2.8 and MANAGE 4.1.
 
-Effects: `applicability.json` and `airmf_to_cis.json` are replaced by the mapping (bank applicability comes from the
-area's "applies to"); the applicability judge and CIS linker become optional checkers; `question_categories.json`
-is generated from the areas sheet; `prepare_ai_bank.py batch`, `build_ai_questions.py` and the generator input change.
-The pilot is not accepted, so it is re-run after this.
+Sample, AI area "Source data (RAG / knowledge graph)":
+| Function | Subcategory | CIS safeguards (lowest IG) | Impact |
+|---|---|---|---|
+| GOVERN | GOVERN 1.6 inventory | LLM-3.2 (IG1) | data |
+| MAP | MAP 4.1 data sources and rights | LLM-3.1 (IG1) | data |
+| MEASURE | MEASURE 2.10 privacy | LLM-3.7 (IG2), LLM-3.14 (IG3) | data |
+| MEASURE | MEASURE 2.7 security | LLM-3.3 (IG1), LLM-3.12 (IG2) | access |
+| MANAGE | MANAGE 2.4 disengage | LLM-3.3 (IG1) | access |
 
-## Code review findings from the same session (not fixed yet)
+### Required checks
+Some checks must exist for every AI area they apply to, so they cannot depend on the drafter remembering them. They are
+written in a small rules file and the recording script rejects a mapping that misses one (for example "agent: no
+audit-trail row").
+| Check | For | Must have a row on | Citing |
+|---|---|---|---|
+| Inventory | every AI area | GOVERN 1.6 | CIS control 1 or 2 where linked |
+| Audit trail | every AI area | MEASURE 2.8 or MANAGE 4.1 | a CIS control 8 (audit log) safeguard |
+| Incident response | every AI area | MANAGE 2.3 or MANAGE 4.3 | CIS control 17 where linked |
+| Reliability (accuracy, consistency, drift; not attack) | Output, and Model for producers | MEASURE 2.5, and MEASURE 2.4 or MANAGE 4.1, and MEASURE 2.1 (test sets and harness documented) | Playbook practices; CIS where linked |
+
+Reliability under attack (prompt injection, poisoned answers) is part of Output and Source data and is checked in
+MEASURE 2.7 like other security. The harness as data to protect is the Test, tuning and evaluation data area.
+
+## 4. Severity: priority of findings (does not change which questions are asked)
+- Each mapping row carries one or more of its area's impacts (data, access, process, assets).
+- Data findings rank by data classification, assessed through the questions.
+- Process findings rank by process criticality, from one standard question in every questionnaire (MAP 1.1, MAP 5.1):
+  for each process AI is used in, the worst realistic outcome if the AI gets it wrong. Financial loss: under USD 100k /
+  USD 100k to 500k / over USD 500k. Reputational damage: none / local / public or regulatory. Safety: no / possible harm
+  to people. Not being able to answer is itself a maturity gap.
+- Domain floor: for healthcare and manufacturing / OT loss of life is possible, so safety findings (MEASURE 2.6, People
+  harm) rank highest by default.
+- In AI RMF harm terms (NIST AI 100-1, section 1.1, Figure 1): financial and reputational loss is **Organization**,
+  loss of life and harm to individuals is **People**, supply chain and environment is **Ecosystem**. Add NIST AI 100-1
+  to the sources when the figure is cited.
+
+## 5. The mapping and maturity
+One row per AI area x function: AI RMF subcategory, CIS safeguards that prove it, impact, why.
+- Score per AI RMF subcategory (the 72-row profile XLS), like CSET questions mapping to CSF subcategories. AI areas
+  and impacts are report views on top; nothing counts twice.
+- All 72 subcategories must be reached (the org-wide GOVERN ones directly).
+- CIS Implementation Groups give the levels (IG1 basic, IG2, IG3); `data/tier_definitions.json` maps to them.
+  Subcategories with no CIS link (42 of 72) are scored from Playbook practices.
+- List `LLM-` safeguards; a script adds the `MCP-` / `AGENT-` equivalents for MCP / tools and agents.
+
+## 6. Pipeline
+1. AI areas spreadsheet (person) -> `sheet_io.py import ai_areas` -> `ai_areas.json`.
+2. A script crosses the areas with the four functions and prepares a compact input per area (area, the subcategories
+   of each function with suggested actions, the candidate CIS safeguards).
+3. Drafter agent fills each pair: subcategory, safeguards (from the candidates), impact, why. One area at a time.
+4. Evaluator agent (fresh context): returns failing rows only; one revision turn.
+5. Recording script: validates the whole file (ids, safeguards exist, impacts belong to the area, every area has rows,
+   all 72 subcategories reached), stores the mapping JSON, write-once record.
+6. The mapping goes to a spreadsheet for review (`sheet_io.py`, a second sheet spec); the person edits; import back
+   (changed rows `decided_by: human`).
+7. Accept gate (person), like `ai_pilot.py accept`.
+8. Questions per mapping row (generator, evaluator) -> producer and consumer banks.
+
+`applicability.json` and `airmf_to_cis.json` are replaced by the mapping; the bank a row belongs to comes from the
+area's "applies to". Rebuild only when the Playbook or CIS guides change, or after the person accepts mapping changes;
+regeneration is per mapping row.
+
+## Code review findings from the same review (not fixed yet)
 1. `parse_soa.py`: numeric control ids collapse (5.10 -> 5.1, 8.10 -> 8.1) and `compute_scope.py` then overwrites one
    row with the other. Reproduced. Fail on duplicate ids after parsing.
 2. `extract_cset_candidates.py` `net_active_pairs`: `inserts - deletes` ignores order; a mapping deleted then re-inserted

@@ -38,11 +38,14 @@ not needed to run the flows (`CLAUDE.md` covers that). `README.md` explains the 
     and reach agents through the files scripts prepare.
 
 ## AI RMF track: rules that outlast any design note
-- **Scope is how AI is used, not sector or certifications.** Sector is a report decorator only. The usage profile is:
-  AI in use (`none` / `some` / `unsure`), role (`producer` / `consumer` / `both`), highest technology rung
-  (`base` < `rag` < `mcp` < `agentic`, each includes the ones below), usage contexts (`internal`, `code_generation`,
-  `customer_facing`, `third_party_embedded`), modifiers (`poc`, `self_hosted`, `builds_on_base_model`, `unsanctioned_use`),
-  and engagement flags (CSF assessment done, ISO 27001 held, ISO 42001 held). Captured once per engagement by
+- **Scope is how AI is used, not sector or certifications.** Sector never changes which questions are asked. It sets a
+  severity floor for the priority of findings (healthcare and manufacturing / OT: loss of life is possible) and
+  decorates the report. The model (AI areas -> attack areas -> AI RMF function -> subcategory) is in
+  `AI_RMF_Mapping_Sheet_Design.md`; the AI areas are decided by a person in `data/ai/authoring/ai_areas.xlsx`. The
+  usage profile is: AI in use (`none` / `some` / `unsure`), the client's AI areas (ticked in two intake menus, plus
+  the automatic ones in `scope_rules.json` `ai_area_rules`), and engagement flags (CSF assessment done, ISO 27001 held,
+  ISO 42001 held). Until question selection works on AI areas, the old fields (role, rung, usage contexts, modifiers,
+  hosts_model) are derived from the areas for the current filter. Captured once per engagement by
   `intake.py` in `runs/<Org>_<date>/ai_usage.json` (with `intake.json` for org, domain and certifications); CSF steps, AI
   RMF steps and the XLS writer all read those files. `iso27001_held` is derived from the certifications, never typed twice.
 - **One questionnaire for the client.** `/generate-questions` asks the intake once, runs the CSF track and the AI RMF
