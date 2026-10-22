@@ -14,7 +14,7 @@
     "description": "Which AI areas (data/ai/ai_areas.json) a client gets, besides the ones ticked in the intake menus ai_usage and ai_components: always, any_ai (AI in use), role (the answer to \"Do you build AI, use AI, or both?\") and with (an area that brings others). Every AI area must be reachable (a test checks it).",
     "always": ["invisible_usage"],
     "any_ai": ["input", "output"],
-    "role": {"producer": ["model_development", "model", "test_tuning_data"], "both": ["model_development", "model", "test_tuning_data"]},
+    "role": {"producer": ["model_building", "model", "test_tuning_data"], "both": ["model_building", "model", "test_tuning_data"]},
     "with": {"agent": ["mcp_tools"]}
   },
   "legacy_profile": {

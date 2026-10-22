@@ -1,7 +1,7 @@
 {
   "description": "AI areas of the AI RMF assessment: the ways AI is used and the components of the AI ecosystem, each with the attack areas it impacts. Generated from data/ai/authoring/ai_areas.xlsx by scripts/sheet_io.py import; the spreadsheet is the decision, edit it, not this file. Model: AI_RMF_Mapping_Sheet_Design.md.",
   "source": "data/ai/authoring/ai_areas.xlsx",
-  "source_sha": "f9bfbeea4a7972ee",
+  "source_sha": "15753008142ee4bd",
   "generated_by": "scripts/sheet_io.py import ai_areas",
   "ai_areas": [
     {
@@ -48,8 +48,8 @@
       "covers": "Vendors and products the org uses run AI on the org's data (Jira, Slack, ServiceNow, GitHub, RPA). The org does not control the model: data flows to the vendor's model provider, the vendor may keep or train on it, features change without notice."
     },
     {
-      "id": "model_development",
-      "name": "Model development and release",
+      "id": "model_building",
+      "name": "Model building",
       "kind": "usage",
       "applies_to": "producer",
       "impact": [

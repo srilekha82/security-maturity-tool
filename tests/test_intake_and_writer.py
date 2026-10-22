@@ -102,7 +102,7 @@ class Intake(unittest.TestCase):
         # build, built on an existing model, not given to others; agents and a hosted model
         self.assertEqual(self.go(role="2", built_on_model="1", given_to_others="2", ai_usage="", ai_components="3 4"), 0)
         usage = self.usage()
-        for area in ("model_development", "model", "test_tuning_data", "agent", "mcp_tools", "hosting"):
+        for area in ("model_building", "model", "test_tuning_data", "agent", "mcp_tools", "hosting"):
             self.assertIn(area, usage["ai_areas"])
         self.assertEqual(usage["producer"], {"built_on_existing_model": True, "given_to_others": False})
         self.assertEqual((usage["role"], usage["rung"], usage["hosts_model"]), ("producer", "agentic", True))
@@ -114,7 +114,7 @@ class Intake(unittest.TestCase):
         self.assertEqual(self.go(role="3", built_on_model="2", given_to_others="1"), 0)
         usage = self.usage()
         self.assertEqual(usage["role"], "both")
-        self.assertTrue({"internal_process", "customer_facing", "model_development", "model"} <= set(usage["ai_areas"]))
+        self.assertTrue({"internal_process", "customer_facing", "model_building", "model"} <= set(usage["ai_areas"]))
         self.assertEqual(usage["producer"], {"built_on_existing_model": False, "given_to_others": True})
 
     def test_blank_menus_are_allowed(self):

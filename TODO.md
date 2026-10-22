@@ -9,7 +9,7 @@ AI RMF bank until step 6. The audit trail (`data/ai/bank_build/audit.jsonl`, `ju
 ## Start here next session
 All open decisions are settled (2026-10-22): `area_cis` kept as drafted, `org_wide` = GOVERN 3.1, 4.1, 4.2, 4.3, 5.2,
 MANAGE 1.2, 1.3; `always_cis_controls` 1, 2, 8, 17 named and checked against the guides; no row count (content
-decides, the evaluator fails padding); the producer area is `model_development` ("Model development and release");
+decides, the evaluator fails padding); the producer area is `model_building` ("Model building");
 criticality bands in USD (under 100k / 100k-500k / over 500k).
 1. Run the mapping pilot on ONE area (planned: `mcp_tools`) with `/build-ai-bank`, section "Mapping": prepare, drafter,
    evaluator, one revision turn, record. About 4 agent runs of ~25k tokens input each. Ask the user before running.

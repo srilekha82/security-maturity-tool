@@ -24,7 +24,7 @@ Impact, What it covers, Example question (spreadsheet only).
 | Code generation (AI-specific part only; secure development is assessed by the CSF) | usage | both | assets, data |
 | Customer-facing application | usage | both | process, data |
 | Vendor AI (vendors and products running AI on the org's data: Jira, Slack, ServiceNow, GitHub, RPA) | usage | both | data |
-| Model development and release (the job of owning a model, built from scratch or on an existing one: purpose and design, evaluation before use, the base model, release to others) | usage | producer | assets |
+| Model building (the job of owning a model, built from scratch or on an existing one: purpose and design, evaluation before use, the base model, release to others) | usage | producer | assets |
 | Invisible AI usage (unapproved inside, or others' agents, MCP clients and scrapers reaching in) | usage | both | data, access |
 | Input | component | both | data |
 | Output (wrong answers that are then trusted: steered by an attacker, or simply inaccurate, inconsistent or drifting) | component | both | process |
@@ -49,7 +49,7 @@ Impact, What it covers, Example question (spreadsheet only).
 ## 2. Intake: the client's AI areas
 The intake asks only what the org has (capability); every control is assessed by the questions.
 - AI in use: none / some / unsure.
-- "Do you build AI, use AI, or both?" (consumer / producer / both). Build or both brings the producer areas (model development and release,
+- "Do you build AI, use AI, or both?" (consumer / producer / both). Build or both brings the producer areas (model building,
   model, test / tuning / evaluation data) and two follow-ups: "Is your model built on an existing model?" (turns on the
   base-model questions: MANAGE 3.2 pre-trained models monitored, MAP 4.1, GOVERN 6.1) and "Do you give the model to
   others?" (turns on the release questions: clients, partners, an API, devices, open weights).
@@ -61,7 +61,7 @@ The intake asks only what the org has (capability); every control is assessed by
 `data/ai/scope_rules.json` `ai_area_rules`:
 - always (even with no AI in use): invisible AI usage
 - any AI in use: input, output
-- role producer or both: model development and release, model, test / tuning / evaluation data; agents add MCP / tools.
+- role producer or both: model building, model, test / tuning / evaluation data; agents add MCP / tools.
 
 `ai_usage.json` holds `role`, `producer` (`built_on_existing_model`, `given_to_others`; null for a consumer) and
 `ai_areas`. Until question selection works on AI areas (TODO step 4) the intake also writes the old fields (rung, usage
