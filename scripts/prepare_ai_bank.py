@@ -3,6 +3,7 @@ Usage: .venv/bin/python ./scripts/prepare_ai_bank.py applicability
        .venv/bin/python ./scripts/prepare_ai_bank.py crosswalk
        .venv/bin/python ./scripts/prepare_ai_bank.py batch <producer|consumer> (--ids ID ... | --category "GOVERN 1" | --all)
                                                            [--missing] [--tag NAME]
+       .venv/bin/python ./scripts/prepare_ai_bank.py mapping --area ID
 
 Writes the compact file an agent reads in the AI RMF bank build, so agents never read the PDFs. Script only: it decides
 nothing and records nothing (agent output goes through record_ai_bank.py).
@@ -11,6 +12,10 @@ nothing and records nothing (agent output goes through record_ai_bank.py).
   crosswalk       -> data/ai/bank_build/crosswalk_pending.json
   batch           -> data/ai/bank_build/batch_<bank>_<tag>.json   (generator / evaluator input)
                      --missing keeps only subcategories not yet recorded in that bank
+  mapping         -> data/ai/bank_build/mapping_input_<area>.json   (mapping drafter / evaluator input)
+                     one AI area (data/ai/ai_areas.json), the four AI RMF functions with every subcategory's outcome and
+                     shortened suggested actions, the area's candidate CIS safeguards (data/ai/mapping_rules.json
+                     area_cis) and the required checks that apply to it
 """
 
 import argparse
@@ -19,8 +24,11 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from paths import AI_APPLICABILITY, AI_BANKS, AI_BUILD, AI_CATEGORIES, AI_CORE, AI_CROSSWALK_CIS, AI_SAFEGUARDS  # noqa: E402
-from ai_bank_common import BANKS, load_inputs, load_json, rel  # noqa: E402
+from paths import (AI_APPLICABILITY, AI_AREAS, AI_BANKS, AI_BUILD, AI_CATEGORIES, AI_CORE, AI_CROSSWALK_CIS,  # noqa: E402
+                   AI_MAPPING_RULES, AI_SAFEGUARDS)
+from ai_bank_common import BANKS, area_candidates, area_rules, load_inputs, load_json, rel  # noqa: E402
+
+MAX_ACTIONS, ACTION_CHARS, AI_TEXT_CHARS = 6, 220, 260   # how much Playbook and CIS text the mapping drafter sees
 import audit  # noqa: E402
 
 
@@ -98,24 +106,56 @@ def prepare_batch(inp: dict, bank: str, ids: list[str], category: str | None, ev
     return out
 
 
+def prepare_mapping(inp: dict, area_id: str) -> Path:
+    areas = {a["id"]: a for a in load_json(AI_AREAS, "ai_areas.json")["ai_areas"]}
+    if area_id not in areas:
+        sys.exit(f"[prepare_ai_bank] ERROR: unknown AI area {area_id!r} (known: {sorted(areas)})")
+    rules = load_json(AI_MAPPING_RULES, "mapping_rules.json")
+    r = area_rules(rules, area_id)
+    subs = {f: [] for f in rules["functions"]}
+    for s in inp["core"]["subcategories"]:
+        subs[s["function"]].append({"id": s["subcategory_id"], "outcome": s["outcome"],
+                                    "actions": [trunc(a, ACTION_CHARS) for a in s["suggested_actions"][:MAX_ACTIONS]]})
+    out = AI_BUILD / f"mapping_input_{area_id}.json"
+    out.write_text(json.dumps({
+        "area": areas[area_id],
+        "functions": rules["functions"],
+        "rules": {"max_rows": rules["max_rows_per_area"], "min_why_chars": rules["min_why_chars"],
+                  "required_checks": r["required_checks"], "org_wide": rules["org_wide"]["subcategories"]},
+        "subcategories": subs,
+        "cis_candidates": [{"id": s["id"], "title": s["title"], "lowest_ig": (s["ig"] or ["-"])[0],
+                            "ai_text": trunc(s["ai_applicability"], AI_TEXT_CHARS)}
+                           for s in area_candidates(inp, rules, area_id)],
+    }, indent=2, ensure_ascii=False))
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["applicability", "crosswalk", "batch"])
+    ap.add_argument("what", choices=["applicability", "crosswalk", "batch", "mapping"])
     ap.add_argument("bank", nargs="?", choices=BANKS)
     ap.add_argument("--ids", nargs="*", default=[])
     ap.add_argument("--category")
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--missing", action="store_true", help="only subcategories not yet recorded in the bank")
     ap.add_argument("--tag")
+    ap.add_argument("--area", help="mapping: the AI area id")
     args = ap.parse_args()
 
     ev = audit.begin(AI_BUILD / "audit.jsonl", f"prepare_{args.what}",
-                     {"bank": args.bank, "ids": args.ids, "category": args.category, "all": args.all})
+                     {"bank": args.bank, "ids": args.ids, "category": args.category, "all": args.all, "area": args.area})
     inp = load_inputs()
     if args.what == "applicability":
         out = prepare_applicability(inp)
     elif args.what == "crosswalk":
         out = prepare_crosswalk(inp)
+    elif args.what == "mapping":
+        if not args.area:
+            ev.fail("[prepare_ai_bank] ERROR: mapping needs --area ID")
+        out = prepare_mapping(inp, args.area)
+        ev.finish(inputs=[AI_CORE, AI_SAFEGUARDS, AI_AREAS, AI_MAPPING_RULES], outputs=[out], detail=f"prepared {out.name}")
+        print(f"[prepare_ai_bank] wrote {rel(out)} ({out.stat().st_size // 1024} KB)")
+        return
     else:
         if not args.bank:
             ev.fail("[prepare_ai_bank] ERROR: batch needs a bank (producer|consumer)")

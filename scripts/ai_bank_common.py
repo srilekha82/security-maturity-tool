@@ -14,6 +14,7 @@ DEFAULT_PROMPTS = {
     "crosswalk": ["prompts/ai_rmf_cis_linker.md"],
     "candidates": ["prompts/ai_rmf_question_generator.md", "prompts/ai_rmf_question_evaluator.md"],
     "notes": ["prompts/ai_impact_notes_writer.md"],
+    "mapping": ["prompts/ai_rmf_mapping_drafter.md", "prompts/ai_rmf_mapping_evaluator.md"],
 }
 
 
@@ -38,6 +39,21 @@ def load_inputs() -> dict:
         "cats": cats, "enums": cats["enums"],
         "bank_cats": {b: {c["id"]: c for c in cats["banks"][b]["categories"]} for b in BANKS},
     }
+
+
+def area_rules(rules: dict, area_id: str) -> dict:
+    """The mapping_rules.json entries that apply to one AI area: its candidate CIS controls and guides, its required checks."""
+    cis = rules["area_cis"].get(area_id)
+    if cis is None:
+        sys.exit(f"[ai_bank] ERROR: AI area {area_id!r} has no entry in mapping_rules.json area_cis")
+    return {"controls": sorted(set(cis["controls"]) | set(rules["always_cis_controls"])), "guides": cis["guides"],
+            "required_checks": [c for c in rules["required_checks"] if c["areas"] == "all" or area_id in c["areas"]]}
+
+
+def area_candidates(inp: dict, rules: dict, area_id: str) -> list[dict]:
+    """The CIS safeguards a mapping row of this AI area may cite: its controls (plus the always ones) in its guides."""
+    r = area_rules(rules, area_id)
+    return [s for s in inp["sg_doc"]["safeguards"] if s["guide"] in r["guides"] and s["control"] in r["controls"]]
 
 
 def rel(path: Path) -> str:

@@ -72,6 +72,39 @@ Read `prompts/ai_rmf_cis_linker.md` and `data/ai/bank_build/crosswalk_pending.js
 
 Same fix-and-rerun loop. Delete the pending and verdicts files once recorded.
 
+## Mapping (new; will replace Steps 3 and 4 once accepted, see `AI_RMF_Mapping_Sheet_Design.md`)
+
+Maps each AI area (`data/ai/ai_areas.json`, decided by the user in `data/ai/authoring/ai_areas.xlsx`) to AI RMF
+subcategories per function, with the CIS safeguards that prove them. Run only when the user asks for it, one AI area at a
+time; the first run is a pilot on one area the user names, then stop and report. Work files go under
+`data/ai/bank_build/work/` (delete them once the area is recorded).
+
+1. Prepare the area's input:
+   ```bash
+   .venv/bin/python ./scripts/prepare_ai_bank.py mapping --area <area id>
+   ```
+   It writes `data/ai/bank_build/mapping_input_<area>.json`.
+2. **Drafter** (a fresh subagent): follow `prompts/ai_rmf_mapping_drafter.md` with that input; write
+   `work/mapping_<area>_draft1.json`. Pass paths, not content.
+3. **Evaluator** (another fresh subagent; it must not see the drafter's prompt): follow
+   `prompts/ai_rmf_mapping_evaluator.md` with the input and the draft; write the failures to
+   `work/mapping_<area>_eval1.json`.
+4. If there are failures: a fresh drafter revises (inputs: the input file, `draft1`, `eval1`; output the complete
+   `work/mapping_<area>_draft2.json`), and a fresh evaluator checks it into `work/mapping_<area>_eval2.json`. Two turns at
+   most.
+5. Record the last draft with the last evaluation (rows still failing are stored as `needs_human_review`):
+   ```bash
+   .venv/bin/python ./scripts/record_ai_bank.py mapping data/ai/bank_build/work/mapping_<area>_draft<N>.json \
+       --review data/ai/bank_build/work/mapping_<area>_eval<N>.json --model <drafter model id> --session "evaluator=<model id>"
+   ```
+   If it lists problems (ids, candidates, impacts, a missing function or required check), send them back to the drafter
+   and repeat; nothing is stored until it passes. It prints how many areas are recorded and how many AI RMF
+   subcategories are not reached yet.
+
+After the pilot area: stop. Show the user the recorded rows (function, subcategory, safeguards, impact, why), what the
+evaluator failed, the subcategories still unreached, and token use if you can see it. The user reviews before any other
+area is drafted.
+
 ## Step 5 — Generate and evaluate (subagents)
 
 Ask the user: **pilot** (6 subcategories, per-subcategory loops, then stop for review) or **full** (all applicable

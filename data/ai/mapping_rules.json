@@ -1,0 +1,37 @@
+{
+  "description": "Rules for the AI RMF mapping (AI area x AI RMF function -> subcategory, CIS safeguards, impact). prepare_ai_bank.py mapping uses area_cis to give the drafter a short list of candidate CIS safeguards; record_ai_bank.py mapping rejects a draft that breaks any rule here. Model: AI_RMF_Mapping_Sheet_Design.md. area_cis and org_wide are DRAFTS to review.",
+  "functions": ["GOVERN", "MAP", "MEASURE", "MANAGE"],
+  "max_rows_per_area": 12,
+  "min_why_chars": 20,
+  "always_cis_controls": [1, 2, 8, 17],
+  "area_cis": {
+    "description": "Per AI area: the CIS v8.1 controls (1-18) whose safeguards are candidates, and the companion guides they come from. always_cis_controls are added to every area (inventory, audit log, incident response).",
+    "internal_process":  {"controls": [3, 14],                 "guides": ["LLM"]},
+    "code_generation":   {"controls": [2, 3, 7, 16],           "guides": ["LLM"]},
+    "customer_facing":   {"controls": [3, 13, 16, 18],         "guides": ["LLM"]},
+    "vendor_ai":         {"controls": [3, 15],                 "guides": ["LLM"]},
+    "producer":          {"controls": [4, 15, 16],             "guides": ["LLM"]},
+    "invisible_usage":   {"controls": [3, 6, 9, 13, 14],       "guides": ["LLM", "MCP", "AGENT"]},
+    "input":             {"controls": [3, 9, 14],              "guides": ["LLM"]},
+    "output":            {"controls": [13, 16, 18],            "guides": ["LLM"]},
+    "test_tuning_data":  {"controls": [3, 6, 11],              "guides": ["LLM"]},
+    "model":             {"controls": [3, 4, 6, 11],           "guides": ["LLM"]},
+    "source_data":       {"controls": [3, 6],                  "guides": ["LLM"]},
+    "mcp_tools":         {"controls": [5, 6, 12, 15, 16],      "guides": ["MCP"]},
+    "agent":             {"controls": [5, 6, 16, 18],          "guides": ["AGENT"]},
+    "hosting":           {"controls": [4, 7, 11, 12, 13],      "guides": ["LLM"]}
+  },
+  "required_checks": [
+    {"name": "inventory", "areas": "all", "any_of": ["GOVERN 1.6"]},
+    {"name": "audit trail", "areas": "all", "any_of": ["MEASURE 2.8", "MANAGE 4.1"], "cis_control": 8},
+    {"name": "incident response", "areas": "all", "any_of": ["MANAGE 2.3", "MANAGE 4.3"]},
+    {"name": "reliability: accuracy and consistency", "areas": ["output", "model"], "any_of": ["MEASURE 2.5"]},
+    {"name": "reliability: monitored in use", "areas": ["output", "model"], "any_of": ["MEASURE 2.4", "MANAGE 4.1"]},
+    {"name": "reliability: test sets and harness documented", "areas": ["output", "model"], "any_of": ["MEASURE 2.1"]}
+  ],
+  "org_wide": {
+    "description": "AI RMF subcategories asked once for the whole org through GOVERN (or MANAGE 1), not through an AI area. They count as reached in the coverage check.",
+    "subcategories": ["GOVERN 3.1", "GOVERN 3.2", "GOVERN 4.1", "GOVERN 4.2", "GOVERN 4.3", "GOVERN 5.1", "GOVERN 5.2",
+                      "MANAGE 1.1", "MANAGE 1.2", "MANAGE 1.3", "MANAGE 1.4"]
+  }
+}

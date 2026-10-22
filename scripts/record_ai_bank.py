@@ -26,6 +26,19 @@ Record modes (agent output; every one needs --model, optional --session, --promp
   notes <file>             {"PR.AA-05": {"exposure": "...", "use": {"base_rag": "...", "mcp_agentic": "..."}}}
                            exposure (layer 1) is required for a new entry; `use` (layer 2) may be added later
                            -> data/csf/ai_impact_notes.json
+  mapping <file> [--review F]  one AI area's mapping (the drafter's file, after the evaluator's turn):
+                           {"area": "mcp_tools",
+                            "rows": [{"function": "GOVERN", "subcategory": "GOVERN 1.6", "cis_refs": ["MCP-2.1"],
+                                      "impact": ["access"], "why": "..."}],
+                            "no_question": [{"function": "MAP", "reason": "..."}]}
+                           Rejected unless: the area is in ai_areas.json; each subcategory exists and belongs to the row's
+                           function; cis_refs come from the area's candidates (mapping_rules.json area_cis); impact is a
+                           non-empty subset of the area's impact; a why on each row; every function has rows or a
+                           no_question reason (not both); no repeated function + subcategory; at most max_rows_per_area
+                           rows; every required check that applies to the area is met. --review is the evaluator's last
+                           list of failures [{"function", "subcategory" (or null for the whole function), "reason"}]:
+                           those rows (or functions) are stored as needs_human_review with the reason.
+                           -> data/ai/mapping.json   (the area's entry replaced; other areas kept)
 
 Candidate schema: subcategory_id is the key; each candidate has question_text, playbook_ref, cis_refs[],
 scope_tags[] (empty = all usage contexts), capability, topic, optional modifiers[]. Enums and their definitions live in
@@ -40,9 +53,9 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from paths import (AI_APPLICABILITY, AI_BANKS, AI_BUILD, AI_CATEGORIES, AI_CIS_CSF_XLSX, AI_CROSSWALKS,  # noqa: E402
-                   AI_CROSSWALK_CIS, CSF_CORE, CSF_IMPACT_NOTES)
-from ai_bank_common import BANKS, DEFAULT_PROMPTS, load_inputs, load_json  # noqa: E402
+from paths import (AI_APPLICABILITY, AI_AREAS, AI_BANKS, AI_BUILD, AI_CATEGORIES, AI_CIS_CSF_XLSX,  # noqa: E402
+                   AI_CROSSWALKS, AI_CROSSWALK_CIS, AI_MAPPING, AI_MAPPING_RULES, CSF_CORE, CSF_IMPACT_NOTES)
+from ai_bank_common import BANKS, DEFAULT_PROMPTS, area_candidates, area_rules, load_inputs, load_json  # noqa: E402
 import audit  # noqa: E402
 
 CROSSWALK = AI_CROSSWALK_CIS
@@ -200,6 +213,123 @@ def validate_notes(data) -> list[str]:
 
 
 
+def mapping_inputs(inp: dict) -> dict:
+    """The AI areas and the mapping rules, for the mapping validator and store."""
+    for p, how in ((AI_AREAS, "sheet_io.py import ai_areas"), (AI_MAPPING_RULES, "data/ai/mapping_rules.json")):
+        if not p.is_file():
+            sys.exit(f"[record_ai_bank] ERROR: {p} not found ({how})")
+    return {"areas": {a["id"]: a for a in load_json(AI_AREAS, "ai_areas.json")["ai_areas"]},
+            "rules": load_json(AI_MAPPING_RULES, "mapping_rules.json")}
+
+
+def validate_mapping(data, inp, m: dict, review) -> list[str]:
+    if not isinstance(data, dict) or set(data) - {"area", "rows", "no_question"} or "area" not in data:
+        return ["the file must be an object with area, rows and no_question"]
+    area_id = data["area"]
+    if area_id not in m["areas"]:
+        return [f"unknown AI area {area_id!r} (not in ai_areas.json)"]
+    rules, area = m["rules"], m["areas"][area_id]
+    rows, skips = data.get("rows", []), data.get("no_question", [])
+    if not isinstance(rows, list) or not isinstance(skips, list):
+        return ["rows and no_question must be lists"]
+    allowed = {s["id"] for s in area_candidates(inp, rules, area_id)}
+    errors, seen = [], set()
+    for n, r in enumerate(rows, 1):
+        tag = f"row {n}"
+        if not isinstance(r, dict) or set(r) != {"function", "subcategory", "cis_refs", "impact", "why"}:
+            errors.append(f"{tag}: fields must be function, subcategory, cis_refs, impact, why")
+            continue
+        sub = inp["subs"].get(r["subcategory"])
+        if r["function"] not in rules["functions"]:
+            errors.append(f"{tag}: function must be one of {rules['functions']}")
+        elif sub is None:
+            errors.append(f"{tag}: {r['subcategory']!r} is not an AI RMF subcategory")
+        elif sub["function"] != r["function"]:
+            errors.append(f"{tag}: {r['subcategory']} belongs to {sub['function']}, not {r['function']}")
+        if (r["function"], r["subcategory"]) in seen:
+            errors.append(f"{tag}: {r['function']} / {r['subcategory']} appears twice")
+        seen.add((r["function"], r["subcategory"]))
+        if not isinstance(r["cis_refs"], list) or [g for g in r["cis_refs"] if g not in allowed]:
+            errors.append(f"{tag}: cis_refs must come from this area's candidates; not allowed: "
+                          f"{[g for g in r['cis_refs'] if g not in allowed] if isinstance(r['cis_refs'], list) else r['cis_refs']}")
+        if not isinstance(r["impact"], list) or not r["impact"] or not set(r["impact"]) <= set(area["impact"]):
+            errors.append(f"{tag}: impact must be one or more of the area's impacts {area['impact']}")
+        if len(str(r["why"]).strip()) < rules["min_why_chars"]:
+            errors.append(f"{tag}: why must say in a sentence why this subcategory checks this area")
+    if len(rows) > rules["max_rows_per_area"]:
+        errors.append(f"{len(rows)} rows; at most {rules['max_rows_per_area']} per area")
+    with_rows = {r.get("function") for r in rows if isinstance(r, dict)}
+    for s in skips:
+        if not isinstance(s, dict) or s.get("function") not in rules["functions"] or \
+                len(str(s.get("reason", "")).strip()) < rules["min_why_chars"]:
+            errors.append(f"no_question {s!r}: needs a function and a reason")
+        elif s["function"] in with_rows:
+            errors.append(f"{s['function']}: has rows and a no_question entry; keep one")
+    missing = [f for f in rules["functions"] if f not in with_rows and f not in {s.get("function") for s in skips
+                                                                                if isinstance(s, dict)}]
+    if missing:
+        errors.append(f"functions with neither rows nor a no_question reason: {missing}")
+    for check in area_rules(rules, area_id)["required_checks"]:
+        hits = [r for r in rows if isinstance(r, dict) and r.get("subcategory") in check["any_of"]]
+        if "cis_control" in check:
+            hits = [r for r in hits if any(g in inp["safeguards"] and inp["safeguards"][g]["control"] == check["cis_control"]
+                                           for g in r.get("cis_refs") or [])]
+        if not hits:
+            extra = f" citing a CIS control {check['cis_control']} safeguard" if "cis_control" in check else ""
+            errors.append(f"required check '{check['name']}' missing: needs a row on {' or '.join(check['any_of'])}{extra}")
+    if review is not None:
+        if not isinstance(review, list):
+            errors.append("the review file must be a list of failures")
+        else:
+            for f in review:
+                key = (f.get("function"), f.get("subcategory")) if isinstance(f, dict) else None
+                if key is None or not str(f.get("reason", "")).strip():
+                    errors.append(f"review entry {f!r}: needs function, subcategory (or null) and reason")
+                elif key[1] is None and key[0] not in rules["functions"]:
+                    errors.append(f"review entry {f!r}: unknown function")
+                elif key[1] is not None and key not in seen:
+                    errors.append(f"review entry {f!r}: no such row in the mapping")
+    return errors
+
+
+def store_mapping(data, inp, m: dict, review) -> tuple[Path, str]:
+    failing = {}
+    for f in review or []:
+        failing.setdefault((f["function"], f["subcategory"]), []).append(str(f["reason"]).strip())
+    rows = []
+    for r in data["rows"]:
+        why = failing.get((r["function"], r["subcategory"])) or failing.get((r["function"], None))
+        rows.append({**r, "status": "needs_human_review" if why else "pass", "decided_by": "agent",
+                     **({"review_reason": "; ".join(why)[:500]} if why else {})})
+    doc = load_json(AI_MAPPING, "mapping.json") if AI_MAPPING.is_file() else {"areas": {}}
+    doc["description"] = ("AI RMF mapping: per AI area, rows of AI RMF function -> subcategory, CIS safeguards that prove "
+                          "it, impact. Drafted and evaluated by agents (prompts/ai_rmf_mapping_*.md), recorded by "
+                          "record_ai_bank.py mapping, reviewed by a person. Model: AI_RMF_Mapping_Sheet_Design.md.")
+    doc["areas"][data["area"]] = {
+        "recorded_on": date.today().isoformat(), "inputs": mapping_input_hashes(inp),
+        "rows": rows, "no_question": data.get("no_question", [])}
+    doc["areas"] = {a: doc["areas"][a] for a in m["areas"] if a in doc["areas"]}   # ai_areas.json order
+    AI_MAPPING.write_text(json.dumps(doc, indent=2, ensure_ascii=False))
+    review_n = sum(1 for r in rows if r["status"] != "pass")
+    reached, unreached = mapping_coverage(doc, inp, m["rules"])
+    return AI_MAPPING, (f"{data['area']}: {len(rows)} rows ({review_n} need human review); mapping has "
+                        f"{len(doc['areas'])} of {len(m['areas'])} areas, {len(unreached)} subcategories not reached yet")
+
+
+def mapping_input_hashes(inp: dict) -> dict:
+    """What a recorded area was built from; check_freshness.py compares these with the current files."""
+    return {"ai_areas": audit.sha(AI_AREAS), "rules": audit.sha(AI_MAPPING_RULES),
+            "playbook": inp["core"]["source_sha256_16"],
+            "guides": {g: s["sha256_16"] for g, s in inp["sg_doc"]["sources"].items()}}
+
+
+def mapping_coverage(doc: dict, inp: dict, rules: dict) -> tuple[set, list]:
+    """(subcategories reached by an area row or listed as org-wide, the ones not reached, in Playbook order)."""
+    reached = {r["subcategory"] for a in doc.get("areas", {}).values() for r in a["rows"]}
+    reached |= set(rules["org_wide"]["subcategories"])
+    return reached, [s for s in inp["subs"] if s not in reached]
+
+
 def assemble(gen1: Path, eval1: Path, gen2: Path | None, eval2: Path | None, out: Path) -> str:
     """Candidates file for `candidates` from generator output and evaluator failures. No judgement: a subcategory
     passes iff the last evaluation lists no failure for it."""
@@ -296,16 +426,26 @@ def store(mode: str, data: dict, args, inp: dict) -> tuple[Path, str]:
 
 def record(mode: str, args) -> None:
     inp = load_inputs()
-    validators = {"applicability": lambda d: validate_applicability(d, inp),
-                  "crosswalk": lambda d: validate_crosswalk(d, inp),
-                  "candidates": lambda d: validate_candidates(d, args.bank, inp),
-                  "notes": validate_notes}
+    if mode == "mapping":
+        m = mapping_inputs(inp)
+        review = load_json(Path(args.review), "review file") if getattr(args, "review", None) else None
+        validate = lambda d: validate_mapping(d, inp, m, review)                # noqa: E731
+        store_fn = lambda d: store_mapping(d, inp, m, review)                    # noqa: E731
+        extra = {"review_file": args.review, "review": review}
+        log_name = lambda d: f"mapping_{d.get('area', 'unknown')}" if isinstance(d, dict) else "mapping"  # noqa: E731
+    else:
+        validate = {"applicability": lambda d: validate_applicability(d, inp),
+                    "crosswalk": lambda d: validate_crosswalk(d, inp),
+                    "candidates": lambda d: validate_candidates(d, args.bank, inp),
+                    "notes": validate_notes}[mode]
+        store_fn, extra = (lambda d: store(mode, d, args, inp)), None
+        log_name = f"{mode}_{args.bank}" if mode == "candidates" else mode
     audit.record_agent_output(
         log_path=AI_BUILD / "audit.jsonl", log_dir=LOG_DIR, step=f"record_ai_bank_{mode}",
         args={"file": args.file, "bank": getattr(args, "bank", None)}, file=args.file,
-        validate=validators[mode], store=lambda data: store(mode, data, args, inp),
+        validate=validate, store=store_fn,
         model=args.model, session=args.session, prompts=args.prompt or DEFAULT_PROMPTS[mode],
-        log_name=f"{mode}_{args.bank}" if mode == "candidates" else mode)
+        log_name=log_name, extra_record=extra)
 
 
 def main():
@@ -317,11 +457,13 @@ def main():
         pa.add_argument(f"--{name}", required=name in ("gen1", "eval1"))
     pa.add_argument("--out", required=True)
 
-    for m in ("applicability", "crosswalk", "candidates", "notes"):
+    for m in ("applicability", "crosswalk", "candidates", "notes", "mapping"):
         p = sub.add_parser(m)
         if m == "candidates":
             p.add_argument("bank", choices=BANKS)
         p.add_argument("file")
+        if m == "mapping":
+            p.add_argument("--review", help="the evaluator's last list of failures (rows stored as needs_human_review)")
         p.add_argument("--model", required=True, help="model id of the agent that produced the file")
         p.add_argument("--session")
         p.add_argument("--prompt", nargs="*", help="prompt file(s) the agent followed, relative to the repo root")

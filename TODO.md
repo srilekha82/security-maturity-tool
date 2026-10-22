@@ -11,7 +11,11 @@ the starting point; it supersedes steps 3 and 4 of "finish the AI bank pilot" be
    and writes the client's `ai_areas` (automatic ones in `scope_rules.json` `ai_area_rules`), plus the old fields derived
    for the current filter.~~ Done 2026-10-21. Open for the producer: ask "pure or modified" (only if base-model
    questions are wanted) and "is the model given to others?" (release questions only then).
-2. Draft the mapping: a script crosses the AI areas with the four functions and prepares a compact input per area;
+2. Draft the mapping. BUILT 2026-10-22, not run yet: `prepare_ai_bank.py mapping --area ID`, the drafter and evaluator
+   prompts, `record_ai_bank.py mapping` (all rules below enforced), `data/ai/mapping_rules.json`, the "Mapping" section
+   of `/build-ai-bank`. Review the DRAFT `area_cis` (candidate CIS controls per area) and `org_wide` lists in
+   `mapping_rules.json`, then run the pilot on one area. Add the `mapping` freshness stage in step 3, when the mapping
+   replaces applicability. Original plan: a script crosses the AI areas with the four functions and prepares a compact input per area;
    drafter and evaluator prompts; recording script (ids, safeguards, impacts, coverage of all 72, and the required
    checks of the design note: inventory, audit trail, incident response, reliability). Pilot on one area
    first (MCP / tools) to check quality and tokens.

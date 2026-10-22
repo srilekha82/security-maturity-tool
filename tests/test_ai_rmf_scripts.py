@@ -368,6 +368,96 @@ class Scope(unittest.TestCase):
 
 
 
+class Mapping(unittest.TestCase):
+    """prepare_ai_bank.py mapping and record_ai_bank.py mapping, on the real AI areas and mapping rules (read only)."""
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp())
+        R.AI_MAPPING, R.AI_BUILD, R.LOG_DIR = self.tmp / "mapping.json", self.tmp / "build", self.tmp / "build" / "log"
+        P.AI_BUILD = R.AI_BUILD
+        R.AI_BUILD.mkdir(parents=True, exist_ok=True)
+        self.inp = R.load_inputs()
+
+    def row(self, function, sub, cis=(), impact=("access",), why=None):
+        return {"function": function, "subcategory": sub, "cis_refs": list(cis), "impact": list(impact),
+                "why": why or f"{sub} checks how the org handles MCP servers and tool credentials."}
+
+    def good(self):
+        return {"area": "mcp_tools", "rows": [
+            self.row("GOVERN", "GOVERN 1.6", ["MCP-2.1", "MCP-2.3"]),
+            self.row("MAP", "MAP 2.2"),
+            self.row("MEASURE", "MEASURE 2.7", ["MCP-6.8"]),
+            self.row("MEASURE", "MEASURE 2.8", ["MCP-8.2"]),
+            self.row("MANAGE", "MANAGE 2.4", ["MCP-6.2"]),
+            self.row("MANAGE", "MANAGE 4.3"),
+        ], "no_question": []}
+
+    def go(self, data, review=None):
+        f = self.tmp / "draft.json"
+        f.write_text(json.dumps(data))
+        rv = None
+        if review is not None:
+            rv = self.tmp / "review.json"
+            rv.write_text(json.dumps(review))
+        a = argparse.Namespace(file=str(f), review=str(rv) if rv else None, model="test-model", session=None, prompt=None)
+        try:
+            R.record("mapping", a)
+            return 0
+        except SystemExit as e:
+            return e.code
+
+    def test_prepare_gives_only_the_areas_candidates(self):
+        out = P.prepare_mapping(self.inp, "mcp_tools")
+        doc = json.loads(out.read_text())
+        rules = json.loads(R.AI_MAPPING_RULES.read_text())
+        allowed = set(rules["area_cis"]["mcp_tools"]["controls"]) | set(rules["always_cis_controls"])
+        cand = doc["cis_candidates"]
+        self.assertTrue(cand and all(c["id"].startswith("MCP-") for c in cand))
+        self.assertTrue(all(int(c["id"].split("-")[1].split(".")[0]) in allowed for c in cand))
+        self.assertEqual(sum(len(v) for v in doc["subcategories"].values()), 72)
+        self.assertIn("audit trail", [c["name"] for c in doc["rules"]["required_checks"]])
+
+    def test_bad_drafts_are_rejected_and_nothing_is_stored(self):
+        g = self.good()
+        rows = g["rows"]
+        cases = {
+            "unknown subcategory": [self.row("MAP", "MAP 9.9")] + rows,
+            "subcategory of another function": [self.row("MAP", "GOVERN 2.1")] + rows,
+            "safeguard not a candidate": [self.row("MAP", "MAP 3.5", ["LLM-3.1"])] + rows,
+            "impact the area does not have": [self.row("MAP", "MAP 3.5", impact=["data"])] + rows,
+            "repeated row": rows + [rows[0]],
+            "short why": [self.row("MAP", "MAP 3.5", why="tools")] + rows,
+            "missing function": [r for r in rows if r["function"] != "MANAGE"],
+            "missing audit trail": [r for r in rows if r["subcategory"] != "MEASURE 2.8"],
+            "audit row without a control 8 safeguard": [dict(r, cis_refs=["MCP-6.8"]) if r["subcategory"] == "MEASURE 2.8"
+                                                        else r for r in rows],
+            "missing inventory": [r for r in rows if r["subcategory"] != "GOVERN 1.6"],
+            "too many rows": rows + [self.row("MEASURE", f"MEASURE 2.{i}") for i in range(1, 8)],
+        }
+        for name, rs in cases.items():
+            self.assertEqual(self.go(dict(g, rows=rs)), 1, name)
+            self.assertFalse(R.AI_MAPPING.exists(), name)
+        self.assertEqual(self.go(dict(g, area="no_such_area")), 1)
+        self.assertEqual(self.go(g, review=[{"function": "MAP", "subcategory": "MAP 9.9", "reason": "x"}]), 1)
+        self.assertEqual(self.go(dict(g, rows=[r for r in rows if r["function"] != "MAP"],
+                                      no_question=[{"function": "MAP", "reason": "Nothing about the tools' context here."}])), 0)
+
+    def test_recorded_with_review_and_coverage(self):
+        review = [{"function": "MEASURE", "subcategory": "MEASURE 2.7", "reason": "Too generic for tool credentials."}]
+        self.assertEqual(self.go(self.good(), review=review), 0)
+        doc = json.loads(R.AI_MAPPING.read_text())
+        rows = {r["subcategory"]: r for r in doc["areas"]["mcp_tools"]["rows"]}
+        self.assertEqual(rows["MEASURE 2.7"]["status"], "needs_human_review")
+        self.assertEqual(rows["GOVERN 1.6"]["status"], "pass")
+        self.assertEqual(doc["areas"]["mcp_tools"]["inputs"]["ai_areas"], R.audit.sha(R.AI_AREAS))
+        rules = json.loads(R.AI_MAPPING_RULES.read_text())
+        reached, unreached = R.mapping_coverage(doc, self.inp, rules)
+        self.assertIn("GOVERN 4.1", reached)            # org-wide
+        self.assertIn("MEASURE 2.11", unreached)
+        self.assertEqual(len(reached) + len(unreached), 72)
+        self.assertEqual(len(list(R.LOG_DIR.glob("*_mapping_mcp_tools.json"))), 1)
+
+
 class FreshnessGate(unittest.TestCase):
     """check_freshness.py --ai-bank compares source hashes with what each output recorded about its inputs."""
 
