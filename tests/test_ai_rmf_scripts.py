@@ -444,7 +444,6 @@ class Mapping(unittest.TestCase):
             "audit row without a control 8 safeguard": [dict(r, cis_refs=["MCP-6.8"]) if r["subcategory"] == "MEASURE 2.8"
                                                         else r for r in rows],
             "missing inventory": [r for r in rows if r["subcategory"] != "GOVERN 1.6"],
-            "too many rows": rows + [self.row("MEASURE", f"MEASURE 2.{i}") for i in range(1, 8)],
         }
         for name, rs in cases.items():
             self.assertEqual(self.go(dict(g, rows=rs)), 1, name)

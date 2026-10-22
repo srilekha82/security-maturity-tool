@@ -34,8 +34,7 @@ Record modes (agent output; every one needs --model, optional --session, --promp
                            Rejected unless: the area is in ai_areas.json; each subcategory exists and belongs to the row's
                            function; cis_refs come from the area's candidates (mapping_rules.json area_cis); impact is a
                            non-empty subset of the area's impact; a why on each row; every function has rows or a
-                           no_question reason (not both); no repeated function + subcategory; at most max_rows_per_area
-                           rows; every required check that applies to the area is met. --review is the evaluator's last
+                           no_question reason (not both); no repeated function + subcategory; every required check that applies to the area is met. --review is the evaluator's last
                            list of failures [{"function", "subcategory" (or null for the whole function), "reason"}]:
                            those rows (or functions) are stored as needs_human_review with the reason.
                            -> data/ai/mapping.json   (the area's entry replaced; other areas kept)
@@ -260,8 +259,6 @@ def validate_mapping(data, inp, m: dict, review) -> list[str]:
             errors.append(f"{tag}: impact must be one or more of the area's impacts {area['impact']}")
         if len(str(r["why"]).strip()) < rules["min_why_chars"]:
             errors.append(f"{tag}: why must say in a sentence why this subcategory checks this area")
-    if len(rows) > rules["max_rows_per_area"]:
-        errors.append(f"{len(rows)} rows; at most {rules['max_rows_per_area']} per area")
     with_rows = {r.get("function") for r in rows if isinstance(r, dict)}
     for s in skips:
         if not isinstance(s, dict) or s.get("function") not in rules["functions"] or \

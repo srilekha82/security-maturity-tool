@@ -124,7 +124,7 @@ def prepare_mapping(inp: dict, area_id: str) -> Path:
     out.write_text(json.dumps({
         "area": areas[area_id],
         "functions": rules["functions"],
-        "rules": {"max_rows": rules["max_rows_per_area"], "min_why_chars": rules["min_why_chars"],
+        "rules": {"min_why_chars": rules["min_why_chars"],
                   "required_checks": r["required_checks"], "org_wide": rules["org_wide"]["subcategories"]},
         "subcategories": subs,
         "cis_candidates": [{"id": s["id"], "title": s["title"], "lowest_ig": (s["ig"] or ["-"])[0],

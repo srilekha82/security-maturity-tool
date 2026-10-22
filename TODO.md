@@ -6,10 +6,11 @@ session. The old AI bank pilot (`AI_RMF_Pilot_Decisions.md`) was recorded but NO
 the new mapping.
 
 ## Start here next session
-1. Review the two DRAFT lists in `data/ai/mapping_rules.json`:
+1. Review the DRAFT list in `data/ai/mapping_rules.json` (reviewed 2026-10-22: keep as is unless the pilot shows otherwise):
    - `area_cis`: the candidate CIS controls per AI area (the drafter may only cite safeguards from these; controls 1, 2,
      8 and 17 are added to every area);
-   - `org_wide`: the AI RMF subcategories asked once for the whole org (GOVERN 3.1-5.2, MANAGE 1.1-1.4).
+   - (`org_wide` is settled: GOVERN 3.1, 4.1, 4.2, 4.3, 5.2, MANAGE 1.2, 1.3; `always_cis_controls` names its controls
+     and is checked against the guides.)
 2. Run the mapping pilot on ONE area (planned: `mcp_tools`) with `/build-ai-bank`, section "Mapping": prepare, drafter,
    evaluator, one revision turn, record. About 4 agent runs of ~25k tokens input each.
 3. Review the recorded rows with the user (function, subcategory, safeguards, impact, why, evaluator failures,
@@ -33,7 +34,7 @@ the new mapping.
 4. Rewire question generation to mapping rows: `prepare_ai_bank.py batch` from mapping rows, generator prompt (questions
    per AI area x subcategory, the row's safeguards as evidence), `build_ai_questions.py` (rows from the client's
    `ai_areas`; base-model questions only when `producer.built_on_existing_model`; release questions only when
-   `producer.given_to_others`; gap rule per row from the CIS -> CSF mapping). Retire `legacy_profile`, the modifiers,
+   `producer.given_to_others`; gap rule per row from the CIS -> CSF mapping; up to 6 questions per subcategory). Retire `legacy_profile`, the modifiers,
    `question_categories.json`, `applicability.json` and `airmf_to_cis.json`. Carry over the generator prompt fixes from
    the old pilot (`AI_RMF_Pilot_Decisions.md` section 4): one subject per question; cite a safeguard only if it supports
    the question.

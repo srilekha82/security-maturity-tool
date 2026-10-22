@@ -1,7 +1,6 @@
 {
-  "description": "Rules for the AI RMF mapping (AI area x AI RMF function -> subcategory, CIS safeguards, impact). prepare_ai_bank.py mapping uses area_cis to give the drafter a short list of candidate CIS safeguards; record_ai_bank.py mapping rejects a draft that breaks any rule here. Model: AI_RMF_Mapping_Sheet_Design.md. area_cis and org_wide are DRAFTS to review.",
+  "description": "Rules for the AI RMF mapping (AI area x AI RMF function -> subcategory, CIS safeguards, impact). prepare_ai_bank.py mapping uses area_cis to give the drafter a short list of candidate CIS safeguards; record_ai_bank.py mapping rejects a draft that breaks any rule here. Model: AI_RMF_Mapping_Sheet_Design.md. There is no row count: an area gets as many rows as it has real questions.",
   "functions": ["GOVERN", "MAP", "MEASURE", "MANAGE"],
-  "max_rows_per_area": 12,
   "min_why_chars": 20,
   "always_cis_controls": {
     "description": "CIS Controls v8.1 control numbers (1-18) added to every AI area, taken from that area's own guides (area_cis guides): e.g. control 8 is MCP-8.x for mcp_tools, AGENT-8.x for agent, LLM-8.x for most areas. They let the required checks (inventory, audit trail, incident response) cite a safeguard in every area. The names are checked against the parsed guides (cis_ai_safeguards.json controls).",
@@ -35,7 +34,6 @@
   ],
   "org_wide": {
     "description": "AI RMF subcategories asked once for the whole org through GOVERN (or MANAGE 1), not through an AI area. They count as reached in the coverage check.",
-    "subcategories": ["GOVERN 3.1", "GOVERN 3.2", "GOVERN 4.1", "GOVERN 4.2", "GOVERN 4.3", "GOVERN 5.1", "GOVERN 5.2",
-                      "MANAGE 1.1", "MANAGE 1.2", "MANAGE 1.3", "MANAGE 1.4"]
+    "subcategories": ["GOVERN 3.1", "GOVERN 4.1", "GOVERN 4.2", "GOVERN 4.3", "GOVERN 5.2", "MANAGE 1.2", "MANAGE 1.3"]
   }
 }

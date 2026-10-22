@@ -9,7 +9,8 @@ puts questions in the wrong place and a missing row leaves part of the area unch
 
 ## Check every row
 1. The subcategory really checks THIS area: an assessor could ask how the org handles this area under that outcome.
-   Fail rows that are only generically important or fit another area better.
+   Fail rows that are only generically important, fit another area better, are there only to fill a function, or
+   repeat another row's check in different words.
 2. The `cis_refs` support the row (evidence for that subcategory about this area). Fail a safeguard that is off-topic.
 3. The `impact` matches what the row protects (data, access, process, assets).
 4. The `why` is specific to this area.

@@ -39,8 +39,9 @@ Impact, What it covers, Example question (spreadsheet only).
 - **Impact** is the attack area a failure hits: **data** (exposed, leaked, poisoned), **access** (permissions and
   credentials used or abused), **process** (a business process or decision goes wrong), **assets** (model, code or
   infrastructure stolen, damaged or taken down).
-- Org-wide AI RMF outcomes that belong to no AI area (GOVERN 3 to 5, MANAGE 1: risk tolerance, teams, culture,
-  engaging affected people) are asked once through the GOVERN function, not through an AI area.
+- Org-wide AI RMF outcomes that belong to no AI area (GOVERN 3.1 diverse teams, 4.1 culture, 4.2 documenting impacts,
+  4.3 testing and incident practices, 5.2 feedback into design; MANAGE 1.2 and 1.3 risk prioritisation and response)
+  are asked once for the whole org, not through an AI area (`org_wide` in `data/ai/mapping_rules.json`).
 - Whether general security (CSF, ISO 27001) already covers a question is decided per mapping row, not per area: when a
   row's CIS safeguard maps (official CIS -> CSF mapping) to a CSF subcategory the client was assessed on, the question
   asks only the AI-specific part.
@@ -116,7 +117,8 @@ MEASURE 2.7 like other security. The harness as data to protect is the Test, tun
   to the sources when the figure is cited.
 
 ## 5. The mapping and maturity
-One row per AI area x function: AI RMF subcategory, CIS safeguards that prove it, impact, why.
+Rows per AI area: AI RMF function -> subcategory, CIS safeguards that prove it, impact, why. There is no row count:
+an area gets a row for every subcategory that really checks it (each at most once), and the evaluator fails padding.
 - Score per AI RMF subcategory (the 72-row profile XLS), like CSET questions mapping to CSF subcategories. AI areas
   and impacts are report views on top; nothing counts twice.
 - All 72 subcategories must be reached (the org-wide GOVERN ones directly).
