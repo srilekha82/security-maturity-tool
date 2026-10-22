@@ -38,6 +38,7 @@ Question banks  →  Stage 1: Questionnaire  →  Stage 2: Answers        →  S
 ## Setup
 
 - Python 3. Create the project venv once: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt` (`openpyxl`, `pdfplumber`). Every command in this README runs as `.venv/bin/python ./scripts/<script>.py`.
+- GitHub Codespaces: `.devcontainer/devcontainer.json` creates the venv and installs the requirements when the codespace is created (Python 3.12, Node for the Claude Code CLI). The licensed sources in `data/ai/source/` are not in the repo; upload them to the codespace if you need to re-parse.
 - The AI RMF sources (Playbook, CIS companion guides, CIS to CSF mapping) are not in the repo; see `data/ai/source/README.md`.
 - A local clone of the CSET repo at `~/workstuff/cset` (only for building question banks).
 - Run everything from the repo root, inside Claude Code.
