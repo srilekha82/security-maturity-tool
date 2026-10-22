@@ -13,7 +13,7 @@
     "code_generation":   {"controls": [2, 3, 7, 16],           "guides": ["LLM"]},
     "customer_facing":   {"controls": [3, 13, 16, 18],         "guides": ["LLM"]},
     "vendor_ai":         {"controls": [3, 15],                 "guides": ["LLM"]},
-    "producer":          {"controls": [4, 15, 16],             "guides": ["LLM"]},
+    "model_development": {"controls": [4, 15, 16],             "guides": ["LLM"]},
     "invisible_usage":   {"controls": [3, 6, 9, 13, 14],       "guides": ["LLM", "MCP", "AGENT"]},
     "input":             {"controls": [3, 9, 14],              "guides": ["LLM"]},
     "output":            {"controls": [13, 16, 18],            "guides": ["LLM"]},

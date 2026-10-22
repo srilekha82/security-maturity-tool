@@ -7,14 +7,13 @@ airmf_to_cis.json, the two pilot banks, the work and batch files) were removed o
 AI RMF bank until step 6. The audit trail (`data/ai/bank_build/audit.jsonl`, `judgement_log/`) is kept.
 
 ## Start here next session
-1. Review the DRAFT list in `data/ai/mapping_rules.json` (reviewed 2026-10-22: keep as is unless the pilot shows otherwise):
-   - `area_cis`: the candidate CIS controls per AI area (the drafter may only cite safeguards from these; controls 1, 2,
-     8 and 17 are added to every area);
-   - (`org_wide` is settled: GOVERN 3.1, 4.1, 4.2, 4.3, 5.2, MANAGE 1.2, 1.3; `always_cis_controls` names its controls
-     and is checked against the guides.)
-2. Run the mapping pilot on ONE area (planned: `mcp_tools`) with `/build-ai-bank`, section "Mapping": prepare, drafter,
-   evaluator, one revision turn, record. About 4 agent runs of ~25k tokens input each.
-3. Review the recorded rows with the user (function, subcategory, safeguards, impact, why, evaluator failures,
+All open decisions are settled (2026-10-22): `area_cis` kept as drafted, `org_wide` = GOVERN 3.1, 4.1, 4.2, 4.3, 5.2,
+MANAGE 1.2, 1.3; `always_cis_controls` 1, 2, 8, 17 named and checked against the guides; no row count (content
+decides, the evaluator fails padding); the producer area is `model_development` ("Model development and release");
+criticality bands in USD (under 100k / 100k-500k / over 500k).
+1. Run the mapping pilot on ONE area (planned: `mcp_tools`) with `/build-ai-bank`, section "Mapping": prepare, drafter,
+   evaluator, one revision turn, record. About 4 agent runs of ~25k tokens input each. Ask the user before running.
+2. Review the recorded rows with the user (function, subcategory, safeguards, impact, why, evaluator failures,
    subcategories still unreached), tune the two mapping prompts if needed, then draft the other 13 areas one at a time.
 
 ## Build the AI RMF mapping (steps of the design note)
