@@ -1,7 +1,8 @@
 """
 Usage: .venv/bin/python ./scripts/intake.py menu [KEY]
        .venv/bin/python ./scripts/intake.py write --org NAME --domain N --certs "N N" --ai-in-use N
-              [--ai-usage "N N" --ai-components "N N"] --csf-assessment-done N --iso42001-held N
+              [--role N [--built-on-model N --given-to-others N] --ai-usage "N N" --ai-components "N N"]
+              --csf-assessment-done N --iso42001-held N
               [--date YYYY-MM-DD] [--runs-dir DIR] [--replace]
 
 The engagement intake, as numbered choices (the menus live in data/common/intake_options.json).
@@ -12,11 +13,13 @@ The engagement intake, as numbered choices (the menus live in data/common/intake
            intake.json     org, date, domain, certs     read by compute_scope, build_questions and check_freshness
            ai_usage.json   the AI usage profile (no org)  read by build_ai_questions
          iso27001_held is derived from the certifications, so the two cannot disagree.
-         "How do you use AI?" (ai_usage) and "What does your AI include?" (ai_components) list AI area ids from
-         data/ai/ai_areas.json; they are asked only when AI in use is "some" (option 2), may be left blank, and giving
-         them otherwise is rejected. ai_areas() turns the answers into the client's AI areas, adding the automatic ones
-         from scope_rules.json ai_area_rules. Until question selection works on AI areas, the old profile fields (role,
-         rung, usage contexts, hosts_model) are also written, worked out from the areas (scope_rules.json legacy_profile).
+         When AI in use is "some" (option 2): "Do you build AI, use AI, or both?" (role, required); for producer or both,
+         "built on an existing model?" and "given to others?"; then "How do you use AI?" (ai_usage) and "What does your
+         AI include?" (ai_components), which list AI area ids from data/ai/ai_areas.json and may be left blank. Giving
+         any of these when they are not asked is rejected. ai_areas() turns the answers into the client's AI areas,
+         adding the automatic ones from scope_rules.json ai_area_rules (the role adds the producer areas). Until question
+         selection works on AI areas, the old profile fields (rung, usage contexts, modifiers, hosts_model) are also
+         written, worked out from the areas (scope_rules.json legacy_profile).
          Exit 1 with the problems listed, writing nothing, if a number is not on its menu, a single-choice question gets
          several, "None" is combined with a certification, the profile breaks a rule of
          build_ai_questions.validate_profile, or the run folder already has an intake.json (same org and date):
@@ -40,13 +43,15 @@ BY_KEY = {q["key"]: q for q in INTAKE_QUESTIONS}
 
 
 def applies(q: dict, values: dict) -> bool:
-    """A question is asked unless its ask_if names an answer the user did not give."""
-    return all(values.get(k) == v for k, v in q.get("ask_if", {}).items())
+    """A question is asked unless its ask_if names an answer the user did not give (a list: any of those answers)."""
+    return all(values.get(k) in v if isinstance(v, list) else values.get(k) == v for k, v in q.get("ask_if", {}).items())
 
 
 def print_menu(q: dict) -> None:
-    note = "".join(f"  (ask only if {k} is option {[o['value'] for o in BY_KEY[k]['options']].index(v) + 1})"
-                   for k, v in q.get("ask_if", {}).items())
+    def numbers(k, v):
+        opts = [o["value"] for o in BY_KEY[k]["options"]]
+        return " or ".join(str(opts.index(x) + 1) for x in (v if isinstance(v, list) else [v]))
+    note = "".join(f"  (ask only if {k} is option {numbers(k, v)})" for k, v in q.get("ask_if", {}).items())
     print(f"{q['key']}: {q['prompt']}{note}")
     for i, o in enumerate(q["options"], 1):
         print(f"  {i}. {o['label']}")
@@ -76,28 +81,26 @@ def run_folder_name(org: str, day: str) -> str:
     return f"{re.sub(r'[^A-Za-z0-9._-]+', '_', org.strip()).strip('_')}_{day}"
 
 
-def ai_areas(gate: str, usage: list, components: list, rules: dict, order: list) -> list[str]:
+def ai_areas(gate: str, role: str | None, usage: list, components: list, rules: dict, order: list) -> list[str]:
     """The client's AI areas, in ai_areas.json order: the ones ticked, plus the automatic ones (ai_area_rules)."""
     r = rules["ai_area_rules"]
     got = set(r["always"])
     if gate != "none":
-        got |= set(r["any_ai"]) | set(usage) | set(components)
+        got |= set(r["any_ai"]) | set(r["role"].get(role, [])) | set(usage) | set(components)
         for area, adds in r["with"].items():
             if area in got:
                 got |= set(adds)
     return [a for a in order if a in got]
 
 
-def legacy_fields(gate: str, areas: list, rules: dict) -> dict:
+def legacy_fields(gate: str, areas: list, built_on_model, rules: dict) -> dict:
     """The old profile fields the current question filter reads, worked out from the AI areas (removed in step 4)."""
     if gate != "some":
-        return {"role": None, "rung": None, "usage_contexts": [], "modifiers": [], "hosts_model": False}
+        return {"rung": None, "usage_contexts": [], "modifiers": [], "hosts_model": False}
     lp = rules["legacy_profile"]
-    others = [a for a in areas if a in lp["usage_contexts"]]
-    role = ("both" if others else "producer") if "producer" in areas else "consumer"
     rung = next((rung for area, rung in lp["rung"] if area in areas), "base")
-    return {"role": role, "rung": rung, "usage_contexts": [lp["usage_contexts"][a] for a in others],
-            "modifiers": [], "hosts_model": "hosting" in areas}
+    return {"rung": rung, "usage_contexts": [lp["usage_contexts"][a] for a in areas if a in lp["usage_contexts"]],
+            "modifiers": ["builds_on_base_model"] if built_on_model else [], "hosts_model": "hosting" in areas}
 
 
 def write(args) -> None:
@@ -120,11 +123,15 @@ def write(args) -> None:
     certs = [c for c in values["certs"] if c != "none"]
     rules = json.loads(AI_SCOPE_RULES.read_text())
     order = [a["id"] for a in json.loads(AI_AREAS.read_text())["ai_areas"]]
-    areas = ai_areas(gate, values.get("ai_usage", []), values.get("ai_components", []), rules, order)
+    role = values.get("role")
+    areas = ai_areas(gate, role, values.get("ai_usage", []), values.get("ai_components", []), rules, order)
     profile = {
         "ai_in_use": gate,
+        "role": role,
+        "producer": ({"built_on_existing_model": values["built_on_model"], "given_to_others": values["given_to_others"]}
+                     if role in ("producer", "both") else None),
         "ai_areas": areas,
-        **legacy_fields(gate, areas, rules),
+        **legacy_fields(gate, areas, values.get("built_on_model"), rules),
         "engagement_flags": {"csf_assessment_done": values["csf_assessment_done"],
                              "iso27001_held": "iso27001" in certs, "iso42001_held": values["iso42001_held"]},
         "captured_on": args.date,

@@ -1,61 +1,62 @@
-# TODO (last updated 2026-10-21)
+# TODO (last updated 2026-10-22)
 
-State: the AI bank pilot has been run and recorded but NOT accepted (`AI_RMF_Pilot_Decisions.md`). The AI RMF model was
-redesigned: AI areas (usage and components) -> attack areas -> AI RMF function -> subcategory, in `AI_RMF_Mapping_Sheet_Design.md`. That note is
-the starting point; it supersedes steps 3 and 4 of "finish the AI bank pilot" below.
+State: the AI RMF model was redesigned (2026-10-16 to 2026-10-22): AI areas (how AI is used and what it is made of) ->
+attack areas -> AI RMF function -> subcategory. `AI_RMF_Mapping_Sheet_Design.md` is the starting point for every
+session. The old AI bank pilot (`AI_RMF_Pilot_Decisions.md`) was recorded but NOT accepted; it is re-run in step 6 on
+the new mapping.
+
+## Start here next session
+1. Review the two DRAFT lists in `data/ai/mapping_rules.json`:
+   - `area_cis`: the candidate CIS controls per AI area (the drafter may only cite safeguards from these; controls 1, 2,
+     8 and 17 are added to every area);
+   - `org_wide`: the AI RMF subcategories asked once for the whole org (GOVERN 3.1-5.2, MANAGE 1.1-1.4).
+2. Run the mapping pilot on ONE area (planned: `mcp_tools`) with `/build-ai-bank`, section "Mapping": prepare, drafter,
+   evaluator, one revision turn, record. About 4 agent runs of ~25k tokens input each.
+3. Review the recorded rows with the user (function, subcategory, safeguards, impact, why, evaluator failures,
+   subcategories still unreached), tune the two mapping prompts if needed, then draft the other 13 areas one at a time.
 
 ## Build the AI RMF mapping (steps of the design note)
-0. ~~Write the model down (design note, sector rule in `DESIGN_RULES.md`, this TODO).~~ Done 2026-10-21.
-1. ~~AI areas sheet `data/ai/authoring/ai_areas.xlsx` (the decision; 14 areas, kind, applies to, impact) ->
-   `data/ai/ai_areas.json` via `scripts/sheet_io.py`; intake asks "How do you use AI?" and "What does your AI include?"
-   and writes the client's `ai_areas` (automatic ones in `scope_rules.json` `ai_area_rules`), plus the old fields derived
-   for the current filter.~~ Done 2026-10-21. Open for the producer: ask "pure or modified" (only if base-model
-   questions are wanted) and "is the model given to others?" (release questions only then).
-2. Draft the mapping. BUILT 2026-10-22, not run yet: `prepare_ai_bank.py mapping --area ID`, the drafter and evaluator
-   prompts, `record_ai_bank.py mapping` (all rules below enforced), `data/ai/mapping_rules.json`, the "Mapping" section
-   of `/build-ai-bank`. Review the DRAFT `area_cis` (candidate CIS controls per area) and `org_wide` lists in
-   `mapping_rules.json`, then run the pilot on one area. Add the `mapping` freshness stage in step 3, when the mapping
-   replaces applicability. Original plan: a script crosses the AI areas with the four functions and prepares a compact input per area;
-   drafter and evaluator prompts; recording script (ids, safeguards, impacts, coverage of all 72, and the required
-   checks of the design note: inventory, audit trail, incident response, reliability). Pilot on one area
-   first (MCP / tools) to check quality and tokens.
-3. Review and accept: `sheet_io.py export` / `import` for the mapping, `decided_by: human` on changed rows, accept gate.
-4. Rewire question generation to mapping rows: `prepare_ai_bank.py batch`, generator prompt, `build_ai_questions.py`
-   (the client's `ai_areas` from the intake; gap rule from the CIS -> CSF mapping per row). Retire the old profile
-   fields (`legacy_profile`), the modifiers and `question_categories.json` here.
+0. ~~Write the model down.~~ Done 2026-10-21.
+1. ~~AI areas and intake.~~ Done 2026-10-22. `data/ai/authoring/ai_areas.xlsx` (the decision: 14 areas, kind, applies
+   to, impact) -> `data/ai/ai_areas.json` via `scripts/sheet_io.py`. The intake asks AI in use; "Do you build AI, use AI,
+   or both?" (for producer or both: built on an existing model? given to others?); "How do you use AI?"; "What does
+   your AI include?". It writes `role`, `producer`, `ai_areas` (automatic ones in `scope_rules.json` `ai_area_rules`) and
+   the old fields derived for the current filter.
+2. Draft the mapping. Built 2026-10-22, not run: `prepare_ai_bank.py mapping --area ID`, `prompts/ai_rmf_mapping_drafter.md`,
+   `prompts/ai_rmf_mapping_evaluator.md`, `record_ai_bank.py mapping` (rejects a draft that breaks
+   `data/ai/mapping_rules.json`: subcategory of the right function, the area's candidate safeguards and impacts, every
+   function covered, the required checks: inventory, audit trail with a CIS control 8 safeguard, incident response,
+   reliability). Run it: "Start here" above.
+3. Review and accept the mapping: a `mapping` entry in `data/common/sheet_specs.json` so `sheet_io.py` exports it to a
+   spreadsheet and imports the person's edits back (`decided_by: human`); an accept gate like `ai_pilot.py accept`; a
+   `mapping` stage in `check_freshness.py` (missing, incomplete, stale, subcategories unreached).
+4. Rewire question generation to mapping rows: `prepare_ai_bank.py batch` from mapping rows, generator prompt (questions
+   per AI area x subcategory, the row's safeguards as evidence), `build_ai_questions.py` (rows from the client's
+   `ai_areas`; base-model questions only when `producer.built_on_existing_model`; release questions only when
+   `producer.given_to_others`; gap rule per row from the CIS -> CSF mapping). Retire `legacy_profile`, the modifiers,
+   `question_categories.json`, `applicability.json` and `airmf_to_cis.json`. Carry over the generator prompt fixes from
+   the old pilot (`AI_RMF_Pilot_Decisions.md` section 4): one subject per question; cite a safeguard only if it supports
+   the question.
 5. Severity: the standard criticality question (USD under 100k / 100k-500k / over 500k; reputation; safety) and the
-   priority rules (domain floor, process criticality, data classification) for the Stage 2 writer.
-6. Re-run the pilot (same 6 subcategories), accept, then the full producer and consumer banks.
-7. Tests and docs; fix the code review findings listed at the end of the design note (two are reproduced bugs).
+   priority rules (domain floor for healthcare and manufacturing / OT, process criticality, data classification) for
+   the Stage 2 writer.
+6. Pilot the question banks on a few mapping rows, accept (`ai_pilot.py accept`), then the full producer and consumer
+   banks, then the CSF AI impact notes.
+7. Tests and docs; fix the code review findings listed at the end of the design note (two are reproduced bugs:
+   `parse_soa.py` numeric ids, `extract_cset_candidates.py` replay order).
 
-## Next session: finish the AI bank pilot
-1. **Review the 6 pilot entries** in `data/ai/banks/question_bank_ai_rmf_producer.json` (GOVERN 6.1) and
-   `question_bank_ai_rmf_consumer.json` (MAP 1.1, MEASURE 3.3, MANAGE 3.1, MAP 2.2, MAP 3.5). Section 4 of
-   `AI_RMF_Pilot_Decisions.md` lists what failed and which 3 are flagged `needs_human_review` (MAP 1.1 Q3, MANAGE 3.1 Q4, MAP 2.2 Q5).
-2. **Edit `prompts/ai_rmf_question_generator.md`** (the evaluator prompt needs no change):
-   - line 30 / 33 (`scope_tags`, `modifiers`): tag a usage context only if the question makes no sense without it, otherwise `[]`
-   - line 28 (`capability`): the rung must be at least the highest rung of any cited safeguard and of what the question asks (tool calling is `mcp`, not `rag`)
-   - line 18 (one thing per question): at most one "who / where recorded" and one "how often"; no list of subjects in one question
-   - line 27 (`cis_refs`): cite a safeguard only if it supports this question; when in doubt `[]`
-3. **Decide the MAP 2.2 access mapping** (`AI_RMF_Pilot_Decisions.md` section 1, item 2). The evaluator said `ai_access` does not fit a
-   "where are connections recorded" question. Either re-tag it as governance, or move the `ai_access_*` mapping to a better
-   subcategory (then redo the applicability pass, `/build-ai-bank` step 3).
-4. **Re-run the pilot** with `/build-ai-bank` (same 6 subcategories is fine; the work files in `data/ai/bank_build/work/` can be
-   deleted first). Editing a prompt after acceptance makes the acceptance stale, so edit first, accept last.
-5. **Accept** only when happy: `.venv/bin/python ./scripts/ai_pilot.py accept --note "<what you decided>"`.
-
-## Then: full builds
-6. `/build-ai-bank` full run (both banks, `--missing`, one AI RMF category per batch; cheaper per subcategory than the pilot,
-   which cost about 0.85M tokens for 6 subcategories). Then Step 7, the CSF AI impact notes.
-7. `/build-csf-bank all` (only `finance` exists today).
-8. Run `/generate-questions` end to end on a test client. The restructured commands have not been run as a whole in a live session yet.
+## Then
+- `/build-csf-bank all` (only `finance` exists today).
+- Run `/generate-questions` end to end on a test client. The restructured commands have not been run as a whole in a live
+  session yet.
 
 ## Parked, no rush
 - `validate_questions.py`: move the mechanical assessor checks (truncated text, duplicates, blank evidence, GV must be
   `full_discovery`, wrong cert named, missing LOW flag) out of the two assessor prompts into a script.
-- Update the decision docs (`AI_RMF_*.md`, `AI_Assessment_Pipeline_Design.md`) to the new command and file names once things are final.
+- Update the older decision docs (`AI_RMF_QuestionBank_Decisions.md`, `AI_RMF_Pilot_Decisions.md`,
+  `AI_Assessment_Pipeline_Design.md`) where the new model supersedes them, once the mapping is accepted.
 - Unit tests for `compute_scope.py` and `build_questions.py` (checked by hand so far, not in the test suite).
 - `.claude/settings.local.json` holds two leftover permissions from an older session's scratchpad: remove them.
 - Kept on purpose: `max_questions` stays in both `scope_rules.json` files; the CSF fallback question (38 finance subcategories)
   and auto-building missing banks inside `/generate-questions`.
-- Delete the pilot work files (`data/ai/bank_build/work/`, `batch_*.json`) after the review.
+- Delete the old pilot work files (`data/ai/bank_build/work/`, `batch_*.json`) once the new pilot replaces them.

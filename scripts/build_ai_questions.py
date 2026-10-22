@@ -14,8 +14,10 @@ ai_usage.json:
 {
   "ai_in_use": "none" | "some" | "unsure",
   "ai_areas": ["invisible_usage", "input", ...],             # the client's AI areas (intake.ai_areas); not read here
-                                                              # until TODO step 4. The fields below are derived from them.
-  "role": "producer" | "consumer" | "both" | null,           # needed for "some"
+                                                              # until TODO step 4. rung, usage_contexts, modifiers and
+                                                              # hosts_model are derived from them.
+  "producer": {"built_on_existing_model": bool, "given_to_others": bool} | null,   # asked; not read here until step 4
+  "role": "producer" | "consumer" | "both" | null,           # asked; needed for "some"
   "rung": "base" | "rag" | "mcp" | "agentic" | null,          # highest technology rung reached; needed for "some"
   "usage_contexts": ["internal", "code_generation", "customer_facing", "third_party_embedded"],
   "modifiers": ["poc", "self_hosted", "builds_on_base_model", "unsanctioned_use"],

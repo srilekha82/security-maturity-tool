@@ -42,7 +42,8 @@ not needed to run the flows (`CLAUDE.md` covers that). `README.md` explains the 
   severity floor for the priority of findings (healthcare and manufacturing / OT: loss of life is possible) and
   decorates the report. The model (AI areas -> attack areas -> AI RMF function -> subcategory) is in
   `AI_RMF_Mapping_Sheet_Design.md`; the AI areas are decided by a person in `data/ai/authoring/ai_areas.xlsx`. The
-  usage profile is: AI in use (`none` / `some` / `unsure`), the client's AI areas (ticked in two intake menus, plus
+  usage profile is: AI in use (`none` / `some` / `unsure`), role (`consumer` / `producer` / `both`, asked), for a
+  producer whether the model is built on an existing model and given to others, the client's AI areas (ticked in two intake menus, plus
   the automatic ones in `scope_rules.json` `ai_area_rules`), and engagement flags (CSF assessment done, ISO 27001 held,
   ISO 42001 held). Until question selection works on AI areas, the old fields (role, rung, usage contexts, modifiers,
   hosts_model) are derived from the areas for the current filter. Captured once per engagement by

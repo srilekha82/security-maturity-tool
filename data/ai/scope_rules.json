@@ -11,10 +11,11 @@
   "no_effect_flags": {"iso42001_held": "ISO/IEC 42001 held: not used to relax any question type until the AI RMF to 42001 crosswalk is verified; everything stays full_discovery"},
   "always_modifiers": ["unsanctioned_use"],
   "ai_area_rules": {
-    "description": "Which AI areas (data/ai/ai_areas.json) a client gets, besides the ones ticked in the intake menus ai_usage and ai_components. Every AI area must be reachable exactly one way: a menu, always, any_ai or a with-rule (a test checks it).",
+    "description": "Which AI areas (data/ai/ai_areas.json) a client gets, besides the ones ticked in the intake menus ai_usage and ai_components: always, any_ai (AI in use), role (the answer to \"Do you build AI, use AI, or both?\") and with (an area that brings others). Every AI area must be reachable (a test checks it).",
     "always": ["invisible_usage"],
     "any_ai": ["input", "output"],
-    "with": {"producer": ["model", "test_tuning_data"], "agent": ["mcp_tools"]}
+    "role": {"producer": ["producer", "model", "test_tuning_data"], "both": ["producer", "model", "test_tuning_data"]},
+    "with": {"agent": ["mcp_tools"]}
   },
   "legacy_profile": {
     "description": "Until question selection works on AI areas (TODO step 4), intake.py also writes the old profile fields, worked out from the AI areas with these tables. Removed in step 4.",

@@ -18,8 +18,9 @@ from paths import AI_AREAS, AI_CATEGORIES, AI_SCOPE_RULES  # noqa: E402
 
 
 def args(**over):
-    base = dict(replace=False, org="Acme Corp", domain="1", certs="2 3", ai_in_use="2", ai_usage="1 3", ai_components="2",
-                csf_assessment_done="1", iso42001_held="2", date="2026-10-14", runs_dir=None)
+    base = dict(replace=False, org="Acme Corp", domain="1", certs="2 3", ai_in_use="2", role="1", built_on_model=None,
+                given_to_others=None, ai_usage="1 3", ai_components="2", csf_assessment_done="1", iso42001_held="2",
+                date="2026-10-14", runs_dir=None)
     base.update(over)
     return type("A", (), base)()
 
@@ -32,9 +33,10 @@ class Options(unittest.TestCase):
         menu = {q["key"]: [o["value"] for o in q["options"]] for q in OPT.INTAKE_QUESTIONS}
         r = json.loads(AI_SCOPE_RULES.read_text())["ai_area_rules"]
         menus, auto = set(menu["ai_usage"]) | set(menu["ai_components"]), set(r["always"]) | set(r["any_ai"])
-        added = {a for adds in r["with"].values() for a in adds}
+        added = {a for adds in list(r["with"].values()) + list(r["role"].values()) for a in adds}
         self.assertEqual(menus | auto | added, areas)
         self.assertFalse(menus & auto)
+        self.assertTrue(set(r["role"]) <= set(menu["role"]))
         self.assertTrue(set(r["with"]) <= areas)
 
     def test_legacy_tables_match_the_enums_the_question_filter_reads(self):
@@ -82,27 +84,38 @@ class Intake(unittest.TestCase):
         usage = self.usage()
         self.assertEqual(usage["ai_areas"], ["internal_process", "customer_facing", "invisible_usage", "input", "output",
                                              "mcp_tools"])
+        self.assertEqual((usage["role"], usage["producer"]), ("consumer", None))
         # the old fields the current question filter reads, worked out from the areas
-        self.assertEqual((usage["role"], usage["rung"], usage["hosts_model"]), ("consumer", "mcp", False))
+        self.assertEqual((usage["rung"], usage["hosts_model"], usage["modifiers"]), ("mcp", False, []))
         self.assertEqual(usage["usage_contexts"], ["internal", "customer_facing"])
         self.assertEqual(usage["engagement_flags"], {"csf_assessment_done": True, "iso27001_held": True,
                                                      "iso42001_held": False})
 
     def test_no_ai_keeps_only_invisible_usage_and_pci_only_leaves_iso_false(self):
-        self.assertEqual(self.go(ai_in_use="1", ai_usage=None, ai_components=None, certs="3"), 0)
+        self.assertEqual(self.go(ai_in_use="1", role=None, ai_usage=None, ai_components=None, certs="3"), 0)
         usage = self.usage()
         self.assertEqual(usage["ai_areas"], ["invisible_usage"])
         self.assertEqual((usage["role"], usage["rung"], usage["usage_contexts"]), (None, None, []))
         self.assertFalse(usage["engagement_flags"]["iso27001_held"])
 
     def test_producer_and_agents_bring_their_areas(self):
-        self.assertEqual(self.go(ai_usage="5", ai_components="3 4"), 0)   # producer; agents, hosts a model
+        # build, built on an existing model, not given to others; agents and a hosted model
+        self.assertEqual(self.go(role="2", built_on_model="1", given_to_others="2", ai_usage="", ai_components="3 4"), 0)
         usage = self.usage()
         for area in ("producer", "model", "test_tuning_data", "agent", "mcp_tools", "hosting"):
             self.assertIn(area, usage["ai_areas"])
+        self.assertEqual(usage["producer"], {"built_on_existing_model": True, "given_to_others": False})
         self.assertEqual((usage["role"], usage["rung"], usage["hosts_model"]), ("producer", "agentic", True))
+        self.assertEqual(usage["modifiers"], ["builds_on_base_model"])
         rules = json.loads(AI_SCOPE_RULES.read_text())
         self.assertIn("self_hosted", BQ.effective_profile(usage, rules)["modifiers"])   # the bank filter still sees it
+
+    def test_both_keeps_the_usage_areas_and_adds_the_producer_ones(self):
+        self.assertEqual(self.go(role="3", built_on_model="2", given_to_others="1"), 0)
+        usage = self.usage()
+        self.assertEqual(usage["role"], "both")
+        self.assertTrue({"internal_process", "customer_facing", "producer", "model"} <= set(usage["ai_areas"]))
+        self.assertEqual(usage["producer"], {"built_on_existing_model": False, "given_to_others": True})
 
     def test_blank_menus_are_allowed(self):
         self.assertEqual(self.go(ai_usage="", ai_components=""), 0)
@@ -112,9 +125,11 @@ class Intake(unittest.TestCase):
 
     def test_bad_input_is_rejected_and_writes_nothing(self):
         for bad in (dict(domain="9"), dict(domain="x"), dict(domain="1 2"), dict(certs="1 2"), dict(certs=""),
-                    dict(ai_usage="9"), dict(ai_components="1 7"),
-                    dict(ai_in_use="1"),                                      # menus answered without "some"
-                    dict(ai_in_use="3", ai_usage=None, ai_components="1"),
+                    dict(ai_usage="9"), dict(ai_components="1 7"), dict(role=None), dict(role="4"),
+                    dict(built_on_model="1"),                                 # producer follow-up for a consumer
+                    dict(role="2", built_on_model=None, given_to_others="2"),  # follow-up missing for a producer
+                    dict(ai_in_use="1"),                                      # questions answered without "some"
+                    dict(ai_in_use="3", role=None, ai_usage=None, ai_components="1"),
                     dict(org="!!!")):
             self.assertEqual(self.go(**bad), 1, bad)
             self.assertFalse(self.run_dir().exists(), bad)

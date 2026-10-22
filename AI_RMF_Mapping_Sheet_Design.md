@@ -48,7 +48,11 @@ Impact, What it covers, Example question (spreadsheet only).
 ## 2. Intake: the client's AI areas
 The intake asks only what the org has (capability); every control is assessed by the questions.
 - AI in use: none / some / unsure.
-- "How do you use AI?" (pick all): internal process, code generation, customer-facing application, vendor AI, producer.
+- "Do you build AI, use AI, or both?" (consumer / producer / both). Build or both brings the producer areas (producer,
+  model, test / tuning / evaluation data) and two follow-ups: "Is your model built on an existing model?" (turns on the
+  base-model questions: MANAGE 3.2 pre-trained models monitored, MAP 4.1, GOVERN 6.1) and "Do you give the model to
+  others?" (turns on the release questions: clients, partners, an API, devices, open weights).
+- "How do you use AI?" (pick all): internal process, code generation, customer-facing application, vendor AI.
 - "What does your AI include?" (pick all): RAG / knowledge graph, MCP / tools, agents, a model you host.
 - Engagement flags (CSF assessment done, ISO 42001); ISO 27001 from the certifications.
 
@@ -56,14 +60,11 @@ The intake asks only what the org has (capability); every control is assessed by
 `data/ai/scope_rules.json` `ai_area_rules`:
 - always (even with no AI in use): invisible AI usage
 - any AI in use: input, output
-- producer adds model and test / tuning / evaluation data; agents add MCP / tools.
+- role producer or both: producer, model, test / tuning / evaluation data; agents add MCP / tools.
 
-Until question selection works on AI areas (TODO step 4) the intake also writes the old fields (role, rung, usage
-contexts, hosts_model), worked out from the areas (`legacy_profile` in `scope_rules.json`).
-
-Open, for the producer only (they decide which producer questions are asked, not the AI areas): whether to ask
-"pure or modified" (only needed if questions about the base model are wanted) and "is the model given to others?"
-(release questions only when it is).
+`ai_usage.json` holds `role`, `producer` (`built_on_existing_model`, `given_to_others`; null for a consumer) and
+`ai_areas`. Until question selection works on AI areas (TODO step 4) the intake also writes the old fields (rung, usage
+contexts, modifiers, hosts_model), worked out from the areas (`legacy_profile` in `scope_rules.json`).
 
 ## 3. Controls: the four AI RMF functions, asked per AI area
 | Function | What it asks about an AI area |
