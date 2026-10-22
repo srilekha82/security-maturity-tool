@@ -2,7 +2,7 @@
 
 State: the AI RMF model was redesigned (2026-10-16 to 2026-10-22): AI areas (how AI is used and what it is made of) ->
 attack areas -> AI RMF function -> subcategory. `AI_RMF_Mapping_Sheet_Design.md` is the starting point for every
-session. The old AI bank pilot (`AI_RMF_Pilot_Decisions.md`) was never accepted. Its outputs (applicability.json,
+session. The old AI bank pilot (`archive/AI_RMF_Pilot_Decisions.md`) was never accepted. Its outputs (applicability.json,
 airmf_to_cis.json, the two pilot banks, the work and batch files) were removed on 2026-10-22, so `/ai-questionnaire` has no
 AI RMF bank until step 6. The audit trail (`data/ai/bank_build/audit.jsonl`, `judgement_log/`) is kept.
 
@@ -36,9 +36,9 @@ AI RMF bank until step 6. The audit trail (`data/ai/bank_build/audit.jsonl`, `ju
    per AI area x subcategory, the row's safeguards as evidence), `build_ai_questions.py` (rows from the client's
    `ai_areas`; base-model questions only when `producer.built_on_existing_model`; release questions only when
    `producer.given_to_others`; gap rule per row from the CIS -> CSF mapping; up to 6 questions per subcategory). Retire `legacy_profile`, the modifiers,
-   `question_categories.json`, the applicability and CIS-linker prompts and their modes in `prepare_ai_bank.py` /
-   `record_ai_bank.py`, and the applicability / crosswalk stages of `check_freshness.py`. Carry over the generator prompt fixes from
-   the old pilot (`AI_RMF_Pilot_Decisions.md` section 4): one subject per question; cite a safeguard only if it supports
+   `question_categories.json` and the `AI_APPLICABILITY` path (the applicability and CIS-linker prompts, modes and
+   freshness stages were already removed on 2026-10-22). Carry over the generator prompt fixes from
+   the old pilot (`archive/AI_RMF_Pilot_Decisions.md` section 4): one subject per question; cite a safeguard only if it supports
    the question.
 5. Severity: the standard criticality question (USD under 100k / 100k-500k / over 500k; reputation; safety) and the
    priority rules (domain floor for healthcare and manufacturing / OT, process criticality, data classification) for
@@ -56,8 +56,8 @@ AI RMF bank until step 6. The audit trail (`data/ai/bank_build/audit.jsonl`, `ju
 ## Parked, no rush
 - `validate_questions.py`: move the mechanical assessor checks (truncated text, duplicates, blank evidence, GV must be
   `full_discovery`, wrong cert named, missing LOW flag) out of the two assessor prompts into a script.
-- Update the older decision docs (`AI_RMF_QuestionBank_Decisions.md`, `AI_RMF_Pilot_Decisions.md`,
-  `AI_Assessment_Pipeline_Design.md`) where the new model supersedes them, once the mapping is accepted.
+- Update `AI_Assessment_Pipeline_Design.md` where the new model supersedes it, once the mapping is accepted (the three
+  first-design AI RMF notes are in `archive/`).
 - Unit tests for `compute_scope.py` and `build_questions.py` (checked by hand so far, not in the test suite).
 - `.claude/settings.local.json` holds two leftover permissions from an older session's scratchpad: remove them.
 - Kept on purpose: `max_questions` stays in both `scope_rules.json` files; the CSF fallback question (38 finance subcategories)

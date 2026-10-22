@@ -7,9 +7,8 @@ AI RMF gate (--ai-bank):
 
 Compares the SHA-256 of the current source files (Playbook, the three CIS companion guides, the CIS -> CSF xlsx) with the
 hashes each output records about its own inputs, one line per stage: parse (ai_rmf_core.json, cis_ai_safeguards.json),
-applicability, crosswalk, each bank, notes, and pilot. A stage is `current` only if it exists, was built from these exact
-sources (applicability also from the current question_categories.json) and, for a bank, covers every applicable
-subcategory. `pilot` is current when the user accepted the pilot (ai_pilot.py accept) for the current
+each bank, notes, and pilot. A stage is `current` only if it exists and was built from these exact sources. (The old
+applicability and crosswalk stages were removed with their files on 2026-10-22; a `mapping` stage comes in TODO step 3.) `pilot` is current when the user accepted the pilot (ai_pilot.py accept) for the current
 generator and evaluator prompts. `ai areas` is current when data/ai/ai_areas.json was imported from
 data/ai/authoring/ai_areas.xlsx as the spreadsheet is now (sheet_io.py import ai_areas). Exit 0 = every stage current (skip the rebuild); exit 1 = something is missing, stale
 or incomplete.
@@ -29,7 +28,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from options import AI_BANK_NAMES, CERT_FILES, DOMAINS, load_intake  # noqa: E402
-from paths import (AI_APPLICABILITY, AI_BANKS, AI_CATEGORIES, AI_CIS_CSF_XLSX, AI_CORE, AI_CROSSWALK_CIS,  # noqa: E402
+from paths import (AI_APPLICABILITY, AI_BANKS, AI_CIS_CSF_XLSX, AI_CORE,  # noqa: E402
                    AI_PARSE_CONFIG, AI_PILOT, AI_SAFEGUARDS, AI_SOURCE, AI_AREAS, AI_AREAS_XLSX, CSF_IMPACT_NOTES,
                    DATA_AUDIT, METADATA, bank_path)
 import audit  # noqa: E402
@@ -56,14 +55,11 @@ def ai_stages() -> list[tuple[str, bool, str]]:
         return (stage, True, "current") if same else (stage, False, f"stale ({what})")
 
     core, sg, app = load(AI_CORE), load(AI_SAFEGUARDS), load(AI_APPLICABILITY)
-    xw, notes = load(AI_CROSSWALK_CIS), load(CSF_IMPACT_NOTES)
+    notes = load(CSF_IMPACT_NOTES)
     recorded = lambda sources: {g: v["sha256_16"] for g, v in sources.items()}  # noqa: E731
     stages = [
         verdict("parse", core and sg, core and sg and core["source_sha256_16"] == playbook
                 and recorded(sg["sources"]) == guides),
-        verdict("applicability", app, app and app["source_sha256_16"] == playbook
-                and app["categories_sha"] == audit.sha(AI_CATEGORIES), "Playbook or question_categories.json changed"),
-        verdict("crosswalk", xw, xw and xw["guide_sha256_16"] == guides),
     ]
     for bank in AI_BANK_NAMES:
         doc = load(AI_BANKS / f"question_bank_ai_rmf_{bank}.json")

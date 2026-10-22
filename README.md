@@ -80,8 +80,8 @@ Domains: `healthcare`, `finance`, `manufacturing_ot`, `saas_cloud`, `consulting`
 **Building the banks (`/build-ai-bank`):**
 1. `check_freshness.py --ai-bank` compares the SHA-256 of the current source files with the hashes each output recorded about its inputs, one line per stage; all current means skip.
 2. `parse_ai_rmf_sources.py` turns the Playbook and the three CIS guides into `ai_rmf_core.json` (72 subcategories, suggested actions) and `cis_ai_safeguards.json` (153 safeguards per guide).
-3. Applicability pass (agent, `prompts/ai_rmf_applicability_judge.md`): which question categories (`data/ai/question_categories.json`) each subcategory can produce questions for, per bank. A subcategory applies to a bank iff it maps to at least one category.
-4. AI RMF → CIS link (agent, `prompts/ai_rmf_cis_linker.md`): evidence and tagging links, validated against the guides.
+3. Mapping (agents, `prompts/ai_rmf_mapping_drafter.md` and `ai_rmf_mapping_evaluator.md`): per AI area (`data/ai/ai_areas.json`), the AI RMF subcategories per function and the CIS safeguards that prove them, recorded by `record_ai_bank.py mapping` against `data/ai/mapping_rules.json`. It replaces the old applicability pass and AI RMF → CIS link (removed 2026-10-22).
+4. (Removed: the old AI RMF → CIS link; the CIS safeguards are now on each mapping row.)
 5. Generate and evaluate with subagents (`prompts/ai_rmf_question_generator.md`, `prompts/ai_rmf_question_evaluator.md`), two turns at most; `record_ai_bank.py assemble` and `candidates` store the result (`prepare_ai_bank.py batch` prepares each batch). Pilot of 6 subcategories first; when the user accepts it (`ai_pilot.py accept`, tied to the current generator and evaluator prompts) later rebuilds run without asking, like the CSF banks.
 6. AI impact notes: `build_ai_impact_inputs.py` joins the CIS → CSF mapping to the MCP and agents guides (48 CSF subcategories); an agent writes an exposure layer and a use layer (`prompts/ai_impact_notes_writer.md`); `record_ai_bank.py notes` stores `data/csf/ai_impact_notes.json`.
 
@@ -117,7 +117,7 @@ Domains: `healthcare`, `finance`, `manufacturing_ot`, `saas_cloud`, `consulting`
 
 ### Prompts (`prompts/`)
 
-How the agent judges: `question_bank_judge.md`, `soa_exclusion_judge.md`, `questionnaire_assessor.md` (CSF); `ai_rmf_mapping_drafter.md`, `ai_rmf_mapping_evaluator.md`, `ai_rmf_applicability_judge.md`, `ai_rmf_cis_linker.md`, `ai_rmf_question_generator.md`, `ai_rmf_question_evaluator.md`, `ai_rmf_questionnaire_assessor.md`, `ai_impact_notes_writer.md` (AI RMF). Commands (`.claude/commands/`) say what to run; prompts say how to judge.
+How the agent judges: `question_bank_judge.md`, `soa_exclusion_judge.md`, `questionnaire_assessor.md` (CSF); `ai_rmf_mapping_drafter.md`, `ai_rmf_mapping_evaluator.md`, `ai_rmf_question_generator.md`, `ai_rmf_question_evaluator.md`, `ai_rmf_questionnaire_assessor.md`, `ai_impact_notes_writer.md` (AI RMF). Commands (`.claude/commands/`) say what to run; prompts say how to judge.
 
 ### Data (`data/`)
 

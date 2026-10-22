@@ -13,7 +13,7 @@ Question Bank Build  (subagents in caizin-csf-tool — infrequent, runs only whe
 ├── CSF      → CSET already exists; freshness check only
 └── AI RMF   → two banks (producer, consumer), generated from: AI RMF Playbook + CIS AI companion guides
                gate: skip if Playbook and CIS guides unchanged this quarter
-               design: AI_RMF_QuestionBank_Decisions.md
+               design: AI_RMF_Mapping_Sheet_Design.md
          ↓
 Stage 1: Questionnaire Generation  (caizin-csf-tool)
          uses question bank above + org profile + compliance status + AI usage profile
@@ -42,7 +42,7 @@ Stage 3: HTML Generation           (Claude skills)
 - Question types: `full_discovery` / `gap` / `confirmatory` / `skip`
 - Output: `csf_questions_assessed.json`
 
-**AI RMF track (to build — decisions settled in `AI_RMF_QuestionBank_Decisions.md`; that file is the source of truth for this track):**
+**AI RMF track (to build — the current model is `AI_RMF_Mapping_Sheet_Design.md`; the first design is in `archive/AI_RMF_QuestionBank_Decisions.md`):**
 - Question banks: **two files, producer and consumer** (`question_bank_ai_rmf_producer.json`, `question_bank_ai_rmf_consumer.json`, stored under `data/ai/banks/`, reused across org runs). No CSET equivalent exists for AI RMF, so they are generated.
 - Sources: **AI RMF Playbook** (72 subcategories and their suggested actions — the primary question content) and the three **CIS v8.1 AI companion guides** (LLM, MCP, Agents — evidence prompts, context and tagging, not question text). The profile XLS supplies the 72-subcategory structure.
 - Generation: a generate–evaluate loop with subagents in this repo (per-subcategory pilot, then per-category batches), not the `gen-eval-loop` harness. One-time or infrequent build, not per-org. An applicability pass first decides which subcategories apply to which bank.

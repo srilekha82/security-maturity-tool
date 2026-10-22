@@ -43,12 +43,9 @@ class ParsedSources(unittest.TestCase):
 class Recording(unittest.TestCase):
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
-        for name, rel in (("AI_APPLICABILITY", "applicability.json"), ("CROSSWALK", "airmf_to_cis.json"),
-                          ("CSF_IMPACT_NOTES", "ai_impact_notes.json")):
-            setattr(R, name, self.tmp / rel)
+        R.AI_APPLICABILITY, R.CSF_IMPACT_NOTES = self.tmp / "applicability.json", self.tmp / "ai_impact_notes.json"
         R.AI_BANKS, R.AI_BUILD, R.LOG_DIR = self.tmp / "banks", self.tmp / "build", self.tmp / "build" / "log"
-        R.AI_CROSSWALKS = self.tmp
-        P.AI_APPLICABILITY, P.AI_CROSSWALK_CIS = R.AI_APPLICABILITY, R.CROSSWALK   # prepare reads what record wrote
+        P.AI_APPLICABILITY = R.AI_APPLICABILITY   # the batch / candidates code still reads it until TODO step 4
         P.AI_BANKS, P.AI_BUILD, PL.AI_BANKS = R.AI_BANKS, R.AI_BUILD, R.AI_BANKS
         R.AI_BUILD.mkdir(parents=True, exist_ok=True)
         self.inp = R.load_inputs()
@@ -69,26 +66,9 @@ class Recording(unittest.TestCase):
         p = list(self.inp["bank_cats"]["producer"])[0]
         return {s: {"producer": [] if s in consumer_only else [p], "consumer": [c], "reason": "test"} for s in self.subs}
 
-    def test_applicability_valid_and_invalid(self):
-        bad = self.applicability()
-        del bad[self.subs[0]]
-        bad[self.subs[1]]["consumer"] = ["no_such_category"]
-        self.assertEqual(self.run_mode("applicability", bad), 1)
-        self.assertFalse(R.AI_APPLICABILITY.exists(), "nothing may be stored when the file is rejected")
-        self.assertEqual(self.run_mode("applicability", self.applicability(consumer_only=self.subs[:2])), 0)
-        stored = json.loads(R.AI_APPLICABILITY.read_text())["subcategories"]
-        self.assertEqual(stored[self.subs[0]]["producer"], [])
-        self.assertEqual(len(list(R.LOG_DIR.glob("*_applicability.json"))), 1)
-        lines = [json.loads(l) for l in (R.AI_BUILD / "audit.jsonl").read_text().splitlines()]
-        self.assertEqual([l["status"] for l in lines], ["rejected", "ok"])
-
-    def test_crosswalk_rejects_unknown_safeguard(self):
-        data = {s: [] for s in self.subs}
-        data[self.subs[0]] = ["LLM-3.1", "LLM-99.9"]
-        self.assertEqual(self.run_mode("crosswalk", data), 1)
-        data[self.subs[0]] = ["LLM-3.1", "MCP-3.1"]
-        self.assertEqual(self.run_mode("crosswalk", data), 0)
-        self.assertEqual(json.loads(R.CROSSWALK.read_text())["links"][self.subs[0]], ["LLM-3.1", "MCP-3.1"])
+    def write_applicability(self, data):
+        """The old applicability.json the batch / candidates code reads (its recording mode was removed)."""
+        R.AI_APPLICABILITY.write_text(json.dumps({"subcategories": data}))
 
     def candidate(self, sid, **over):
         c = {"question_text": f"Describe how your organisation handles the outcome of {sid}, who owns it and what evidence exists.",
@@ -98,7 +78,7 @@ class Recording(unittest.TestCase):
         return c
 
     def test_candidates(self):
-        self.assertEqual(self.run_mode("applicability", self.applicability(consumer_only=[self.subs[0]])), 0)
+        self.write_applicability(self.applicability(consumer_only=[self.subs[0]]))
         sid, other = self.subs[1], self.subs[0]
         mk = lambda n: [self.candidate(sid, question_text=f"Describe how variant {i} of {sid} works in practice and who owns it.")
                         for i in range(n)]
@@ -136,7 +116,7 @@ class Recording(unittest.TestCase):
 
 
     def test_prepare_batch_missing_only(self):
-        self.assertEqual(self.run_mode("applicability", self.applicability()), 0)
+        self.write_applicability(self.applicability())
         sid = self.subs[0]
         topic = self.inp["bank_cats"]["consumer"][list(self.inp["bank_cats"]["consumer"])[0]]["topic"]
         mk = [self.candidate(sid, question_text=f"Describe variant {i} of {sid} in practice and who owns it, with evidence.",
@@ -152,7 +132,7 @@ class Recording(unittest.TestCase):
         with self.assertRaises(SystemExit):
             PL.accept_pilot("too early")             # no bank has anything recorded yet
         self.assertFalse(PL.AI_PILOT.exists())
-        self.assertEqual(self.run_mode("applicability", self.applicability()), 0)
+        self.write_applicability(self.applicability())
         sid = self.subs[0]
         for bank in ("producer", "consumer"):
             topic = self.inp["bank_cats"][bank][list(self.inp["bank_cats"][bank])[0]]["topic"]
@@ -484,7 +464,7 @@ class FreshnessGate(unittest.TestCase):
             (self.src / name).write_text(f"content of {name}")
         CF.AI_SOURCE, CF.AI_CIS_CSF_XLSX = self.src, self.src / "mapping.xlsx"
         CF.AI_CORE, CF.AI_SAFEGUARDS = self.tmp / "core.json", self.tmp / "sg.json"
-        CF.AI_APPLICABILITY, CF.AI_CROSSWALK_CIS = self.tmp / "app.json", self.tmp / "xw.json"
+        CF.AI_APPLICABILITY = self.tmp / "app.json"
         CF.AI_BANKS, CF.CSF_IMPACT_NOTES = self.tmp / "banks", self.tmp / "notes.json"
         CF.AI_PILOT = self.tmp / "pilot.json"
         CF.AI_AREAS, CF.AI_AREAS_XLSX = self.tmp / "ai_areas.json", self.tmp / "ai_areas.xlsx"
@@ -503,9 +483,7 @@ class FreshnessGate(unittest.TestCase):
         CF.AI_CORE.write_text(json.dumps({"source_sha256_16": pb}))
         CF.AI_SAFEGUARDS.write_text(json.dumps({"sources": {k: {"sha256_16": v} for k, v in g.items()}}))
         subs = {f"S{i}": {"producer": ["c"], "consumer": ["c"]} for i in range(applicable)}
-        CF.AI_APPLICABILITY.write_text(json.dumps({"source_sha256_16": pb, "categories_sha": self.audit.sha(CF.AI_CATEGORIES),
-                                                   "subcategories": subs}))
-        CF.AI_CROSSWALK_CIS.write_text(json.dumps({"guide_sha256_16": g}))
+        CF.AI_APPLICABILITY.write_text(json.dumps({"subcategories": subs}))   # bank completeness, until step 4
         for bank in ("producer", "consumer"):
             (CF.AI_BANKS / f"question_bank_ai_rmf_{bank}.json").write_text(json.dumps({
                 "playbook_sha256_16": pb, "guide_sha256_16": g, "subcategories": {f"S{i}": {} for i in range(recorded)},
@@ -532,21 +510,13 @@ class FreshnessGate(unittest.TestCase):
         s = {stage: (ok, text) for stage, ok, text in CF.ai_stages()}
         self.assertFalse(s["bank consumer"][0])
         self.assertIn("2 of 3", s["bank consumer"][1])
-        self.assertTrue(s["crosswalk"][0])
 
     def test_a_changed_guide_makes_only_its_dependents_stale(self):
         self.build_everything()
         (self.src / self.files["LLM"]).write_text("changed")
         s = self.states()
-        self.assertFalse(s["parse"] or s["crosswalk"] or s["bank producer"] or s["bank consumer"])
-        self.assertTrue(s["applicability"] and s["notes"])   # notes use only the MCP and agents guides
-
-    def test_changed_categories_make_applicability_stale(self):
-        self.build_everything()
-        a = json.loads(CF.AI_APPLICABILITY.read_text())
-        a["categories_sha"] = "0" * 16
-        CF.AI_APPLICABILITY.write_text(json.dumps(a))
-        self.assertFalse(self.states()["applicability"])
+        self.assertFalse(s["parse"] or s["bank producer"] or s["bank consumer"])
+        self.assertTrue(s["notes"])   # notes use only the MCP and agents guides
 
     def test_missing_source_stops_everything(self):
         self.build_everything()

@@ -15,14 +15,11 @@ Preparing the agents' input is prepare_ai_bank.py; the pilot gate is ai_pilot.py
 check_freshness.py --ai-bank.
 
 Record modes (agent output; every one needs --model, optional --session, --prompt PATH ...):
-  applicability <file>     {"GOVERN 1.1": {"producer": [category ids], "consumer": [category ids], "reason": "..."}}
-                           all 72 subcategories; a subcategory applies to a bank iff its category list is non-empty
-                           -> data/ai/applicability.json
-  crosswalk <file>         {"GOVERN 1.1": ["LLM-3.1", "MCP-3.1"], ...}   all 72 keys, empty list allowed
-                           -> data/ai/crosswalks/airmf_to_cis.json
   candidates <bank> <file> {"GOVERN 1.1": {"status": "pass"|"needs_human_review", "turns": 1|2, "reason": "...",
                                            "candidates": [candidate, ...]}}
                            -> data/ai/banks/question_bank_ai_rmf_<bank>.json   (entries replaced per subcategory)
+                           Still checks against the old applicability.json, which was removed; TODO step 4 rewires
+                           candidates to mapping rows, so it cannot run until then.
   notes <file>             {"PR.AA-05": {"exposure": "...", "use": {"base_rag": "...", "mcp_agentic": "..."}}}
                            exposure (layer 1) is required for a new entry; `use` (layer 2) may be added later
                            -> data/csf/ai_impact_notes.json
@@ -34,8 +31,8 @@ Record modes (agent output; every one needs --model, optional --session, --promp
                            Rejected unless: the area is in ai_areas.json; each subcategory exists and belongs to the row's
                            function; cis_refs come from the area's candidates (mapping_rules.json area_cis); impact is a
                            non-empty subset of the area's impact; a why on each row; every function has rows or a
-                           no_question reason (not both); no repeated function + subcategory; every required check that applies to the area is met. --review is the evaluator's last
-                           list of failures [{"function", "subcategory" (or null for the whole function), "reason"}]:
+                           no_question reason (not both); no repeated function + subcategory; every required check that applies to
+                           the area is met. --review is the evaluator's last list of failures [{"function", "subcategory" (or null for the whole function), "reason"}]:
                            those rows (or functions) are stored as needs_human_review with the reason.
                            -> data/ai/mapping.json   (the area's entry replaced; other areas kept)
 
@@ -52,13 +49,12 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from paths import (AI_APPLICABILITY, AI_AREAS, AI_BANKS, AI_BUILD, AI_CATEGORIES, AI_CIS_CSF_XLSX,  # noqa: E402
-                   AI_CROSSWALKS, AI_CROSSWALK_CIS, AI_MAPPING, AI_MAPPING_RULES, CSF_CORE, CSF_IMPACT_NOTES)
+from paths import (AI_APPLICABILITY, AI_AREAS, AI_BANKS, AI_BUILD, AI_CIS_CSF_XLSX, AI_MAPPING,  # noqa: E402
+                   AI_MAPPING_RULES, CSF_CORE, CSF_IMPACT_NOTES)
 from ai_bank_common import (BANKS, DEFAULT_PROMPTS, area_candidates, area_rules, check_mapping_rules,  # noqa: E402
                             load_inputs, load_json)
 import audit  # noqa: E402
 
-CROSSWALK = AI_CROSSWALK_CIS
 LOG_DIR = AI_BUILD / "judgement_log"
 MIN_CANDIDATES, MAX_CANDIDATES = 3, 5
 MIN_QUESTION_CHARS = 30
@@ -66,55 +62,6 @@ NOTE_MIN_CHARS = 30
 
 
 # ── validators (each returns a list of problems; empty = valid) ─────────────
-
-def validate_applicability(data, inp) -> list[str]:
-    errors = []
-    if not isinstance(data, dict):
-        return ["the file must be a JSON object keyed by subcategory id"]
-    missing, extra = sorted(set(inp["subs"]) - set(data)), sorted(set(data) - set(inp["subs"]))
-    if missing:
-        errors.append(f"missing subcategories ({len(missing)}): {missing[:5]}…")
-    if extra:
-        errors.append(f"unknown subcategory ids: {extra}")
-    for sid, v in data.items():
-        if sid not in inp["subs"]:
-            continue
-        if not isinstance(v, dict) or set(v) != {*BANKS, "reason"}:
-            errors.append(f"{sid}: must be an object with exactly producer, consumer, reason")
-            continue
-        for bank in BANKS:
-            cats = v[bank]
-            if not isinstance(cats, list) or len(set(cats)) != len(cats):
-                errors.append(f"{sid}/{bank}: must be a list of distinct category ids (empty = does not apply)")
-                continue
-            bad = [c for c in cats if c not in inp["bank_cats"][bank]]
-            if bad:
-                errors.append(f"{sid}/{bank}: unknown category id(s) {bad}")
-        if not str(v["reason"]).strip():
-            errors.append(f"{sid}: a reason is required")
-    return errors
-
-
-def validate_crosswalk(data, inp) -> list[str]:
-    errors = []
-    if not isinstance(data, dict):
-        return ["the file must be a JSON object keyed by subcategory id"]
-    missing, extra = sorted(set(inp["subs"]) - set(data)), sorted(set(data) - set(inp["subs"]))
-    if missing:
-        errors.append(f"missing subcategories ({len(missing)}): {missing[:5]}… (use [] for no link)")
-    if extra:
-        errors.append(f"unknown subcategory ids: {extra}")
-    for sid, ids in data.items():
-        if sid not in inp["subs"]:
-            continue
-        if not isinstance(ids, list) or len(set(ids)) != len(ids):
-            errors.append(f"{sid}: must be a list of distinct safeguard ids")
-            continue
-        bad = [g for g in ids if g not in inp["safeguards"]]
-        if bad:
-            errors.append(f"{sid}: safeguard id(s) not in the companion guides: {bad}")
-    return errors
-
 
 def validate_candidates(data, bank, inp) -> list[str]:
     errors = []
@@ -368,25 +315,6 @@ def assemble(gen1: Path, eval1: Path, gen2: Path | None, eval2: Path | None, out
 def store(mode: str, data: dict, args, inp: dict) -> tuple[Path, str]:
     """Write the validated data to its store; returns (store path, one-line summary)."""
     today = date.today().isoformat()
-    if mode == "applicability":
-        subs = {sid: {"producer": v["producer"], "consumer": v["consumer"], "reason": v["reason"]} for sid, v in data.items()}
-        n = {b: sum(1 for v in subs.values() if v[b]) for b in BANKS}
-        AI_APPLICABILITY.write_text(json.dumps({
-            "decided_by": "agent", "judged_on": today, "source_sha256_16": inp["core"]["source_sha256_16"],
-            "categories_sha": audit.sha(AI_CATEGORIES),
-            "subcategories": {sid: {"producer": subs[sid]["producer"], "consumer": subs[sid]["consumer"],
-                                    "reason": subs[sid]["reason"]} for sid in inp["subs"]},
-        }, indent=2, ensure_ascii=False))
-        return AI_APPLICABILITY, f"applicable: producer {n['producer']}, consumer {n['consumer']} of {len(subs)}"
-    if mode == "crosswalk":
-        AI_CROSSWALKS.mkdir(parents=True, exist_ok=True)
-        CROSSWALK.write_text(json.dumps({
-            "decided_by": "agent", "judged_on": today,
-            "guide_sha256_16": {g: s["sha256_16"] for g, s in inp["sg_doc"]["sources"].items()},
-            "links": {sid: data[sid] for sid in inp["subs"]},
-        }, indent=2, ensure_ascii=False))
-        linked = sum(1 for v in data.values() if v)
-        return CROSSWALK, f"{linked} of {len(data)} subcategories linked to at least one safeguard"
     if mode == "candidates":
         path = AI_BANKS / f"question_bank_ai_rmf_{args.bank}.json"
         AI_BANKS.mkdir(parents=True, exist_ok=True)
@@ -435,9 +363,7 @@ def record(mode: str, args) -> None:
         extra = {"review_file": args.review, "review": review}
         log_name = lambda d: f"mapping_{d.get('area', 'unknown')}" if isinstance(d, dict) else "mapping"  # noqa: E731
     else:
-        validate = {"applicability": lambda d: validate_applicability(d, inp),
-                    "crosswalk": lambda d: validate_crosswalk(d, inp),
-                    "candidates": lambda d: validate_candidates(d, args.bank, inp),
+        validate = {"candidates": lambda d: validate_candidates(d, args.bank, inp),
                     "notes": validate_notes}[mode]
         store_fn, extra = (lambda d: store(mode, d, args, inp)), None
         log_name = f"{mode}_{args.bank}" if mode == "candidates" else mode
@@ -458,7 +384,7 @@ def main():
         pa.add_argument(f"--{name}", required=name in ("gen1", "eval1"))
     pa.add_argument("--out", required=True)
 
-    for m in ("applicability", "crosswalk", "candidates", "notes", "mapping"):
+    for m in ("candidates", "notes", "mapping"):
         p = sub.add_parser(m)
         if m == "candidates":
             p.add_argument("bank", choices=BANKS)

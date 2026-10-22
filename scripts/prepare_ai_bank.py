@@ -1,17 +1,15 @@
 """
-Usage: .venv/bin/python ./scripts/prepare_ai_bank.py applicability
-       .venv/bin/python ./scripts/prepare_ai_bank.py crosswalk
-       .venv/bin/python ./scripts/prepare_ai_bank.py batch <producer|consumer> (--ids ID ... | --category "GOVERN 1" | --all)
+Usage: .venv/bin/python ./scripts/prepare_ai_bank.py batch <producer|consumer> (--ids ID ... | --category "GOVERN 1" | --all)
                                                            [--missing] [--tag NAME]
        .venv/bin/python ./scripts/prepare_ai_bank.py mapping --area ID
 
 Writes the compact file an agent reads in the AI RMF bank build, so agents never read the PDFs. Script only: it decides
 nothing and records nothing (agent output goes through record_ai_bank.py).
 
-  applicability   -> data/ai/bank_build/applicability_pending.json
-  crosswalk       -> data/ai/bank_build/crosswalk_pending.json
   batch           -> data/ai/bank_build/batch_<bank>_<tag>.json   (generator / evaluator input)
-                     --missing keeps only subcategories not yet recorded in that bank
+                     --missing keeps only subcategories not yet recorded in that bank. Still reads the old
+                     applicability.json, which was removed; TODO step 4 rewires batch to mapping rows (and their CIS
+                     safeguards), so it cannot run until then.
   mapping         -> data/ai/bank_build/mapping_input_<area>.json   (mapping drafter / evaluator input)
                      one AI area (data/ai/ai_areas.json), the four AI RMF functions with every subcategory's outcome and
                      shortened suggested actions, the area's candidate CIS safeguards (data/ai/mapping_rules.json
@@ -24,8 +22,8 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from paths import (AI_APPLICABILITY, AI_AREAS, AI_BANKS, AI_BUILD, AI_CATEGORIES, AI_CORE, AI_CROSSWALK_CIS,  # noqa: E402
-                   AI_MAPPING_RULES, AI_SAFEGUARDS)
+from paths import (AI_APPLICABILITY, AI_AREAS, AI_BANKS, AI_BUILD, AI_CATEGORIES, AI_CORE, AI_MAPPING_RULES,  # noqa: E402
+                   AI_SAFEGUARDS)
 from ai_bank_common import (BANKS, area_candidates, area_rules, check_mapping_rules, load_inputs, load_json,  # noqa: E402
                             rel)
 
@@ -35,32 +33,6 @@ import audit  # noqa: E402
 
 def trunc(text: str, n: int) -> str:
     return text if len(text) <= n else text[:n - 1].rstrip() + "…"
-
-
-def category_view(inp: dict, bank: str) -> list[dict]:
-    return [{"id": c["id"], "name": c["name"], "topic": c["topic"], "covers": c["covers"]}
-            for c in inp["bank_cats"][bank].values()]
-
-
-def prepare_applicability(inp: dict) -> Path:
-    out = AI_BUILD / "applicability_pending.json"
-    out.write_text(json.dumps({
-        "definitions": inp["cats"]["definitions"]["roles"],
-        "categories": {b: category_view(inp, b) for b in BANKS},
-        "items": [{"subcategory_id": s["subcategory_id"], "outcome": s["outcome"],
-                   "suggested_actions": [trunc(a, 160) for a in s["suggested_actions"]]}
-                  for s in inp["core"]["subcategories"]],
-    }, indent=2, ensure_ascii=False))
-    return out
-
-
-def prepare_crosswalk(inp: dict) -> Path:
-    out = AI_BUILD / "crosswalk_pending.json"
-    out.write_text(json.dumps({
-        "items": [{"subcategory_id": s["subcategory_id"], "outcome": s["outcome"]} for s in inp["core"]["subcategories"]],
-        "safeguards": [{"id": r["id"], "title": r["title"]} for r in inp["sg_doc"]["safeguards"] if r["has_ai_guidance"]],
-    }, indent=2, ensure_ascii=False))
-    return out
 
 
 def prepare_batch(inp: dict, bank: str, ids: list[str], category: str | None, everything: bool, tag: str | None,
@@ -87,7 +59,6 @@ def prepare_batch(inp: dict, bank: str, ids: list[str], category: str | None, ev
         chosen = [s for s in chosen if s not in done]
     if not chosen:
         sys.exit("[prepare_ai_bank] ERROR: no applicable subcategories selected" + (" (all already recorded)" if missing_only else ""))
-    xw = load_json(AI_CROSSWALK_CIS, "airmf_to_cis.json")["links"] if AI_CROSSWALK_CIS.is_file() else {}
     items = []
     for sid in chosen:
         s = inp["subs"][sid]
@@ -96,9 +67,7 @@ def prepare_batch(inp: dict, bank: str, ids: list[str], category: str | None, ev
             "suggested_actions": s["suggested_actions"],
             "categories": [{"id": c, "topic": inp["bank_cats"][bank][c]["topic"],
                             "covers": inp["bank_cats"][bank][c]["covers"]} for c in app[sid][bank]],
-            "cis_safeguards": [{"id": g, "title": inp["safeguards"][g]["title"],
-                                "ai_applicability": trunc(inp["safeguards"][g]["ai_applicability"], 500)}
-                               for g in xw.get(sid, []) if g in inp["safeguards"]],
+            "cis_safeguards": [],   # came from the removed airmf_to_cis.json; step 4 takes them from the mapping rows
         })
     name = tag or (category.replace(" ", "_") if category else "ids" if ids else "all")
     out = AI_BUILD / f"batch_{bank}_{name}.json"
@@ -136,7 +105,7 @@ def prepare_mapping(inp: dict, area_id: str) -> Path:
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["applicability", "crosswalk", "batch", "mapping"])
+    ap.add_argument("what", choices=["batch", "mapping"])
     ap.add_argument("bank", nargs="?", choices=BANKS)
     ap.add_argument("--ids", nargs="*", default=[])
     ap.add_argument("--category")
@@ -149,11 +118,7 @@ def main():
     ev = audit.begin(AI_BUILD / "audit.jsonl", f"prepare_{args.what}",
                      {"bank": args.bank, "ids": args.ids, "category": args.category, "all": args.all, "area": args.area})
     inp = load_inputs()
-    if args.what == "applicability":
-        out = prepare_applicability(inp)
-    elif args.what == "crosswalk":
-        out = prepare_crosswalk(inp)
-    elif args.what == "mapping":
+    if args.what == "mapping":
         if not args.area:
             ev.fail("[prepare_ai_bank] ERROR: mapping needs --area ID")
         out = prepare_mapping(inp, args.area)

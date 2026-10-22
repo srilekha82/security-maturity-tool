@@ -10,8 +10,6 @@ from options import AI_BANK_NAMES as BANKS  # noqa: E402,F401  (re-exported for 
 
 # The prompts each agent step follows. `candidates` (generator and evaluator) is also what the pilot acceptance is tied to.
 DEFAULT_PROMPTS = {
-    "applicability": ["prompts/ai_rmf_applicability_judge.md"],
-    "crosswalk": ["prompts/ai_rmf_cis_linker.md"],
     "candidates": ["prompts/ai_rmf_question_generator.md", "prompts/ai_rmf_question_evaluator.md"],
     "notes": ["prompts/ai_impact_notes_writer.md"],
     "mapping": ["prompts/ai_rmf_mapping_drafter.md", "prompts/ai_rmf_mapping_evaluator.md"],

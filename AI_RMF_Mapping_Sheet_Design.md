@@ -5,7 +5,7 @@ impact -> questions per AI RMF function -> maturity per AI RMF subcategory**. St
 note. It replaces the applicability judge and the CIS linker as decision makers. Build steps are in `TODO.md`.
 
 ## Why the change
-- `prompts/ai_rmf_applicability_judge.md` decided everything; `record_ai_bank.py` checked only the format. The recorded
+- The applicability judge (`prompts/ai_rmf_applicability_judge.md`, removed 2026-10-22) decided everything; `record_ai_bank.py` checked only the format. The recorded
   applicability (2026-10-14) left the asset categories almost empty: consumer `data_exposure` 2 of 72 subcategories,
   `infra_hosting` 1, producer `build_infra` 1, while governance and reliability got 16 to 20 each. The Playbook says
   little about security, so an agent mapping from Playbook text alone under-maps the attack surface.

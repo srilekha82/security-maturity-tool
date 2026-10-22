@@ -26,14 +26,13 @@ BANK_BUILD = CSF / "bank_build"          # cset_candidates.json, cset_judgements
 # AI track
 AI = DATA / "ai"
 AI_SOURCE = AI / "source"                # Playbook, CIS companion guides, CIS -> CSF xlsx (not redistributed)
-AI_CROSSWALKS = AI / "crosswalks"        # airmf_to_cis.json
-AI_CROSSWALK_CIS = AI_CROSSWALKS / "airmf_to_cis.json"   # AI RMF subcategory -> CIS companion-guide safeguards
 AI_PILOT = AI / "bank_build" / "pilot_accepted.json"  # written by ai_pilot.py accept
 AI_CORE = AI / "ai_rmf_core.json"        # 72 subcategories + Playbook suggested actions (parse_ai_rmf_sources.py)
 AI_SAFEGUARDS = AI / "cis_ai_safeguards.json"   # CIS companion guide safeguards (parse_ai_rmf_sources.py)
 AI_PARSE_CONFIG = AI / "parse_config.json"      # expected counts and source file names for the parser
 AI_CATEGORIES = AI / "question_categories.json" # question categories per bank (content)
-AI_APPLICABILITY = AI / "applicability.json"    # subcategory -> bank applicability (agent, recorded)
+AI_APPLICABILITY = AI / "applicability.json"    # REMOVED 2026-10-22 (replaced by AI_MAPPING); still named by the
+                                                # batch / candidates code until TODO step 4 rewires it
 AI_SCOPE_RULES = AI / "scope_rules.json"        # engagement-time policy for the AI RMF questionnaire
 AI_EVIDENCE_PROMPTS = AI / "evidence_prompts.json"  # evidence hint per question topic
 AI_BANKS = AI / "banks"                  # question_bank_ai_rmf_<producer|consumer>.json

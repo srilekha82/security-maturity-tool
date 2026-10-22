@@ -38,46 +38,11 @@ Writes `data/ai/ai_rmf_core.json` (72 subcategories with Playbook suggested acti
 `data/ai/cis_ai_safeguards.json` (the safeguards of the three guides). It fails, writing nothing, if a count is off.
 Agents read these files, never the PDFs.
 
-> **Steps 3, 4 and 5 below are the old flow, being replaced** (`AI_RMF_Mapping_Sheet_Design.md`, `TODO.md`). Their
-> outputs (applicability.json, airmf_to_cis.json, the pilot banks and work files) were removed on 2026-10-22. Do not
-> run Steps 3 to 5; the freshness check will report them missing until the new flow replaces them. Use the
-> "Mapping" section, and only when the user asks.
+> **The old Steps 3 (applicability) and 4 (AI RMF -> CIS link) were removed on 2026-10-22**, with their prompts,
+> script modes and outputs; the "Mapping" section replaces them. Step 5 below is the old question loop: it still reads
+> the removed applicability.json, so do not run it until TODO step 4 rewires it to mapping rows.
 
-## Step 3 — Applicability pass (old; replaced by the Mapping section)
-
-Decides, per subcategory and per bank, which question categories it can produce questions for.
-
-```bash
-.venv/bin/python ./scripts/prepare_ai_bank.py applicability
-```
-
-Read `prompts/ai_rmf_applicability_judge.md` (your complete instruction) and
-`data/ai/bank_build/applicability_pending.json`. Write the verdicts to
-`data/ai/bank_build/applicability_verdicts.json`, then:
-
-```bash
-.venv/bin/python ./scripts/record_ai_bank.py applicability data/ai/bank_build/applicability_verdicts.json --model <model id>
-```
-
-If it lists problems, fix those entries and run it again; nothing is stored until it passes. Delete the pending and
-verdicts files once recorded. Show the user the producer / consumer counts it prints.
-
-## Step 4 — AI RMF → CIS link (old; replaced by the Mapping section)
-
-```bash
-.venv/bin/python ./scripts/prepare_ai_bank.py crosswalk
-```
-
-Read `prompts/ai_rmf_cis_linker.md` and `data/ai/bank_build/crosswalk_pending.json`. Write
-`data/ai/bank_build/crosswalk_verdicts.json`, then:
-
-```bash
-.venv/bin/python ./scripts/record_ai_bank.py crosswalk data/ai/bank_build/crosswalk_verdicts.json --model <model id>
-```
-
-Same fix-and-rerun loop. Delete the pending and verdicts files once recorded.
-
-## Mapping (new; will replace Steps 3 and 4 once accepted, see `AI_RMF_Mapping_Sheet_Design.md`)
+## Mapping (replaces the old Steps 3 and 4; see `AI_RMF_Mapping_Sheet_Design.md`)
 
 Maps each AI area (`data/ai/ai_areas.json`, decided by the user in `data/ai/authoring/ai_areas.xlsx`) to AI RMF
 subcategories per function, with the CIS safeguards that prove them. Run only when the user asks for it, one AI area at a
