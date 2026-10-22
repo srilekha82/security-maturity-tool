@@ -410,12 +410,24 @@ class Mapping(unittest.TestCase):
         out = P.prepare_mapping(self.inp, "mcp_tools")
         doc = json.loads(out.read_text())
         rules = json.loads(R.AI_MAPPING_RULES.read_text())
-        allowed = set(rules["area_cis"]["mcp_tools"]["controls"]) | set(rules["always_cis_controls"])
+        allowed = set(rules["area_cis"]["mcp_tools"]["controls"]) | {int(n) for n in rules["always_cis_controls"]["controls"]}
         cand = doc["cis_candidates"]
         self.assertTrue(cand and all(c["id"].startswith("MCP-") for c in cand))
         self.assertTrue(all(int(c["id"].split("-")[1].split(".")[0]) in allowed for c in cand))
         self.assertEqual(sum(len(v) for v in doc["subcategories"].values()), 72)
         self.assertIn("audit trail", [c["name"] for c in doc["rules"]["required_checks"]])
+
+    def test_mapping_rules_match_the_cis_guides(self):
+        from ai_bank_common import check_mapping_rules
+        rules = json.loads(R.AI_MAPPING_RULES.read_text())
+        self.assertEqual(check_mapping_rules(rules, self.inp), [])
+        bad = json.loads(json.dumps(rules))
+        bad["always_cis_controls"]["controls"]["8"] = "Data Protection"      # wrong name for control 8
+        bad["always_cis_controls"]["controls"]["19"] = "No such control"     # CIS v8.1 has 18 controls
+        bad["area_cis"]["mcp_tools"]["controls"].append(42)
+        problems = check_mapping_rules(bad, self.inp)
+        self.assertTrue(any("8" in p and "Audit Log Management" in p for p in problems), problems)
+        self.assertTrue(any("19" in p for p in problems) and any("mcp_tools" in p and "42" in p for p in problems))
 
     def test_bad_drafts_are_rejected_and_nothing_is_stored(self):
         g = self.good()

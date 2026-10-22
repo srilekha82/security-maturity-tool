@@ -41,12 +41,42 @@ def load_inputs() -> dict:
     }
 
 
+def always_controls(rules: dict) -> list[int]:
+    return sorted(int(n) for n in rules["always_cis_controls"]["controls"])
+
+
+def check_mapping_rules(rules: dict, inp: dict) -> list[str]:
+    """Problems in mapping_rules.json against the parsed CIS guides: every control number of an area (its own and the
+    always ones) must exist in each guide the area uses; the always controls' names must match the guides' titles; a
+    required check's cis_control must be an always control (so every area can cite it)."""
+    controls = inp["sg_doc"]["controls"]   # keyed "<guide>-<number>"
+    errors = []
+    for n, name in rules["always_cis_controls"]["controls"].items():
+        for g in {g for k, v in rules["area_cis"].items() if k != "description" for g in v["guides"]}:
+            c = controls.get(f"{g}-{n}")
+            if c is None:
+                errors.append(f"always_cis_controls {n}: no control {n} in the {g} guide")
+            elif c["title"].strip().lower() != name.strip().lower():
+                errors.append(f"always_cis_controls {n}: named {name!r}, but the {g} guide calls it {c['title']!r}")
+    for area, v in rules["area_cis"].items():
+        if area == "description":
+            continue
+        for g in v["guides"]:
+            missing = [n for n in v["controls"] if f"{g}-{n}" not in controls]
+            if missing:
+                errors.append(f"area_cis {area}: controls {missing} are not in the {g} guide")
+    for check in rules["required_checks"]:
+        if "cis_control" in check and check["cis_control"] not in always_controls(rules):
+            errors.append(f"required check {check['name']!r}: cis_control {check['cis_control']} is not an always control")
+    return errors
+
+
 def area_rules(rules: dict, area_id: str) -> dict:
     """The mapping_rules.json entries that apply to one AI area: its candidate CIS controls and guides, its required checks."""
     cis = rules["area_cis"].get(area_id)
     if cis is None:
         sys.exit(f"[ai_bank] ERROR: AI area {area_id!r} has no entry in mapping_rules.json area_cis")
-    return {"controls": sorted(set(cis["controls"]) | set(rules["always_cis_controls"])), "guides": cis["guides"],
+    return {"controls": sorted(set(cis["controls"]) | set(always_controls(rules))), "guides": cis["guides"],
             "required_checks": [c for c in rules["required_checks"] if c["areas"] == "all" or area_id in c["areas"]]}
 
 

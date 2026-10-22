@@ -3,7 +3,11 @@
   "functions": ["GOVERN", "MAP", "MEASURE", "MANAGE"],
   "max_rows_per_area": 12,
   "min_why_chars": 20,
-  "always_cis_controls": [1, 2, 8, 17],
+  "always_cis_controls": {
+    "description": "CIS Controls v8.1 control numbers (1-18) added to every AI area, taken from that area's own guides (area_cis guides): e.g. control 8 is MCP-8.x for mcp_tools, AGENT-8.x for agent, LLM-8.x for most areas. They let the required checks (inventory, audit trail, incident response) cite a safeguard in every area. The names are checked against the parsed guides (cis_ai_safeguards.json controls).",
+    "controls": {"1": "Inventory and Control of Enterprise Assets", "2": "Inventory and Control of Software Assets",
+                 "8": "Audit Log Management", "17": "Incident Response Management"}
+  },
   "area_cis": {
     "description": "Per AI area: the CIS v8.1 controls (1-18) whose safeguards are candidates, and the companion guides they come from. always_cis_controls are added to every area (inventory, audit log, incident response).",
     "internal_process":  {"controls": [3, 14],                 "guides": ["LLM"]},

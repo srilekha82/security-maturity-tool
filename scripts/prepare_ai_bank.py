@@ -26,7 +26,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from paths import (AI_APPLICABILITY, AI_AREAS, AI_BANKS, AI_BUILD, AI_CATEGORIES, AI_CORE, AI_CROSSWALK_CIS,  # noqa: E402
                    AI_MAPPING_RULES, AI_SAFEGUARDS)
-from ai_bank_common import BANKS, area_candidates, area_rules, load_inputs, load_json, rel  # noqa: E402
+from ai_bank_common import (BANKS, area_candidates, area_rules, check_mapping_rules, load_inputs, load_json,  # noqa: E402
+                            rel)
 
 MAX_ACTIONS, ACTION_CHARS, AI_TEXT_CHARS = 6, 220, 260   # how much Playbook and CIS text the mapping drafter sees
 import audit  # noqa: E402
@@ -111,6 +112,9 @@ def prepare_mapping(inp: dict, area_id: str) -> Path:
     if area_id not in areas:
         sys.exit(f"[prepare_ai_bank] ERROR: unknown AI area {area_id!r} (known: {sorted(areas)})")
     rules = load_json(AI_MAPPING_RULES, "mapping_rules.json")
+    problems = check_mapping_rules(rules, inp)
+    if problems:
+        sys.exit("[prepare_ai_bank] ERROR: mapping_rules.json does not match the CIS guides:\n  - " + "\n  - ".join(problems))
     r = area_rules(rules, area_id)
     subs = {f: [] for f in rules["functions"]}
     for s in inp["core"]["subcategories"]:

@@ -55,7 +55,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from paths import (AI_APPLICABILITY, AI_AREAS, AI_BANKS, AI_BUILD, AI_CATEGORIES, AI_CIS_CSF_XLSX,  # noqa: E402
                    AI_CROSSWALKS, AI_CROSSWALK_CIS, AI_MAPPING, AI_MAPPING_RULES, CSF_CORE, CSF_IMPACT_NOTES)
-from ai_bank_common import BANKS, DEFAULT_PROMPTS, area_candidates, area_rules, load_inputs, load_json  # noqa: E402
+from ai_bank_common import (BANKS, DEFAULT_PROMPTS, area_candidates, area_rules, check_mapping_rules,  # noqa: E402
+                            load_inputs, load_json)
 import audit  # noqa: E402
 
 CROSSWALK = AI_CROSSWALK_CIS
@@ -218,8 +219,11 @@ def mapping_inputs(inp: dict) -> dict:
     for p, how in ((AI_AREAS, "sheet_io.py import ai_areas"), (AI_MAPPING_RULES, "data/ai/mapping_rules.json")):
         if not p.is_file():
             sys.exit(f"[record_ai_bank] ERROR: {p} not found ({how})")
-    return {"areas": {a["id"]: a for a in load_json(AI_AREAS, "ai_areas.json")["ai_areas"]},
-            "rules": load_json(AI_MAPPING_RULES, "mapping_rules.json")}
+    rules = load_json(AI_MAPPING_RULES, "mapping_rules.json")
+    problems = check_mapping_rules(rules, inp)
+    if problems:
+        sys.exit("[record_ai_bank] ERROR: mapping_rules.json does not match the CIS guides:\n  - " + "\n  - ".join(problems))
+    return {"areas": {a["id"]: a for a in load_json(AI_AREAS, "ai_areas.json")["ai_areas"]}, "rules": rules}
 
 
 def validate_mapping(data, inp, m: dict, review) -> list[str]:
