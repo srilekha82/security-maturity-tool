@@ -1,4 +1,0 @@
-[
-{"subcategory_id": "MAP 3.5", "question_number": 4, "check": 3, "reason": "Claims the poc modifier but the question (pre-go-live testing of oversight steps) does not depend on a proof-of-concept context."},
-{"subcategory_id": "MAP 3.5", "question_number": 5, "check": 4, "reason": "Chains several questions (which actions need approval, how approvals are captured, review frequency of rules and permissions, log reviews); also mixes action 5 (evaluating oversight) with access-rights re-evaluation."}
-]

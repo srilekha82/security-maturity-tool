@@ -2,8 +2,9 @@
 
 State: the AI RMF model was redesigned (2026-10-16 to 2026-10-22): AI areas (how AI is used and what it is made of) ->
 attack areas -> AI RMF function -> subcategory. `AI_RMF_Mapping_Sheet_Design.md` is the starting point for every
-session. The old AI bank pilot (`AI_RMF_Pilot_Decisions.md`) was recorded but NOT accepted; it is re-run in step 6 on
-the new mapping.
+session. The old AI bank pilot (`AI_RMF_Pilot_Decisions.md`) was never accepted. Its outputs (applicability.json,
+airmf_to_cis.json, the two pilot banks, the work and batch files) were removed on 2026-10-22, so `/ai-questionnaire` has no
+AI RMF bank until step 6. The audit trail (`data/ai/bank_build/audit.jsonl`, `judgement_log/`) is kept.
 
 ## Start here next session
 1. Review the DRAFT list in `data/ai/mapping_rules.json` (reviewed 2026-10-22: keep as is unless the pilot shows otherwise):
@@ -35,7 +36,8 @@ the new mapping.
    per AI area x subcategory, the row's safeguards as evidence), `build_ai_questions.py` (rows from the client's
    `ai_areas`; base-model questions only when `producer.built_on_existing_model`; release questions only when
    `producer.given_to_others`; gap rule per row from the CIS -> CSF mapping; up to 6 questions per subcategory). Retire `legacy_profile`, the modifiers,
-   `question_categories.json`, `applicability.json` and `airmf_to_cis.json`. Carry over the generator prompt fixes from
+   `question_categories.json`, the applicability and CIS-linker prompts and their modes in `prepare_ai_bank.py` /
+   `record_ai_bank.py`, and the applicability / crosswalk stages of `check_freshness.py`. Carry over the generator prompt fixes from
    the old pilot (`AI_RMF_Pilot_Decisions.md` section 4): one subject per question; cite a safeguard only if it supports
    the question.
 5. Severity: the standard criticality question (USD under 100k / 100k-500k / over 500k; reputation; safety) and the
@@ -60,4 +62,3 @@ the new mapping.
 - `.claude/settings.local.json` holds two leftover permissions from an older session's scratchpad: remove them.
 - Kept on purpose: `max_questions` stays in both `scope_rules.json` files; the CSF fallback question (38 finance subcategories)
   and auto-building missing banks inside `/generate-questions`.
-- Delete the old pilot work files (`data/ai/bank_build/work/`, `batch_*.json`) once the new pilot replaces them.

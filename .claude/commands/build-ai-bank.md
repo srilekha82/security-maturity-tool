@@ -38,7 +38,12 @@ Writes `data/ai/ai_rmf_core.json` (72 subcategories with Playbook suggested acti
 `data/ai/cis_ai_safeguards.json` (the safeguards of the three guides). It fails, writing nothing, if a count is off.
 Agents read these files, never the PDFs.
 
-## Step 3 — Applicability pass (agent; skip if the gate shows applicability current)
+> **Steps 3, 4 and 5 below are the old flow, being replaced** (`AI_RMF_Mapping_Sheet_Design.md`, `TODO.md`). Their
+> outputs (applicability.json, airmf_to_cis.json, the pilot banks and work files) were removed on 2026-10-22. Do not
+> run Steps 3 to 5; the freshness check will report them missing until the new flow replaces them. Use the
+> "Mapping" section, and only when the user asks.
+
+## Step 3 — Applicability pass (old; replaced by the Mapping section)
 
 Decides, per subcategory and per bank, which question categories it can produce questions for.
 
@@ -57,7 +62,7 @@ Read `prompts/ai_rmf_applicability_judge.md` (your complete instruction) and
 If it lists problems, fix those entries and run it again; nothing is stored until it passes. Delete the pending and
 verdicts files once recorded. Show the user the producer / consumer counts it prints.
 
-## Step 4 — AI RMF → CIS link (agent; skip if the gate shows crosswalk current)
+## Step 4 — AI RMF → CIS link (old; replaced by the Mapping section)
 
 ```bash
 .venv/bin/python ./scripts/prepare_ai_bank.py crosswalk
@@ -105,7 +110,7 @@ After the pilot area: stop. Show the user the recorded rows (function, subcatego
 evaluator failed, the subcategories still unreached, and token use if you can see it. The user reviews before any other
 area is drafted.
 
-## Step 5 — Generate and evaluate (subagents)
+## Step 5 — Generate and evaluate (subagents) (old input; rewired to mapping rows in TODO step 4)
 
 Ask the user: **pilot** (6 subcategories, per-subcategory loops, then stop for review) or **full** (all applicable
 subcategories, one AI RMF category per batch).

@@ -150,11 +150,9 @@ data/
     ├── ai_areas.json           generated from authoring/ai_areas.xlsx; scripts read this
     ├── mapping_rules.json      candidate CIS controls per AI area, required checks, org-wide subcategories
     ├── mapping.json            AI area x function -> subcategory, CIS safeguards, impact (record_ai_bank.py mapping)
-    ├── applicability.json      subcategory → bank applicability (agent, recorded)
     ├── scope_rules.json        question-type policy, filters and ranking for engagements, function and bank order
     ├── evidence_prompts.json   evidence hint per question topic
-    ├── crosswalks/             airmf_to_cis.json (agent, recorded)
-    ├── banks/                  question_bank_ai_rmf_<producer|consumer>.json
+    ├── banks/                  question_bank_ai_rmf_<producer|consumer>.json (none yet: rebuilt from mapping.json, TODO step 6)
     └── bank_build/             audit.jsonl, pending/work files, judgement_log/ (write-once records of agent steps)
 ```
 
@@ -185,7 +183,7 @@ One folder per engagement. It holds client data, so keep it out of any shared re
 - CSF bank pipeline is built and tested on real CSET data. First bank: `finance` (68 of 106 subcategories have candidate questions; the other 38 use a generic fallback question).
 - Other domains are not built yet. The ACET questions are tagged for domain once, and those verdicts serve all remaining banks.
 - A full engagement on the new pipeline has not been run end to end.
-- AI RMF track: parser, freshness gate, recording script, scope and question builders, prompts, commands and tests are built. The sources are parsed (72 subcategories, 459 safeguards). The agent passes (applicability, CIS link, pilot, full bank, impact notes) have not been run yet: run `/build-ai-bank`, pilot first.
+- AI RMF track: being rebuilt on the AI areas model (`AI_RMF_Mapping_Sheet_Design.md`, `TODO.md`). The sources are parsed (72 subcategories, 459 safeguards); the AI areas, intake and mapping step are built. The old applicability, CIS link and pilot banks were removed on 2026-10-22, so `/ai-questionnaire` has no AI RMF bank until the new banks are built (TODO step 6). The CSF track is unaffected.
 
 ## Glossary
 

@@ -1,4 +1,0 @@
-[
-{"subcategory_id": "MAP 1.1", "question_number": 4, "check": 3, "reason": "scope_tags customer_facing is claimed but the question is about decisions about 'people or customers' generally (could be employees, internal); it does not depend on output reaching customers. Also chains documentation, accountability and evidence."},
-{"subcategory_id": "MAP 1.1", "question_number": 5, "check": 2, "reason": "Action 3 is about considering unanticipated purposes in design with socio-technical experts, not detecting staff shadow use; the question is really inventory/shadow-AI discovery (a neighbouring Govern subcategory), so the unsanctioned_use modifier is not supported by the cited action."}
-]
