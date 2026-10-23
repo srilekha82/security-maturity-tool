@@ -1,6 +1,6 @@
 {
-  "description": "What parse_ai_rmf_sources.py expects from the source files. A mismatch fails the parse; edit here, not in code, when a source is updated.",
-  "playbook": {"file": "AI_RMF_Playbook.pdf", "subcategories": 72},
+  "description": "What parse_ai_rmf_sources.py expects from the source files. A mismatch fails the parse; edit here, not in code, when a source is updated. playbook.functions is also the order functions are written in ai_rmf_core.json.",
+  "playbook": {"file": "AI_RMF_Playbook.pdf", "functions": ["GOVERN", "MAP", "MEASURE", "MANAGE"], "subcategories": 72},
   "guides": {
     "LLM": {"file": "CIS_Controls_v8.1_AI_and_LLM_Companion_Guide_April_2026.pdf", "applicability_header": "AI LLM Applicability"},
     "MCP": {"file": "CIS_Controls_v8.1_Model_Context_Protocol_Companion_Guide_April_2026.pdf", "applicability_header": "MCP Applicability"},

@@ -3,8 +3,14 @@ Usage: .venv/bin/python ./scripts/sheet_io.py import <sheet> [--xlsx PATH] [--js
        .venv/bin/python ./scripts/sheet_io.py export <sheet> [--xlsx PATH] [--json PATH] [--force]
 
 Converts a spreadsheet a person edits into the JSON scripts and agents read, and back. One script for every such sheet:
-the columns, required cells and allowed values of each <sheet> live in data/common/sheet_specs.json (today: ai_areas).
-Scripts never read the spreadsheet; they read the JSON.
+the columns, required cells and allowed values of each <sheet> live in data/common/sheet_specs.json (today: ai_areas,
+mapping). Scripts never read the spreadsheet; they read the JSON.
+
+  ai_areas  the spreadsheet is the decision (data/ai/authoring/ai_areas.xlsx -> data/ai/ai_areas.json).
+  mapping   data/ai/mapping.json is the decision; export writes it for review as one line per AI area x MAP, MEASURE or
+            MANAGE subcategory (mapped or not, with the Playbook outcome and safeguard titles) plus a Coverage sheet;
+            import checks every area with record_ai_bank.py's mapping validator and stores changed lines as
+            decided_by human.
 
   import   XLSX -> JSON. Checks the WHOLE sheet (headers, required cells, allowed values, id format, duplicate ids);
            if anything is wrong it lists the problems, exits 1 and writes nothing. Otherwise writes the JSON with the
@@ -12,11 +18,11 @@ Scripts never read the spreadsheet; they read the JSON.
            Columns marked "in_json": false stay in the spreadsheet only.
   export   JSON -> XLSX, with a dropdown on every single-choice column and a "Read me" sheet, then imports the written
            file so the JSON records its hash. Refuses to overwrite a spreadsheet whose edits were never imported (its
-           hash differs from the JSON's `source_sha`) unless --force. A spreadsheet that is itself the decision (every
-           sheet today) has columns the JSON does not keep, so export refuses to overwrite it at all unless --force.
+           hash differs from the JSON's `source_sha`) unless --force. A spreadsheet that is itself the decision
+           (ai_areas) has columns the JSON does not keep, so export refuses to overwrite it at all unless --force.
 
 Column types: id (lowercase letters, digits, _), text, enum (one allowed value), list (one or more allowed values,
-comma-separated), bool (yes / no).
+comma-separated, lowercased), codes (comma-separated ids kept as written, e.g. MCP-8.2), bool (yes / no).
 
 sheet_status() is what check_freshness.py reports for a sheet.
 """
@@ -68,7 +74,7 @@ def parse_cell(col: dict, raw) -> tuple[object, list[str]]:
     if not text:
         if col.get("required"):
             return None, ["is required"]
-        return ([] if t == "list" else None if t == "bool" else ""), []
+        return ([] if t in ("list", "codes") else None if t == "bool" else ""), []
     if t == "id":
         return text, ([] if ID_RE.match(text) else ["must be lowercase letters, digits and _ (starting with a letter)"])
     if t == "text":
@@ -83,6 +89,12 @@ def parse_cell(col: dict, raw) -> tuple[object, list[str]]:
                 vals.append(v)
         bad = [v for v in vals if col.get("allowed") and v not in col["allowed"]]
         return vals, ([f"{bad} not in {col['allowed']}"] if bad else [])
+    if t == "codes":
+        vals = []
+        for v in (v.strip() for v in text.split(",")):
+            if v and v not in vals:
+                vals.append(v)
+        return vals, []
     if t == "bool":
         v = text.lower()
         if v in YES or v in NO:
@@ -94,7 +106,7 @@ def parse_cell(col: dict, raw) -> tuple[object, list[str]]:
 def cell_text(col: dict, value) -> str:
     if col["type"] == "bool":
         return "" if value is None else ("yes" if value else "no")
-    if col["type"] == "list":
+    if col["type"] in ("list", "codes"):
         return ", ".join(value or [])
     return "" if value is None else str(value)
 
@@ -127,7 +139,7 @@ def read_sheet(spec: dict, xlsx: Path) -> tuple[list[dict], list[str]]:
             value, errs = parse_cell(c, raw)
             problems += [f"row {n}, {c['header']}: {e}" for e in errs]
             rec[c["key"]] = value
-        key = rec.get(spec["key"])
+        key = rec.get(spec["key"]) if spec["key"] else None   # no single key (mapping): its converter checks repeats
         if key and key in seen:
             problems.append(f"row {n}: {spec['key']} {key!r} already used in row {seen[key]}")
         elif key:
@@ -145,6 +157,8 @@ def import_sheet(spec: dict, xlsx: Path, json_path: Path, log: Path) -> str:
     rows, problems = read_sheet(spec, xlsx)
     if problems:
         ev.reject(problems, xlsx.name, [xlsx], status="rejected")
+    if spec.get("shape") == "mapping":
+        return import_mapping(spec, xlsx, json_path, ev, rows)
     keep = [c["key"] for c in json_columns(spec)]
     doc = {"description": spec["json_description"], "source": _rel(xlsx), "source_sha": audit.sha(xlsx),
            "generated_by": f"scripts/sheet_io.py import {spec['name']}",
@@ -157,10 +171,35 @@ def import_sheet(spec: dict, xlsx: Path, json_path: Path, log: Path) -> str:
     return line
 
 
+def mapping_context():
+    """record_ai_bank.py (the mapping's converter and validator) with the reference data it needs. Imported only for the
+    mapping sheet, so ai_areas works without the AI RMF build files."""
+    import record_ai_bank as R
+    inp = R.load_inputs()
+    return R, inp, R.mapping_inputs(inp)
+
+
+def import_mapping(spec: dict, xlsx: Path, json_path: Path, ev, rows: list[dict]) -> str:
+    if not json_path.is_file():
+        ev.fail(f"[sheet_io] ERROR: {json_path} not found; draft an area first (/build-ai-bank, Mapping)")
+    R, inp, m = mapping_context()
+    doc, problems, changed = R.mapping_from_sheet(rows, json.loads(json_path.read_text()), inp, m)
+    if problems:
+        ev.reject(problems, xlsx.name, [xlsx], status="rejected")
+    doc["source_sha"] = audit.sha(xlsx)
+    json_path.write_text(json.dumps(doc, indent=2, ensure_ascii=False))
+    line = (f"{len(rows)} lines from {xlsx.name}, {changed} changed (decided_by human) -> {_rel(json_path)}; "
+            f"{len(R.mapping_coverage(doc, inp, m['rules'])[1])} subcategories not reached yet")
+    print(f"[sheet_io] {line}")
+    ev.finish(inputs=[xlsx], outputs=[json_path], detail=line)
+    return line
+
+
 # ── export ──────────────────────────────────────────────────────────────────
 
-def write_xlsx(spec: dict, rows: list[dict], xlsx: Path) -> None:
-    """Write the spreadsheet: one row per record (missing columns blank), dropdowns, a Read me sheet."""
+def write_xlsx(spec: dict, rows: list[dict], xlsx: Path, extra: dict[str, list[list]] | None = None) -> None:
+    """Write the spreadsheet: one row per record (missing columns blank), dropdowns, a Read me sheet, and any extra
+    read-only sheets ({title: rows of cells, header first})."""
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = spec["sheet"]
@@ -181,8 +220,21 @@ def write_xlsx(spec: dict, rows: list[dict], xlsx: Path) -> None:
             col = get_column_letter(i)
             dv.add(f"{col}2:{col}{last}")
             ws.add_data_validation(dv)
-    ws.freeze_panes = "C2"
+    ws.freeze_panes = spec.get("freeze", "C2")
     ws.auto_filter.ref = f"A1:{get_column_letter(len(spec['columns']))}{max(len(rows) + 1, 2)}"
+
+    for title, cells in (extra or {}).items():
+        xs = wb.create_sheet(title)
+        for r, values in enumerate(cells, 1):
+            for i, v in enumerate(values, 1):
+                cell = xs.cell(row=r, column=i, value=v)
+                cell.alignment = Alignment(wrap_text=True, vertical="top")
+                if r == 1:
+                    cell.fill, cell.font = fill, font
+        for i in range(1, len(cells[0]) + 1 if cells else 1):
+            xs.column_dimensions[get_column_letter(i)].width = 60 if i == 3 else 14
+        xs.freeze_panes = "D2"
+        xs.auto_filter.ref = f"A1:{get_column_letter(len(cells[0]) if cells else 1)}{max(len(cells), 2)}"
 
     rd = wb.create_sheet(README_SHEET)
     for n, line in enumerate(spec.get("readme", []), 1):
@@ -211,11 +263,17 @@ def export_sheet(spec: dict, xlsx: Path, json_path: Path, log: Path, force: bool
         if audit.sha(xlsx) != doc.get("source_sha"):
             ev.fail(f"[sheet_io] ERROR: {xlsx} has edits that were never imported (its hash differs from the JSON's). "
                     f"Run sheet_io.py import {spec['name']} first, or pass --force to overwrite them.")
-        if len(json_columns(spec)) < len(spec["columns"]):
+        if spec.get("decision", "spreadsheet") == "spreadsheet" and len(json_columns(spec)) < len(spec["columns"]):
             ev.fail(f"[sheet_io] ERROR: {xlsx} is the decision and holds columns the JSON does not keep; exporting "
                     "would blank them. Edit the spreadsheet instead, or pass --force to rebuild it from the JSON.")
-    write_xlsx(spec, doc[spec["list_key"]], xlsx)
-    ev.finish(inputs=[json_path], outputs=[xlsx], detail=f"exported {len(doc[spec['list_key']])} rows")
+    if spec.get("shape") == "mapping":
+        R, inp, m = mapping_context()
+        rows, coverage = R.mapping_sheet_rows(doc, inp, m)
+        write_xlsx(spec, rows, xlsx, {"Coverage": coverage})
+    else:
+        rows = doc[spec["list_key"]]
+        write_xlsx(spec, rows, xlsx)
+    ev.finish(inputs=[json_path], outputs=[xlsx], detail=f"exported {len(rows)} rows")
     return import_sheet(spec, xlsx, json_path, log)  # records the new file's hash, and proves the round trip
 
 

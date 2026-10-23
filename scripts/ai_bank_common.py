@@ -23,6 +23,11 @@ def load_json(path: Path, what: str):
         sys.exit(f"[ai_bank] ERROR: cannot read {what} ({path}): {e}")
 
 
+def core_subcategories(core: dict) -> list[dict]:
+    """Every subcategory of ai_rmf_core.json, flattened from its functions (GOVERN, MAP, MEASURE, MANAGE order)."""
+    return [s for f in core["functions"] for s in f["subcategories"]]
+
+
 def load_inputs() -> dict:
     """Reference data every validator and every prepare mode needs. Fails early with a pointer to the step that creates it."""
     for p, step in ((AI_CORE, "parse_ai_rmf_sources.py"), (AI_SAFEGUARDS, "parse_ai_rmf_sources.py")):
@@ -32,7 +37,7 @@ def load_inputs() -> dict:
     sg = load_json(AI_SAFEGUARDS, "cis_ai_safeguards.json")
     cats = load_json(AI_CATEGORIES, "question_categories.json")
     return {
-        "core": core, "subs": {s["subcategory_id"]: s for s in core["subcategories"]},
+        "core": core, "subs": {s["subcategory_id"]: s for s in core_subcategories(core)},
         "safeguards": {r["id"]: r for r in sg["safeguards"]}, "sg_doc": sg,
         "cats": cats, "enums": cats["enums"],
         "bank_cats": {b: {c["id"]: c for c in cats["banks"][b]["categories"]} for b in BANKS},
@@ -46,9 +51,18 @@ def always_controls(rules: dict) -> list[int]:
 def check_mapping_rules(rules: dict, inp: dict) -> list[str]:
     """Problems in mapping_rules.json against the parsed CIS guides: every control number of an area (its own and the
     always ones) must exist in each guide the area uses; the always controls' names must match the guides' titles; a
-    required check's cis_control must be an always control (so every area can cite it)."""
+    required check's cis_control must be an always control (so every area can cite it); every AI RMF function is either
+    mapped per area (functions) or foundation, never both; a required check names subcategories of mapped functions."""
     controls = inp["sg_doc"]["controls"]   # keyed "<guide>-<number>"
     errors = []
+    mapped, foundation = rules["functions"], rules["foundation"]["functions"]
+    core_fns = [f["id"] for f in inp["core"]["functions"]]
+    if set(mapped) & set(foundation) or sorted(mapped + foundation) != sorted(core_fns):
+        errors.append(f"functions {mapped} and foundation {foundation} must split the AI RMF functions {core_fns} between them")
+    for check in rules["required_checks"]:
+        bad = [s for s in check["any_of"] if s not in inp["subs"] or inp["subs"][s]["function"] not in mapped]
+        if bad:
+            errors.append(f"required check {check['name']!r}: {bad} are not subcategories of a mapped function")
     for n, name in rules["always_cis_controls"]["controls"].items():
         for g in {g for k, v in rules["area_cis"].items() if k != "description" for g in v["guides"]}:
             c = controls.get(f"{g}-{n}")
@@ -67,6 +81,11 @@ def check_mapping_rules(rules: dict, inp: dict) -> list[str]:
         if "cis_control" in check and check["cis_control"] not in always_controls(rules):
             errors.append(f"required check {check['name']!r}: cis_control {check['cis_control']} is not an always control")
     return errors
+
+
+def foundation_subcategories(rules: dict, inp: dict) -> list[str]:
+    """Subcategories of the foundation functions: asked once for the organisation, never mapped to an AI area."""
+    return [sid for sid, s in inp["subs"].items() if s["function"] in rules["foundation"]["functions"]]
 
 
 def area_rules(rules: dict, area_id: str) -> dict:

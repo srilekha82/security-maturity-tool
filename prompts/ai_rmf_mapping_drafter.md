@@ -4,23 +4,31 @@ only. Do not read the Playbook or CIS PDFs, other data files, or any file from a
 ## Input
 - `area`: the AI area (id, name, kind, applies_to, impact, covers). `covers` says what is exposed and what can go wrong.
   `impact` lists the attack areas a failure here hits: data, access, process, assets.
-- `functions`: GOVERN, MAP, MEASURE, MANAGE.
-- `subcategories`: per function, every AI RMF subcategory with its outcome and some Playbook suggested actions.
+- `functions`: the functions you map: MAP, MEASURE, MANAGE.
+- `function_definitions`: the Playbook's own statement of each AI RMF function, including GOVERN.
+- `foundation`: GOVERN. It is the foundation: how the organisation works with AI (policies, roles, inventory, culture,
+  third parties). It is asked once for the organisation elsewhere, so you never map it to an area.
+- `subcategories`: per mapped function, every AI RMF subcategory with its outcome and some Playbook suggested actions.
 - `cis_candidates`: the CIS safeguards you may cite (id, title, lowest Implementation Group, AI-specific text).
-- `rules`: `min_why_chars`, `required_checks` (checks this area must have), `org_wide` (subcategories asked once for
-  the whole org; map one only if this area adds its own angle).
+- `rules`: `min_why_chars`, `required_checks` (checks this area must have).
 
 ## Task
-For each of the four functions, choose the subcategories of that function that check THIS area: a subcategory whose
-outcome and suggested actions let an assessor ask how the org handles this area (what it does, who owns it, what
-evidence exists). A later step writes the questions; you decide only where they land.
-- GOVERN: owned, inventoried, approved, policies and roles for this area.
-- MAP: what the area connects to and can reach, its context and impact.
-- MEASURE: how the area is tested and evaluated (security, reliability, safety, privacy, fairness) and monitored.
-- MANAGE: how its risks are treated (access control, encryption, separation), switched off, responded to and recorded.
+For each of the three mapped functions, choose the subcategories of that function that check THIS area: a subcategory
+whose outcome and suggested actions let an assessor ask how the org handles this area in practice (what it does, who
+does it, what evidence exists). A later step writes the questions; you decide only where they land. GOVERN sets the
+policies these practices follow; a row here asks whether the practice happens for this area, not whether a policy
+exists.
+- MAP (context): this area applied to the organisation's systems, processes, assets and data: what it connects to and
+  can reach, its components and suppliers, its purpose and limits, the risks and impacts that follow.
+- MEASURE (operations: checking): how the area's risks are tested and evaluated (security, reliability, safety,
+  privacy, fairness) and monitored in use.
+- MANAGE (operations: responding): how the area's risks are prioritised and treated (access control, encryption,
+  separation), how it is switched off, how incidents are responded to, rectified and recorded.
 
 ## Rules
-1. Each row is one function + one subcategory of THAT function. There is no target number of rows: add a row for
+1. Each row is one mapped function + one subcategory of THAT function. Never a GOVERN row: a policy, role, inventory or
+   approval for the area belongs to GOVERN; what is done about the area in practice is MAP, MEASURE or MANAGE (for
+   example, granting a tool access is MANAGE, not GOVERN 2.1). There is no target number of rows: add a row for
    every subcategory that really checks this area, and no others. A narrow area may need few rows, a broad one many.
    Do not repeat a function + subcategory.
 2. Map only where a question about this area's own practice can be asked. Do not map because a subcategory is important
@@ -30,7 +38,7 @@ evidence exists). A later step writes the questions; you decide only where they 
    that row cites a safeguard of that CIS control.
 4. `cis_refs`: ids from `cis_candidates` only, and only safeguards that support this row (evidence an assessor would
    ask for). Prefer the lowest IG that fits; cite every safeguard that supports the row and no others; `[]` when none
-   fits (governance rows often have none).
+   fits.
 5. `impact`: the one or more of the area's impacts this row protects (e.g. a MEASURE 2.10 privacy row on source data is
    `data`; a MEASURE 2.7 row on retrieval permissions is `access`). Never an impact the area does not list.
 6. `why`: one sentence saying what this subcategory checks about this area.
@@ -43,8 +51,8 @@ Write ONE JSON object to the file the command names:
 {
   "area": "mcp_tools",
   "rows": [
-    {"function": "GOVERN", "subcategory": "GOVERN 1.6", "cis_refs": ["MCP-2.1", "MCP-2.3"], "impact": ["access"],
-     "why": "Every MCP server and tool the AI can call is inventoried with an owner and an approval."},
+    {"function": "MAP", "subcategory": "MAP 4.1", "cis_refs": ["MCP-2.1"], "impact": ["access"],
+     "why": "The MCP servers and tools the AI can call, inside and outside, are identified with what each can reach."},
     {"function": "MEASURE", "subcategory": "MEASURE 2.8", "cis_refs": ["MCP-8.2"], "impact": ["access"],
      "why": "Tool calls are logged with the credentials used, so actions can be traced and accounted for."}
   ],

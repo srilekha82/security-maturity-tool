@@ -3,14 +3,23 @@ input file (`data/ai/bank_build/mapping_input_<area>.json`), the draft file the 
 
 ## What the draft is
 For one AI area (`area` in the input: what it covers, its impacts), rows of: AI RMF function -> subcategory of that
-function -> CIS safeguards that support it -> impact -> why. A function with no fitting subcategory has a
-`no_question` entry with a reason. Later, questions are written per row and scored per subcategory, so a wrong row
-puts questions in the wrong place and a missing row leaves part of the area unchecked.
+function -> CIS safeguards that support it -> impact -> why. Only MAP, MEASURE and MANAGE are mapped: GOVERN is the
+foundation (policies, roles, inventory, culture, third parties), asked once for the organisation, never per area.
+`function_definitions` in the input gives the Playbook's statement of each function:
+- MAP (context): the area applied to the organisation's systems, processes, assets and data; its reach, components,
+  purpose, risks and impacts.
+- MEASURE (operations: checking): the area's risks tested, evaluated and monitored.
+- MANAGE (operations: responding): the area's risks prioritised and treated, the area switched off, incidents responded
+  to, rectified and recorded.
+A function with no fitting subcategory has a `no_question` entry with a reason. Later, questions are written per row
+and scored per subcategory, so a wrong row puts questions in the wrong place and a missing row leaves part of the area
+unchecked.
 
 ## Check every row
 1. The subcategory really checks THIS area: an assessor could ask how the org handles this area under that outcome.
    Fail rows that are only generically important, fit another area better, are there only to fill a function, or
-   repeat another row's check in different words.
+   repeat another row's check in different words. Fail a row that asks whether a policy, role or approval exists
+   (that is GOVERN, asked once for the organisation) instead of what is done about this area in practice.
 2. The `cis_refs` support the row (evidence for that subcategory about this area). Fail a safeguard that is off-topic.
 3. The `impact` matches what the row protects (data, access, process, assets).
 4. The `why` is specific to this area.

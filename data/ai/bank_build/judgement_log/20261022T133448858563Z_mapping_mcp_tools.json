@@ -1,0 +1,237 @@
+{
+  "recorded_at": "2026-10-22T13:34:48.858125+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-haiku-5-5",
+  "session": "evaluator=claude-haiku-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "f832aea387e345d8"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "8bb3e64c51b41768"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_mcp_tools_draft2.json",
+    "sha": "d2d551827de94e85"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "79361bdf8e46cd6c"
+  },
+  "output_snapshot": {
+    "area": "mcp_tools",
+    "rows": [
+      {
+        "function": "GOVERN",
+        "subcategory": "GOVERN 1.6",
+        "cis_refs": [
+          "MCP-1.1",
+          "MCP-2.1"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Every MCP server and tool the AI can call is inventoried with an owner and an approval."
+      },
+      {
+        "function": "GOVERN",
+        "subcategory": "GOVERN 1.7",
+        "cis_refs": [
+          "MCP-15.7"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Retiring an MCP server or tool revokes its credentials and access without leaving the AI workflow broken or unmanaged."
+      },
+      {
+        "function": "GOVERN",
+        "subcategory": "GOVERN 2.1",
+        "cis_refs": [
+          "MCP-6.1"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "The roles that approve, grant and own each MCP tool and its credentials are documented and known."
+      },
+      {
+        "function": "GOVERN",
+        "subcategory": "GOVERN 6.1",
+        "cis_refs": [
+          "MCP-15.2",
+          "MCP-15.4"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Policies set the security terms that outside MCP servers and their suppliers must meet before the AI uses them."
+      },
+      {
+        "function": "GOVERN",
+        "subcategory": "GOVERN 6.2",
+        "cis_refs": [
+          "MCP-17.4"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "There is a contingency for when an outside tool or server fails or is compromised, and incident plans cover it."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [
+          "MCP-12.4"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "The connections the AI has to internal systems, outside servers and external networks through its tools are documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.5",
+        "cis_refs": [
+          "MCP-6.1"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Humans approve the tool actions the AI takes with its credentials, and that oversight is documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "MCP-15.1"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Outside MCP servers and suppliers the AI relies on are inventoried and their risks are mapped."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 1.2",
+        "cis_refs": [
+          "MCP-15.6"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Metrics track the inputs and behaviour of third-party tools, and changes in their capabilities or authorization are watched."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "MCP-8.11"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Tool use in production is reviewed for anomalies and for calls outside the approved capabilities."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "MCP-16.13"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Tool access and authentication are tested adversarially, and the results of those tests are recorded."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "MCP-8.2",
+          "MCP-8.5"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Tool calls are logged with the identity and credentials used, so actions can be traced and accounted for."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "MCP-6.7",
+          "MCP-6.8"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Access to tools is limited by central authorization, least-privilege roles and throttling."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "MCP-17.4"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Procedures exist to contain and recover from an unauthorized tool call, including revoking tokens and disabling the tool."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "MCP-6.2"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Access to a tool or server can be revoked and the AI switched off from it when it behaves outside its approved use."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.1",
+        "cis_refs": [
+          "MCP-15.3",
+          "MCP-15.6"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Outside MCP servers are classified by the data and systems they reach and their risks are monitored against organizational tolerance."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "MCP-17.3",
+          "MCP-17.8"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Tool-related incidents are reported, recorded with their impact and responses, and reviewed after the event."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_mcp_tools_eval2.json",
+  "review": [
+    {
+      "function": "GOVERN",
+      "subcategory": "GOVERN 2.1",
+      "reason": "The row checks that roles for approving, granting and owning tools are documented, but its only safeguard MCP-6.1 is the access-granting process, not role definitions. Needs a roles safeguard such as MCP-17.5 or a roles and ownership control for tool access."
+    },
+    {
+      "function": "MAP",
+      "subcategory": "MAP 3.5",
+      "reason": "The row claims humans approve the tool actions the AI takes, but its only safeguard MCP-6.1 covers granting access, not human oversight of individual actions. MCP-17.4 (human confirmation enforcement) or a human-in-the-loop safeguard fits better."
+    }
+  ]
+}

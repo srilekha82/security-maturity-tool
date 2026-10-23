@@ -11,9 +11,10 @@ nothing and records nothing (agent output goes through record_ai_bank.py).
                      applicability.json, which was removed; TODO step 4 rewires batch to mapping rows (and their CIS
                      safeguards), so it cannot run until then.
   mapping         -> data/ai/bank_build/mapping_input_<area>.json   (mapping drafter / evaluator input)
-                     one AI area (data/ai/ai_areas.json), the four AI RMF functions with every subcategory's outcome and
-                     shortened suggested actions, the area's candidate CIS safeguards (data/ai/mapping_rules.json
-                     area_cis) and the required checks that apply to it
+                     one AI area (data/ai/ai_areas.json), the Playbook definition of all four AI RMF functions, the
+                     mapped functions (MAP, MEASURE, MANAGE; GOVERN is foundation, not mapped per area) with every
+                     subcategory's outcome and shortened suggested actions, the area's candidate CIS safeguards
+                     (data/ai/mapping_rules.json area_cis) and the required checks that apply to it
 """
 
 import argparse
@@ -86,15 +87,17 @@ def prepare_mapping(inp: dict, area_id: str) -> Path:
         sys.exit("[prepare_ai_bank] ERROR: mapping_rules.json does not match the CIS guides:\n  - " + "\n  - ".join(problems))
     r = area_rules(rules, area_id)
     subs = {f: [] for f in rules["functions"]}
-    for s in inp["core"]["subcategories"]:
-        subs[s["function"]].append({"id": s["subcategory_id"], "outcome": s["outcome"],
-                                    "actions": [trunc(a, ACTION_CHARS) for a in s["suggested_actions"][:MAX_ACTIONS]]})
+    for s in inp["subs"].values():
+        if s["function"] in subs:
+            subs[s["function"]].append({"id": s["subcategory_id"], "outcome": s["outcome"],
+                                        "actions": [trunc(a, ACTION_CHARS) for a in s["suggested_actions"][:MAX_ACTIONS]]})
     out = AI_BUILD / f"mapping_input_{area_id}.json"
     out.write_text(json.dumps({
         "area": areas[area_id],
         "functions": rules["functions"],
-        "rules": {"min_why_chars": rules["min_why_chars"],
-                  "required_checks": r["required_checks"], "org_wide": rules["org_wide"]["subcategories"]},
+        "function_definitions": {f["id"]: f["description"] for f in inp["core"]["functions"]},
+        "foundation": rules["foundation"]["functions"],
+        "rules": {"min_why_chars": rules["min_why_chars"], "required_checks": r["required_checks"]},
         "subcategories": subs,
         "cis_candidates": [{"id": s["id"], "title": s["title"], "lowest_ig": (s["ig"] or ["-"])[0],
                             "ai_text": trunc(s["ai_applicability"], AI_TEXT_CHARS)}

@@ -15,13 +15,20 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import ai_pilot as PL  # noqa: E402
 import prepare_ai_bank as P  # noqa: E402
 import record_ai_bank as R  # noqa: E402
-from ai_bank_common import DEFAULT_PROMPTS  # noqa: E402
+from ai_bank_common import DEFAULT_PROMPTS, core_subcategories  # noqa: E402
 from paths import AI_CORE, AI_SAFEGUARDS, REPO_ROOT  # noqa: E402
 
 
 class ParsedSources(unittest.TestCase):
     def test_playbook(self):
-        subs = json.loads(AI_CORE.read_text())["subcategories"]
+        core = json.loads(AI_CORE.read_text())
+        fns = core["functions"]
+        self.assertEqual([f["id"] for f in fns], ["GOVERN", "MAP", "MEASURE", "MANAGE"])
+        self.assertTrue(all(len(f["description"]) > 20 for f in fns))
+        self.assertIn("Policies, processes, procedures and practices", fns[0]["description"])
+        self.assertTrue(all(s["function"] == f["id"] for f in fns for s in f["subcategories"]))
+        self.assertEqual(len(fns[0]["subcategories"]), 19)
+        subs = core_subcategories(core)
         self.assertEqual(len(subs), 72)
         self.assertEqual(len({s["subcategory_id"] for s in subs}), 72)
         self.assertTrue(all(s["suggested_actions"] and len(s["outcome"]) > 20 for s in subs))
@@ -364,7 +371,7 @@ class Mapping(unittest.TestCase):
 
     def good(self):
         return {"area": "mcp_tools", "rows": [
-            self.row("GOVERN", "GOVERN 1.6", ["MCP-2.1", "MCP-2.3"]),
+            self.row("MAP", "MAP 4.1", ["MCP-2.1", "MCP-2.3"]),
             self.row("MAP", "MAP 2.2"),
             self.row("MEASURE", "MEASURE 2.7", ["MCP-6.8"]),
             self.row("MEASURE", "MEASURE 2.8", ["MCP-8.2"]),
@@ -394,7 +401,10 @@ class Mapping(unittest.TestCase):
         cand = doc["cis_candidates"]
         self.assertTrue(cand and all(c["id"].startswith("MCP-") for c in cand))
         self.assertTrue(all(int(c["id"].split("-")[1].split(".")[0]) in allowed for c in cand))
-        self.assertEqual(sum(len(v) for v in doc["subcategories"].values()), 72)
+        self.assertEqual(list(doc["subcategories"]), ["MAP", "MEASURE", "MANAGE"])   # GOVERN is foundation
+        self.assertEqual(sum(len(v) for v in doc["subcategories"].values()), 72 - 19)
+        self.assertEqual(set(doc["function_definitions"]), {"GOVERN", "MAP", "MEASURE", "MANAGE"})
+        self.assertEqual(doc["foundation"], ["GOVERN"])
         self.assertIn("audit trail", [c["name"] for c in doc["rules"]["required_checks"]])
 
     def test_mapping_rules_match_the_cis_guides(self):
@@ -405,9 +415,15 @@ class Mapping(unittest.TestCase):
         bad["always_cis_controls"]["controls"]["8"] = "Data Protection"      # wrong name for control 8
         bad["always_cis_controls"]["controls"]["19"] = "No such control"     # CIS v8.1 has 18 controls
         bad["area_cis"]["mcp_tools"]["controls"].append(42)
+        bad["functions"].append("GOVERN")                                    # both mapped and foundation
         problems = check_mapping_rules(bad, self.inp)
         self.assertTrue(any("8" in p and "Audit Log Management" in p for p in problems), problems)
         self.assertTrue(any("19" in p for p in problems) and any("mcp_tools" in p and "42" in p for p in problems))
+        self.assertTrue(any("split the AI RMF functions" in p for p in problems), problems)
+        govern_check = json.loads(json.dumps(rules))                         # a required check on a foundation function
+        govern_check["required_checks"].append({"name": "inventory", "areas": "all", "any_of": ["GOVERN 1.6"]})
+        self.assertEqual(check_mapping_rules(govern_check, self.inp),
+                         ["required check 'inventory': ['GOVERN 1.6'] are not subcategories of a mapped function"])
 
     def test_bad_drafts_are_rejected_and_nothing_is_stored(self):
         g = self.good()
@@ -423,7 +439,7 @@ class Mapping(unittest.TestCase):
             "missing audit trail": [r for r in rows if r["subcategory"] != "MEASURE 2.8"],
             "audit row without a control 8 safeguard": [dict(r, cis_refs=["MCP-6.8"]) if r["subcategory"] == "MEASURE 2.8"
                                                         else r for r in rows],
-            "missing inventory": [r for r in rows if r["subcategory"] != "GOVERN 1.6"],
+            "GOVERN row (foundation, never per area)": [self.row("GOVERN", "GOVERN 1.6", ["MCP-2.1"])] + rows,
         }
         for name, rs in cases.items():
             self.assertEqual(self.go(dict(g, rows=rs)), 1, name)
@@ -439,12 +455,14 @@ class Mapping(unittest.TestCase):
         doc = json.loads(R.AI_MAPPING.read_text())
         rows = {r["subcategory"]: r for r in doc["areas"]["mcp_tools"]["rows"]}
         self.assertEqual(rows["MEASURE 2.7"]["status"], "needs_human_review")
-        self.assertEqual(rows["GOVERN 1.6"]["status"], "pass")
+        self.assertEqual(rows["MAP 4.1"]["status"], "pass")
         self.assertEqual(doc["areas"]["mcp_tools"]["inputs"]["ai_areas"], R.audit.sha(R.AI_AREAS))
         rules = json.loads(R.AI_MAPPING_RULES.read_text())
         reached, unreached = R.mapping_coverage(doc, self.inp, rules)
-        self.assertIn("GOVERN 4.1", reached)            # org-wide
+        self.assertIn("GOVERN 4.1", reached)            # foundation
+        self.assertIn("GOVERN 1.6", reached)
         self.assertIn("MEASURE 2.11", unreached)
+        self.assertIn("MANAGE 1.2", unreached)          # no longer listed once for the org; an area must reach it
         self.assertEqual(len(reached) + len(unreached), 72)
         self.assertEqual(len(list(R.LOG_DIR.glob("*_mapping_mcp_tools.json"))), 1)
 

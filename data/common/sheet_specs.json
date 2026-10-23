@@ -1,5 +1,5 @@
 {
-  "description": "One entry per spreadsheet that scripts/sheet_io.py converts between XLSX (for people) and JSON (for scripts and agents). Columns, required cells and allowed values live here, not in code. `xlsx`, `json` and `audit` name constants in scripts/paths.py. A column with \"in_json\": false is kept in the spreadsheet only.",
+  "description": "One entry per spreadsheet that scripts/sheet_io.py converts between XLSX (for people) and JSON (for scripts and agents). Columns, required cells and allowed values live here, not in code. `xlsx`, `json` and `audit` name constants in scripts/paths.py. A column with \"in_json\": false is kept in the spreadsheet only. `decision` says which side is the decision: spreadsheet (default) or json (the sheet is exported for review and its edits imported back). `shape` names a converter for a JSON that is not a flat list (mapping: record_ai_bank.py).",
   "sheets": {
     "ai_areas": {
       "xlsx": "AI_AREAS_XLSX",
@@ -36,8 +36,60 @@
         "which checks every row and writes data/ai/ai_areas.json. If anything is wrong it lists the problems and writes nothing.",
         "The freshness check reports this sheet as stale until it has been imported.",
         "Which areas a client gets comes from the intake: the usage and component menus list these ids, and data/ai/scope_rules.json (ai_area_rules) adds the automatic ones.",
-        "Each area is checked through the four AI RMF functions (GOVERN, MAP, MEASURE, MANAGE) in the mapping step; see AI_RMF_Mapping_Sheet_Design.md.",
+        "Each area is checked through MAP, MEASURE and MANAGE in the mapping step (GOVERN is the foundation, asked once for the organisation); see AI_RMF_Mapping_Sheet_Design.md.",
         "Dropdowns limit Kind and Applies to; Impact takes one or more of data, access, process, assets separated by commas. Column help is below."
+      ]
+    },
+    "mapping": {
+      "xlsx": "AI_MAPPING_XLSX",
+      "json": "AI_MAPPING",
+      "audit": "AI_BUILD",
+      "sheet": "Mapping",
+      "shape": "mapping",
+      "decision": "json",
+      "list_key": "rows",
+      "key": null,
+      "freeze": "E2",
+      "columns": [
+        {"key": "area", "header": "AI area", "type": "id", "required": true, "width": 16,
+         "help": "Do not edit. The AI area id."},
+        {"key": "area_name", "header": "Area name", "type": "text", "required": false, "width": 18, "in_json": false,
+         "help": "Do not edit. From ai_areas.json."},
+        {"key": "function", "header": "Function", "type": "text", "required": false, "width": 10, "in_json": false,
+         "help": "Do not edit. MAP (context), MEASURE (checking), MANAGE (responding). GOVERN is not here: it is the foundation, asked once for the organisation."},
+        {"key": "subcategory", "header": "Subcategory", "type": "text", "required": true, "width": 13,
+         "help": "Do not edit. The AI RMF subcategory."},
+        {"key": "outcome", "header": "What it means (Playbook outcome)", "type": "text", "required": false, "width": 60,
+         "in_json": false, "help": "Do not edit. The Playbook's outcome for the subcategory."},
+        {"key": "mapped", "header": "Mapped", "type": "bool", "required": true, "width": 9,
+         "help": "yes: this subcategory checks this area (a row). no: it does not. Change it to add or remove a row."},
+        {"key": "why", "header": "Why for this area", "type": "text", "required": false, "width": 55,
+         "help": "One sentence: what this subcategory checks about this area. Needed when Mapped is yes."},
+        {"key": "cis_refs", "header": "CIS safeguards", "type": "codes", "required": false, "width": 18,
+         "help": "Safeguard ids separated by commas (e.g. MCP-8.2, MCP-8.5), from the area's candidates (mapping_rules.json area_cis). May be empty."},
+        {"key": "cis_titles", "header": "Safeguard titles", "type": "text", "required": false, "width": 45, "in_json": false,
+         "help": "Do not edit. The titles of the safeguards as exported; refreshed on the next export."},
+        {"key": "impact", "header": "Impact", "type": "list", "required": false, "width": 12,
+         "allowed": ["data", "access", "process", "assets"],
+         "help": "One or more of the area's impacts, separated by commas. Needed when Mapped is yes."},
+        {"key": "status", "header": "Status", "type": "enum", "required": false, "width": 14,
+         "allowed": ["pass", "needs_human_review"],
+         "help": "pass, or needs_human_review (the evaluator failed it). Set pass once you have decided the row."},
+        {"key": "review_reason", "header": "Evaluator note", "type": "text", "required": false, "width": 40, "in_json": false,
+         "help": "Do not edit. Why the evaluator failed the row."},
+        {"key": "decided_by", "header": "Decided by", "type": "text", "required": false, "width": 10, "in_json": false,
+         "help": "Do not edit. agent or human; a row you change becomes human on import."}
+      ],
+      "readme": [
+        "The AI RMF mapping for review: one line per AI area x MAP, MEASURE or MANAGE subcategory, mapped or not.",
+        "Check the Mapped = yes lines (right or wrong?), then scan the Mapped = no lines for anything missing. Filter by AI area or by Subcategory.",
+        "The Coverage sheet shows, per subcategory, which areas reach it; a subcategory no area reaches stands out there.",
+        "data/ai/mapping.json is the decision; this sheet is exported from it. After editing, run",
+        "  .venv/bin/python ./scripts/sheet_io.py import mapping",
+        "which checks every area against data/ai/mapping_rules.json (candidate safeguards, impacts, required checks) and writes mapping.json. If anything is wrong it lists the problems and writes nothing.",
+        "A line you change (or a Status you set) is stored as decided_by human. Refresh the sheet after a new area is drafted with",
+        "  .venv/bin/python ./scripts/sheet_io.py export mapping",
+        "which refuses to overwrite edits you have not imported."
       ]
     }
   }

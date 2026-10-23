@@ -39,9 +39,7 @@ Impact, What it covers, Example question (spreadsheet only).
 - **Impact** is the attack area a failure hits: **data** (exposed, leaked, poisoned), **access** (permissions and
   credentials used or abused), **process** (a business process or decision goes wrong), **assets** (model, code or
   infrastructure stolen, damaged or taken down).
-- Org-wide AI RMF outcomes that belong to no AI area (GOVERN 3.1 diverse teams, 4.1 culture, 4.2 documenting impacts,
-  4.3 testing and incident practices, 5.2 feedback into design; MANAGE 1.2 and 1.3 risk prioritisation and response)
-  are asked once for the whole org, not through an AI area (`org_wide` in `data/ai/mapping_rules.json`).
+- GOVERN is the foundation and is not mapped to AI areas (section 3).
 - Whether general security (CSF, ISO 27001) already covers a question is decided per mapping row, not per area: when a
   row's CIS safeguard maps (official CIS -> CSF mapping) to a CSF subcategory the client was assessed on, the question
   asks only the AI-specific part.
@@ -67,23 +65,33 @@ The intake asks only what the org has (capability); every control is assessed by
 `ai_areas`. Until question selection works on AI areas (TODO step 4) the intake also writes the old fields (rung, usage
 contexts, modifiers, hosts_model), worked out from the areas (`legacy_profile` in `scope_rules.json`).
 
-## 3. Controls: the four AI RMF functions, asked per AI area
-| Function | What it asks about an AI area |
-|---|---|
-| GOVERN | Owned, in the inventory, approved, policies and roles |
-| MAP | What it connects to, what it can reach, context and impact |
-| MEASURE | Tested and evaluated: security, reliability, safety, fairness, privacy; monitored |
-| MANAGE | Risks treated (access control, encryption, separation), can be switched off, incidents responded to and recorded |
+## 3. Controls: GOVERN is the foundation; MAP, MEASURE and MANAGE are asked per AI area
+Agreed 2026-10-22, after the `mcp_tools` pilot mapped operational controls under GOVERN labels (GOVERN 2.1 citing an
+access-granting safeguard, GOVERN 6.2 citing a containment procedure). The Playbook's own statement of each function
+(parsed into `data/ai/ai_rmf_core.json` `functions[].description`) is the guide:
 
-**A question = one AI area x one function**, landing on one AI RMF subcategory. The function is not in the AI area
-sheet: a script crosses every area with the four functions and the drafter fills each pair (or marks it "no question"
-with a reason). The AI RMF has no "protect" function: access control and encryption are risk treatments (MANAGE) and are
-checked in MEASURE 2.7. Audit trails sit in MEASURE 2.8 and MANAGE 4.1.
+| Function | Playbook statement | What it is here |
+|---|---|---|
+| GOVERN | Policies, processes, procedures and practices across the organization related to the mapping, measuring and managing of AI risks are in place, transparent, and implemented effectively. | **Foundation**: how the organisation works with AI (policies, roles, inventory, culture, third parties). It defines how MAP, MEASURE and MANAGE are done. Not mapped to an area. |
+| MAP | Context is established and understood. | **Context**: the AI areas applied to the organisation's systems, processes, assets and data; reach, components, purpose, risks and impacts. |
+| MEASURE | Appropriate methods and metrics are identified and applied. | **Operations, checking**: the area's risks tested, evaluated and monitored (security, reliability, safety, fairness, privacy). |
+| MANAGE | AI risks based on assessments and other analytical output from the Map and Measure functions are prioritized, responded to, and managed. | **Operations, responding**: risks prioritised and treated (access control, encryption, separation), switched off, incidents responded to, rectified and recorded. |
+
+- **Foundation (GOVERN, all 19 subcategories):** asked once for the organisation, not through an AI area. Everything
+  is org-wide; the difference is that a GOVERN question does not depend on which AI areas the client has. Its
+  questions are written per subcategory in the bank build and picked at engagement time by the intake role: none,
+  consumer, producer (both = consumer and producer; a producer flag where needed, e.g. GOVERN 6.1 when built on an
+  existing model). `foundation` in `data/ai/mapping_rules.json`. MANAGE 1.2 and 1.3 are not foundation: an area
+  reaches them like any other subcategory.
+- **A question = one AI area x one mapped function**, landing on one AI RMF subcategory. The function is not in the AI
+  area sheet: a script crosses every area with MAP, MEASURE and MANAGE and the drafter fills each pair (or marks it "no
+  question" with a reason). The recording script rejects a GOVERN row. The AI RMF has no "protect" function: access
+  control and encryption are risk treatments (MANAGE) and are checked in MEASURE 2.7. Audit trails sit in MEASURE 2.8
+  and MANAGE 4.1.
 
 Sample, AI area "Source data (RAG / knowledge graph)":
 | Function | Subcategory | CIS safeguards (lowest IG) | Impact |
 |---|---|---|---|
-| GOVERN | GOVERN 1.6 inventory | LLM-3.2 (IG1) | data |
 | MAP | MAP 4.1 data sources and rights | LLM-3.1 (IG1) | data |
 | MEASURE | MEASURE 2.10 privacy | LLM-3.7 (IG2), LLM-3.14 (IG3) | data |
 | MEASURE | MEASURE 2.7 security | LLM-3.3 (IG1), LLM-3.12 (IG2) | access |
@@ -95,13 +103,14 @@ written in a small rules file and the recording script rejects a mapping that mi
 audit-trail row").
 | Check | For | Must have a row on | Citing |
 |---|---|---|---|
-| Inventory | every AI area | GOVERN 1.6 | CIS control 1 or 2 where linked |
 | Audit trail | every AI area | MEASURE 2.8 or MANAGE 4.1 | a CIS control 8 (audit log) safeguard |
 | Incident response | every AI area | MANAGE 2.3 or MANAGE 4.3 | CIS control 17 where linked |
 | Reliability (accuracy, consistency, drift; not attack) | Output, and Model for producers | MEASURE 2.5, and MEASURE 2.4 or MANAGE 4.1, and MEASURE 2.1 (test sets and harness documented) | Playbook practices; CIS where linked |
 
 Reliability under attack (prompt injection, poisoned answers) is part of Output and Source data and is checked in
 MEASURE 2.7 like other security. The harness as data to protect is the Test, tuning and evaluation data area.
+Inventory is not a per-area check: it is GOVERN 1.6, foundation, asked once (the inventory question can name the
+client's areas). CIS controls 1 and 2 stay candidates in every area for MAP rows on the area's components.
 
 ## 4. Severity: priority of findings (does not change which questions are asked)
 - Each mapping row carries one or more of its area's impacts (data, access, process, assets).
@@ -121,23 +130,27 @@ Rows per AI area: AI RMF function -> subcategory, CIS safeguards that prove it, 
 an area gets a row for every subcategory that really checks it (each at most once), and the evaluator fails padding.
 - Score per AI RMF subcategory (the 72-row profile XLS), like CSET questions mapping to CSF subcategories. AI areas
   and impacts are report views on top; nothing counts twice.
-- All 72 subcategories must be reached (the org-wide GOVERN ones directly).
+- All 72 subcategories must be reached: the 19 GOVERN ones as foundation, the other 53 by area rows.
 - CIS Implementation Groups give the levels (IG1 basic, IG2, IG3); `data/tier_definitions.json` maps to them.
   Subcategories with no CIS link (42 of 72) are scored from Playbook practices.
 - List `LLM-` safeguards; a script adds the `MCP-` / `AGENT-` equivalents for MCP / tools and agents.
 
 ## 6. Pipeline
 1. AI areas spreadsheet (person) -> `sheet_io.py import ai_areas` -> `ai_areas.json`.
-2. A script crosses the areas with the four functions and prepares a compact input per area (area, the subcategories
-   of each function with suggested actions, the candidate CIS safeguards).
+2. A script crosses the areas with MAP, MEASURE and MANAGE and prepares a compact input per area (area, the Playbook
+   definition of each function, the subcategories of each mapped function with suggested actions, the candidate CIS
+   safeguards).
 3. Drafter agent fills each pair: subcategory, safeguards (from the candidates), impact, why. One area at a time.
 4. Evaluator agent (fresh context): returns failing rows only; one revision turn.
 5. Recording script: validates the whole file (ids, safeguards exist, impacts belong to the area, every area has rows,
    all 72 subcategories reached), stores the mapping JSON, write-once record.
-6. The mapping goes to a spreadsheet for review (`sheet_io.py`, a second sheet spec); the person edits; import back
-   (changed rows `decided_by: human`).
+6. The mapping goes to a spreadsheet for review (`sheet_io.py export mapping` -> `data/ai/authoring/mapping.xlsx`):
+   one line per AI area x MAP, MEASURE or MANAGE subcategory, mapped or not, with the Playbook outcome and safeguard
+   titles, so missing subcategories are visible, plus a Coverage sheet (subcategory x area). The person edits; `import
+   mapping` checks every area like agent output and stores changed lines as `decided_by: human`.
 7. Accept gate (person), like `ai_pilot.py accept`.
-8. Questions per mapping row (generator, evaluator) -> producer and consumer banks.
+8. Questions per mapping row (generator, evaluator) -> producer and consumer banks; GOVERN questions per subcategory,
+   each tagged with the roles it applies to (none, consumer, producer).
 
 `applicability.json` and `airmf_to_cis.json` are replaced by the mapping; the bank a row belongs to comes from the
 area's "applies to". Rebuild only when the Playbook or CIS guides change, or after the person accepts mapping changes;

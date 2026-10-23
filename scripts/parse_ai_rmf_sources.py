@@ -4,7 +4,8 @@ Usage: .venv/bin/python ./scripts/parse_ai_rmf_sources.py [--source-dir DIR] [--
 Parses the AI RMF sources into compact JSON. Script only, no judgement.
 
   AI_RMF_Playbook.pdf          -> data/ai/ai_rmf_core.json
-      per subcategory: subcategory_id, function, category, outcome, actions_preamble, suggested_actions[]
+      functions[]: id (GOVERN ...), name, description (the Playbook's statement under the function heading),
+      subcategories[]: subcategory_id, function, category, outcome, actions_preamble, suggested_actions[]
   3 CIS v8.1 companion guides  -> data/ai/cis_ai_safeguards.json
       controls:   one per guide and CIS Control (applicability intro, hosting notes, additional considerations)
       safeguards: one row per safeguard (id with guide prefix e.g. LLM-15.4, title, base text, IG levels, AI text)
@@ -29,6 +30,7 @@ from paths import AI, AI_BUILD, AI_CORE, AI_PARSE_CONFIG, AI_SAFEGUARDS, AI_SOUR
 import audit  # noqa: E402
 
 SUB_RE = re.compile(r"^((GOVERN|MAP|MEASURE|MANAGE) (\d+)\.(\d+))\s*$")
+FUNCTION_RE = re.compile(r"^(Govern|Map|Measure|Manage)\s*$")   # function heading, followed by its one-line statement
 PAGE_NO_RE = re.compile(r"^\d+ of \d+$")
 FOOTER_RE = re.compile(r"^Control (\d+): (.+?) \d+$")
 HOSTING_RE = re.compile(r"^Model Hosting and Deployment Considerations\s*$", re.M)
@@ -44,15 +46,28 @@ def clean(text: str) -> str:
 # ── Playbook ────────────────────────────────────────────────────────────────
 
 def parse_playbook(pdf_path: Path) -> list[dict]:
+    """Functions (in Playbook page order), each with its description and its subcategories."""
     with pdfplumber.open(pdf_path) as pdf:
         lines = [l for p in pdf.pages for l in (p.extract_text() or "").split("\n")]
     lines = [l for l in lines if not PAGE_NO_RE.match(l.strip())]
 
     starts = [(i, SUB_RE.match(l.strip())) for i, l in enumerate(lines)]
     starts = [(i, m) for i, m in starts if m]
-    subs = []
-    for n, (i, m) in enumerate(starts):
-        end = starts[n + 1][0] if n + 1 < len(starts) else len(lines)
+    # A function heading counts only when the next subcategory after it belongs to that function (skips stray words).
+    headings = []
+    for i, l in enumerate(lines):
+        fm = FUNCTION_RE.match(l.strip())
+        nxt = next((m for j, m in starts if j > i), None)
+        if fm and nxt and nxt.group(2) == fm.group(1).upper():
+            headings.append((i, fm.group(1)))
+    functions = {}
+    for i, name in headings:
+        first = next(j for j, _ in starts if j > i)
+        functions[name.upper()] = {"id": name.upper(), "name": name, "description": clean(" ".join(lines[i + 1:first])),
+                                   "subcategories": []}
+    breaks = sorted([i for i, _ in starts] + [i for i, _ in headings])
+    for i, m in starts:
+        end = next((b for b in breaks if b > i), len(lines))
         block = lines[i + 1:end]
         idx = {name: block.index(name) for name in SECTIONS if name in block}
         if len(idx) < len(SECTIONS):
@@ -66,7 +81,9 @@ def parse_playbook(pdf_path: Path) -> list[dict]:
                 actions[-1] += " " + l.strip()
             else:
                 preamble.append(l.strip())
-        subs.append({
+        if m.group(2) not in functions:
+            raise ValueError(f"{m.group(1)}: no '{m.group(2).title()}' function heading before it")
+        functions[m.group(2)]["subcategories"].append({
             "subcategory_id": m.group(1),
             "function": m.group(2),
             "category": f"{m.group(2)} {m.group(3)}",
@@ -74,7 +91,7 @@ def parse_playbook(pdf_path: Path) -> list[dict]:
             "actions_preamble": clean(" ".join(preamble)),
             "suggested_actions": [clean(a) for a in actions if clean(a)],
         })
-    return subs
+    return list(functions.values())
 
 
 # ── CIS companion guides ────────────────────────────────────────────────────
@@ -177,9 +194,15 @@ def main():
 
     errors = []
     try:
-        subs = parse_playbook(playbook)
+        functions = parse_playbook(playbook)
     except ValueError as e:
         ev.fail(f"[parse_ai_rmf_sources] ERROR: Playbook: {e}", inputs)
+    order = cfg["playbook"]["functions"]
+    if sorted(f["id"] for f in functions) != sorted(order):
+        errors.append(f"Playbook: found functions {[f['id'] for f in functions]}, expected {order}")
+    functions.sort(key=lambda f: order.index(f["id"]) if f["id"] in order else len(order))   # AI RMF order, not page order
+    subs = [s for f in functions for s in f["subcategories"]]
+    errors += [f"Playbook {f['id']}: no function description" for f in functions if len(f["description"]) < 20]
     if len(subs) != cfg["playbook"]["subcategories"]:
         errors.append(f"Playbook: found {len(subs)} subcategories, expected {cfg['playbook']['subcategories']}")
     ids = [s["subcategory_id"] for s in subs]
@@ -213,14 +236,14 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     core_path, sg_path = out / AI_CORE.name, out / AI_SAFEGUARDS.name
     core_path.write_text(json.dumps({"source": playbook.name, "source_sha256_16": audit.sha(playbook),
-                                     "subcategories": subs}, indent=2, ensure_ascii=False))
+                                     "functions": functions}, indent=2, ensure_ascii=False))
     sg_path.write_text(json.dumps({
         "sources": {g: {"file": p.name, "sha256_16": audit.sha(p)} for g, p in guide_files.items()},
         "controls": controls, "safeguards": safeguards}, indent=2, ensure_ascii=False))
 
     with_ai = sum(1 for r in safeguards if r["has_ai_guidance"])
     per_guide = ", ".join(f"{g} {sum(1 for r in safeguards if r['guide'] == g)}" for g in guide_files)
-    print(f"[parse_ai_rmf_sources] {len(subs)} subcategories → {core_path.name}; "
+    print(f"[parse_ai_rmf_sources] {len(functions)} functions, {len(subs)} subcategories → {core_path.name}; "
           f"{len(safeguards)} safeguards ({per_guide}; {with_ai} with AI text) → {sg_path.name}")
     ev.finish(inputs=inputs, outputs=[core_path, sg_path],
               detail=f"{len(subs)} subcategories, {len(safeguards)} safeguards ({per_guide}), {with_ai} with AI text")

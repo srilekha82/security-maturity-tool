@@ -25,11 +25,12 @@ Record modes (agent output; every one needs --model, optional --session, --promp
                            -> data/csf/ai_impact_notes.json
   mapping <file> [--review F]  one AI area's mapping (the drafter's file, after the evaluator's turn):
                            {"area": "mcp_tools",
-                            "rows": [{"function": "GOVERN", "subcategory": "GOVERN 1.6", "cis_refs": ["MCP-2.1"],
+                            "rows": [{"function": "MEASURE", "subcategory": "MEASURE 2.8", "cis_refs": ["MCP-8.2"],
                                       "impact": ["access"], "why": "..."}],
                             "no_question": [{"function": "MAP", "reason": "..."}]}
-                           Rejected unless: the area is in ai_areas.json; each subcategory exists and belongs to the row's
-                           function; cis_refs come from the area's candidates (mapping_rules.json area_cis); impact is a
+                           Rejected unless: the area is in ai_areas.json; each row's function is a mapped one (MAP,
+                           MEASURE, MANAGE; GOVERN is foundation, asked once for the organisation, never per area); each
+                           subcategory exists and belongs to the row's function; cis_refs come from the area's candidates (mapping_rules.json area_cis); impact is a
                            non-empty subset of the area's impact; a why on each row; every function has rows or a
                            no_question reason (not both); no repeated function + subcategory; every required check that applies to
                            the area is met. --review is the evaluator's last list of failures [{"function", "subcategory" (or null for the whole function), "reason"}]:
@@ -52,7 +53,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from paths import (AI_APPLICABILITY, AI_AREAS, AI_BANKS, AI_BUILD, AI_CIS_CSF_XLSX, AI_MAPPING,  # noqa: E402
                    AI_MAPPING_RULES, CSF_CORE, CSF_IMPACT_NOTES)
 from ai_bank_common import (BANKS, DEFAULT_PROMPTS, area_candidates, area_rules, check_mapping_rules,  # noqa: E402
-                            load_inputs, load_json)
+                            foundation_subcategories, load_inputs, load_json)
 import audit  # noqa: E402
 
 LOG_DIR = AI_BUILD / "judgement_log"
@@ -190,7 +191,9 @@ def validate_mapping(data, inp, m: dict, review) -> list[str]:
             errors.append(f"{tag}: fields must be function, subcategory, cis_refs, impact, why")
             continue
         sub = inp["subs"].get(r["subcategory"])
-        if r["function"] not in rules["functions"]:
+        if r["function"] in rules["foundation"]["functions"]:
+            errors.append(f"{tag}: {r['function']} is foundation (asked once for the organisation), not mapped to an AI area")
+        elif r["function"] not in rules["functions"]:
             errors.append(f"{tag}: function must be one of {rules['functions']}")
         elif sub is None:
             errors.append(f"{tag}: {r['subcategory']!r} is not an AI RMF subcategory")
@@ -272,10 +275,96 @@ def mapping_input_hashes(inp: dict) -> dict:
 
 
 def mapping_coverage(doc: dict, inp: dict, rules: dict) -> tuple[set, list]:
-    """(subcategories reached by an area row or listed as org-wide, the ones not reached, in Playbook order)."""
+    """(subcategories reached by an area row or by a foundation function, the ones not reached, in AI RMF order)."""
     reached = {r["subcategory"] for a in doc.get("areas", {}).values() for r in a["rows"]}
-    reached |= set(rules["org_wide"]["subcategories"])
+    reached |= set(foundation_subcategories(rules, inp))
     return reached, [s for s in inp["subs"] if s not in reached]
+
+
+# ── the review sheet (sheet_io.py export / import mapping) ──────────────────
+
+ROW_FIELDS = ("cis_refs", "impact", "why", "status")   # what a person can change on a row in the sheet
+
+
+def mapping_sheet_rows(doc: dict, inp: dict, m: dict) -> tuple[list[dict], list[list[str]]]:
+    """(one line per recorded area x mapped-function subcategory, the Coverage sheet as rows of cells). Script only:
+    the outcome and safeguard titles are looked up, nothing is decided."""
+    mapped_subs = [s for s in inp["subs"].values() if s["function"] in m["rules"]["functions"]]
+    lines = []
+    for area_id, entry in doc.get("areas", {}).items():
+        by_sub = {r["subcategory"]: r for r in entry["rows"]}
+        for s in mapped_subs:
+            r = by_sub.get(s["subcategory_id"])
+            refs = r["cis_refs"] if r else []
+            lines.append({
+                "area": area_id, "area_name": m["areas"].get(area_id, {}).get("name", ""), "function": s["function"],
+                "subcategory": s["subcategory_id"], "outcome": s["outcome"], "mapped": bool(r),
+                "why": r["why"] if r else "", "cis_refs": refs,
+                "cis_titles": "; ".join(f"{g}: {inp['safeguards'][g]['title']}" for g in refs if g in inp["safeguards"]),
+                "impact": r["impact"] if r else [], "status": r["status"] if r else "",
+                "review_reason": r.get("review_reason", "") if r else "", "decided_by": r["decided_by"] if r else "",
+            })
+    drafted = doc.get("areas", {})
+    reach = {(a, r["subcategory"]) for a in drafted for r in drafted[a]["rows"]}
+    foundation = set(foundation_subcategories(m["rules"], inp))
+    coverage = [["Function", "Subcategory", "What it means (Playbook outcome)", "Areas reaching it",
+                 *[a if a in drafted else f"{a} (not drafted)" for a in m["areas"]]]]
+    for s in inp["subs"].values():   # all 72, in AI RMF order; every AI area as a column
+        if s["subcategory_id"] in foundation:
+            coverage.append([s["function"], s["subcategory_id"], s["outcome"], "foundation (asked once, by role)",
+                             *["" for _ in m["areas"]]])
+            continue
+        hits = [a for a in m["areas"] if (a, s["subcategory_id"]) in reach]
+        coverage.append([s["function"], s["subcategory_id"], s["outcome"], len(hits),
+                         *["yes" if a in hits else "" for a in m["areas"]]])
+    return lines, coverage
+
+
+def mapping_from_sheet(lines: list[dict], doc: dict, inp: dict, m: dict) -> tuple[dict, list[str], int]:
+    """(the mapping with the person's edits, problems, rows changed). Every edited area is checked with the same
+    validator as agent output; a changed or new row is decided_by human, an unchanged one keeps what was recorded."""
+    problems, changed = [], 0
+    areas = doc.get("areas", {})
+    sheet: dict[str, dict[str, dict]] = {}
+    for n, ln in enumerate(lines, 2):
+        sub = inp["subs"].get(ln["subcategory"])
+        if ln["area"] not in areas:
+            problems.append(f"row {n}: AI area {ln['area']!r} has no recorded mapping (draft it first)")
+        elif sub is None or sub["function"] not in m["rules"]["functions"]:
+            problems.append(f"row {n}: {ln['subcategory']!r} is not a MAP, MEASURE or MANAGE subcategory")
+        elif ln["subcategory"] in sheet.setdefault(ln["area"], {}):
+            problems.append(f"row {n}: {ln['area']} / {ln['subcategory']} appears twice")
+        else:
+            sheet[ln["area"]][ln["subcategory"]] = dict(ln, function=sub["function"], line=n)
+    new_doc = json.loads(json.dumps(doc))
+    for area_id, subs in sheet.items():
+        recorded = {r["subcategory"]: r for r in areas[area_id]["rows"]}
+        problems += [f"{area_id} / {sid}: the line is missing from the sheet; set Mapped to no instead of deleting it"
+                     for sid in recorded if sid not in subs]
+        rows = []
+        for sid, ln in subs.items():
+            if not ln["mapped"]:
+                changed += sid in recorded
+                continue
+            new = {"function": ln["function"], "subcategory": sid, "cis_refs": ln["cis_refs"], "impact": ln["impact"],
+                   "why": ln["why"], "status": ln["status"] or "pass"}
+            old = recorded.get(sid)
+            if old and all(new[k] == (str(old[k]).strip() if k == "why" else old[k]) for k in ROW_FIELDS):
+                rows.append(old)
+            else:
+                changed += 1
+                rows.append({**new, "decided_by": "human"})
+        rows.sort(key=lambda r: list(inp["subs"]).index(r["subcategory"]))
+        with_rows = {r["function"] for r in rows}
+        draft = {"area": area_id, "rows": [{k: r[k] for k in ("function", "subcategory", "cis_refs", "impact", "why")}
+                                           for r in rows],
+                 "no_question": [q for q in areas[area_id].get("no_question", []) if q["function"] not in with_rows]}
+        at = {f"row {k}:": f"sheet row {subs[r['subcategory']]['line']} ({r['subcategory']}):"
+              for k, r in enumerate(rows, 1)}
+        problems += [f"{area_id}: " + next((e.replace(a, b, 1) for a, b in at.items() if e.startswith(a + " ")), e)
+                     for e in validate_mapping(draft, inp, m, None)]
+        new_doc["areas"][area_id].update(rows=rows, no_question=draft["no_question"])
+    return new_doc, problems, changed
 
 
 def assemble(gen1: Path, eval1: Path, gen2: Path | None, eval2: Path | None, out: Path) -> str:

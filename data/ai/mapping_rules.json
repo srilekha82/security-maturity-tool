@@ -1,14 +1,18 @@
 {
   "description": "Rules for the AI RMF mapping (AI area x AI RMF function -> subcategory, CIS safeguards, impact). prepare_ai_bank.py mapping uses area_cis to give the drafter a short list of candidate CIS safeguards; record_ai_bank.py mapping rejects a draft that breaks any rule here. Model: AI_RMF_Mapping_Sheet_Design.md. There is no row count: an area gets as many rows as it has real questions.",
-  "functions": ["GOVERN", "MAP", "MEASURE", "MANAGE"],
+  "functions": ["MAP", "MEASURE", "MANAGE"],
+  "foundation": {
+    "description": "Functions that are the foundation: how the organisation works with AI (policies, roles, inventory, culture, third parties). Not mapped to an AI area; asked once for the organisation, questions written per subcategory in the bank build and picked at engagement time by the intake role (none, consumer, producer). They count as reached in the coverage check. Every AI RMF function is either here or in functions, never both.",
+    "functions": ["GOVERN"]
+  },
   "min_why_chars": 20,
   "always_cis_controls": {
-    "description": "CIS Controls v8.1 control numbers (1-18) added to every AI area, taken from that area's own guides (area_cis guides): e.g. control 8 is MCP-8.x for mcp_tools, AGENT-8.x for agent, LLM-8.x for most areas. They let the required checks (inventory, audit trail, incident response) cite a safeguard in every area. The names are checked against the parsed guides (cis_ai_safeguards.json controls).",
+    "description": "CIS Controls v8.1 control numbers (1-18) added to every AI area, taken from that area's own guides (area_cis guides): e.g. control 8 is MCP-8.x for mcp_tools, AGENT-8.x for agent, LLM-8.x for most areas. 1 and 2 (the area's assets and software, for MAP rows on its components), 8 (the audit trail check) and 17 (the incident response check), so every area can cite them. The names are checked against the parsed guides (cis_ai_safeguards.json controls).",
     "controls": {"1": "Inventory and Control of Enterprise Assets", "2": "Inventory and Control of Software Assets",
                  "8": "Audit Log Management", "17": "Incident Response Management"}
   },
   "area_cis": {
-    "description": "Per AI area: the CIS v8.1 controls (1-18) whose safeguards are candidates, and the companion guides they come from. always_cis_controls are added to every area (inventory, audit log, incident response).",
+    "description": "Per AI area: the CIS v8.1 controls (1-18) whose safeguards are candidates, and the companion guides they come from. always_cis_controls are added to every area (asset and software inventory, audit log, incident response).",
     "internal_process":  {"controls": [3, 14],                 "guides": ["LLM"]},
     "code_generation":   {"controls": [2, 3, 7, 16],           "guides": ["LLM"]},
     "customer_facing":   {"controls": [3, 13, 16, 18],         "guides": ["LLM"]},
@@ -25,15 +29,10 @@
     "hosting":           {"controls": [4, 7, 11, 12, 13],      "guides": ["LLM"]}
   },
   "required_checks": [
-    {"name": "inventory", "areas": "all", "any_of": ["GOVERN 1.6"]},
     {"name": "audit trail", "areas": "all", "any_of": ["MEASURE 2.8", "MANAGE 4.1"], "cis_control": 8},
     {"name": "incident response", "areas": "all", "any_of": ["MANAGE 2.3", "MANAGE 4.3"]},
     {"name": "reliability: accuracy and consistency", "areas": ["output", "model"], "any_of": ["MEASURE 2.5"]},
     {"name": "reliability: monitored in use", "areas": ["output", "model"], "any_of": ["MEASURE 2.4", "MANAGE 4.1"]},
     {"name": "reliability: test sets and harness documented", "areas": ["output", "model"], "any_of": ["MEASURE 2.1"]}
-  ],
-  "org_wide": {
-    "description": "AI RMF subcategories asked once for the whole org through GOVERN (or MANAGE 1), not through an AI area. They count as reached in the coverage check.",
-    "subcategories": ["GOVERN 3.1", "GOVERN 4.1", "GOVERN 4.2", "GOVERN 4.3", "GOVERN 5.2", "MANAGE 1.2", "MANAGE 1.3"]
-  }
+  ]
 }

@@ -58,6 +58,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from paths import AI_CATEGORIES, AI_CORE, AI_EVIDENCE_PROMPTS, AI_SCOPE_RULES, ai_bank_path  # noqa: E402
 from options import AI_BANK_NAMES, AI_FUNCTION_ORDER, SEVERITY_ORDER  # noqa: E402
+from ai_bank_common import core_subcategories  # noqa: E402
 import audit  # noqa: E402
 
 
@@ -204,7 +205,7 @@ def main():
     rules = json.loads(AI_SCOPE_RULES.read_text())
     cats = json.loads(AI_CATEGORIES.read_text())
     evidence = json.loads(AI_EVIDENCE_PROMPTS.read_text())
-    outcomes = {s["subcategory_id"]: s["outcome"] for s in json.loads(AI_CORE.read_text())["subcategories"]}
+    outcomes = {s["subcategory_id"]: s["outcome"] for s in core_subcategories(json.loads(AI_CORE.read_text()))}
     profile = json.loads(usage_path.read_text())
 
     errors = validate_profile(profile, cats["enums"], rules)

@@ -34,7 +34,8 @@ stage is current only if it was built from the exact source files on disk (each 
 .venv/bin/python ./scripts/parse_ai_rmf_sources.py
 ```
 
-Writes `data/ai/ai_rmf_core.json` (72 subcategories with Playbook suggested actions) and
+Writes `data/ai/ai_rmf_core.json` (the 4 functions with their Playbook descriptions, and their 72 subcategories with
+suggested actions) and
 `data/ai/cis_ai_safeguards.json` (the safeguards of the three guides). It fails, writing nothing, if a count is off.
 Agents read these files, never the PDFs.
 
@@ -45,7 +46,8 @@ Agents read these files, never the PDFs.
 ## Mapping (replaces the old Steps 3 and 4; see `AI_RMF_Mapping_Sheet_Design.md`)
 
 Maps each AI area (`data/ai/ai_areas.json`, decided by the user in `data/ai/authoring/ai_areas.xlsx`) to AI RMF
-subcategories per function, with the CIS safeguards that prove them. Run only when the user asks for it, one AI area at a
+subcategories of MAP, MEASURE and MANAGE, with the CIS safeguards that prove them. GOVERN is the foundation (asked once
+for the organisation, by role) and is never mapped to an area. Run only when the user asks for it, one AI area at a
 time; the first run is a pilot on one area the user names, then stop and report. Work files go under
 `data/ai/bank_build/work/` (delete them once the area is recorded).
 
@@ -71,9 +73,13 @@ time; the first run is a pilot on one area the user names, then stop and report.
    and repeat; nothing is stored until it passes. It prints how many areas are recorded and how many AI RMF
    subcategories are not reached yet.
 
+After each area is recorded, refresh the review sheet: `.venv/bin/python ./scripts/sheet_io.py export mapping` (writes
+`data/ai/authoring/mapping.xlsx`; it refuses if the sheet has edits not yet imported: ask the user to import them first
+with `sheet_io.py import mapping`).
+
 After the pilot area: stop. Show the user the recorded rows (function, subcategory, safeguards, impact, why), what the
-evaluator failed, the subcategories still unreached, and token use if you can see it. The user reviews before any other
-area is drafted.
+evaluator failed, the subcategories still unreached, and token use if you can see it, and point them to the review
+sheet. The user reviews before any other area is drafted.
 
 ## Step 5 — Generate and evaluate (subagents) (old input; rewired to mapping rows in TODO step 4)
 

@@ -94,5 +94,105 @@ class AiAreasSheet(unittest.TestCase):
         self.assertEqual(self.do_import(), 1)
 
 
+class MappingSheet(unittest.TestCase):
+    """The mapping review sheet: mapping.json -> one line per area x MAP/MEASURE/MANAGE subcategory -> back."""
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp())
+        self.spec = S.load_spec("mapping")
+        self.xlsx, self.json, self.log = self.tmp / "m.xlsx", self.tmp / "m.json", self.tmp / "audit.jsonl"
+
+        def row(sub, cis=(), status="pass"):
+            return {"function": sub.split()[0], "subcategory": sub, "cis_refs": list(cis), "impact": ["access"],
+                    "why": f"{sub} checks how the org handles MCP servers and tool credentials.", "status": status,
+                    "decided_by": "agent", **({"review_reason": "Too generic."} if status != "pass" else {})}
+        rows = [row("MAP 2.2"), row("MAP 4.1", ["MCP-2.1"]), row("MEASURE 2.7", ["MCP-6.8"], "needs_human_review"),
+                row("MEASURE 2.8", ["MCP-8.2"]), row("MANAGE 2.4", ["MCP-6.2"]), row("MANAGE 4.3")]
+        self.json.write_text(json.dumps({"areas": {"mcp_tools": {"recorded_on": "2026-10-22", "inputs": {},
+                                                                 "rows": rows, "no_question": []}}}))
+        self.export()
+
+    def export(self):
+        S.export_sheet(self.spec, self.xlsx, self.json, self.log, force=True)
+
+    def do_import(self):
+        try:
+            S.import_sheet(self.spec, self.xlsx, self.json, self.log)
+            return 0
+        except SystemExit as e:
+            return e.code
+
+    def edit(self, sub, **cells):
+        wb = openpyxl.load_workbook(self.xlsx)
+        ws = wb[self.spec["sheet"]]
+        heads = [c.value for c in ws[1]]
+        for r in range(2, ws.max_row + 1):
+            if ws.cell(row=r, column=heads.index("Subcategory") + 1).value == sub:
+                for header, value in cells.items():
+                    ws.cell(row=r, column=heads.index(header) + 1, value=value)
+        wb.save(self.xlsx)
+
+    def rows(self):
+        return {r["subcategory"]: r for r in json.loads(self.json.read_text())["areas"]["mcp_tools"]["rows"]}
+
+    def test_export_lists_every_mapped_function_subcategory_with_its_text(self):
+        wb = openpyxl.load_workbook(self.xlsx)
+        lines = list(wb["Mapping"].iter_rows(values_only=True))
+        self.assertEqual(len(lines) - 1, 72 - 19)                       # GOVERN is the foundation, not in the sheet
+        heads = lines[0]
+        by_sub = {ln[heads.index("Subcategory")]: ln for ln in lines[1:]}
+        self.assertNotIn("GOVERN 1.6", by_sub)
+        self.assertEqual(by_sub["MAP 2.2"][heads.index("Mapped")], "yes")
+        self.assertEqual(by_sub["MEASURE 2.10"][heads.index("Mapped")], "no")
+        self.assertTrue(by_sub["MEASURE 2.10"][heads.index("What it means (Playbook outcome)")].startswith("Privacy risk"))
+        self.assertIn("MCP-8.2: ", by_sub["MEASURE 2.8"][heads.index("Safeguard titles")])
+        cov = list(wb["Coverage"].iter_rows(values_only=True))
+        self.assertEqual(len(cov) - 1, 72)                               # every subcategory, GOVERN as foundation
+        self.assertEqual(len(cov[0]) - 4, len(json.loads(AI_AREAS.read_text())["ai_areas"]))   # every AI area
+        self.assertIn("mcp_tools", cov[0])
+        self.assertIn("agent (not drafted)", cov[0])
+        cov_by_sub = {r[1]: r for r in cov[1:]}
+        self.assertTrue(cov_by_sub["GOVERN 1.6"][3].startswith("foundation"))
+        self.assertEqual(cov_by_sub["MAP 2.2"][3], 1)
+        self.assertEqual(cov_by_sub["MEASURE 2.10"][3], 0)
+
+    def test_round_trip_changes_nothing(self):
+        before = self.rows()
+        self.assertEqual(self.do_import(), 0)
+        self.assertEqual(self.rows(), before)
+
+    def test_edits_are_stored_as_human_decisions(self):
+        self.edit("MEASURE 2.10", Mapped="yes", Impact="access", **{"CIS safeguards": "MCP-6.8",
+                  "Why for this area": "Personal data a tool can reach is checked for privacy risk."})
+        self.edit("MEASURE 2.7", Status="pass")                          # the person decides the failed row
+        self.edit("MAP 2.2", Mapped="no")                                # and removes one
+        self.assertEqual(self.do_import(), 0)
+        rows = self.rows()
+        self.assertEqual(rows["MEASURE 2.10"]["decided_by"], "human")
+        self.assertEqual(rows["MEASURE 2.10"]["cis_refs"], ["MCP-6.8"])
+        self.assertEqual((rows["MEASURE 2.7"]["status"], rows["MEASURE 2.7"]["decided_by"]), ("pass", "human"))
+        self.assertNotIn("review_reason", rows["MEASURE 2.7"])
+        self.assertNotIn("MAP 2.2", rows)
+        self.assertEqual(rows["MANAGE 2.4"]["decided_by"], "agent")      # untouched rows keep what was recorded
+
+    def test_bad_edits_are_rejected_and_nothing_is_written(self):
+        cases = [("MEASURE 2.10", {"Mapped": "yes", "Why for this area": "Privacy of what tools can reach is checked.",
+                                   "Impact": "access", "CIS safeguards": "LLM-3.1"}),   # not a candidate
+                 ("MEASURE 2.10", {"Mapped": "yes", "Why for this area": "Privacy of what tools can reach is checked."}),
+                 ("MEASURE 2.8", {"Mapped": "no"}),                                     # the audit trail check
+                 ("MAP 2.2", {"Subcategory": "GOVERN 1.6"})]                             # foundation, never per area
+        for sub, cells in cases:
+            self.setUp()
+            before = self.json.read_text()
+            self.edit(sub, **cells)
+            self.assertEqual(self.do_import(), 1, (sub, cells))
+            self.assertEqual(self.json.read_text(), before, (sub, cells))
+
+    def test_edits_not_imported_block_the_export(self):
+        self.edit("MAP 2.2", Mapped="no")
+        with self.assertRaises(SystemExit):
+            S.export_sheet(self.spec, self.xlsx, self.json, self.log)
+
+
 if __name__ == "__main__":
     unittest.main()
