@@ -1,0 +1,192 @@
+{
+  "recorded_at": "2026-10-23T10:40:59.428304+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-opus-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "5281721107f332ca"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "5bcc3c4a6347fd53"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_code_generation_draft2.json",
+    "sha": "f5b9f4514b7ef377"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "cd085424e94f84e2"
+  },
+  "output_snapshot": {
+    "area": "code_generation",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.3",
+        "cis_refs": [],
+        "impact": [
+          "data",
+          "assets"
+        ],
+        "why": "Where AI code generation may be used is set out: which repositories, codebases and data may be given to a code assistant and which are kept out."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.4",
+        "cis_refs": [
+          "LLM-16.9"
+        ],
+        "impact": [
+          "assets",
+          "data"
+        ],
+        "why": "Developers using code assistants are trained on the AI-specific risks: made-up packages, untrusted dependencies and secrets pasted into prompts."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.5",
+        "cis_refs": [
+          "LLM-16.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Human review of AI-generated code before it is merged is defined, including who reviews it and what they must check."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-2.1"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The code assistants in use and the third-party packages they introduce are identified, with their source, licence and intellectual-property risk."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "LLM-3.1"
+        ],
+        "impact": [
+          "assets",
+          "data"
+        ],
+        "why": "The controls around each code assistant are identified, such as approved package registries, secret filtering of prompts and the vendor's retention settings."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-7.1",
+          "LLM-16.5"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Dependencies suggested by AI are checked to exist, come from a trusted source and be free of known vulnerabilities before they are used."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.1",
+          "LLM-8.2"
+        ],
+        "impact": [
+          "assets",
+          "data"
+        ],
+        "why": "Code assistant use is logged and AI-generated changes can be traced to who prompted them and who reviewed them before merge."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [
+          "LLM-3.1",
+          "LLM-3.2",
+          "LLM-3.13"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Personal data that can reach a code assistant, such as customer records in test fixtures, database extracts, logs or code pasted as context, is examined and documented, with what was sent and how long the vendor keeps it."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 3.1",
+        "cis_refs": [
+          "LLM-16.2"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "New risks from code generation, such as package-squatting campaigns on made-up names or flaws in the assistant itself, are tracked."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.3",
+          "LLM-17.4"
+        ],
+        "impact": [
+          "assets",
+          "data"
+        ],
+        "why": "There is a followed procedure to respond when a malicious AI-suggested package or a secret leaked through a prompt is found, including removal and credential rotation."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [],
+        "impact": [
+          "assets",
+          "data"
+        ],
+        "why": "A code assistant can be switched off for a repository or the organisation, with an owner who decides when it misbehaves or leaks."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.1",
+        "cis_refs": [
+          "LLM-2.3",
+          "LLM-16.5"
+        ],
+        "impact": [
+          "assets",
+          "data"
+        ],
+        "why": "Third-party code assistants and the packages they pull in are monitored, and unapproved assistants or untrusted packages are removed."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.8"
+        ],
+        "impact": [
+          "assets",
+          "data"
+        ],
+        "why": "Incidents from AI-generated code, such as leaked secrets or bad dependencies, are recorded, reviewed and communicated to the developers affected."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_code_generation_eval2.json",
+  "review": [
+    {
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.7",
+      "reason": "The row tests only AI-suggested dependencies; no MEASURE row checks that secrets and credentials are actually kept out of code-assistant prompts (e.g. DLP or secret scanning of prompt traffic, LLM-3.13), one of the area's three core risks, which MAP 4.2 only identifies as a control."
+    }
+  ]
+}

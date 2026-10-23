@@ -1,0 +1,202 @@
+{
+  "recorded_at": "2026-10-23T10:40:59.334888+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-opus-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "5281721107f332ca"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "5bcc3c4a6347fd53"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_hosting_draft2.json",
+    "sha": "08d2917007ecc8b8"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "128e3190ee4ed87e"
+  },
+  "output_snapshot": {
+    "area": "hosting",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [
+          "LLM-12.4"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The hosting environment's connections and dependencies (serving endpoints, model registry, secret stores, external networks and the internet) are documented, so what the hosted model can reach and what depends on it is known."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.2",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The cost of a hosting failure (outage of serving endpoints, compromise of GPUs or the registry, compute or cost abuse) is examined and compared with the organisation's risk tolerance."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-1.1",
+          "LLM-1.2",
+          "LLM-2.1",
+          "LLM-2.2"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The servers, GPUs, model registry, serving runtimes, drivers and third-party hosting software are inventoried with their source and support, and unapproved hosting environments are found."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "LLM-13.1",
+          "LLM-13.2",
+          "LLM-13.3",
+          "LLM-13.6"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The hosting infrastructure is monitored in production for intrusion, abnormal traffic, unexpected usage or compute spikes and availability, with alerts raised to the security team."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.6",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "Serving endpoints and GPU capacity are stress-tested under high load and failure conditions, so the hosting is shown to degrade or fail safely rather than go down or run up unbounded cost."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-7.1",
+          "LLM-7.5",
+          "LLM-7.6"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The hosting environment and its exposed endpoints are regularly scanned and tested for vulnerabilities and attack, and the results are recorded."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.1",
+          "LLM-8.2",
+          "LLM-8.3",
+          "LLM-8.4",
+          "LLM-8.9",
+          "LLM-8.10"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Access to and changes on the hosting (inference traffic, registry and deployment events, administrative and secret use) are logged, time-synchronised, centralised and retained so actions can be traced."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "folded": [
+          "MAP 4.2"
+        ],
+        "cis_refs": [
+          "LLM-2.3",
+          "LLM-2.5",
+          "LLM-2.6",
+          "LLM-4.1",
+          "LLM-4.4",
+          "LLM-4.6",
+          "LLM-4.7",
+          "LLM-12.2",
+          "LLM-12.3",
+          "LLM-13.4"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The hosting is hardened in practice: secure configuration, host firewalls, network isolation, authenticated gateways and throttling on endpoints, scoped secrets and keys, and only approved software and libraries running."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-11.1",
+          "LLM-11.2",
+          "LLM-11.3",
+          "LLM-11.4",
+          "LLM-11.5",
+          "LLM-17.4"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "When the hosting is compromised or goes down, an incident response procedure is followed and models, registry state and configuration are recovered from protected, tested backups."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-11.5"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Named people can take a serving endpoint offline, revoke its keys, roll back to a known-good version or fail over to a backup, and evidence is preserved when they do."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.1",
+        "cis_refs": [
+          "LLM-7.2",
+          "LLM-7.3",
+          "LLM-7.4",
+          "LLM-7.7"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Third-party hosting software (serving frameworks, GPU drivers, container images, operating systems) is tracked for updates and patched or remediated by risk."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.2",
+          "LLM-17.3",
+          "LLM-17.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Hosting incidents and outages are reported, recorded and communicated to the people affected, and each is reviewed after closure with changes to the hosting tracked."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_hosting_eval2.json",
+  "review": [
+    {
+      "function": "MANAGE",
+      "subcategory": "MANAGE 3.1",
+      "reason": "LLM-7.3 (OS patching of compute hosts) and the 'operating systems' in the why are general host hygiene, not risk from third-party AI resources; MANAGE 3.1 should stay on third-party serving frameworks, runtimes, drivers and images (LLM-7.4), and OS patching belongs with the hardening row (MANAGE 2.2)."
+    }
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "recorded_at": "2026-10-23T10:40:16.101110+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-opus-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "5281721107f332ca"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "5bcc3c4a6347fd53"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_internal_process_draft2.json",
+    "sha": "8cc5f14cc128f51c"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "f895c7cd802a7529"
+  },
+  "output_snapshot": {
+    "area": "internal_process",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.1",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "Each internal workflow where AI output drives a decision (HR, finance, approvals, operations) is identified with its purpose, the staff who use it and the decisions it feeds."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The knowledge limits of the AI used in internal workflows, and the conditions where its output must not be relied on, are documented for the staff who act on it."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.2",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "The cost of an internal decision made on wrong AI output, or of insider misuse of the AI, is examined with its likelihood and magnitude against risk tolerance.",
+        "folded": [
+          "MAP 5.1"
+        ]
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.3",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The scope of internal decisions the AI may support, and the uses staff must not put it to, is specified so off-label use and misuse can be recognised."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.4",
+        "cis_refs": [
+          "LLM-14.1",
+          "LLM-14.4",
+          "LLM-14.5"
+        ],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "Staff who act on AI output in internal workflows are trained on its limits, over-reliance and safe data handling, and their proficiency is assessed."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.5",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "Human review and sign-off points for AI-driven internal decisions are defined, with who must check the output before it takes effect."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.5",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The AI is shown to be valid and reliable for the specific internal decision it supports before staff rely on it, with limits of that validation documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The accuracy of AI output used in internal workflows is monitored in production against actual outcomes, with alerts when it drifts or becomes unreliable."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.2",
+          "LLM-8.5",
+          "LLM-8.11"
+        ],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "AI-assisted internal decisions are logged with the user, input, output and any human override, the degree of human oversight is documented, and the logs are reviewed so decisions and insider misuse can be traced to who acted."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.9",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "AI output that drives internal HR, finance and approval decisions comes with an explanation staff can interpret in context, so they can judge wrong output instead of over-relying on it and decisions about people can be justified."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 4.2",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "Domain experts and the staff who use the AI in each internal workflow give feedback, including override rates, that is used to validate whether the AI performs consistently as intended there, and the results are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [
+          "LLM-3.14"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Privacy risk of personal data (e.g. employee or finance records) processed by AI in internal workflows is examined, including monitoring staff queries for sensitive data access."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.11",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "AI output used in internal decisions about people, such as HR screening or approvals, is evaluated for bias across affected groups and the results documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 3.3",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "Staff and people affected by AI-driven internal decisions can report wrong output and appeal outcomes, and those reports feed the evaluation of the AI."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 1.1",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "A documented decision is made, and revisited, on whether the AI meets its purpose in each internal workflow and whether its use there should continue."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "LLM-3.1",
+          "LLM-3.3"
+        ],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "Business rules, human-in-the-loop steps and data access limits restrict what AI output can decide and which data staff can reach through it in internal workflows."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-17.9"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Someone is assigned and able to stop or bypass the AI in an internal workflow when its output is wrong, with a manual fallback so the process continues."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.3",
+          "LLM-17.4",
+          "LLM-17.8"
+        ],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "Wrong decisions and misuse arising from AI in internal workflows are reported, tracked, responded to, rectified and reviewed afterwards, and communicated to those affected."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_internal_process_eval2.json",
+  "review": [
+    {
+      "function": "MAP",
+      "subcategory": "MAP 3.4",
+      "reason": "LLM-14.5 is off-topic: it is about keeping sensitive data out of unapproved consumer AI web interfaces (shadow AI, the invisible_usage area), not training staff on the limits and over-reliance of the AI in sanctioned internal workflows; it also repeats LLM-14.4's data-handling evidence."
+    }
+  ]
+}

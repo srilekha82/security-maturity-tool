@@ -1,0 +1,254 @@
+{
+  "recorded_at": "2026-10-23T10:41:55.054219+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-opus-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "5281721107f332ca"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "5bcc3c4a6347fd53"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_agent_draft2.json",
+    "sha": "01a73fbade20d2da"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "2c5d2b19411d082e"
+  },
+  "output_snapshot": {
+    "area": "agent",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [
+          "AGENT-1.1",
+          "AGENT-2.1"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Each agent's reach is documented: the tools, systems, data and external networks it can act on, its knowledge limits, and where humans oversee its output."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.3",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The scope of each agent's deployment is set: which processes, systems and types of action it is allowed into at all and which are out of bounds."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.5",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "Agent actions that need a human in the loop (irreversible changes, high-value steps, long action chains) are identified and the approval or review step is defined."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "AGENT-2.1",
+          "AGENT-16.4"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "The agent's components and suppliers (orchestration framework, LLM, tools, MCP clients and servers, memory stores) are identified with their third-party risks."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "AGENT-2.5",
+          "AGENT-2.6",
+          "AGENT-2.7"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Internal controls on the agent's components are identified, such as allowlisted frameworks, libraries, tools and scripts the agent may run."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.1",
+        "cis_refs": [
+          "AGENT-16.14"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "The likelihood and magnitude of agent harms (prompt injection triggering actions, tool abuse, runaway chains, irreversible changes) are assessed, for example through threat modelling.",
+        "folded": [
+          "MAP 3.2"
+        ]
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "AGENT-8.11",
+          "AGENT-17.9"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Agent behaviour in production is monitored for anomalies such as unexpected tool calls, decision paths, rate or cost spikes, with alert thresholds."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.5",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "Agents are shown to be valid and reliable before and during use, completing their action chains correctly within documented operating conditions and limits."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.6",
+        "cis_refs": [
+          "AGENT-16.10"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Agents are tested to fail safely under stress and beyond their limits, including loop detection and circuit breakers that stop runaway or harmful action chains."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "AGENT-16.13",
+          "AGENT-18.1",
+          "AGENT-18.2",
+          "AGENT-18.5"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Agent security is tested through red teaming and penetration tests covering direct and indirect prompt injection, tool abuse, memory poisoning and sandbox breakout."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "AGENT-8.1",
+          "AGENT-8.2",
+          "AGENT-8.5",
+          "AGENT-8.7",
+          "AGENT-8.8",
+          "AGENT-8.9",
+          "AGENT-8.10",
+          "AGENT-8.12"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Agent actions are logged end to end (tool calls, data access, authorisation decisions, commands, human overrides) so each action can be traced to the agent identity and reviewed."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "AGENT-5.2",
+          "AGENT-5.4",
+          "AGENT-5.5",
+          "AGENT-6.1",
+          "AGENT-6.7",
+          "AGENT-6.8"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Agents run with their own least-privilege identities and capability-bound credentials, and business rules restrict which actions they can take without approval."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "AGENT-17.1",
+          "AGENT-17.4",
+          "AGENT-17.5"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Agent-specific incidents such as a manipulated or misbehaving agent are responded to and recovered from using playbooks and named responders."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "AGENT-6.2",
+          "AGENT-17.9"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "An agent can be halted or disengaged when it acts outside its intended use, with thresholds that trigger it, owners who do it, and its credentials revoked."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.1",
+        "cis_refs": [
+          "AGENT-2.2",
+          "AGENT-16.5"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Third-party agent frameworks, tools and platforms are monitored and kept on supported, trusted versions, with risk controls applied to them."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "AGENT-17.2",
+          "AGENT-17.3",
+          "AGENT-17.8"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Agent misbehaviour and incidents are reported, tracked and reviewed for root cause, and communicated to affected parties and tool or model vendors."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_agent_eval2.json",
+  "review": [
+    {
+      "function": "MAP",
+      "subcategory": "MAP 2.2",
+      "reason": "Repeats other rows in different words: 'the tools, systems, data and networks it can act on' is the MAP 3.3 scope check and 'where humans oversee its output' is the MAP 3.5 oversight check; narrow it to the agent's documented knowledge limits and how its outputs and actions are relied on downstream."
+    },
+    {
+      "function": "MANAGE",
+      "subcategory": null,
+      "reason": "Missing MANAGE 4.1: nothing checks that, in operation, an agent's actions can be overridden by a human and its irreversible or chained changes rolled back or recovered, with changes to the agent's tools, prompts and permissions put through change management."
+    }
+  ]
+}

@@ -45,6 +45,7 @@ AI_AREAS = AI / "ai_areas.json"          # generated from ai_areas.xlsx by sheet
 AI_MAPPING_RULES = AI / "mapping_rules.json"   # candidate CIS controls per AI area, required checks, foundation functions
 AI_MAPPING = AI / "mapping.json"         # AI area x AI RMF function -> subcategory, CIS safeguards, impact (record_ai_bank.py)
 AI_MAPPING_XLSX = AI_AUTHORING / "mapping.xlsx"   # the mapping for review: one line per area x subcategory (sheet_io.py)
+AI_MAPPING_ACCEPTED = AI / "bank_build" / "mapping_accepted.json"   # written by ai_pilot.py accept-mapping
 SHEET_SPECS = COMMON / "sheet_specs.json"   # columns and allowed values of every spreadsheet sheet_io.py converts
 
 # Which folder each crosswalk file lives in (also used to resolve metadata.json keys)

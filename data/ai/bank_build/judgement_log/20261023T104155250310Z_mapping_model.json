@@ -1,0 +1,177 @@
+{
+  "recorded_at": "2026-10-23T10:41:55.249827+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-opus-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "5281721107f332ca"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "5bcc3c4a6347fd53"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_model_draft2.json",
+    "sha": "6cf871025c454f13"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "c94bd9e296ce701a"
+  },
+  "output_snapshot": {
+    "area": "model",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-2.1",
+          "LLM-2.2"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The base models, fine-tuned versions, weights and system prompts that make up the model are inventoried with source, version and licence, so ownership and third-party IP or licence limits are known."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "LLM-1.1",
+          "LLM-3.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The controls protecting each model component (weight storage, model registry, prompt and configuration stores, serving API) are identified and documented, with where each is held."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.1",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The test sets, metrics and evaluation harness used to evaluate each model version before release are documented and kept with that version."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.5",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "Each model version is shown to be valid and reliable (accurate and consistent) for its operating conditions before release, with the limits of its generalisation documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "LLM-8.11"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The deployed model is monitored in production for behaviour drifting from release testing, unexpected version changes and query patterns that suggest extraction through the API."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model's resistance to theft, tampering and extraction through its API is tested (for example by red-teaming) and the results and countermeasures are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.1",
+          "LLM-8.2",
+          "LLM-8.5"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Access to weights and the model registry, changes to versions, system prompts and configurations, and API use of the model are logged with identity, so theft or tampering can be traced."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "LLM-3.11",
+          "LLM-4.1",
+          "LLM-6.1",
+          "LLM-6.5",
+          "LLM-6.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Weights, fine-tuned versions and system prompts are protected by least-privilege access, MFA for registry administration, encryption at rest, separation of duties for promotion, and API countermeasures such as throttling against extraction."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.1",
+          "LLM-17.3",
+          "LLM-17.4"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Suspected model theft, extraction attempts or tampering with a version are reported and handled under an incident response procedure that covers these scenarios."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-11.1",
+          "LLM-11.2",
+          "LLM-11.3",
+          "LLM-11.4",
+          "LLM-11.5",
+          "LLM-17.9"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "A tampered or compromised model version can be withdrawn and rolled back to a protected, integrity-checked known-good version, with set thresholds and owners for doing so."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.2",
+        "cis_refs": [
+          "LLM-2.2",
+          "LLM-2.3"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Third-party pre-trained base models used for fine-tuning are monitored as part of regular model maintenance for tampered or backdoored weights, upstream withdrawals, vulnerabilities and licence changes, and are replaced or retired when they exceed risk tolerance."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.2",
+          "LLM-17.6",
+          "LLM-17.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Model theft, extraction or tampering incidents are communicated to the relevant AI actors (model owners, downstream users of the affected version, the provider of a base model), and their tracking, response and recovery are documented and reviewed after the event."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_model_eval2.json",
+  "review": []
+}

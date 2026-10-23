@@ -23,12 +23,14 @@ unchecked.
 2. The `cis_refs` support the row (evidence for that subcategory about this area). Fail a safeguard that is off-topic.
 3. The `impact` matches what the row protects (data, access, process, assets).
 4. The `why` is specific to this area.
+5. A `folded` list (optional) names subcategories this row also covers. Fail it when the row does not really cover
+   them, or when a folded subcategory would be clearer as a row of its own.
 
 ## Check what is missing
-5. An obvious subcategory for this area that no row covers (for example: MEASURE 2.7 security for an access area,
+6. An obvious subcategory for this area that no row covers (for example: MEASURE 2.7 security for an access area,
    MEASURE 2.10 privacy for a data area, MANAGE 2.4 switching off for something that acts). Report it as a failure of
    the function, with `subcategory` null and the reason naming what is missing.
-6. A `no_question` entry that is not justified.
+7. A `no_question` entry that is not justified.
 
 Do not re-check ids, required checks or formats; a script does that. Fail when unsure. One line per failure.
 

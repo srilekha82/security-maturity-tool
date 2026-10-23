@@ -8,7 +8,9 @@ AI RMF gate (--ai-bank):
 Compares the SHA-256 of the current source files (Playbook, the three CIS companion guides, the CIS -> CSF xlsx) with the
 hashes each output records about its own inputs, one line per stage: parse (ai_rmf_core.json, cis_ai_safeguards.json),
 each bank, notes, and pilot. A stage is `current` only if it exists and was built from these exact sources. (The old
-applicability and crosswalk stages were removed with their files on 2026-10-22; a `mapping` stage comes in TODO step 3.) `pilot` is current when the user accepted the pilot (ai_pilot.py accept) for the current
+applicability and crosswalk stages were removed with their files on 2026-10-22.) `mapping` is current when every AI area
+is drafted from the current sources, AI areas and rules, reviewed (no row needs_human_review, no sheet edit left
+unimported) and accepted as it is now (ai_pilot.py accept-mapping); it also says how many subcategories no area reaches. `pilot` is current when the user accepted the pilot (ai_pilot.py accept) for the current
 generator and evaluator prompts. `ai areas` is current when data/ai/ai_areas.json was imported from
 data/ai/authoring/ai_areas.xlsx as the spreadsheet is now (sheet_io.py import ai_areas). Exit 0 = every stage current (skip the rebuild); exit 1 = something is missing, stale
 or incomplete.
@@ -34,7 +36,7 @@ from paths import (AI_APPLICABILITY, AI_BANKS, AI_CIS_CSF_XLSX, AI_CORE,  # noqa
 import audit  # noqa: E402
 from sheet_io import sheet_status  # noqa: E402
 from extract_cset_candidates import DEFAULT_CSET_PATH, git, sql_changed  # noqa: E402
-from ai_pilot import pilot_status  # noqa: E402
+from ai_pilot import mapping_status, pilot_status  # noqa: E402
 
 def load(path: Path):
     return json.loads(path.read_text()) if path.is_file() else None
@@ -77,6 +79,7 @@ def ai_stages() -> list[tuple[str, bool, str]]:
         "cis_csf": cis_csf, "MCP": guides["MCP"], "AGENT": guides["AGENT"]}))
     stages.append(("pilot", *pilot_status(AI_PILOT)))
     stages.append(("ai areas", *sheet_status("ai_areas", AI_AREAS_XLSX, AI_AREAS)))
+    stages.append(("mapping", *mapping_status()))
     return stages
 
 

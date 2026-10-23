@@ -106,7 +106,8 @@ class MappingSheet(unittest.TestCase):
             return {"function": sub.split()[0], "subcategory": sub, "cis_refs": list(cis), "impact": ["access"],
                     "why": f"{sub} checks how the org handles MCP servers and tool credentials.", "status": status,
                     "decided_by": "agent", **({"review_reason": "Too generic."} if status != "pass" else {})}
-        rows = [row("MAP 2.2"), row("MAP 4.1", ["MCP-2.1"]), row("MEASURE 2.7", ["MCP-6.8"], "needs_human_review"),
+        rows = [row("MAP 2.2"), dict(row("MAP 4.1", ["MCP-2.1"]), folded=["MAP 1.6"]),
+                row("MEASURE 2.7", ["MCP-6.8"], "needs_human_review"),
                 row("MEASURE 2.8", ["MCP-8.2"]), row("MANAGE 2.4", ["MCP-6.2"]), row("MANAGE 4.3")]
         self.json.write_text(json.dumps({"areas": {"mcp_tools": {"recorded_on": "2026-10-22", "inputs": {},
                                                                  "rows": rows, "no_question": []}}}))
@@ -165,7 +166,7 @@ class MappingSheet(unittest.TestCase):
 
     def test_edits_are_stored_as_human_decisions(self):
         self.edit("MEASURE 2.10", Mapped="yes", Impact="access", **{"CIS safeguards": "MCP-6.8",
-                  "Why for this area": "Personal data a tool can reach is checked for privacy risk."})
+                  "Comments": "Personal data a tool can reach is checked for privacy risk."})
         self.edit("MEASURE 2.7", Status="pass")                          # the person decides the failed row
         self.edit("MAP 2.2", Mapped="no")                                # and removes one
         self.assertEqual(self.do_import(), 0)
@@ -178,9 +179,9 @@ class MappingSheet(unittest.TestCase):
         self.assertEqual(rows["MANAGE 2.4"]["decided_by"], "agent")      # untouched rows keep what was recorded
 
     def test_bad_edits_are_rejected_and_nothing_is_written(self):
-        cases = [("MEASURE 2.10", {"Mapped": "yes", "Why for this area": "Privacy of what tools can reach is checked.",
+        cases = [("MEASURE 2.10", {"Mapped": "yes", "Comments": "Privacy of what tools can reach is checked.",
                                    "Impact": "access", "CIS safeguards": "LLM-3.1"}),   # not a candidate
-                 ("MEASURE 2.10", {"Mapped": "yes", "Why for this area": "Privacy of what tools can reach is checked."}),
+                 ("MEASURE 2.10", {"Mapped": "yes", "Comments": "Privacy of what tools can reach is checked."}),
                  ("MEASURE 2.8", {"Mapped": "no"}),                                     # the audit trail check
                  ("MAP 2.2", {"Subcategory": "GOVERN 1.6"})]                             # foundation, never per area
         for sub, cells in cases:
@@ -189,6 +190,74 @@ class MappingSheet(unittest.TestCase):
             self.edit(sub, **cells)
             self.assertEqual(self.do_import(), 1, (sub, cells))
             self.assertEqual(self.json.read_text(), before, (sub, cells))
+
+    def test_a_fold_is_a_note_on_both_lines_and_survives_edits(self):
+        ws = openpyxl.load_workbook(self.xlsx)["Mapping"]
+        heads = [c.value for c in ws[1]]
+        notes = {ws.cell(row=r, column=heads.index("Subcategory") + 1).value:
+                 ws.cell(row=r, column=heads.index("Comments") + 1).comment for r in range(2, ws.max_row + 1)}
+        self.assertIn("Also covers MAP 1.6", notes["MAP 4.1"].text)
+        self.assertIn("Folded into MAP 4.1", notes["MAP 1.6"].text)
+        self.assertIsNone(notes["MAP 2.2"])
+        self.edit("MAP 4.1", Comments="The MCP servers and tools the AI can call are identified, with what each reaches.")
+        self.assertEqual(self.do_import(), 0)
+        self.assertEqual((self.rows()["MAP 4.1"]["folded"], self.rows()["MAP 4.1"]["decided_by"]), (["MAP 1.6"], "human"))
+        self.export()                                                    # mapping MAP 1.6 on its own ends the fold
+        self.edit("MAP 1.6", Mapped="yes", Impact="access", Comments="The intended access of each tool is documented.")
+        self.assertEqual(self.do_import(), 0)
+        self.assertNotIn("folded", self.rows()["MAP 4.1"])
+        self.assertEqual(self.rows()["MAP 1.6"]["decided_by"], "human")
+
+    def test_a_redraft_keeps_what_the_person_decided(self):
+        import record_ai_bank as R
+        self.edit("MEASURE 2.10", Mapped="yes", Impact="access", Comments="Personal data a tool can reach is checked.")
+        self.edit("MAP 2.2", Mapped="no")
+        self.assertEqual(self.do_import(), 0)
+        self.assertEqual(json.loads(self.json.read_text())["areas"]["mcp_tools"]["removed_by_human"], ["MAP 2.2"])
+        inp = R.load_inputs()
+        m = R.mapping_inputs(inp)
+        agent = [{"function": r["function"], "subcategory": r["subcategory"], "cis_refs": r["cis_refs"],
+                  "impact": r["impact"], "why": "The agent's new wording of what this subcategory checks for tools."}
+                 for r in self.rows().values() if r["subcategory"] != "MEASURE 2.10"]
+        agent.append(dict(agent[0], subcategory="MAP 2.2", cis_refs=[]))            # the agent brings MAP 2.2 back
+        saved = R.AI_MAPPING
+        R.AI_MAPPING = self.json
+        try:
+            _, line = R.store_mapping({"area": "mcp_tools", "rows": agent, "no_question": []}, inp, m, None)
+        finally:
+            R.AI_MAPPING = saved
+        rows = self.rows()
+        self.assertNotIn("MAP 2.2", rows)                                             # the person removed it
+        self.assertEqual(rows["MEASURE 2.10"]["why"], "Personal data a tool can reach is checked.")
+        self.assertEqual(rows["MEASURE 2.10"]["decided_by"], "human")
+        self.assertTrue(rows["MANAGE 2.4"]["why"].startswith("The agent's new wording"))
+        self.assertIn("2 human decisions kept", line)
+
+    def test_the_mapping_gate(self):
+        import ai_pilot as PL
+        accepted = self.tmp / "accepted.json"
+        saved = PL.AI_MAPPING, PL.AI_MAPPING_ACCEPTED, PL.AI_MAPPING_XLSX
+        PL.AI_MAPPING, PL.AI_MAPPING_ACCEPTED, PL.AI_MAPPING_XLSX = self.json, accepted, self.xlsx
+        try:
+            ok, text = PL.mapping_status()
+            self.assertFalse(ok)
+            self.assertIn("incomplete (1 of", text)                                    # one area of the 14
+            self.assertIn("1 rows need human review", text)
+            with self.assertRaises(SystemExit):
+                PL.accept_mapping(None)
+            real = PL.mapping_problems
+            PL.mapping_problems = lambda doc: ([], ["MAP 1.2"])                        # as if complete and reviewed
+            try:
+                self.assertIn("not accepted", PL.mapping_status()[1])
+                self.assertIn("reached by no area: MAP 1.2", PL.accept_mapping("looks right"))
+                self.assertTrue(PL.mapping_status()[0])
+                self.edit("MAP 2.2", Mapped="no")
+                self.assertEqual(self.do_import(), 0)
+                self.assertIn("changed since accepted", PL.mapping_status()[1])
+            finally:
+                PL.mapping_problems = real
+        finally:
+            PL.AI_MAPPING, PL.AI_MAPPING_ACCEPTED, PL.AI_MAPPING_XLSX = saved
 
     def test_edits_not_imported_block_the_export(self):
         self.edit("MAP 2.2", Mapped="no")

@@ -1,0 +1,251 @@
+{
+  "recorded_at": "2026-10-23T10:40:59.544905+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-opus-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "5281721107f332ca"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "5bcc3c4a6347fd53"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_customer_facing_draft2.json",
+    "sha": "07a85f25b0524b7e"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "b6ab6ca55f8772d6"
+  },
+  "output_snapshot": {
+    "area": "customer_facing",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.1",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The purpose of each customer-facing AI application, the public users it serves, what they expect from it and the settings it is deployed in are documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The application's knowledge limits, and how customers are told what its answers can and cannot be relied on for and when a human takes over, are documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.3",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "The scope of what the customer-facing AI may answer or do, and the topics and data it must stay out of, is specified and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "LLM-16.10",
+          "LLM-16.11"
+        ],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "The controls on the customer-facing application's components, such as input and output guardrails and separation of system instructions from user input, are identified and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.1",
+        "cis_refs": [
+          "LLM-16.14"
+        ],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "folded": [
+          "MAP 3.2"
+        ],
+        "why": "The likelihood and impact of public users attacking the application (prompt injection, abuse) and of wrong, harmful or leaked answers reaching customers, including their cost, are identified."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "LLM-8.11",
+          "LLM-13.3"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "The customer-facing application's behaviour in production is monitored for abuse patterns, adversarial prompting and degraded or unsafe answers."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.5",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The accuracy and reliability of answers given to customers are tested before release and checked in use, with known limits recorded."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.6",
+        "cis_refs": [
+          "LLM-16.3"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "The application is evaluated for harmful or unsafe output to customers and shown to fail safely when it cannot answer."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-16.3",
+          "LLM-18.1",
+          "LLM-18.2",
+          "LLM-16.13"
+        ],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "The customer-facing application is security tested against prompt injection, jailbreaks, abuse and data extraction by public users, and its resilience is evaluated."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.1",
+          "LLM-8.2",
+          "LLM-8.5"
+        ],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "Customer interactions with the AI are logged with inputs, outputs and user attribution, so answers given to customers can be traced and accounted for."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [
+          "LLM-3.1",
+          "LLM-3.13"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "The application is tested and monitored for answers that leak personal or confidential data to customers."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.11",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "Answers given to different groups of customers are evaluated for bias and unfair treatment."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 3.3",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "folded": [
+          "MAP 5.2"
+        ],
+        "why": "Customers can report wrong or harmful answers and appeal outcomes, and those reports feed the application's evaluation."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 1.4",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "The residual risks the customer-facing application still poses to customers after controls are documented."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "LLM-16.10",
+          "LLM-16.11",
+          "LLM-13.10",
+          "LLM-3.13"
+        ],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "The risk treatments for the customer-facing application are applied and kept effective in operation: business rules that restrict what answers may go out, input and output guardrails, data loss checks on answers, and authentication and throttling of public users against abuse."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.3",
+          "LLM-17.4"
+        ],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "There are procedures to respond to and recover from new failures of the customer-facing AI, such as a successful injection or a leaked answer."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-17.9"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "The customer-facing AI can be switched off or replaced by a fallback quickly when it behaves unsafely, and who may do so is known."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.2",
+          "LLM-17.8"
+        ],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "Incidents and errors in answers to customers are tracked, reviewed and communicated to affected customers and other relevant parties."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_customer_facing_eval2.json",
+  "review": [
+    {
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.8",
+      "reason": "The why covers only internal logging of interactions; for a customer-facing application the transparency risk is towards customers (being told they are dealing with AI, explanations of answers, recourse), which no row examines."
+    }
+  ]
+}

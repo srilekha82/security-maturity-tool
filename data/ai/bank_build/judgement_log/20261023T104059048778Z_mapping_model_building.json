@@ -1,0 +1,331 @@
+{
+  "recorded_at": "2026-10-23T10:40:59.048367+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-opus-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "5281721107f332ca"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "5bcc3c4a6347fd53"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_model_building_draft2.json",
+    "sha": "8f291793a1ac8686"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "0ab29efbc7553df3"
+  },
+  "output_snapshot": {
+    "area": "model_building",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.1",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "folded": [
+          "MAP 3.3"
+        ],
+        "why": "The intended purpose, users, deployment settings and application scope of each model the org builds or tunes, including for recipients it is released to, are defined and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.1",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "folded": [
+          "MAP 1.6"
+        ],
+        "why": "The task the model supports and the methods used to build it (architecture, training or tuning approach) are defined, with the requirements the design must meet."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model's knowledge limits and how its output should be used and overseen are documented (e.g. model card) and given to those who receive the model."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.3",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "Experimental design, training data selection and the TEVV approach for the model are identified and documented before and during building."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-2.1",
+          "LLM-2.2",
+          "LLM-16.4"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The components of the model (base model, datasets, libraries) are recorded with their source, version and license, and their technical, legal and IP risks are mapped."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "LLM-16.5",
+          "LLM-16.12"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Controls on the model's components and artifacts, such as integrity checks on base weights, training data and the released model, are identified and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.1",
+        "cis_refs": [
+          "LLM-16.14"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "folded": [
+          "MAP 3.2"
+        ],
+        "why": "The likelihood and magnitude of harms from the model's errors or misuse, for the org and for recipients, are assessed, including through threat modelling of the model."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 1.3",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "People outside the team that built the model, or independent assessors, review its evaluation before it is released or changed."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.1",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "folded": [
+          "MEASURE 1.1",
+          "MEASURE 2.13"
+        ],
+        "why": "The test sets, metrics and tools used to evaluate the model are chosen for its main risks, documented, and their effectiveness reviewed."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.5",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "folded": [
+          "MEASURE 2.3"
+        ],
+        "why": "The model's performance is measured under conditions like its deployment and shown to be valid and reliable, with limits of generalisation documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.6",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model is evaluated for safety before release and after changes, including how it behaves beyond its knowledge limits."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-16.3",
+          "LLM-16.13"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model's security and resilience (e.g. poisoning, backdoors, extraction, jailbreaks) are tested adversarially and the results documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.1",
+          "LLM-8.2",
+          "LLM-8.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Training and tuning runs, model changes and releases are logged with who made them, so the model's lineage can be traced and accounted for."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.9",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model is explained, validated and documented so its output can be interpreted in context by the org and by recipients."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model built or tuned is tested before release for whether it memorises and can disclose personal data from its training or tuning data, and the results are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.11",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model is evaluated for bias introduced by its training or tuning data and methods, with results disaggregated across affected groups and documented before release to recipients."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.12",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The environmental impact of training and tuning the model is assessed and documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "LLM-8.11"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "folded": [
+          "MEASURE 3.1",
+          "MEASURE 4.3"
+        ],
+        "why": "The released model's behaviour is monitored in production for drift, declines and emergent risks."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 3.3",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "Recipients and end users of the model have a way to report problems with it, and those reports feed its evaluation."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 1.1",
+        "cis_refs": [
+          "LLM-16.1",
+          "LLM-16.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "A documented go/no-go decision is made on whether the model meets its objectives before it is released or a new version promoted."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 1.4",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model's unmitigated residual risks are documented for downstream recipients and end users."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-17.9"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "There is a way, with assigned owners, to supersede, roll back or withdraw a released model version that behaves inconsistently with intended use."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.2",
+        "cis_refs": [
+          "LLM-16.2"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "folded": [
+          "MANAGE 3.1"
+        ],
+        "why": "Base and pre-trained models and other third-party components used to build the model are monitored for vulnerabilities and changes."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.1",
+        "cis_refs": [
+          "LLM-4.1",
+          "LLM-16.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Changes to the model after release go through change management with version control, and a post-release monitoring and decommissioning plan is followed."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.2",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "Updates to the model are driven by measurable improvement goals and by feedback gathered from recipients and other interested parties, with the basis for trade-offs documented."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.2",
+          "LLM-17.4",
+          "LLM-17.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "folded": [
+          "MANAGE 2.3"
+        ],
+        "why": "Incidents and errors in the model are responded to, recovered from and communicated to recipients, with records kept."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_model_building_eval2.json",
+  "review": [
+    {
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.10",
+      "reason": "Impact is only 'assets', but the row protects personal data in the training or tuning data from being memorised and disclosed; impact should include 'data'."
+    }
+  ]
+}

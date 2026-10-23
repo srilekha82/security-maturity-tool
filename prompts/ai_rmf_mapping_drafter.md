@@ -43,7 +43,10 @@ exists.
 5. `impact`: the one or more of the area's impacts this row protects (e.g. a MEASURE 2.10 privacy row on source data is
    `data`; a MEASURE 2.7 row on retrieval permissions is `access`). Never an impact the area does not list.
 6. `why`: one sentence saying what this subcategory checks about this area.
-7. Do not decide by sector, org size or how any client works. Never invent an id.
+7. `folded` (optional): when one row also covers what another subcategory of the same area would check (you merged
+   them instead of writing two rows), list that subcategory there, e.g. `"folded": ["MAP 2.2"]`. A folded subcategory
+   has no row of its own. Leave `folded` out when nothing was merged.
+8. Do not decide by sector, org size or how any client works. Never invent an id.
 
 ## Output
 Write ONE JSON object to the file the command names:
@@ -68,4 +71,6 @@ wrong; nothing is stored until it passes.
 
 ## Revision turn
 If you are given the evaluator's failures, return the complete corrected file in the same format: fix or remove each
-failing row, add what the evaluator says is missing, and leave correct rows unchanged.
+failing row, add what the evaluator says is missing, and leave correct rows unchanged. When you remove a row and move
+its content into another row, list the removed subcategory in that row's `folded`, so a reviewer can see where it
+went.

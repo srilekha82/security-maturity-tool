@@ -1,0 +1,171 @@
+{
+  "recorded_at": "2026-10-23T10:42:01.705695+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-opus-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "5281721107f332ca"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "5bcc3c4a6347fd53"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_invisible_usage_draft2.json",
+    "sha": "18e20eea0cbe905d"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "cfaed1e6ff8d7502"
+  },
+  "output_snapshot": {
+    "area": "invisible_usage",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-1.2",
+          "LLM-3.2",
+          "AGENT-1.2",
+          "MCP-1.2"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "AI tools, features, local models, agents and PoCs that staff use without approval are found and recorded with the org data and systems each one reaches."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.1",
+        "cis_refs": [],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "The likelihood and size of harm from data leaving through unapproved AI tools, and from outside agents, MCP clients and scrapers reaching the org's systems at machine speed, are assessed and recorded."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.6",
+          "LLM-8.11",
+          "LLM-8.12"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "Traffic to AI services and automated access by outside agents are logged and attributed to a user or client, and the logs are reviewed, so unapproved use can be traced."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-13.3"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "The org's sign-in flows, APIs and public systems are tested and watched for abuse by outside agents and scrapers, such as delegated sign-in, high-rate calls and bulk extraction."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [
+          "LLM-3.13"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Data sent to unapproved AI tools and services is inspected, so the exposure of personal and sensitive data through them is measured."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 3.1",
+        "cis_refs": [
+          "LLM-1.3",
+          "LLM-1.5"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "New unapproved AI use, including AI features switched on in existing software and new outside agent traffic, is detected on an ongoing basis rather than found once."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.1",
+        "cis_refs": [
+          "LLM-9.2",
+          "LLM-9.3",
+          "LLM-9.4",
+          "LLM-3.13",
+          "MCP-6.1",
+          "MCP-6.3",
+          "LLM-13.10"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "Controls are applied to outside AI: unapproved AI services and extensions are blocked or filtered at DNS, web and DLP, and outside agents and MCP clients reaching the org must authenticate and are limited to granted access."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-2.3",
+          "AGENT-1.2",
+          "MCP-1.2",
+          "MCP-2.3"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "Unapproved AI tools, agents and MCP components that are found are removed, quarantined or switched off, with someone responsible for doing it."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.3",
+          "LLM-17.4"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "Data leaked through an unapproved AI tool, or abuse by an outside agent, is reported, responded to, recovered from and recorded as an incident."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.2"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "A shadow-AI data leak or outside-agent abuse is communicated to the people whose data was affected, to the AI provider (for example to request deletion) and to other relevant parties, and the communication is documented."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_invisible_usage_eval2.json",
+  "review": [
+    {
+      "function": "MAP",
+      "subcategory": "MAP 4.1",
+      "reason": "The why is finding and recording unapproved AI (inventory, GOVERN territory, and the same discovery MEASURE 3.1 checks) rather than MAP 4.1's outcome: mapping the technology and legal risks of these third-party tools, e.g. provider terms that allow training on or retaining submitted data, data residency, and IP/licence exposure of the outputs."
+    }
+  ]
+}

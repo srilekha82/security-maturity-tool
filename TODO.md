@@ -16,18 +16,19 @@ producer), never mapped to an AI area; areas map only MAP (context), MEASURE (ch
 `foundation` replaces `org_wide` in `mapping_rules.json` (on 2026-10-23 MEASURE 3.2, 4.1 and MANAGE 1.2, 1.3 were added as foundation subcategories);
 the per-area inventory check is gone (inventory is GOVERN 1.6). `ai_rmf_core.json` now holds the functions with their
 Playbook descriptions, which the drafter and evaluator get. See `AI_RMF_Mapping_Sheet_Design.md` section 3.
-1. Re-run the mapping pilot on `mcp_tools` with the new rules (the first run, recorded 2026-10-22 with GOVERN rows,
-   is superseded). Ask the user before running. From the review of the Codespace run (2026-10-23):
-   - expect MAP 1.6 (intended access of each tool, against MAP 2.2 actual use), MEASURE 2.6 (tools fail safely: a
-     failed or slow tool does not leave the agent acting on half a result) and MEASURE 2.10 (personal data passed in
-     tool parameters or sent to outside MCP servers);
-   - MEASURE 3.2, 4.1 and MANAGE 1.2, 1.3 are now foundation (2026-10-23): the drafter no longer sees them and the
-     recording script rejects them; expect no row on MEASURE 3.1 or MANAGE 1.4 either (check after the run);
-   - impact widened to access, process, data in `ai_areas.xlsx` (2026-10-23; tools act in processes and move data);
-   - re-check MANAGE 2.2 (is it about this area or general?);
-   - after the re-run, delete `data/ai/bank_build/mapping_input_mcp_tools.json` and `data/ai/bank_build/work/`.
-2. Review the recorded rows with the user (function, subcategory, safeguards, impact, why, evaluator failures,
-   subcategories still unreached), tune the two mapping prompts if needed, then draft the other 13 areas one at a time.
+**All 14 AI areas are drafted and recorded (2026-10-23)**, with folds recorded (`folded` on a row). 203 rows; 14 rows
+need human review (agent has 6: one MANAGE-level failure, "missing MANAGE 4.1", marks every MANAGE row of the area);
+11 MAP/MEASURE/MANAGE subcategories are reached by no area (MAP 1.2, 1.3, 1.4, 1.5, 1.6, 3.1, 5.2; MEASURE 1.1, 2.3,
+4.3; MANAGE 2.1), several of them only folded into another row (the Coverage sheet says "folded into ...").
+1. Review `data/ai/authoring/mapping.xlsx` with the user: the rows marked needs_human_review (Status, Evaluator note),
+   then the Coverage sheet. For the 11 unreached: map them in an area (Mapped = yes), or list them in
+   `mapping_rules.json` `foundation.subcategories` (MAP 1.3 mission, MAP 1.5 risk tolerances and MANAGE 2.1 resources
+   look like method, the same in every area). `sheet_io.py import mapping` after editing.
+2. Accept: `.venv/bin/python ./scripts/ai_pilot.py accept-mapping` (refuses while an area is missing or stale, a row
+   needs review or the sheet has unimported edits; lists the unreached subcategories in the acceptance).
+3. Then TODO step 4 below.
+Note: in this codespace `check_freshness.py --ai-bank` stops at "sources missing: CIS -> CSF xlsx" before it reaches
+the mapping line; upload that file (data/ai/source/README.md) to see the `mapping` stage.
 
 ## Build the AI RMF mapping (steps of the design note)
 0. ~~Write the model down.~~ Done 2026-10-21.
@@ -36,18 +37,19 @@ Playbook descriptions, which the drafter and evaluator get. See `AI_RMF_Mapping_
    or both?" (for producer or both: built on an existing model? given to others?); "How do you use AI?"; "What does
    your AI include?". It writes `role`, `producer`, `ai_areas` (automatic ones in `scope_rules.json` `ai_area_rules`) and
    the old fields derived for the current filter.
-2. Draft the mapping. Built 2026-10-22, not run: `prepare_ai_bank.py mapping --area ID`, `prompts/ai_rmf_mapping_drafter.md`,
+2. ~~Draft the mapping.~~ Done 2026-10-23 (all 14 areas): `prepare_ai_bank.py mapping --area ID`, `prompts/ai_rmf_mapping_drafter.md`,
    `prompts/ai_rmf_mapping_evaluator.md`, `record_ai_bank.py mapping` (rejects a draft that breaks
    `data/ai/mapping_rules.json`: no GOVERN row, subcategory of the right function, the area's candidate safeguards and
    impacts, MAP, MEASURE and MANAGE each covered, the required checks: audit trail with a CIS control 8 safeguard,
-   incident response, reliability). Run it: "Start here" above.
-3. Review and accept the mapping. ~~Review sheet~~ done 2026-10-22: `sheet_io.py export mapping` writes
+   incident response, reliability; an optional `folded` list names subcategories a row also covers).
+3. ~~Review and accept the mapping (the tooling).~~ Done 2026-10-23. Review sheet: `sheet_io.py export mapping` writes
    `data/ai/authoring/mapping.xlsx` (one line per area x MAP/MEASURE/MANAGE subcategory, mapped or not, Playbook outcome,
    safeguard titles; a Coverage sheet), `import mapping` validates every area like agent output and stores changed
-   lines as `decided_by: human`. Still to do: an accept gate like `ai_pilot.py accept`; a `mapping` stage in
-   `check_freshness.py` (missing, incomplete, stale, subcategories unreached, sheet edited but not imported); and
-   `record_ai_bank.py mapping` must not overwrite `decided_by: human` rows when an area is re-drafted (today it replaces
-   the whole area). After all 14 areas are drafted: decide any further foundation subcategories from the Coverage
+   lines as `decided_by: human` (a fold shows as a note on the Comments cell; removed lines are kept as
+   `removed_by_human`). Accept gate: `ai_pilot.py accept-mapping` (`mapping_accepted.json`, a hash of the mapping's
+   content). Freshness: a `mapping` stage in `check_freshness.py --ai-bank` (missing, incomplete, stale, rows needing
+   review, sheet edited but not imported, not accepted or changed since, subcategories reached by no area). A re-drafted
+   area keeps the person's decisions (`decided_by: human` rows and `removed_by_human`). Left for the review (Start here): decide any further foundation subcategories from the Coverage
    sheet (unreached, or the same why in every area, and about method) and list them in `mapping_rules.json`
    `foundation.subcategories` (design note section 3); the scripts already honour the list.
 4. Rewire question generation to mapping rows: `prepare_ai_bank.py batch` from mapping rows, generator prompt (questions

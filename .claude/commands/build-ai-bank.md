@@ -81,6 +81,10 @@ After the pilot area: stop. Show the user the recorded rows (function, subcatego
 evaluator failed, the subcategories still unreached, and token use if you can see it, and point them to the review
 sheet. The user reviews before any other area is drafted.
 
+When every area is recorded and the user has reviewed the sheet (no row left needs_human_review, edits imported), the
+user accepts the mapping: `.venv/bin/python ./scripts/ai_pilot.py accept-mapping`. Re-drafting an area later keeps the
+user's decisions (rows decided_by human, lines they removed).
+
 ## Step 5 — Generate and evaluate (subagents) (old input; rewired to mapping rows in TODO step 4)
 
 Ask the user: **pilot** (6 subcategories, per-subcategory loops, then stop for review) or **full** (all applicable

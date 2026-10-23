@@ -166,8 +166,11 @@ an area gets a row for every subcategory that really checks it (each at most onc
 6. The mapping goes to a spreadsheet for review (`sheet_io.py export mapping` -> `data/ai/authoring/mapping.xlsx`):
    one line per AI area x MAP, MEASURE or MANAGE subcategory, mapped or not, with the Playbook outcome and safeguard
    titles, so missing subcategories are visible, plus a Coverage sheet (subcategory x area). The person edits; `import
-   mapping` checks every area like agent output and stores changed lines as `decided_by: human`.
-7. Accept gate (person), like `ai_pilot.py accept`.
+   mapping` checks every area like agent output and stores changed lines as `decided_by: human`. When the drafter merges two
+   subcategories into one row, the row lists the other in `folded`; the sheet shows it as a note on the Comments cell
+   of both lines.
+7. Accept gate (person): `ai_pilot.py accept-mapping`, tied to a hash of the mapping's content; the `mapping` stage of
+   `check_freshness.py --ai-bank` reports it. A re-drafted area keeps the person's decisions.
 8. Questions per mapping row (generator, evaluator) -> producer and consumer banks; GOVERN questions per subcategory,
    each tagged with the roles it applies to (none, consumer, producer).
 

@@ -34,6 +34,7 @@ import sys
 from pathlib import Path
 
 import openpyxl
+from openpyxl.comments import Comment
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
@@ -210,8 +211,10 @@ def write_xlsx(spec: dict, rows: list[dict], xlsx: Path, extra: dict[str, list[l
         ws.column_dimensions[get_column_letter(i)].width = c.get("width", 20)
     for r, rec in enumerate(rows, 2):
         for i, c in enumerate(spec["columns"], 1):
-            ws.cell(row=r, column=i, value=cell_text(c, rec.get(c["key"]))).alignment = Alignment(wrap_text=True,
-                                                                                                  vertical="top")
+            cell = ws.cell(row=r, column=i, value=cell_text(c, rec.get(c["key"])))
+            cell.alignment = Alignment(wrap_text=True, vertical="top")
+            if rec.get("_comments", {}).get(c["key"]):   # a note on the cell (hover), not part of the value
+                cell.comment = Comment(rec["_comments"][c["key"]], "sheet_io")
     last = max(len(rows) + 1, 2) + 200  # room for new rows
     for i, c in enumerate(spec["columns"], 1):
         choices = c["allowed"] if c["type"] == "enum" else ["yes", "no"] if c["type"] == "bool" else None

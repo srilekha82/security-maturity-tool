@@ -464,11 +464,18 @@ class Mapping(unittest.TestCase):
             "audit row without a control 8 safeguard": [dict(r, cis_refs=["MCP-6.8"]) if r["subcategory"] == "MEASURE 2.8"
                                                         else r for r in rows],
             "GOVERN row (foundation, never per area)": [self.row("GOVERN", "GOVERN 1.6", ["MCP-2.1"])] + rows,
+            "folded subcategory that is also a row": [dict(rows[0], folded=["MAP 2.2"])] + rows[1:],
+            "folded foundation subcategory": [dict(rows[0], folded=["MANAGE 1.2"])] + rows[1:],
+            "folded GOVERN subcategory": [dict(rows[0], folded=["GOVERN 1.6"])] + rows[1:],
+            "folded into two rows": [dict(rows[0], folded=["MAP 1.6"]), dict(rows[1], folded=["MAP 1.6"])] + rows[2:],
+            "unknown field": [dict(rows[0], note="x")] + rows[1:],
         }
         for name, rs in cases.items():
             self.assertEqual(self.go(dict(g, rows=rs)), 1, name)
             self.assertFalse(R.AI_MAPPING.exists(), name)
         self.assertEqual(self.go(dict(g, area="no_such_area")), 1)
+        self.assertEqual(self.go(dict(g, rows=[dict(rows[0], folded=["MAP 1.6"])] + rows[1:])), 0)   # a valid fold
+        R.AI_MAPPING.unlink()
         self.assertEqual(self.go(g, review=[{"function": "MAP", "subcategory": "MAP 9.9", "reason": "x"}]), 1)
         self.assertEqual(self.go(dict(g, rows=[r for r in rows if r["function"] != "MAP"],
                                       no_question=[{"function": "MAP", "reason": "Nothing about the tools' context here."}])), 0)
@@ -510,6 +517,10 @@ class FreshnessGate(unittest.TestCase):
         CF.AI_APPLICABILITY = self.tmp / "app.json"
         CF.AI_BANKS, CF.CSF_IMPACT_NOTES = self.tmp / "banks", self.tmp / "notes.json"
         CF.AI_PILOT = self.tmp / "pilot.json"
+        real_mapping_status = CF.mapping_status   # the mapping gate has its own test (test_sheet_io.py)
+        self.mapping_ok = False                   # build_everything() accepts it
+        CF.mapping_status = lambda: (self.mapping_ok, "accepted (test)" if self.mapping_ok else "missing (test)")
+        self.addCleanup(setattr, CF, "mapping_status", real_mapping_status)
         CF.AI_AREAS, CF.AI_AREAS_XLSX = self.tmp / "ai_areas.json", self.tmp / "ai_areas.xlsx"
         CF.AI_BANKS.mkdir()
 
@@ -521,6 +532,7 @@ class FreshnessGate(unittest.TestCase):
             p: self.audit.sha(REPO_ROOT / p) for p in DEFAULT_PROMPTS["candidates"]}}))
 
     def build_everything(self, applicable=2, recorded=2):
+        self.mapping_ok = True
         pb = self.sha(self.files["playbook"])
         g = {k: self.sha(self.files[k]) for k in ("LLM", "MCP", "AGENT")}
         CF.AI_CORE.write_text(json.dumps({"source_sha256_16": pb}))
