@@ -1,4 +1,4 @@
-# TODO (last updated 2026-10-22)
+# TODO (last updated 2026-10-23)
 
 State: the AI RMF model was redesigned (2026-10-16 to 2026-10-22): AI areas (how AI is used and what it is made of) ->
 attack areas -> AI RMF function -> subcategory. `AI_RMF_Mapping_Sheet_Design.md` is the starting point for every
@@ -17,7 +17,15 @@ producer), never mapped to an AI area; areas map only MAP (context), MEASURE (ch
 the per-area inventory check is gone (inventory is GOVERN 1.6). `ai_rmf_core.json` now holds the functions with their
 Playbook descriptions, which the drafter and evaluator get. See `AI_RMF_Mapping_Sheet_Design.md` section 3.
 1. Re-run the mapping pilot on `mcp_tools` with the new rules (the first run, recorded 2026-10-22 with GOVERN rows,
-   is superseded). Ask the user before running.
+   is superseded). Ask the user before running. From the review of the Codespace run (2026-10-23):
+   - expect MAP 1.6 (intended access of each tool, against MAP 2.2 actual use), MEASURE 2.6 (tools fail safely: a
+     failed or slow tool does not leave the agent acting on half a result) and MEASURE 2.10 (personal data passed in
+     tool parameters or sent to outside MCP servers);
+   - expect no row on MEASURE 3.1, 3.2, 4.1 or MANAGE 1.2, 1.3, 1.4 (organisation-wide method, likely foundation:
+     step 3);
+   - impact widened to access, process, data in `ai_areas.xlsx` (2026-10-23; tools act in processes and move data);
+   - re-check MANAGE 2.2 (is it about this area or general?);
+   - after the re-run, delete `data/ai/bank_build/mapping_input_mcp_tools.json` and `data/ai/bank_build/work/`.
 2. Review the recorded rows with the user (function, subcategory, safeguards, impact, why, evaluator failures,
    subcategories still unreached), tune the two mapping prompts if needed, then draft the other 13 areas one at a time.
 
@@ -39,7 +47,9 @@ Playbook descriptions, which the drafter and evaluator get. See `AI_RMF_Mapping_
    lines as `decided_by: human`. Still to do: an accept gate like `ai_pilot.py accept`; a `mapping` stage in
    `check_freshness.py` (missing, incomplete, stale, subcategories unreached, sheet edited but not imported); and
    `record_ai_bank.py mapping` must not overwrite `decided_by: human` rows when an area is re-drafted (today it replaces
-   the whole area).
+   the whole area). After all 14 areas are drafted: decide the remaining foundation subcategories from the Coverage
+   sheet (unreached, or the same why in every area, and about method) and list them in `mapping_rules.json`
+   `foundation.subcategories` (design note section 3); the scripts already honour the list.
 4. Rewire question generation to mapping rows: `prepare_ai_bank.py batch` from mapping rows, generator prompt (questions
    per AI area x subcategory, the row's safeguards as evidence; GOVERN questions per subcategory from the Playbook, each
    tagged with the roles it applies to: none (AI policy and shadow-AI discovery), consumer, producer, plus a producer
@@ -50,10 +60,12 @@ Playbook descriptions, which the drafter and evaluator get. See `AI_RMF_Mapping_
    `question_categories.json` and the `AI_APPLICABILITY` path (the applicability and CIS-linker prompts, modes and
    freshness stages were already removed on 2026-10-22). Carry over the generator prompt fixes from
    the old pilot (`archive/AI_RMF_Pilot_Decisions.md` section 4): one subject per question; cite a safeguard only if it supports
-   the question.
+   the question. Area questions are written proportionate to criticality ("for your highest-criticality AI
+   systems, ..."), one per AI area x subcategory, never repeated per AI system (design note section 4).
 5. Severity: the standard criticality question (USD under 100k / 100k-500k / over 500k; reputation; safety) and the
    priority rules (domain floor for healthcare and manufacturing / OT, process criticality, data classification) for
-   the Stage 2 writer.
+   the Stage 2 writer. The criticality question becomes the AI system inventory (GOVERN 1.6): each system with its AI
+   areas and criticality; foundation subcategories (non-GOVERN) are picked like GOVERN, once for the organisation.
 6. Pilot the question banks on a few mapping rows, accept (`ai_pilot.py accept`), then the full producer and consumer
    banks, then the CSF AI impact notes.
 7. Tests and docs; fix the code review findings listed at the end of the design note (two are reproduced bugs:

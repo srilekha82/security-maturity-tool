@@ -199,6 +199,8 @@ def validate_mapping(data, inp, m: dict, review) -> list[str]:
             errors.append(f"{tag}: {r['subcategory']!r} is not an AI RMF subcategory")
         elif sub["function"] != r["function"]:
             errors.append(f"{tag}: {r['subcategory']} belongs to {sub['function']}, not {r['function']}")
+        elif r["subcategory"] in rules["foundation"]["subcategories"]:
+            errors.append(f"{tag}: {r['subcategory']} is foundation (asked once for the organisation), not mapped to an AI area")
         if (r["function"], r["subcategory"]) in seen:
             errors.append(f"{tag}: {r['function']} / {r['subcategory']} appears twice")
         seen.add((r["function"], r["subcategory"]))
@@ -289,7 +291,8 @@ ROW_FIELDS = ("cis_refs", "impact", "why", "status")   # what a person can chang
 def mapping_sheet_rows(doc: dict, inp: dict, m: dict) -> tuple[list[dict], list[list[str]]]:
     """(one line per recorded area x mapped-function subcategory, the Coverage sheet as rows of cells). Script only:
     the outcome and safeguard titles are looked up, nothing is decided."""
-    mapped_subs = [s for s in inp["subs"].values() if s["function"] in m["rules"]["functions"]]
+    mapped_subs = [s for s in inp["subs"].values() if s["function"] in m["rules"]["functions"]
+                   and s["subcategory_id"] not in m["rules"]["foundation"]["subcategories"]]
     lines = []
     for area_id, entry in doc.get("areas", {}).items():
         by_sub = {r["subcategory"]: r for r in entry["rows"]}
@@ -332,6 +335,8 @@ def mapping_from_sheet(lines: list[dict], doc: dict, inp: dict, m: dict) -> tupl
             problems.append(f"row {n}: AI area {ln['area']!r} has no recorded mapping (draft it first)")
         elif sub is None or sub["function"] not in m["rules"]["functions"]:
             problems.append(f"row {n}: {ln['subcategory']!r} is not a MAP, MEASURE or MANAGE subcategory")
+        elif ln["subcategory"] in m["rules"]["foundation"]["subcategories"]:
+            problems.append(f"row {n}: {ln['subcategory']} is foundation (asked once for the organisation), not per area")
         elif ln["subcategory"] in sheet.setdefault(ln["area"], {}):
             problems.append(f"row {n}: {ln['area']} / {ln['subcategory']} appears twice")
         else:

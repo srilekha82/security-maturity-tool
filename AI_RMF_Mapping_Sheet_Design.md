@@ -81,8 +81,16 @@ access-granting safeguard, GOVERN 6.2 citing a containment procedure). The Playb
   is org-wide; the difference is that a GOVERN question does not depend on which AI areas the client has. Its
   questions are written per subcategory in the bank build and picked at engagement time by the intake role: none,
   consumer, producer (both = consumer and producer; a producer flag where needed, e.g. GOVERN 6.1 when built on an
-  existing model). `foundation` in `data/ai/mapping_rules.json`. MANAGE 1.2 and 1.3 are not foundation: an area
-  reaches them like any other subcategory.
+  existing model). `foundation` in `data/ai/mapping_rules.json`.
+- **Foundation subcategories outside GOVERN (decided 2026-10-23, list still empty):** some MAP, MEASURE and MANAGE
+  subcategories are about how the organisation runs AI risk management, not about one AI area, so every area would get
+  the same answer. Likely: MANAGE 1.2 and 1.3 (risks prioritised, responses planned), MEASURE 3.2 and 4.1 (tracking
+  hard-to-measure risks, measurement feedback); possibly MEASURE 1.1 to 1.3, 2.13, 4.2 and 4.3 (choosing and reviewing
+  metrics). They are decided after all 14 areas are drafted, from the Coverage sheet: a subcategory no area reaches, or
+  that every area reaches with the same why, and that is about method. They are added to
+  `foundation.subcategories` one by one, keep their AI RMF id (they are not relabelled as GOVERN), are left out of the
+  drafter's input and the review sheet, and the recording script rejects them as area rows. Until then an area reaches
+  them like any other subcategory.
 - **A question = one AI area x one mapped function**, landing on one AI RMF subcategory. The function is not in the AI
   area sheet: a script crosses every area with MAP, MEASURE and MANAGE and the drafter fills each pair (or marks it "no
   question" with a reason). The recording script rejects a GOVERN row. The AI RMF has no "protect" function: access
@@ -124,6 +132,18 @@ client's areas). CIS controls 1 and 2 stay candidates in every area for MAP rows
 - In AI RMF harm terms (NIST AI 100-1, section 1.1, Figure 1): financial and reputational loss is **Organization**,
   loss of life and harm to individuals is **People**, supply chain and environment is **Ecosystem**. Add NIST AI 100-1
   to the sources when the figure is cited.
+
+### Per AI system, without repeating questions
+Assessing per AI system (AI RMF GOVERN 1.6 inventory, MAP 1.1 context per system) does not mean asking every area
+question once per system. The areas already describe what systems are made of, so:
+- **Inventory in the foundation (GOVERN 1.6):** one question lists the client's AI systems, each with its AI areas and
+  its criticality (the standard question above: financial, reputational, safety). This is the only per-system question.
+- **Area questions are asked once per area x subcategory** and written proportionate to criticality: "for your
+  highest-criticality AI systems, ...", with the example taken from the system that ranks highest in the inventory.
+- **Maturity ladder (GOVERN 1.3, risk management proportionate to risk):** low = no difference between systems;
+  middle = practices differ by criticality on paper; high = practices differ by criticality and are evidenced for the
+  high-criticality systems.
+- **Severity:** a gap on an area used by a high-criticality system ranks higher than the same gap elsewhere.
 
 ## 5. The mapping and maturity
 Rows per AI area: AI RMF function -> subcategory, CIS safeguards that prove it, impact, why. There is no row count:

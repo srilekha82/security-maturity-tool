@@ -52,17 +52,24 @@ def check_mapping_rules(rules: dict, inp: dict) -> list[str]:
     """Problems in mapping_rules.json against the parsed CIS guides: every control number of an area (its own and the
     always ones) must exist in each guide the area uses; the always controls' names must match the guides' titles; a
     required check's cis_control must be an always control (so every area can cite it); every AI RMF function is either
-    mapped per area (functions) or foundation, never both; a required check names subcategories of mapped functions."""
+    mapped per area (functions) or foundation, never both; a required check names subcategories of mapped functions;
+    a foundation subcategory is a real subcategory of a mapped function and no required check names it."""
     controls = inp["sg_doc"]["controls"]   # keyed "<guide>-<number>"
     errors = []
     mapped, foundation = rules["functions"], rules["foundation"]["functions"]
     core_fns = [f["id"] for f in inp["core"]["functions"]]
     if set(mapped) & set(foundation) or sorted(mapped + foundation) != sorted(core_fns):
         errors.append(f"functions {mapped} and foundation {foundation} must split the AI RMF functions {core_fns} between them")
+    extra = rules["foundation"]["subcategories"]
+    bad = [s for s in extra if s not in inp["subs"] or inp["subs"][s]["function"] not in mapped]
+    if bad:
+        errors.append(f"foundation subcategories {bad}: must be subcategories of a mapped function ({mapped})")
     for check in rules["required_checks"]:
         bad = [s for s in check["any_of"] if s not in inp["subs"] or inp["subs"][s]["function"] not in mapped]
         if bad:
             errors.append(f"required check {check['name']!r}: {bad} are not subcategories of a mapped function")
+        if set(check["any_of"]) & set(extra):
+            errors.append(f"required check {check['name']!r}: names foundation subcategories {sorted(set(check['any_of']) & set(extra))}")
     for n, name in rules["always_cis_controls"]["controls"].items():
         for g in {g for k, v in rules["area_cis"].items() if k != "description" for g in v["guides"]}:
             c = controls.get(f"{g}-{n}")
@@ -84,8 +91,10 @@ def check_mapping_rules(rules: dict, inp: dict) -> list[str]:
 
 
 def foundation_subcategories(rules: dict, inp: dict) -> list[str]:
-    """Subcategories of the foundation functions: asked once for the organisation, never mapped to an AI area."""
-    return [sid for sid, s in inp["subs"].items() if s["function"] in rules["foundation"]["functions"]]
+    """Subcategories asked once for the organisation, never mapped to an AI area: all of the foundation functions, plus
+    the single subcategories listed in foundation.subcategories."""
+    extra = set(rules["foundation"]["subcategories"])
+    return [sid for sid, s in inp["subs"].items() if s["function"] in rules["foundation"]["functions"] or sid in extra]
 
 
 def area_rules(rules: dict, area_id: str) -> dict:

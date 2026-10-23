@@ -6,8 +6,9 @@ only. Do not read the Playbook or CIS PDFs, other data files, or any file from a
   `impact` lists the attack areas a failure here hits: data, access, process, assets.
 - `functions`: the functions you map: MAP, MEASURE, MANAGE.
 - `function_definitions`: the Playbook's own statement of each AI RMF function, including GOVERN.
-- `foundation`: GOVERN. It is the foundation: how the organisation works with AI (policies, roles, inventory, culture,
-  third parties). It is asked once for the organisation elsewhere, so you never map it to an area.
+- `foundation`: GOVERN, and any single subcategory listed with it. It is the foundation: how the organisation works with
+  AI (policies, roles, inventory, culture, third parties, how risk management is run). It is asked once for the
+  organisation elsewhere, so you never map it to an area (listed subcategories are left out of `subcategories`).
 - `subcategories`: per mapped function, every AI RMF subcategory with its outcome and some Playbook suggested actions.
 - `cis_candidates`: the CIS safeguards you may cite (id, title, lowest Implementation Group, AI-specific text).
 - `rules`: `min_why_chars`, `required_checks` (checks this area must have).

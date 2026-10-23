@@ -88,7 +88,7 @@ def prepare_mapping(inp: dict, area_id: str) -> Path:
     r = area_rules(rules, area_id)
     subs = {f: [] for f in rules["functions"]}
     for s in inp["subs"].values():
-        if s["function"] in subs:
+        if s["function"] in subs and s["subcategory_id"] not in rules["foundation"]["subcategories"]:
             subs[s["function"]].append({"id": s["subcategory_id"], "outcome": s["outcome"],
                                         "actions": [trunc(a, ACTION_CHARS) for a in s["suggested_actions"][:MAX_ACTIONS]]})
     out = AI_BUILD / f"mapping_input_{area_id}.json"
@@ -96,7 +96,7 @@ def prepare_mapping(inp: dict, area_id: str) -> Path:
         "area": areas[area_id],
         "functions": rules["functions"],
         "function_definitions": {f["id"]: f["description"] for f in inp["core"]["functions"]},
-        "foundation": rules["foundation"]["functions"],
+        "foundation": rules["foundation"]["functions"] + rules["foundation"]["subcategories"],
         "rules": {"min_why_chars": rules["min_why_chars"], "required_checks": r["required_checks"]},
         "subcategories": subs,
         "cis_candidates": [{"id": s["id"], "title": s["title"], "lowest_ig": (s["ig"] or ["-"])[0],

@@ -425,6 +425,36 @@ class Mapping(unittest.TestCase):
         self.assertEqual(check_mapping_rules(govern_check, self.inp),
                          ["required check 'inventory': ['GOVERN 1.6'] are not subcategories of a mapped function"])
 
+    def test_foundation_subcategories_are_asked_once_not_per_area(self):
+        from ai_bank_common import check_mapping_rules
+        rules = json.loads(R.AI_MAPPING_RULES.read_text())
+        rules["foundation"]["subcategories"] = ["MANAGE 1.2"]
+        self.assertEqual(check_mapping_rules(rules, self.inp), [])
+        for extra, words in ((["MAP 9.9"], "foundation subcategories"), (["GOVERN 1.6"], "foundation subcategories")):
+            bad = json.loads(json.dumps(rules))
+            bad["foundation"]["subcategories"] = extra
+            self.assertTrue(any(words in p for p in check_mapping_rules(bad, self.inp)), extra)
+        bad = json.loads(json.dumps(rules))                                  # a required check may not name one
+        bad["foundation"]["subcategories"] = ["MEASURE 2.8"]
+        self.assertTrue(any("audit trail" in p for p in check_mapping_rules(bad, self.inp)))
+
+        real = R.AI_MAPPING_RULES
+        tmp_rules = self.tmp / "mapping_rules.json"
+        tmp_rules.write_text(json.dumps(rules))
+        R.AI_MAPPING_RULES = P.AI_MAPPING_RULES = tmp_rules
+        try:
+            doc = json.loads(P.prepare_mapping(self.inp, "mcp_tools").read_text())
+            self.assertNotIn("MANAGE 1.2", [s["id"] for s in doc["subcategories"]["MANAGE"]])
+            self.assertEqual(doc["foundation"], ["GOVERN", "MANAGE 1.2"])
+            g = self.good()
+            self.assertEqual(self.go(dict(g, rows=g["rows"] + [self.row("MANAGE", "MANAGE 1.2")])), 1)
+            self.assertFalse(R.AI_MAPPING.exists())
+            self.assertEqual(self.go(g), 0)
+            reached, _ = R.mapping_coverage(json.loads(R.AI_MAPPING.read_text()), self.inp, rules)
+            self.assertIn("MANAGE 1.2", reached)
+        finally:
+            R.AI_MAPPING_RULES = P.AI_MAPPING_RULES = real
+
     def test_bad_drafts_are_rejected_and_nothing_is_stored(self):
         g = self.good()
         rows = g["rows"]
@@ -432,7 +462,7 @@ class Mapping(unittest.TestCase):
             "unknown subcategory": [self.row("MAP", "MAP 9.9")] + rows,
             "subcategory of another function": [self.row("MAP", "GOVERN 2.1")] + rows,
             "safeguard not a candidate": [self.row("MAP", "MAP 3.5", ["LLM-3.1"])] + rows,
-            "impact the area does not have": [self.row("MAP", "MAP 3.5", impact=["data"])] + rows,
+            "impact the area does not have": [self.row("MAP", "MAP 3.5", impact=["assets"])] + rows,
             "repeated row": rows + [rows[0]],
             "short why": [self.row("MAP", "MAP 3.5", why="tools")] + rows,
             "missing function": [r for r in rows if r["function"] != "MANAGE"],

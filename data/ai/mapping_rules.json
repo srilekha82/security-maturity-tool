@@ -3,7 +3,9 @@
   "functions": ["MAP", "MEASURE", "MANAGE"],
   "foundation": {
     "description": "Functions that are the foundation: how the organisation works with AI (policies, roles, inventory, culture, third parties). Not mapped to an AI area; asked once for the organisation, questions written per subcategory in the bank build and picked at engagement time by the intake role (none, consumer, producer). They count as reached in the coverage check. Every AI RMF function is either here or in functions, never both.",
-    "functions": ["GOVERN"]
+    "functions": ["GOVERN"],
+    "subcategories_description": "Single MAP, MEASURE or MANAGE subcategories that are also foundation: about how the organisation runs AI risk management, the same answer for every AI area. Decided after all 14 areas are drafted, from the Coverage sheet (unreached and about method). They keep their AI RMF id, are not given to the drafter and may not be mapped to an area. Empty until then.",
+    "subcategories": []
   },
   "min_why_chars": 20,
   "always_cis_controls": {
