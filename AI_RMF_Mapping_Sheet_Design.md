@@ -82,15 +82,14 @@ access-granting safeguard, GOVERN 6.2 citing a containment procedure). The Playb
   questions are written per subcategory in the bank build and picked at engagement time by the intake role: none,
   consumer, producer (both = consumer and producer; a producer flag where needed, e.g. GOVERN 6.1 when built on an
   existing model). `foundation` in `data/ai/mapping_rules.json`.
-- **Foundation subcategories outside GOVERN (decided 2026-10-23, list still empty):** some MAP, MEASURE and MANAGE
-  subcategories are about how the organisation runs AI risk management, not about one AI area, so every area would get
-  the same answer. Likely: MANAGE 1.2 and 1.3 (risks prioritised, responses planned), MEASURE 3.2 and 4.1 (tracking
-  hard-to-measure risks, measurement feedback); possibly MEASURE 1.1 to 1.3, 2.13, 4.2 and 4.3 (choosing and reviewing
-  metrics). They are decided after all 14 areas are drafted, from the Coverage sheet: a subcategory no area reaches, or
-  that every area reaches with the same why, and that is about method. They are added to
-  `foundation.subcategories` one by one, keep their AI RMF id (they are not relabelled as GOVERN), are left out of the
-  drafter's input and the review sheet, and the recording script rejects them as area rows. Until then an area reaches
-  them like any other subcategory.
+- **Foundation subcategories outside GOVERN (decided 2026-10-23):** some MAP, MEASURE and MANAGE subcategories are
+  about how the organisation runs AI risk management, not about one AI area, so every area would get the same answer.
+  In `foundation.subcategories` now: MEASURE 3.2 (tracking risks that are hard to measure), MEASURE 4.1 (measurement
+  feedback), MANAGE 1.2 (risks prioritised) and MANAGE 1.3 (responses planned). Possibly more after all 14 areas are
+  drafted, decided from the Coverage sheet (a subcategory no area reaches, or that every area reaches with the same
+  why, and that is about method): MEASURE 1.1 to 1.3, 2.13, 4.2 and 4.3 (choosing and reviewing metrics). They keep
+  their AI RMF id (they are not relabelled as GOVERN), are asked once for the organisation like GOVERN, are left out
+  of the drafter's input and the review sheet, and the recording script rejects them as area rows.
 - **A question = one AI area x one mapped function**, landing on one AI RMF subcategory. The function is not in the AI
   area sheet: a script crosses every area with MAP, MEASURE and MANAGE and the drafter fills each pair (or marks it "no
   question" with a reason). The recording script rejects a GOVERN row. The AI RMF has no "protect" function: access

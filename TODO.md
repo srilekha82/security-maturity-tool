@@ -13,7 +13,7 @@ checked against the guides; no row count (content decides, the evaluator fails p
 **GOVERN is the foundation** (decided 2026-10-22 after the first `mcp_tools` pilot put operational controls under GOVERN
 labels): all 19 GOVERN subcategories are asked once for the organisation, picked by intake role (none, consumer,
 producer), never mapped to an AI area; areas map only MAP (context), MEASURE (checking) and MANAGE (responding).
-`foundation` replaces `org_wide` in `mapping_rules.json` (MANAGE 1.2 and 1.3 are no longer listed; areas reach them);
+`foundation` replaces `org_wide` in `mapping_rules.json` (on 2026-10-23 MEASURE 3.2, 4.1 and MANAGE 1.2, 1.3 were added as foundation subcategories);
 the per-area inventory check is gone (inventory is GOVERN 1.6). `ai_rmf_core.json` now holds the functions with their
 Playbook descriptions, which the drafter and evaluator get. See `AI_RMF_Mapping_Sheet_Design.md` section 3.
 1. Re-run the mapping pilot on `mcp_tools` with the new rules (the first run, recorded 2026-10-22 with GOVERN rows,
@@ -21,8 +21,8 @@ Playbook descriptions, which the drafter and evaluator get. See `AI_RMF_Mapping_
    - expect MAP 1.6 (intended access of each tool, against MAP 2.2 actual use), MEASURE 2.6 (tools fail safely: a
      failed or slow tool does not leave the agent acting on half a result) and MEASURE 2.10 (personal data passed in
      tool parameters or sent to outside MCP servers);
-   - expect no row on MEASURE 3.1, 3.2, 4.1 or MANAGE 1.2, 1.3, 1.4 (organisation-wide method, likely foundation:
-     step 3);
+   - MEASURE 3.2, 4.1 and MANAGE 1.2, 1.3 are now foundation (2026-10-23): the drafter no longer sees them and the
+     recording script rejects them; expect no row on MEASURE 3.1 or MANAGE 1.4 either (check after the run);
    - impact widened to access, process, data in `ai_areas.xlsx` (2026-10-23; tools act in processes and move data);
    - re-check MANAGE 2.2 (is it about this area or general?);
    - after the re-run, delete `data/ai/bank_build/mapping_input_mcp_tools.json` and `data/ai/bank_build/work/`.
@@ -47,7 +47,7 @@ Playbook descriptions, which the drafter and evaluator get. See `AI_RMF_Mapping_
    lines as `decided_by: human`. Still to do: an accept gate like `ai_pilot.py accept`; a `mapping` stage in
    `check_freshness.py` (missing, incomplete, stale, subcategories unreached, sheet edited but not imported); and
    `record_ai_bank.py mapping` must not overwrite `decided_by: human` rows when an area is re-drafted (today it replaces
-   the whole area). After all 14 areas are drafted: decide the remaining foundation subcategories from the Coverage
+   the whole area). After all 14 areas are drafted: decide any further foundation subcategories from the Coverage
    sheet (unreached, or the same why in every area, and about method) and list them in `mapping_rules.json`
    `foundation.subcategories` (design note section 3); the scripts already honour the list.
 4. Rewire question generation to mapping rows: `prepare_ai_bank.py batch` from mapping rows, generator prompt (questions

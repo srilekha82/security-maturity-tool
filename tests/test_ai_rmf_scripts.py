@@ -402,9 +402,9 @@ class Mapping(unittest.TestCase):
         self.assertTrue(cand and all(c["id"].startswith("MCP-") for c in cand))
         self.assertTrue(all(int(c["id"].split("-")[1].split(".")[0]) in allowed for c in cand))
         self.assertEqual(list(doc["subcategories"]), ["MAP", "MEASURE", "MANAGE"])   # GOVERN is foundation
-        self.assertEqual(sum(len(v) for v in doc["subcategories"].values()), 72 - 19)
+        self.assertEqual(sum(len(v) for v in doc["subcategories"].values()), 72 - 19 - 4)   # and 4 foundation subs
         self.assertEqual(set(doc["function_definitions"]), {"GOVERN", "MAP", "MEASURE", "MANAGE"})
-        self.assertEqual(doc["foundation"], ["GOVERN"])
+        self.assertEqual(doc["foundation"], ["GOVERN", "MEASURE 3.2", "MEASURE 4.1", "MANAGE 1.2", "MANAGE 1.3"])
         self.assertIn("audit trail", [c["name"] for c in doc["rules"]["required_checks"]])
 
     def test_mapping_rules_match_the_cis_guides(self):
@@ -428,7 +428,7 @@ class Mapping(unittest.TestCase):
     def test_foundation_subcategories_are_asked_once_not_per_area(self):
         from ai_bank_common import check_mapping_rules
         rules = json.loads(R.AI_MAPPING_RULES.read_text())
-        rules["foundation"]["subcategories"] = ["MANAGE 1.2"]
+        self.assertEqual(rules["foundation"]["subcategories"], ["MEASURE 3.2", "MEASURE 4.1", "MANAGE 1.2", "MANAGE 1.3"])
         self.assertEqual(check_mapping_rules(rules, self.inp), [])
         for extra, words in ((["MAP 9.9"], "foundation subcategories"), (["GOVERN 1.6"], "foundation subcategories")):
             bad = json.loads(json.dumps(rules))
@@ -438,22 +438,16 @@ class Mapping(unittest.TestCase):
         bad["foundation"]["subcategories"] = ["MEASURE 2.8"]
         self.assertTrue(any("audit trail" in p for p in check_mapping_rules(bad, self.inp)))
 
-        real = R.AI_MAPPING_RULES
-        tmp_rules = self.tmp / "mapping_rules.json"
-        tmp_rules.write_text(json.dumps(rules))
-        R.AI_MAPPING_RULES = P.AI_MAPPING_RULES = tmp_rules
-        try:
-            doc = json.loads(P.prepare_mapping(self.inp, "mcp_tools").read_text())
-            self.assertNotIn("MANAGE 1.2", [s["id"] for s in doc["subcategories"]["MANAGE"]])
-            self.assertEqual(doc["foundation"], ["GOVERN", "MANAGE 1.2"])
-            g = self.good()
-            self.assertEqual(self.go(dict(g, rows=g["rows"] + [self.row("MANAGE", "MANAGE 1.2")])), 1)
-            self.assertFalse(R.AI_MAPPING.exists())
-            self.assertEqual(self.go(g), 0)
-            reached, _ = R.mapping_coverage(json.loads(R.AI_MAPPING.read_text()), self.inp, rules)
-            self.assertIn("MANAGE 1.2", reached)
-        finally:
-            R.AI_MAPPING_RULES = P.AI_MAPPING_RULES = real
+        doc = json.loads(P.prepare_mapping(self.inp, "mcp_tools").read_text())
+        offered = [s["id"] for subs in doc["subcategories"].values() for s in subs]
+        self.assertFalse(set(rules["foundation"]["subcategories"]) & set(offered))
+        g = self.good()
+        for sub in rules["foundation"]["subcategories"]:
+            self.assertEqual(self.go(dict(g, rows=g["rows"] + [self.row(sub.split()[0], sub)])), 1, sub)
+            self.assertFalse(R.AI_MAPPING.exists(), sub)
+        self.assertEqual(self.go(g), 0)
+        reached, _ = R.mapping_coverage(json.loads(R.AI_MAPPING.read_text()), self.inp, rules)
+        self.assertTrue(set(rules["foundation"]["subcategories"]) <= reached)
 
     def test_bad_drafts_are_rejected_and_nothing_is_stored(self):
         g = self.good()
@@ -492,7 +486,8 @@ class Mapping(unittest.TestCase):
         self.assertIn("GOVERN 4.1", reached)            # foundation
         self.assertIn("GOVERN 1.6", reached)
         self.assertIn("MEASURE 2.11", unreached)
-        self.assertIn("MANAGE 1.2", unreached)          # no longer listed once for the org; an area must reach it
+        self.assertIn("MANAGE 1.2", reached)            # foundation subcategory, asked once for the organisation
+        self.assertIn("MANAGE 1.4", unreached)          # not foundation: an area must reach it
         self.assertEqual(len(reached) + len(unreached), 72)
         self.assertEqual(len(list(R.LOG_DIR.glob("*_mapping_mcp_tools.json"))), 1)
 

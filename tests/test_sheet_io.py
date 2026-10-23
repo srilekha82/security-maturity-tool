@@ -138,10 +138,11 @@ class MappingSheet(unittest.TestCase):
     def test_export_lists_every_mapped_function_subcategory_with_its_text(self):
         wb = openpyxl.load_workbook(self.xlsx)
         lines = list(wb["Mapping"].iter_rows(values_only=True))
-        self.assertEqual(len(lines) - 1, 72 - 19)                       # GOVERN is the foundation, not in the sheet
+        self.assertEqual(len(lines) - 1, 72 - 19 - 4)                   # GOVERN and 4 foundation subs, not in the sheet
         heads = lines[0]
         by_sub = {ln[heads.index("Subcategory")]: ln for ln in lines[1:]}
         self.assertNotIn("GOVERN 1.6", by_sub)
+        self.assertNotIn("MANAGE 1.2", by_sub)
         self.assertEqual(by_sub["MAP 2.2"][heads.index("Mapped")], "yes")
         self.assertEqual(by_sub["MEASURE 2.10"][heads.index("Mapped")], "no")
         self.assertTrue(by_sub["MEASURE 2.10"][heads.index("What it means (Playbook outcome)")].startswith("Privacy risk"))
@@ -153,6 +154,7 @@ class MappingSheet(unittest.TestCase):
         self.assertIn("agent (not drafted)", cov[0])
         cov_by_sub = {r[1]: r for r in cov[1:]}
         self.assertTrue(cov_by_sub["GOVERN 1.6"][3].startswith("foundation"))
+        self.assertTrue(cov_by_sub["MANAGE 1.2"][3].startswith("foundation"))
         self.assertEqual(cov_by_sub["MAP 2.2"][3], 1)
         self.assertEqual(cov_by_sub["MEASURE 2.10"][3], 0)
 
