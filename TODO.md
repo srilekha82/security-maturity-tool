@@ -45,7 +45,18 @@ six repeated rows gone. Decided: reliability / TEVV required checks on Output on
 rows onto Model); Model building keeps impact `assets` (its harm reaches people and processes through Output); agent
 impact adds `data` (personal data in memory and moved by actions). Both recorded areas are stale by these changes:
 go to the full run.
-1. Full run, all 14 areas (ask the user before running); delete the work and `mapping_input_*.json` files after.
+**Batch 1 (customer_facing, output, internal_process, model_building; Sonnet drafter and evaluator; 2026-10-26)
+reviewed:** sizes sensible (20, 20, 21, 26), the evaluator caught off-topic safeguards and real missing rows, Output
+carries the reliability rows. But model_building did TEVV and recipient-harm rows, and bias (MEASURE 2.11) was mapped
+on internal_process. Decided: Model building's covers narrowed to the activity (build or tune, base models, release,
+limits told, withdraw; testing answers is Output, weights are Model, data is Test, tuning and evaluation data);
+Output's covers add bias (treating people or groups unequally) and say TEVV of answers is done there for everyone;
+internal_process does not get `people` (bias in answers is a people harm at Output; bias awareness is foundation,
+GOVERN). Any change to the AI areas sheet makes every recorded area stale (each draft's input carries the other areas'
+covers), so all 6 recorded areas must be re-drafted. Sonnet is fine for the remaining runs.
+1. Run the remaining batches (ask the user before running; Sonnet): batch 2 model, agent, mcp_tools, source_data,
+   test_tuning_data; batch 3 code_generation, vendor_ai, invisible_usage, input, hosting; batch 4 (re-draft)
+   customer_facing, output, internal_process, model_building. Delete the work and `mapping_input_*.json` files after.
    Expect on model the two missing rows of the pilot (MANAGE 3.2 base models monitored, MANAGE 4.1 old versions
    disposed of); on output MEASURE 2.1, 2.4, 2.5 and 2.3; on agent MANAGE 4.1 and MEASURE 2.6; MAP 3.1 on
    customer_facing or internal_process, MAP 5.2 on customer_facing; no subcategory with the same why in every area.

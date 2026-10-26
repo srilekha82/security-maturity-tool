@@ -1,7 +1,7 @@
 {
   "description": "AI areas of the AI RMF assessment: the ways AI is used and the components of the AI ecosystem, each with the attack areas it impacts. Generated from data/ai/authoring/ai_areas.xlsx by scripts/sheet_io.py import; the spreadsheet is the decision, edit it, not this file. Model: AI_RMF_Mapping_Sheet_Design.md.",
   "source": "data/ai/authoring/ai_areas.xlsx",
-  "source_sha": "13e3ad102cd80cb8",
+  "source_sha": "a149c59bb93ae58f",
   "generated_by": "scripts/sheet_io.py import ai_areas",
   "ai_areas": [
     {
@@ -56,7 +56,7 @@
       "impact": [
         "assets"
       ],
-      "covers": "The org owns a model: built from scratch, or modified by domain-specific training or tuning of an existing model. If the model is given to others (API, weights, embedded in a product), recipients depend on it: limits not communicated, unsafe changes, no way to withdraw a release."
+      "covers": "The org builds or tunes its own model: from scratch, or by domain-specific training or tuning of an existing model. The activity: the base models and components chosen, how building and tuning are run and changed, releasing versions to others (API, weights, embedded in a product), telling recipients the limits, and withdrawing a release. Not here: testing how accurate, consistent or fair its answers are (Output), the weights and versions as IP (Model), the training and test data (Test, tuning and evaluation data)."
     },
     {
       "id": "invisible_usage",
@@ -88,7 +88,7 @@
         "process",
         "people"
       ],
-      "covers": "Answers that are wrong and are then trusted by people and systems, so they become a wrong decision or action. Two kinds: steered by an attacker (prompt injection through user input or retrieved content, poisoned answers), or simply inaccurate with no attacker (made-up facts, different answers to the same question, quality drifting over time)."
+      "covers": "Answers that are wrong and are then trusted by people and systems, so they become a wrong decision or action. Two kinds: steered by an attacker (prompt injection through user input or retrieved content, poisoned answers), or simply poor with no attacker (made-up facts, different answers to the same question, quality drifting over time, or biased: treating people or groups unequally). Testing answers for accuracy, consistency and bias (TEVV) is done here for everyone, including organisations that build their own model."
     },
     {
       "id": "test_tuning_data",
