@@ -1,7 +1,7 @@
 {
   "description": "AI areas of the AI RMF assessment: the ways AI is used and the components of the AI ecosystem, each with the attack areas it impacts. Generated from data/ai/authoring/ai_areas.xlsx by scripts/sheet_io.py import; the spreadsheet is the decision, edit it, not this file. Model: AI_RMF_Mapping_Sheet_Design.md.",
   "source": "data/ai/authoring/ai_areas.xlsx",
-  "source_sha": "956b32656b9041fe",
+  "source_sha": "13e3ad102cd80cb8",
   "generated_by": "scripts/sheet_io.py import ai_areas",
   "ai_areas": [
     {
@@ -141,7 +141,8 @@
       "applies_to": "both",
       "impact": [
         "access",
-        "process"
+        "process",
+        "data"
       ],
       "covers": "Agents acting inside processes with little or no human oversight: chains of actions, irreversible changes, actions triggered by manipulated input."
     },

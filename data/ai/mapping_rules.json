@@ -33,8 +33,8 @@
   "required_checks": [
     {"name": "audit trail", "areas": "all", "any_of": ["MEASURE 2.8", "MANAGE 4.1"], "cis_control": 8},
     {"name": "incident response", "areas": "all", "any_of": ["MANAGE 2.3", "MANAGE 4.3"]},
-    {"name": "reliability: accuracy and consistency", "areas": ["output", "model"], "any_of": ["MEASURE 2.5"]},
-    {"name": "reliability: monitored in use", "areas": ["output", "model"], "any_of": ["MEASURE 2.4", "MANAGE 4.1"]},
-    {"name": "reliability: test sets and harness documented", "areas": ["output", "model"], "any_of": ["MEASURE 2.1"]}
+    {"name": "reliability: accuracy and consistency", "areas": ["output"], "any_of": ["MEASURE 2.5"]},
+    {"name": "reliability: monitored in use", "areas": ["output"], "any_of": ["MEASURE 2.4", "MANAGE 4.1"]},
+    {"name": "reliability: test sets and harness documented", "areas": ["output"], "any_of": ["MEASURE 2.1"]}
   ]
 }

@@ -118,7 +118,7 @@ audit-trail row").
 |---|---|---|---|
 | Audit trail | every AI area | MEASURE 2.8 or MANAGE 4.1 | a CIS control 8 (audit log) safeguard |
 | Incident response | every AI area | MANAGE 2.3 or MANAGE 4.3 | CIS control 17 where linked |
-| Reliability (accuracy, consistency, drift; not attack) | Output, and Model for producers | MEASURE 2.5, and MEASURE 2.4 or MANAGE 4.1, and MEASURE 2.1 (test sets and harness documented) | Playbook practices; CIS where linked |
+| Reliability (accuracy, consistency, drift; not attack) | Output only (2026-10-26: components are the nouns that fail, usage areas the verbs; wrong answers are where an unreliable model does harm, so TEVV is asked at Output for consumers and producers alike. Model is IP; Model building keeps impact assets, its harm reaches people and processes through Output) | MEASURE 2.5, and MEASURE 2.4 or MANAGE 4.1, and MEASURE 2.1 (test sets and harness documented) | Playbook practices; CIS where linked |
 
 Reliability under attack (prompt injection, poisoned answers) is part of Output and Source data and is checked in
 MEASURE 2.7 like other security. The harness as data to protect is the Test, tuning and evaluation data area.

@@ -40,11 +40,15 @@ model-building rows (performance, benefits, go / no-go). Cause: the agents saw o
 - The input gives the agents `other_areas` (id, name, applies to, covers from the AI areas sheet); both prompts leave
   out (evaluator: fail) a row that belongs to another area's covers or whose why would read the same for any area.
 - One question citing many safeguards is fine (no change).
-1. Pilot again on `model` and `agent` (ask the user before running). Expect: model rows only about the model as an
-   asset (theft, extraction, tampering, versions, access), roughly the first run's size plus real additions; agent
-   keeps MANAGE 4.1 and MEASURE 2.6 without the six repeated rows; no subcategory with the same why in both. If good,
-   run mcp_tools and the other 11 (expect MEASURE 2.3 on output, MAP 3.1 on customer_facing or internal_process, MAP
-   5.2 on customer_facing).
+**Second pilot (model, agent; 2026-10-26) reviewed:** model 15 rows, all about IP; agent 32 rows, agent-specific, the
+six repeated rows gone. Decided: reliability / TEVV required checks on Output only (they forced accuracy and test
+rows onto Model); Model building keeps impact `assets` (its harm reaches people and processes through Output); agent
+impact adds `data` (personal data in memory and moved by actions). Both recorded areas are stale by these changes:
+go to the full run.
+1. Full run, all 14 areas (ask the user before running); delete the work and `mapping_input_*.json` files after.
+   Expect on model the two missing rows of the pilot (MANAGE 3.2 base models monitored, MANAGE 4.1 old versions
+   disposed of); on output MEASURE 2.1, 2.4, 2.5 and 2.3; on agent MANAGE 4.1 and MEASURE 2.6; MAP 3.1 on
+   customer_facing or internal_process, MAP 5.2 on customer_facing; no subcategory with the same why in every area.
 2. Review `mapping.xlsx` (Status = needs_human_review: failed rows and missing lines; Evaluator note), then the
    Coverage sheet; `sheet_io.py import mapping`.
 3. Accept: `.venv/bin/python ./scripts/ai_pilot.py accept-mapping` (refuses while an area is missing or stale, a row
