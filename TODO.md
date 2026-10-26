@@ -1,4 +1,4 @@
-# TODO (last updated 2026-10-23)
+# TODO (last updated 2026-10-26)
 
 State: the AI RMF model was redesigned (2026-10-16 to 2026-10-22): AI areas (how AI is used and what it is made of) ->
 attack areas -> AI RMF function -> subcategory. `AI_RMF_Mapping_Sheet_Design.md` is the starting point for every
@@ -30,10 +30,11 @@ rows that were there well but missed what was absent. Decided and done (2026-10-
 - A re-draft merged with the person's decisions is checked again; removing a row with folds in the sheet is
   rejected; the sheet column is "Why (comment)".
 - Same model for drafter and evaluator in the pilot, so the comparison tests the prompt change only.
-1. Pilot the re-run on `mcp_tools`, `agent` and `model` (ask the user before running). Compare with the first run:
-   expect MAP 1.6 and MEASURE 2.6 on mcp_tools, MANAGE 4.1 on agent (override and rollback), fewer rows without CIS
-   safeguards, MEASURE 2.3 on output or model, MAP 3.1 on customer_facing or internal_process, MAP 5.2 on
-   customer_facing. If clearly better, draft the other 11; if not, tune the prompts first.
+1. Pilot the re-run on `mcp_tools`, `agent` and `model` (ask the user before running). Compare with the first run
+   (the judgement log has it): expect MAP 1.6 and MEASURE 2.6 on mcp_tools, MANAGE 4.1 on agent (override and
+   rollback), MEASURE 2.3 on model, fewer rows without CIS safeguards, model rows using the `process` impact. If
+   clearly better, draft the other 11 (then expect MEASURE 2.3 on output, MAP 3.1 on customer_facing or
+   internal_process, MAP 5.2 on customer_facing); if not, tune the prompts first.
 2. Review `mapping.xlsx` (Status = needs_human_review: failed rows and missing lines; Evaluator note), then the
    Coverage sheet; `sheet_io.py import mapping`.
 3. Accept: `.venv/bin/python ./scripts/ai_pilot.py accept-mapping` (refuses while an area is missing or stale, a row
@@ -49,7 +50,8 @@ the mapping line; upload that file (data/ai/source/README.md) to see the `mappin
    or both?" (for producer or both: built on an existing model? given to others?); "How do you use AI?"; "What does
    your AI include?". It writes `role`, `producer`, `ai_areas` (automatic ones in `scope_rules.json` `ai_area_rules`) and
    the old fields derived for the current filter.
-2. ~~Draft the mapping.~~ Done 2026-10-23 (all 14 areas): `prepare_ai_bank.py mapping --area ID`, `prompts/ai_rmf_mapping_drafter.md`,
+2. Draft the mapping. Built and run on all 14 areas 2026-10-23; that run was reviewed and deleted on 2026-10-26 and
+   is being re-run with the improved prompts ("Start here"): `prepare_ai_bank.py mapping --area ID`, `prompts/ai_rmf_mapping_drafter.md`,
    `prompts/ai_rmf_mapping_evaluator.md`, `record_ai_bank.py mapping` (rejects a draft that breaks
    `data/ai/mapping_rules.json`: no GOVERN row, subcategory of the right function, the area's candidate safeguards and
    impacts, MAP, MEASURE and MANAGE each covered, the required checks: audit trail with a CIS control 8 safeguard,
@@ -61,9 +63,10 @@ the mapping line; upload that file (data/ai/source/README.md) to see the `mappin
    `removed_by_human`). Accept gate: `ai_pilot.py accept-mapping` (`mapping_accepted.json`, a hash of the mapping's
    content). Freshness: a `mapping` stage in `check_freshness.py --ai-bank` (missing, incomplete, stale, rows needing
    review, sheet edited but not imported, not accepted or changed since, subcategories reached by no area). A re-drafted
-   area keeps the person's decisions (`decided_by: human` rows and `removed_by_human`). Left for the review (Start here): decide any further foundation subcategories from the Coverage
-   sheet (unreached, or the same why in every area, and about method) and list them in `mapping_rules.json`
-   `foundation.subcategories` (design note section 3); the scripts already honour the list.
+   area keeps the person's decisions (`decided_by: human` rows and `removed_by_human`), checked against the rules again.
+   2026-10-26: evaluator findings `row` / `missing` / `note`, folds count as reached, a row with folds cannot be
+   removed in the sheet. Foundation subcategories decided from the first run's Coverage sheet (8 in
+   `foundation.subcategories`); after the re-run, check the Coverage sheet again for any further ones.
 4. Rewire question generation to mapping rows: `prepare_ai_bank.py batch` from mapping rows, generator prompt (questions
    per AI area x subcategory, the row's safeguards as evidence; GOVERN questions per subcategory from the Playbook, each
    tagged with the roles it applies to: none (AI policy and shadow-AI discovery), consumer, producer, plus a producer
