@@ -402,9 +402,9 @@ class Mapping(unittest.TestCase):
         self.assertTrue(cand and all(c["id"].startswith("MCP-") for c in cand))
         self.assertTrue(all(int(c["id"].split("-")[1].split(".")[0]) in allowed for c in cand))
         self.assertEqual(list(doc["subcategories"]), ["MAP", "MEASURE", "MANAGE"])   # GOVERN is foundation
-        self.assertEqual(sum(len(v) for v in doc["subcategories"].values()), 72 - 19 - 4)   # and 4 foundation subs
+        self.assertEqual(sum(len(v) for v in doc["subcategories"].values()), 72 - 19 - 8)   # and 8 foundation subs
         self.assertEqual(set(doc["function_definitions"]), {"GOVERN", "MAP", "MEASURE", "MANAGE"})
-        self.assertEqual(doc["foundation"], ["GOVERN", "MEASURE 3.2", "MEASURE 4.1", "MANAGE 1.2", "MANAGE 1.3"])
+        self.assertEqual(doc["foundation"], ["GOVERN"] + ["MAP 1.3", "MAP 1.5", "MEASURE 1.1", "MEASURE 3.2", "MEASURE 4.1", "MANAGE 1.2", "MANAGE 1.3", "MANAGE 2.1"])
         self.assertIn("audit trail", [c["name"] for c in doc["rules"]["required_checks"]])
 
     def test_mapping_rules_match_the_cis_guides(self):
@@ -428,7 +428,7 @@ class Mapping(unittest.TestCase):
     def test_foundation_subcategories_are_asked_once_not_per_area(self):
         from ai_bank_common import check_mapping_rules
         rules = json.loads(R.AI_MAPPING_RULES.read_text())
-        self.assertEqual(rules["foundation"]["subcategories"], ["MEASURE 3.2", "MEASURE 4.1", "MANAGE 1.2", "MANAGE 1.3"])
+        self.assertEqual(rules["foundation"]["subcategories"], ["MAP 1.3", "MAP 1.5", "MEASURE 1.1", "MEASURE 3.2", "MEASURE 4.1", "MANAGE 1.2", "MANAGE 1.3", "MANAGE 2.1"])
         self.assertEqual(check_mapping_rules(rules, self.inp), [])
         for extra, words in ((["MAP 9.9"], "foundation subcategories"), (["GOVERN 1.6"], "foundation subcategories")):
             bad = json.loads(json.dumps(rules))

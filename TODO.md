@@ -13,17 +13,19 @@ checked against the guides; no row count (content decides, the evaluator fails p
 **GOVERN is the foundation** (decided 2026-10-22 after the first `mcp_tools` pilot put operational controls under GOVERN
 labels): all 19 GOVERN subcategories are asked once for the organisation, picked by intake role (none, consumer,
 producer), never mapped to an AI area; areas map only MAP (context), MEASURE (checking) and MANAGE (responding).
-`foundation` replaces `org_wide` in `mapping_rules.json` (on 2026-10-23 MEASURE 3.2, 4.1 and MANAGE 1.2, 1.3 were added as foundation subcategories);
+`foundation` replaces `org_wide` in `mapping_rules.json` (foundation subcategories: MEASURE 3.2, 4.1 and MANAGE 1.2, 1.3
+on 2026-10-23; MAP 1.3, 1.5, MEASURE 1.1 and MANAGE 2.1 on 2026-10-26);
 the per-area inventory check is gone (inventory is GOVERN 1.6). `ai_rmf_core.json` now holds the functions with their
 Playbook descriptions, which the drafter and evaluator get. See `AI_RMF_Mapping_Sheet_Design.md` section 3.
 **All 14 AI areas are drafted and recorded (2026-10-23)**, with folds recorded (`folded` on a row). 203 rows; 14 rows
 need human review (agent has 6: one MANAGE-level failure, "missing MANAGE 4.1", marks every MANAGE row of the area);
 11 MAP/MEASURE/MANAGE subcategories are reached by no area (MAP 1.2, 1.3, 1.4, 1.5, 1.6, 3.1, 5.2; MEASURE 1.1, 2.3,
 4.3; MANAGE 2.1), several of them only folded into another row (the Coverage sheet says "folded into ...").
-1. Review `data/ai/authoring/mapping.xlsx` with the user: the rows marked needs_human_review (Status, Evaluator note),
-   then the Coverage sheet. For the 11 unreached: map them in an area (Mapped = yes), or list them in
-   `mapping_rules.json` `foundation.subcategories` (MAP 1.3 mission, MAP 1.5 risk tolerances and MANAGE 2.1 resources
-   look like method, the same in every area). `sheet_io.py import mapping` after editing.
+Review of the first full run (2026-10-26): re-run rather than fix the sheet by hand (no human edits yet). Decided so
+far: Model impact widened to `assets, process` (drift and reliability rows harm processes); MAP 1.3, 1.5, MEASURE 1.1,
+MANAGE 2.1 made foundation (MAP 1.2, 1.4 and MEASURE 4.3 stay area subcategories). Both make the recorded mapping
+stale. Still to decide: the rest of the decision table (prompt fixes, folds, code fixes, re-run plan).
+1. Settle the rest of the decision table, fix the prompts and code, then re-run (pilot mcp_tools, agent, model first).
 2. Accept: `.venv/bin/python ./scripts/ai_pilot.py accept-mapping` (refuses while an area is missing or stale, a row
    needs review or the sheet has unimported edits; lists the unreached subcategories in the acceptance).
 3. Then TODO step 4 below.

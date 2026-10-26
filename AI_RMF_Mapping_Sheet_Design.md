@@ -84,10 +84,13 @@ access-granting safeguard, GOVERN 6.2 citing a containment procedure). The Playb
   existing model). `foundation` in `data/ai/mapping_rules.json`.
 - **Foundation subcategories outside GOVERN (decided 2026-10-23):** some MAP, MEASURE and MANAGE subcategories are
   about how the organisation runs AI risk management, not about one AI area, so every area would get the same answer.
-  In `foundation.subcategories` now: MEASURE 3.2 (tracking risks that are hard to measure), MEASURE 4.1 (measurement
-  feedback), MANAGE 1.2 (risks prioritised) and MANAGE 1.3 (responses planned). Possibly more after all 14 areas are
-  drafted, decided from the Coverage sheet (a subcategory no area reaches, or that every area reaches with the same
-  why, and that is about method): MEASURE 1.1 to 1.3, 2.13, 4.2 and 4.3 (choosing and reviewing metrics). They keep
+  In `foundation.subcategories`: MEASURE 3.2 (tracking risks that are hard to measure), MEASURE 4.1 (measurement
+  feedback), MANAGE 1.2 (risks prioritised) and MANAGE 1.3 (responses planned), agreed 2026-10-23; MAP 1.3 (mission),
+  MAP 1.5 (risk tolerance), MEASURE 1.1 (choosing the risks and metrics to measure) and MANAGE 2.1 (resources),
+  agreed 2026-10-26 from the Coverage sheet of the first full run (reached by no area, the same for every area). Not
+  foundation, although no area reached them in that run: MAP 1.2 (who is involved and whether they can spot bias
+  depends on the area: model and model building for producers, the process for consumers), MAP 1.4 (business value,
+  asked with the area's impact) and MEASURE 4.3 (performance and drift of a model). They keep
   their AI RMF id (they are not relabelled as GOVERN), are asked once for the organisation like GOVERN, are left out
   of the drafter's input and the review sheet, and the recording script rejects them as area rows.
 - **A question = one AI area x one mapped function**, landing on one AI RMF subcategory. The function is not in the AI

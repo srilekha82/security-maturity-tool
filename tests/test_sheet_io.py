@@ -139,7 +139,7 @@ class MappingSheet(unittest.TestCase):
     def test_export_lists_every_mapped_function_subcategory_with_its_text(self):
         wb = openpyxl.load_workbook(self.xlsx)
         lines = list(wb["Mapping"].iter_rows(values_only=True))
-        self.assertEqual(len(lines) - 1, 72 - 19 - 4)                   # GOVERN and 4 foundation subs, not in the sheet
+        self.assertEqual(len(lines) - 1, 72 - 19 - 8)                   # GOVERN and 8 foundation subs, not in the sheet
         heads = lines[0]
         by_sub = {ln[heads.index("Subcategory")]: ln for ln in lines[1:]}
         self.assertNotIn("GOVERN 1.6", by_sub)
