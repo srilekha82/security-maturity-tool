@@ -1,5 +1,1293 @@
 {
   "areas": {
+    "internal_process": {
+      "recorded_on": "2026-10-26",
+      "inputs": {
+        "ai_areas": "18a8785bd4818bef",
+        "rules": "4263b83af1530e36",
+        "playbook": "65d6101d80650287",
+        "guides": {
+          "LLM": "fae3d032d78cd956",
+          "MCP": "4faa140a9b5f3071",
+          "AGENT": "824ab8a2e829a11a"
+        }
+      },
+      "rows": [
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.1",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "The internal decisions and workflows AI output drives, who the staff users are and the settings it is used in are identified and documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.6",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "Requirements for the AI in internal workflows (accuracy needed, confidentiality, who may use it for what) are gathered from the staff and process owners who use it.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 2.2",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "Staff are told what the AI cannot reliably do and how its output may be used and checked before it drives an internal decision.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "Empty cis_refs although LLM-14.9 (role-specific training) supports telling staff what the AI cannot do and how to check its output."
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.1",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "The benefits expected from AI in each internal workflow are examined with the staff who use it, so over-reliance is weighed against what the AI really adds.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.2",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "The costs of wrong output acted on in internal decisions (HR, finance, approvals, operations) are examined against the organisation's risk tolerance.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.3",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "The decisions and workflows the AI may drive internally are scoped, with those it may not drive stated.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.5",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "Human review of AI output before it becomes an internal decision or action is defined, assessed and documented, so staff do not over-rely on it.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 5.1",
+          "cis_refs": [],
+          "impact": [
+            "process",
+            "data"
+          ],
+          "why": "The likelihood and size of harm from wrong or misused AI output in internal workflows, including insider misuse, are identified and documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.3",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "The AI's performance is measured on the real HR, finance and approval cases it is used for, not only in generic tests.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.4",
+          "cis_refs": [
+            "LLM-8.11"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "How the AI is behaving inside internal workflows in production, including drift and unusual use by staff, is monitored.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.6",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "Each internal workflow fails safely, falling back to manual handling or a hold, when the AI is wrong or beyond its knowledge limits.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.8",
+          "cis_refs": [
+            "LLM-8.1",
+            "LLM-8.2",
+            "LLM-8.5"
+          ],
+          "impact": [
+            "process",
+            "data"
+          ],
+          "why": "Who used the AI, on what, and which decisions relied on its output are logged so internal use can be traced and accounted for.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.9",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "Staff can interpret the AI output in its context, with the reasoning or basis needed to judge it before acting.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.11",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "Bias in AI-driven internal decisions, such as HR and approvals, is evaluated and the results documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 3.3",
+          "cis_refs": [
+            "LLM-17.3"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "Staff and those affected by an internal decision can report problems with AI output and appeal or challenge the outcome.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "LLM-17.3 is a security-incident reporting process, not a way for staff or affected people to report AI output problems or appeal; weak support for this row."
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 4.2",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "Domain experts in the business function confirm that the AI is performing as intended in the internal workflow it supports.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 1.1",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "A decision is made on whether the AI achieves its purpose in each internal workflow and whether that use should continue.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.2",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "Working controls limit what the AI may do in internal decisions (business rules, limits on what output is accepted, how staff and AI share the task).",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "Why (business rules, limits on accepted output, how staff and AI share the task) repeats MAP 3.3 (scope of decisions) and MAP 3.5 (human review) in different words."
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.3",
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.1"
+          ],
+          "impact": [
+            "process",
+            "data"
+          ],
+          "why": "Procedures exist to respond to and recover from a decision made on wrong AI output or insider misuse once it is found.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.4",
+          "cis_refs": [
+            "LLM-17.9"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "Responsibility and a means exist to switch off or override the AI in an internal workflow when its outcomes depart from intended use.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 4.3",
+          "cis_refs": [
+            "LLM-17.3",
+            "LLM-17.8"
+          ],
+          "impact": [
+            "process",
+            "data"
+          ],
+          "why": "Incidents and errors from AI-driven internal decisions are reported, tracked, communicated to those affected and reviewed.",
+          "status": "pass",
+          "decided_by": "agent"
+        }
+      ],
+      "no_question": [],
+      "notes": [
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.11",
+          "reason": "Bias in HR and approval decisions harms the employees or candidates affected; the area's impacts (process, data) may be too narrow."
+        }
+      ],
+      "missing": [
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.10",
+          "reason": "HR and finance data handled through the AI (employee records, insider access) carries privacy risk that nothing in the rows examines for this area."
+        }
+      ]
+    },
+    "customer_facing": {
+      "recorded_on": "2026-10-26",
+      "inputs": {
+        "ai_areas": "18a8785bd4818bef",
+        "rules": "4263b83af1530e36",
+        "playbook": "65d6101d80650287",
+        "guides": {
+          "LLM": "fae3d032d78cd956",
+          "MCP": "4faa140a9b5f3071",
+          "AGENT": "824ab8a2e829a11a"
+        }
+      },
+      "rows": [
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.1",
+          "cis_refs": [],
+          "impact": [
+            "people",
+            "process"
+          ],
+          "why": "The customer-facing application's intended purpose, the public users and settings it serves, and the harm it could do to customers are understood and documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.6",
+          "cis_refs": [
+            "LLM-16.1"
+          ],
+          "impact": [
+            "data",
+            "people"
+          ],
+          "why": "Requirements for the customer-facing application (privacy of customers, safe answers, abuse resistance) are elicited and built into its design.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 2.2",
+          "cis_refs": [],
+          "impact": [
+            "people",
+            "process"
+          ],
+          "why": "What the customer-facing AI does not know or must not answer is documented and told to customers and staff.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.1",
+          "cis_refs": [],
+          "impact": [
+            "people",
+            "process"
+          ],
+          "why": "The benefits to customers of the customer-facing AI are examined and documented so they can be weighed against the harms of wrong or leaked answers.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.3",
+          "cis_refs": [],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "The scope of what the customer-facing application may answer or do is specified and limited to what its capability and context support.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "Scope of what the application may answer or do largely repeats MAP 2.2 (what it must not answer, told to customers); merge into one check or separate clearly."
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.5",
+          "cis_refs": [],
+          "impact": [
+            "people",
+            "process"
+          ],
+          "why": "Human oversight of the customer-facing AI (review, escalation to a person, override) is defined, assessed and documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 5.1",
+          "cis_refs": [
+            "LLM-16.14"
+          ],
+          "impact": [
+            "people",
+            "data",
+            "process"
+          ],
+          "why": "Likelihood, magnitude and cost of harm from public attacks and bad or leaked answers reaching customers are assessed from expected use and past incidents.",
+          "folded": [
+            "MAP 3.2"
+          ],
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.3",
+          "cis_refs": [],
+          "impact": [
+            "people",
+            "process"
+          ],
+          "why": "Answer quality and safety of the customer-facing application are measured under conditions like real customer use, not only in the lab.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.4",
+          "cis_refs": [
+            "LLM-8.2",
+            "LLM-8.11"
+          ],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "The customer-facing application's behaviour in production is monitored for wrong answers, abuse patterns and drift.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.5",
+          "cis_refs": [],
+          "impact": [
+            "people",
+            "process"
+          ],
+          "why": "The customer-facing AI is shown to give valid, reliable answers, and the conditions beyond which its answers cannot be relied on are documented.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "Repeats MAP 2.2 (documented limits beyond which answers cannot be relied on), and answer validity and reliability with no attacker belongs to the Output area."
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.6",
+          "cis_refs": [
+            "LLM-16.3",
+            "LLM-16.13"
+          ],
+          "impact": [
+            "people",
+            "process"
+          ],
+          "why": "The customer-facing AI is tested for unsafe or harmful answers and shown to fail safely when pushed beyond its limits.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.7",
+          "cis_refs": [
+            "LLM-16.3",
+            "LLM-18.2"
+          ],
+          "impact": [
+            "process",
+            "data"
+          ],
+          "why": "Security of the public-facing AI against prompt injection, jailbreaks and abuse is tested, for example by red-teaming, and results are documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.8",
+          "cis_refs": [
+            "LLM-8.1",
+            "LLM-8.2",
+            "LLM-8.5"
+          ],
+          "impact": [
+            "process",
+            "data"
+          ],
+          "why": "Customer interactions with the AI are logged with enough detail to review errors, abuse and leaks and to hold someone accountable.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.10",
+          "cis_refs": [
+            "LLM-3.13",
+            "LLM-3.14"
+          ],
+          "impact": [
+            "data",
+            "people"
+          ],
+          "why": "Privacy risk of the customer-facing AI, including leaking one customer's or the organisation's data in answers, is examined and documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 3.3",
+          "cis_refs": [],
+          "impact": [
+            "people"
+          ],
+          "why": "Customers can report problems with the AI's answers and appeal outcomes, and this feedback feeds the evaluation of the application.",
+          "folded": [
+            "MAP 5.2"
+          ],
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "Folded MAP 5.2 is not fully asked: the why covers problem reports and appeals but not the practices and people for regular engagement or feedback on positive and unanticipated impacts; ask it fully or make MAP 5.2 its own row."
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 1.1",
+          "cis_refs": [],
+          "impact": [
+            "people",
+            "process"
+          ],
+          "why": "A determination is made, using monitoring and test results, whether the customer-facing AI meets its purpose and should stay in front of customers.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.2",
+          "cis_refs": [
+            "LLM-16.10",
+            "LLM-16.11",
+            "LLM-3.1"
+          ],
+          "impact": [
+            "data",
+            "process"
+          ],
+          "why": "Controls on the customer-facing AI (input and output filtering, guardrails, rate limits, data minimisation) are in place and applied to sustain its safe operation.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "Outcome is sustaining the value of the deployed system, but the why lists security controls (filtering, rate limits, data minimisation) that belong to Input/Output/Hosting; it does not ask how value is kept up (maintenance, updates, re-checks)."
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.3",
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.3"
+          ],
+          "impact": [
+            "process",
+            "data",
+            "people"
+          ],
+          "why": "Procedures exist and are followed to respond to and recover from a new attack or harmful behaviour of the customer-facing AI once found.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.4",
+          "cis_refs": [
+            "LLM-17.9"
+          ],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "The customer-facing AI can be quickly disabled or replaced by a fallback when it behaves outside intended use, and someone is responsible for doing so.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 4.3",
+          "cis_refs": [
+            "LLM-17.2",
+            "LLM-17.8"
+          ],
+          "impact": [
+            "people",
+            "data"
+          ],
+          "why": "Incidents and errors from the customer-facing AI are communicated to affected customers and partners, tracked, and reviewed after recovery.",
+          "status": "pass",
+          "decided_by": "agent"
+        }
+      ],
+      "no_question": [],
+      "missing": [
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.11",
+          "reason": "An assessor can ask whether answers given to customers are checked for bias or unequal treatment of different customers or groups; nothing in the draft covers it."
+        }
+      ]
+    },
+    "model_building": {
+      "recorded_on": "2026-10-26",
+      "inputs": {
+        "ai_areas": "18a8785bd4818bef",
+        "rules": "4263b83af1530e36",
+        "playbook": "65d6101d80650287",
+        "guides": {
+          "LLM": "fae3d032d78cd956",
+          "MCP": "4faa140a9b5f3071",
+          "AGENT": "824ab8a2e829a11a"
+        }
+      },
+      "rows": [
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.1",
+          "cis_refs": [
+            "LLM-16.1"
+          ],
+          "impact": [
+            "assets"
+          ],
+          "why": "The intended purpose, users and settings of the model the org builds or tunes, and the impact of its release on recipients, are documented.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "LLM-16.1 (secure development process) is not evidence of documenting the model's intended purpose, users and settings; cis_refs off-topic."
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.6",
+          "cis_refs": [
+            "LLM-16.1"
+          ],
+          "impact": [
+            "assets"
+          ],
+          "why": "Requirements for the model, including safety and privacy, are elicited and drive design and tuning decisions.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 2.1",
+          "cis_refs": [],
+          "impact": [
+            "assets"
+          ],
+          "why": "The task the model supports and the methods used to build or tune it (from scratch, base model, domain tuning) are defined.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 2.2",
+          "cis_refs": [],
+          "impact": [
+            "assets"
+          ],
+          "why": "The model's knowledge limits, how its output may be used, overseen and interpreted, are documented and communicated to those who receive the model.",
+          "folded": [
+            "MEASURE 2.9"
+          ],
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "Folds MEASURE 2.9 but the why never asks whether the model itself is explained and validated, only limits and communication; ask it fully or give MEASURE 2.9 its own row."
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.1",
+          "cis_refs": [],
+          "impact": [
+            "assets"
+          ],
+          "why": "The benefits the model is meant to give recipients are examined and documented, including with the recipients themselves.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.2",
+          "cis_refs": [],
+          "impact": [
+            "assets"
+          ],
+          "why": "The cost to recipients of the model's errors or unsafe changes is examined and documented against the org's risk tolerance.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "Cost to recipients of the model's errors repeats MAP 5.1 (likelihood and magnitude of harm to recipients from release); same check in different words."
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.3",
+          "cis_refs": [],
+          "impact": [
+            "assets"
+          ],
+          "why": "The scope the model is released for is specified from its capabilities, so recipients know what it should and should not be used for.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "Scope the model is released for and what recipients should not use it for repeats MAP 2.2 (how output may be used, limits communicated) and MAP 1.1 (intended purpose and settings)."
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 4.1",
+          "cis_refs": [
+            "LLM-16.4",
+            "LLM-2.1"
+          ],
+          "impact": [
+            "assets"
+          ],
+          "why": "The base models and software the model is built from are mapped for technical and legal risk, including IP infringement, and the internal controls applied to them are documented.",
+          "folded": [
+            "MAP 4.2"
+          ],
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 5.1",
+          "cis_refs": [
+            "LLM-16.3"
+          ],
+          "impact": [
+            "assets"
+          ],
+          "why": "Likelihood and magnitude of harm to recipients from releasing the model are assessed, using red teaming and past incidents.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 1.3",
+          "cis_refs": [],
+          "impact": [
+            "assets"
+          ],
+          "why": "People who did not build the model, or independent assessors, take part in assessing it before and after release.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.3",
+          "cis_refs": [],
+          "impact": [
+            "assets"
+          ],
+          "why": "The model is shown to be valid and reliable under conditions like those of the recipients' use before release, and its limits beyond those conditions are documented.",
+          "folded": [
+            "MEASURE 2.5"
+          ],
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.4",
+          "cis_refs": [
+            "LLM-8.11"
+          ],
+          "impact": [
+            "assets"
+          ],
+          "why": "The behaviour of the released model (API, weights, embedded) is monitored in production for drift and misuse, where the org can see it.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.6",
+          "cis_refs": [
+            "LLM-16.13"
+          ],
+          "impact": [
+            "assets"
+          ],
+          "why": "The model is evaluated for safety risks and shown to fail safely when operated beyond its knowledge limits.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.7",
+          "cis_refs": [
+            "LLM-16.3",
+            "LLM-16.13",
+            "LLM-16.14"
+          ],
+          "impact": [
+            "assets"
+          ],
+          "why": "The security and resilience of the model against adversarial attack are evaluated and documented before release.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.8",
+          "cis_refs": [
+            "LLM-8.1",
+            "LLM-8.2"
+          ],
+          "impact": [
+            "assets"
+          ],
+          "why": "Model build, tuning and release events are logged so changes to the model can be traced to who made them.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.10",
+          "cis_refs": [
+            "LLM-16.3"
+          ],
+          "impact": [
+            "assets"
+          ],
+          "why": "The model is tested for memorising or leaking personal data from its training or tuning data.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "LLM-16.3 (root cause analysis on security vulnerabilities) does not support testing for memorised or leaked personal data; cis_refs off-topic."
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.11",
+          "cis_refs": [],
+          "impact": [
+            "assets"
+          ],
+          "why": "Bias in the model's behaviour across the groups affected by the decisions recipients make with it is evaluated before release, since recipients inherit it.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 3.3",
+          "cis_refs": [],
+          "impact": [
+            "assets"
+          ],
+          "why": "Recipients of the model have a way to report problems with it, and the reports feed into its evaluation.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 4.3",
+          "cis_refs": [],
+          "impact": [
+            "assets"
+          ],
+          "why": "Performance of new model versions is compared against a baseline so declines after tuning or release are identified and documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 1.1",
+          "cis_refs": [],
+          "impact": [
+            "assets"
+          ],
+          "why": "A documented decision is made on whether the model meets its purpose and should be released.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.3",
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.8"
+          ],
+          "impact": [
+            "assets"
+          ],
+          "why": "Procedures exist to respond to and recover from a previously unknown risk found in a released model.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.4",
+          "cis_refs": [
+            "LLM-17.9"
+          ],
+          "impact": [
+            "assets"
+          ],
+          "why": "A released model can be withdrawn, replaced or deactivated when it behaves outside its intended use, with named responsibility.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 3.2",
+          "cis_refs": [
+            "LLM-16.2",
+            "LLM-2.2"
+          ],
+          "impact": [
+            "assets"
+          ],
+          "why": "Pre-trained models and other third-party resources the build starts from are monitored and maintained, including upstream vulnerabilities and changes.",
+          "folded": [
+            "MANAGE 3.1"
+          ],
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 4.1",
+          "cis_refs": [],
+          "impact": [
+            "assets"
+          ],
+          "why": "A post-release monitoring plan is implemented for the model, with scheduled re-evaluation and red teaming after release.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "Empty cis_refs although LLM-8.11 (audit log reviews) supports post-release monitoring; also overlaps MEASURE 2.4 (production monitoring for drift), keep the two checks distinct."
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 4.2",
+          "cis_refs": [
+            "LLM-4.1",
+            "LLM-16.8",
+            "LLM-16.12"
+          ],
+          "impact": [
+            "assets"
+          ],
+          "why": "Updates to a released model are tested, versioned and communicated to recipients before they receive them.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 4.3",
+          "cis_refs": [
+            "LLM-17.3",
+            "LLM-17.4",
+            "LLM-17.8"
+          ],
+          "impact": [
+            "assets"
+          ],
+          "why": "Incidents and errors in the model are tracked, communicated to the recipients who depend on it, and recovered from.",
+          "status": "pass",
+          "decided_by": "agent"
+        }
+      ],
+      "no_question": [],
+      "notes": [
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.11",
+          "reason": "This row and MAP 3.2, MAP 5.1 protect recipients and the people affected by their decisions (harm to people/processes); the area's impacts (assets only) may be too narrow."
+        }
+      ],
+      "missing": [
+        {
+          "function": "MAP",
+          "subcategory": "MAP 2.3",
+          "reason": "Nothing checks the experimental design, construct validation and choice of training/tuning data when the org builds or tunes the model."
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 5.2",
+          "reason": "Nothing checks how feedback from recipients and others affected by the model, on positive, negative and unanticipated impacts, is gathered and fed back into the build."
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.12",
+          "reason": "Training and tuning a model has an environmental and energy cost that an assessor can ask about for this area."
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 4.2",
+          "reason": "Nothing checks that the model's performance in recipients' real deployment contexts is validated with input from domain experts and recipients."
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.2",
+          "reason": "Nothing checks the mechanisms (retraining, support, maintenance) that sustain the value of a released model for recipients over time."
+        }
+      ]
+    },
+    "output": {
+      "recorded_on": "2026-10-26",
+      "inputs": {
+        "ai_areas": "18a8785bd4818bef",
+        "rules": "4263b83af1530e36",
+        "playbook": "65d6101d80650287",
+        "guides": {
+          "LLM": "fae3d032d78cd956",
+          "MCP": "4faa140a9b5f3071",
+          "AGENT": "824ab8a2e829a11a"
+        }
+      },
+      "rows": [
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.1",
+          "cis_refs": [],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "The intended purpose and context of use of the AI's answers, and who relies on them for which decisions or actions, are understood and documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 2.2",
+          "cis_refs": [],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "The limits of what the AI's answers can be trusted for, and how people and systems may use and oversee them, are documented.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "The 'how people and systems may use and oversee them' part repeats MAP 3.5 (which outputs need human checking and how oversight works); keep only the knowledge limits here."
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.2",
+          "cis_refs": [],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "The cost of wrong answers being trusted, and who or what could be harmed by a wrong decision or action, is examined and documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.5",
+          "cis_refs": [],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "It is defined which outputs need a person to check them before they are acted on, and how that oversight works.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 5.1",
+          "cis_refs": [
+            "LLM-16.14"
+          ],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "The likelihood and size of impact from steered (injection, poisoning) and inaccurate answers are assessed and documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.1",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "The test sets, metrics and tools used to check answer quality and injection resistance are documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.4",
+          "cis_refs": [
+            "LLM-8.11"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "Answer quality and behaviour are monitored in production for drift, made-up facts and inconsistency, and improvements or declines over time are identified from field data and documented.",
+          "folded": [
+            "MEASURE 4.3"
+          ],
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.5",
+          "cis_refs": [],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "Accuracy and consistency of answers to the same question are demonstrated under conditions like real use (messy inputs, retrieved content), and the limits beyond tested conditions are documented.",
+          "folded": [
+            "MEASURE 2.3"
+          ],
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.6",
+          "cis_refs": [
+            "LLM-16.13"
+          ],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "The output is evaluated for what happens when it is wrong or made to go beyond its knowledge limits, and that it fails safely.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "LLM-16.13 (application penetration testing) does not evidence that wrong or out-of-knowledge output fails safely, and it is already used on MEASURE 2.7; the ref is weak."
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.7",
+          "cis_refs": [
+            "LLM-16.3",
+            "LLM-18.2",
+            "LLM-16.13"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "Resistance of answers to prompt injection and poisoned content is tested, for example by red-teaming, and documented.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "LLM-16.3 (root cause analysis on vulnerabilities) is not evidence for injection/poisoning resistance testing; drop it."
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.8",
+          "cis_refs": [
+            "LLM-8.2",
+            "LLM-8.5",
+            "LLM-8.1"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "Outputs are logged with what produced them, so wrong or steered answers can be traced and reviewed.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.9",
+          "cis_refs": [
+            "LLM-8.5"
+          ],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "Output is presented and interpreted within its context so people can judge how far to trust it.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "LLM-8.5 (detailed audit logs) does not support how output is presented and interpreted so people can judge trust; the ref is off-topic."
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.13",
+          "cis_refs": [],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "The answer-quality and injection tests and metrics are themselves reviewed for whether they catch failures, so a weak test set cannot hide them.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 3.3",
+          "cis_refs": [
+            "LLM-17.3"
+          ],
+          "impact": [
+            "people"
+          ],
+          "why": "People who receive answers can report wrong output and appeal decisions based on it, and these reports feed evaluation.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 4.2",
+          "cis_refs": [],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "Domain experts and users validate, in the deployment context, that answers are consistently as intended, and the results are documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 1.1",
+          "cis_refs": [],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "A determination is made and recorded whether the answers meet the intended purpose and whether the AI should continue to be relied on.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.2",
+          "cis_refs": [
+            "LLM-16.10",
+            "LLM-16.11"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "Mechanisms such as business rules that limit or restrict what answers can be used for, and human-AI teaming set-ups, are in place and applied to keep answers valuable and trustworthy in use.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.3",
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.1"
+          ],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "Procedures exist and are followed to respond to and recover from wrong or steered output once found.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.4",
+          "cis_refs": [
+            "LLM-17.9"
+          ],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "The output or AI can be switched off or bypassed when answers are inconsistent with intended use, with thresholds and owners.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 4.3",
+          "cis_refs": [
+            "LLM-17.8",
+            "LLM-17.3"
+          ],
+          "impact": [
+            "process",
+            "people"
+          ],
+          "why": "Wrong-output incidents are communicated to those affected, tracked, and recorded with their fixes.",
+          "status": "pass",
+          "decided_by": "agent"
+        }
+      ],
+      "no_question": [],
+      "missing": [
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.6",
+          "reason": "Nothing checks that accuracy, consistency and trust requirements for the AI's answers were elicited from the people and systems relying on them."
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.1",
+          "reason": "Nothing checks the benefit the answers are meant to bring (performance against a human baseline), which is what wrong-answer cost is weighed against."
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 4.1",
+          "reason": "Post-deployment plan for output (user input, appeal and override, change management when a model or prompt update changes answers) is not asked beyond drift monitoring in MEASURE 2.4."
+        }
+      ]
+    },
     "model": {
       "recorded_on": "2026-10-26",
       "inputs": {
@@ -751,5 +2039,5 @@
     }
   },
   "description": "AI RMF mapping: per AI area, rows of AI RMF function -> subcategory, CIS safeguards that prove it, impact. Drafted and evaluated by agents (prompts/ai_rmf_mapping_*.md), recorded by record_ai_bank.py mapping, reviewed by a person. Model: AI_RMF_Mapping_Sheet_Design.md.",
-  "source_sha": "429be6ddb16c05b3"
+  "source_sha": "0101d802eeea6093"
 }

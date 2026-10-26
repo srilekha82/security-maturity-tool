@@ -1,0 +1,305 @@
+{
+  "recorded_at": "2026-10-26T16:09:06.709692+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_output_draft2.json",
+    "sha": "74b36527ec5074c2"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "2ec858fbfb7b84aa"
+  },
+  "output_snapshot": {
+    "area": "output",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.1",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The intended purpose and context of use of the AI's answers, and who relies on them for which decisions or actions, are understood and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The limits of what the AI's answers can be trusted for, and how people and systems may use and oversee them, are documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.2",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The cost of wrong answers being trusted, and who or what could be harmed by a wrong decision or action, is examined and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.5",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "It is defined which outputs need a person to check them before they are acted on, and how that oversight works."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.1",
+        "cis_refs": [
+          "LLM-16.14"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The likelihood and size of impact from steered (injection, poisoning) and inaccurate answers are assessed and documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.1",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The test sets, metrics and tools used to check answer quality and injection resistance are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "LLM-8.11"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Answer quality and behaviour are monitored in production for drift, made-up facts and inconsistency, and improvements or declines over time are identified from field data and documented.",
+        "folded": [
+          "MEASURE 4.3"
+        ]
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.5",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Accuracy and consistency of answers to the same question are demonstrated under conditions like real use (messy inputs, retrieved content), and the limits beyond tested conditions are documented.",
+        "folded": [
+          "MEASURE 2.3"
+        ]
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.6",
+        "cis_refs": [
+          "LLM-16.13"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The output is evaluated for what happens when it is wrong or made to go beyond its knowledge limits, and that it fails safely."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-16.3",
+          "LLM-18.2",
+          "LLM-16.13"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Resistance of answers to prompt injection and poisoned content is tested, for example by red-teaming, and documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.2",
+          "LLM-8.5",
+          "LLM-8.1"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Outputs are logged with what produced them, so wrong or steered answers can be traced and reviewed."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.9",
+        "cis_refs": [
+          "LLM-8.5"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Output is presented and interpreted within its context so people can judge how far to trust it."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.13",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The answer-quality and injection tests and metrics are themselves reviewed for whether they catch failures, so a weak test set cannot hide them."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 3.3",
+        "cis_refs": [
+          "LLM-17.3"
+        ],
+        "impact": [
+          "people"
+        ],
+        "why": "People who receive answers can report wrong output and appeal decisions based on it, and these reports feed evaluation."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 4.2",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Domain experts and users validate, in the deployment context, that answers are consistently as intended, and the results are documented."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 1.1",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "A determination is made and recorded whether the answers meet the intended purpose and whether the AI should continue to be relied on."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "LLM-16.10",
+          "LLM-16.11"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Mechanisms such as business rules that limit or restrict what answers can be used for, and human-AI teaming set-ups, are in place and applied to keep answers valuable and trustworthy in use."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.4",
+          "LLM-17.1"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Procedures exist and are followed to respond to and recover from wrong or steered output once found."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-17.9"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The output or AI can be switched off or bypassed when answers are inconsistent with intended use, with thresholds and owners."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.8",
+          "LLM-17.3"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Wrong-output incidents are communicated to those affected, tracked, and recorded with their fixes."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_output_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.9",
+      "reason": "LLM-8.5 (detailed audit logs) does not support how output is presented and interpreted so people can judge trust; the ref is off-topic."
+    },
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.7",
+      "reason": "LLM-16.3 (root cause analysis on vulnerabilities) is not evidence for injection/poisoning resistance testing; drop it."
+    },
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.6",
+      "reason": "LLM-16.13 (application penetration testing) does not evidence that wrong or out-of-knowledge output fails safely, and it is already used on MEASURE 2.7; the ref is weak."
+    },
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 2.2",
+      "reason": "The 'how people and systems may use and oversee them' part repeats MAP 3.5 (which outputs need human checking and how oversight works); keep only the knowledge limits here."
+    },
+    {
+      "kind": "missing",
+      "function": "MAP",
+      "subcategory": "MAP 1.6",
+      "reason": "Nothing checks that accuracy, consistency and trust requirements for the AI's answers were elicited from the people and systems relying on them."
+    },
+    {
+      "kind": "missing",
+      "function": "MAP",
+      "subcategory": "MAP 3.1",
+      "reason": "Nothing checks the benefit the answers are meant to bring (performance against a human baseline), which is what wrong-answer cost is weighed against."
+    },
+    {
+      "kind": "missing",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 4.1",
+      "reason": "Post-deployment plan for output (user input, appeal and override, change management when a model or prompt update changes answers) is not asked beyond drift monitoring in MEASURE 2.4."
+    }
+  ]
+}

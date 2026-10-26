@@ -1,0 +1,390 @@
+{
+  "recorded_at": "2026-10-26T16:15:24.015543+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_model_building_draft2.json",
+    "sha": "6e4b6863919a0958"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "9c437924c7fd0727"
+  },
+  "output_snapshot": {
+    "area": "model_building",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.1",
+        "cis_refs": [
+          "LLM-16.1"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The intended purpose, users and settings of the model the org builds or tunes, and the impact of its release on recipients, are documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.6",
+        "cis_refs": [
+          "LLM-16.1"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Requirements for the model, including safety and privacy, are elicited and drive design and tuning decisions."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.1",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The task the model supports and the methods used to build or tune it (from scratch, base model, domain tuning) are defined."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model's knowledge limits, how its output may be used, overseen and interpreted, are documented and communicated to those who receive the model.",
+        "folded": [
+          "MEASURE 2.9"
+        ]
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.1",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The benefits the model is meant to give recipients are examined and documented, including with the recipients themselves."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.2",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The cost to recipients of the model's errors or unsafe changes is examined and documented against the org's risk tolerance."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.3",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The scope the model is released for is specified from its capabilities, so recipients know what it should and should not be used for."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-16.4",
+          "LLM-2.1"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The base models and software the model is built from are mapped for technical and legal risk, including IP infringement, and the internal controls applied to them are documented.",
+        "folded": [
+          "MAP 4.2"
+        ]
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.1",
+        "cis_refs": [
+          "LLM-16.3"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Likelihood and magnitude of harm to recipients from releasing the model are assessed, using red teaming and past incidents."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 1.3",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "People who did not build the model, or independent assessors, take part in assessing it before and after release."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.3",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model is shown to be valid and reliable under conditions like those of the recipients' use before release, and its limits beyond those conditions are documented.",
+        "folded": [
+          "MEASURE 2.5"
+        ]
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "LLM-8.11"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The behaviour of the released model (API, weights, embedded) is monitored in production for drift and misuse, where the org can see it."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.6",
+        "cis_refs": [
+          "LLM-16.13"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model is evaluated for safety risks and shown to fail safely when operated beyond its knowledge limits."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-16.3",
+          "LLM-16.13",
+          "LLM-16.14"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The security and resilience of the model against adversarial attack are evaluated and documented before release."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.1",
+          "LLM-8.2"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Model build, tuning and release events are logged so changes to the model can be traced to who made them."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [
+          "LLM-16.3"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model is tested for memorising or leaking personal data from its training or tuning data."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.11",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "Bias in the model's behaviour across the groups affected by the decisions recipients make with it is evaluated before release, since recipients inherit it."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 3.3",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "Recipients of the model have a way to report problems with it, and the reports feed into its evaluation."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 4.3",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "Performance of new model versions is compared against a baseline so declines after tuning or release are identified and documented."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 1.1",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "A documented decision is made on whether the model meets its purpose and should be released."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.4",
+          "LLM-17.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Procedures exist to respond to and recover from a previously unknown risk found in a released model."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-17.9"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "A released model can be withdrawn, replaced or deactivated when it behaves outside its intended use, with named responsibility."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.2",
+        "cis_refs": [
+          "LLM-16.2",
+          "LLM-2.2"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Pre-trained models and other third-party resources the build starts from are monitored and maintained, including upstream vulnerabilities and changes.",
+        "folded": [
+          "MANAGE 3.1"
+        ]
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.1",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "A post-release monitoring plan is implemented for the model, with scheduled re-evaluation and red teaming after release."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.2",
+        "cis_refs": [
+          "LLM-4.1",
+          "LLM-16.8",
+          "LLM-16.12"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Updates to a released model are tested, versioned and communicated to recipients before they receive them."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.3",
+          "LLM-17.4",
+          "LLM-17.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Incidents and errors in the model are tracked, communicated to the recipients who depend on it, and recovered from."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_model_building_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 2.2",
+      "reason": "Folds MEASURE 2.9 but the why never asks whether the model itself is explained and validated, only limits and communication; ask it fully or give MEASURE 2.9 its own row."
+    },
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 3.2",
+      "reason": "Cost to recipients of the model's errors repeats MAP 5.1 (likelihood and magnitude of harm to recipients from release); same check in different words."
+    },
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 3.3",
+      "reason": "Scope the model is released for and what recipients should not use it for repeats MAP 2.2 (how output may be used, limits communicated) and MAP 1.1 (intended purpose and settings)."
+    },
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 1.1",
+      "reason": "LLM-16.1 (secure development process) is not evidence of documenting the model's intended purpose, users and settings; cis_refs off-topic."
+    },
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.10",
+      "reason": "LLM-16.3 (root cause analysis on security vulnerabilities) does not support testing for memorised or leaked personal data; cis_refs off-topic."
+    },
+    {
+      "kind": "row",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 4.1",
+      "reason": "Empty cis_refs although LLM-8.11 (audit log reviews) supports post-release monitoring; also overlaps MEASURE 2.4 (production monitoring for drift), keep the two checks distinct."
+    },
+    {
+      "kind": "missing",
+      "function": "MAP",
+      "subcategory": "MAP 2.3",
+      "reason": "Nothing checks the experimental design, construct validation and choice of training/tuning data when the org builds or tunes the model."
+    },
+    {
+      "kind": "missing",
+      "function": "MAP",
+      "subcategory": "MAP 5.2",
+      "reason": "Nothing checks how feedback from recipients and others affected by the model, on positive, negative and unanticipated impacts, is gathered and fed back into the build."
+    },
+    {
+      "kind": "missing",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.12",
+      "reason": "Training and tuning a model has an environmental and energy cost that an assessor can ask about for this area."
+    },
+    {
+      "kind": "missing",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 4.2",
+      "reason": "Nothing checks that the model's performance in recipients' real deployment contexts is validated with input from domain experts and recipients."
+    },
+    {
+      "kind": "missing",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 2.2",
+      "reason": "Nothing checks the mechanisms (retraining, support, maintenance) that sustain the value of a released model for recipients over time."
+    },
+    {
+      "kind": "note",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.11",
+      "reason": "This row and MAP 3.2, MAP 5.1 protect recipients and the people affected by their decisions (harm to people/processes); the area's impacts (assets only) may be too narrow."
+    }
+  ]
+}
