@@ -21,8 +21,8 @@
          "allowed": ["both", "consumer", "producer"],
          "help": "Which question bank: consumer, producer or both."},
         {"key": "impact", "header": "Impact", "type": "list", "required": true, "width": 18,
-         "allowed": ["data", "access", "process", "assets"],
-         "help": "The attack areas a failure here hits, one or more: data (exposed, leaked, poisoned), access (permissions and credentials used or abused), process (a business process or decision goes wrong), assets (model, code or infrastructure stolen, damaged or taken down)."},
+         "allowed": ["data", "access", "process", "assets", "people"],
+         "help": "The attack areas a failure here hits, one or more: data (exposed, leaked, poisoned), access (permissions and credentials used or abused), process (a business process or decision goes wrong), assets (model, code or infrastructure stolen, damaged or taken down), people (individuals harmed by what the AI says or decides: wrong advice, unfair treatment, safety; AI RMF harm to People). Ecosystem harm is not used."},
         {"key": "covers", "header": "What it covers", "type": "text", "required": true, "width": 60,
          "help": "What is exposed and what can go wrong. The agents that draft the mapping read this."},
         {"key": "example_question", "header": "Example question", "type": "text", "required": false, "width": 50,
@@ -37,7 +37,7 @@
         "The freshness check reports this sheet as stale until it has been imported.",
         "Which areas a client gets comes from the intake: the usage and component menus list these ids, and data/ai/scope_rules.json (ai_area_rules) adds the automatic ones.",
         "Each area is checked through MAP, MEASURE and MANAGE in the mapping step (GOVERN is the foundation, asked once for the organisation); see AI_RMF_Mapping_Sheet_Design.md.",
-        "Dropdowns limit Kind and Applies to; Impact takes one or more of data, access, process, assets separated by commas. Column help is below."
+        "Dropdowns limit Kind and Applies to; Impact takes one or more of data, access, process, assets, people separated by commas. Column help is below."
       ]
     },
     "mapping": {
@@ -70,7 +70,7 @@
         {"key": "cis_titles", "header": "Safeguard titles", "type": "text", "required": false, "width": 45, "in_json": false,
          "help": "Do not edit. The titles of the safeguards as exported; refreshed on the next export."},
         {"key": "impact", "header": "Impact", "type": "list", "required": false, "width": 12,
-         "allowed": ["data", "access", "process", "assets"],
+         "allowed": ["data", "access", "process", "assets", "people"],
          "help": "One or more of the area's impacts, separated by commas. Needed when Mapped is yes."},
         {"key": "status", "header": "Status", "type": "enum", "required": false, "width": 14,
          "allowed": ["pass", "needs_human_review"],

@@ -18,7 +18,9 @@ unchecked.
 ## Check every row
 1. The subcategory really checks THIS area: an assessor could ask how the org handles this area under that outcome.
    Fail rows that are only generically important, fit another area better, are there only to fill a function, or
-   repeat another row's check in different words. Fail a row that asks whether a policy, role or approval exists
+   repeat another row's check in different words. "Another area" means one in the input's `other_areas` (the rest of
+   the AI areas sheet): fail a row whose check belongs to another area's `covers`, and a row whose `why` would read
+   the same for any area. Fail a row that asks whether a policy, role or approval exists
    (that is GOVERN, asked once for the organisation) instead of what is done about this area in practice.
 2. The `cis_refs` support the row (evidence for that subcategory about this area). Fail a safeguard that is off-topic.
    Fail an empty `cis_refs` when a safeguard in `cis_candidates` supports the row (name it).

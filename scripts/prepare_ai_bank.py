@@ -94,6 +94,8 @@ def prepare_mapping(inp: dict, area_id: str) -> Path:
     out = AI_BUILD / f"mapping_input_{area_id}.json"
     out.write_text(json.dumps({
         "area": areas[area_id],
+        "other_areas": [{k: a[k] for k in ("id", "name", "applies_to", "covers")}
+                        for a in areas.values() if a["id"] != area_id],   # the rest of the AI areas sheet
         "functions": rules["functions"],
         "function_definitions": {f["id"]: f["description"] for f in inp["core"]["functions"]},
         "foundation": rules["foundation"]["functions"] + rules["foundation"]["subcategories"],

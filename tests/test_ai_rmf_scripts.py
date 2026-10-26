@@ -402,9 +402,13 @@ class Mapping(unittest.TestCase):
         self.assertTrue(cand and all(c["id"].startswith("MCP-") for c in cand))
         self.assertTrue(all(int(c["id"].split("-")[1].split(".")[0]) in allowed for c in cand))
         self.assertEqual(list(doc["subcategories"]), ["MAP", "MEASURE", "MANAGE"])   # GOVERN is foundation
-        self.assertEqual(sum(len(v) for v in doc["subcategories"].values()), 72 - 19 - 8)   # and 8 foundation subs
+        self.assertEqual(sum(len(v) for v in doc["subcategories"].values()), 72 - 19 - 12)   # and 12 foundation subs
         self.assertEqual(set(doc["function_definitions"]), {"GOVERN", "MAP", "MEASURE", "MANAGE"})
-        self.assertEqual(doc["foundation"], ["GOVERN"] + ["MAP 1.3", "MAP 1.5", "MEASURE 1.1", "MEASURE 3.2", "MEASURE 4.1", "MANAGE 1.2", "MANAGE 1.3", "MANAGE 2.1"])
+        others = {a["id"]: a for a in doc["other_areas"]}                   # the rest of the AI areas sheet
+        self.assertEqual(len(others), 13)
+        self.assertNotIn("mcp_tools", others)
+        self.assertEqual(set(others["model_building"]), {"id", "name", "applies_to", "covers"})
+        self.assertEqual(doc["foundation"], ["GOVERN"] + ["MAP 1.3", "MAP 1.5", "MAP 3.4", "MEASURE 1.1", "MEASURE 1.2", "MEASURE 3.1", "MEASURE 3.2", "MEASURE 4.1", "MANAGE 1.2", "MANAGE 1.3", "MANAGE 1.4", "MANAGE 2.1"])
         self.assertIn("audit trail", [c["name"] for c in doc["rules"]["required_checks"]])
 
     def test_mapping_rules_match_the_cis_guides(self):
@@ -428,7 +432,7 @@ class Mapping(unittest.TestCase):
     def test_foundation_subcategories_are_asked_once_not_per_area(self):
         from ai_bank_common import check_mapping_rules
         rules = json.loads(R.AI_MAPPING_RULES.read_text())
-        self.assertEqual(rules["foundation"]["subcategories"], ["MAP 1.3", "MAP 1.5", "MEASURE 1.1", "MEASURE 3.2", "MEASURE 4.1", "MANAGE 1.2", "MANAGE 1.3", "MANAGE 2.1"])
+        self.assertEqual(rules["foundation"]["subcategories"], ["MAP 1.3", "MAP 1.5", "MAP 3.4", "MEASURE 1.1", "MEASURE 1.2", "MEASURE 3.1", "MEASURE 3.2", "MEASURE 4.1", "MANAGE 1.2", "MANAGE 1.3", "MANAGE 1.4", "MANAGE 2.1"])
         self.assertEqual(check_mapping_rules(rules, self.inp), [])
         for extra, words in ((["MAP 9.9"], "foundation subcategories"), (["GOVERN 1.6"], "foundation subcategories")):
             bad = json.loads(json.dumps(rules))
@@ -529,7 +533,7 @@ class Mapping(unittest.TestCase):
         self.assertIn("GOVERN 1.6", reached)
         self.assertIn("MEASURE 2.11", unreached)
         self.assertIn("MANAGE 1.2", reached)            # foundation subcategory, asked once for the organisation
-        self.assertIn("MANAGE 1.4", unreached)          # not foundation: an area must reach it
+        self.assertIn("MANAGE 1.1", unreached)          # not foundation: an area must reach it
         self.assertEqual(len(reached) + len(unreached), 72)
         self.assertEqual(len(list(R.LOG_DIR.glob("*_mapping_mcp_tools.json"))), 1)
 

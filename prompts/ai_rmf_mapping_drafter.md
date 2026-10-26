@@ -3,7 +3,9 @@ only. Do not read the Playbook or CIS PDFs, other data files, or any file from a
 
 ## Input
 - `area`: the AI area (id, name, kind, applies_to, impact, covers). `covers` says what is exposed and what can go wrong.
-  `impact` lists the attack areas a failure here hits: data, access, process, assets.
+  `impact` lists the attack areas a failure here hits: data, access, process, assets, people.
+- `other_areas`: the other AI areas of the same sheet (id, name, applies_to, covers). A client may have several of them,
+  and each is mapped on its own.
 - `functions`: the functions you map: MAP, MEASURE, MANAGE.
 - `function_definitions`: the Playbook's own statement of each AI RMF function, including GOVERN.
 - `foundation`: GOVERN, and any single subcategory listed with it. It is the foundation: how the organisation works with
@@ -35,7 +37,9 @@ exists.
    example, granting a tool access is MANAGE, not GOVERN 2.1). There is no target number of rows: add a row for
    every subcategory that really checks this area, and no others. A narrow area may need few rows, a broad one many.
    Do not repeat a function + subcategory.
-2. Map only where a question about this area's own practice can be asked. Do not map because a subcategory is important
+2. Map only where a question about this area's own practice can be asked. Leave a subcategory out when what it would
+   check belongs to another area's `covers` (for example, model performance and testing belong to model building, not
+   to the model as an asset), or when the `why` would read the same for any area. Do not map because a subcategory is important
    in general. A function with no fitting subcategory gets a `no_question` entry with a one-sentence reason instead of
    rows.
 3. Meet every entry in `required_checks`: a row on one of its `any_of` subcategories, and where it has `cis_control`,

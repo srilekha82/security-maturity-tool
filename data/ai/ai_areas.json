@@ -1,7 +1,7 @@
 {
   "description": "AI areas of the AI RMF assessment: the ways AI is used and the components of the AI ecosystem, each with the attack areas it impacts. Generated from data/ai/authoring/ai_areas.xlsx by scripts/sheet_io.py import; the spreadsheet is the decision, edit it, not this file. Model: AI_RMF_Mapping_Sheet_Design.md.",
   "source": "data/ai/authoring/ai_areas.xlsx",
-  "source_sha": "64b0e5636fe5b7a9",
+  "source_sha": "956b32656b9041fe",
   "generated_by": "scripts/sheet_io.py import ai_areas",
   "ai_areas": [
     {
@@ -33,7 +33,8 @@
       "applies_to": "both",
       "impact": [
         "process",
-        "data"
+        "data",
+        "people"
       ],
       "covers": "Public users can attack the AI (prompt injection, abuse), and AI output reaches customers directly: wrong, harmful or leaked answers in front of customers."
     },
@@ -84,7 +85,8 @@
       "kind": "component",
       "applies_to": "both",
       "impact": [
-        "process"
+        "process",
+        "people"
       ],
       "covers": "Answers that are wrong and are then trusted by people and systems, so they become a wrong decision or action. Two kinds: steered by an attacker (prompt injection through user input or retrieved content, poisoned answers), or simply inaccurate with no attacker (made-up facts, different answers to the same question, quality drifting over time)."
     },
@@ -105,8 +107,7 @@
       "kind": "component",
       "applies_to": "producer",
       "impact": [
-        "assets",
-        "process"
+        "assets"
       ],
       "covers": "The model itself as IP: weights, fine-tuned versions, system prompts and configurations. Theft, copying, extraction through the API, tampering with versions."
     },

@@ -90,7 +90,10 @@ access-granting safeguard, GOVERN 6.2 citing a containment procedure). The Playb
   agreed 2026-10-26 from the Coverage sheet of the first full run (reached by no area, the same for every area). Not
   foundation, although no area reached them in that run: MAP 1.2 (who is involved and whether they can spot bias
   depends on the area: model and model building for producers, the process for consumers), MAP 1.4 (business value,
-  asked with the area's impact) and MEASURE 4.3 (performance and drift of a model). They keep
+  asked with the area's impact) and MEASURE 4.3 (performance and drift of a model). MAP 3.4 (proficiency and
+  training), MEASURE 1.2 (are the metrics and controls still effective), MEASURE 3.1 (tracking new risks) and MANAGE
+  1.4 (accepted residual risks), agreed 2026-10-26 after the pilot re-run wrote them with the same why in mcp_tools,
+  agent and model; MAP 1.1 (purpose) and MANAGE 1.1 (go / no-go) stay per area. 12 in all. They keep
   their AI RMF id (they are not relabelled as GOVERN), are asked once for the organisation like GOVERN, are left out
   of the drafter's input and the review sheet, and the recording script rejects them as area rows.
 - **A question = one AI area x one mapped function**, landing on one AI RMF subcategory. The function is not in the AI
@@ -123,7 +126,10 @@ Inventory is not a per-area check: it is GOVERN 1.6, foundation, asked once (the
 client's areas). CIS controls 1 and 2 stay candidates in every area for MAP rows on the area's components.
 
 ## 4. Severity: priority of findings (does not change which questions are asked)
-- Each mapping row carries one or more of its area's impacts (data, access, process, assets).
+- Each mapping row carries one or more of its area's impacts (data, access, process, assets, people). `people`
+  (added 2026-10-26) is harm to individuals from what the AI says or decides (AI RMF harm to People); it is set on
+  customer-facing and output. Agent, MCP tools and model are first an access or asset risk; people harm there is
+  secondary and not listed. AI RMF Ecosystem harm is not used.
 - Data findings rank by data classification, assessed through the questions.
 - Process findings rank by process criticality, from one standard question in every questionnaire (MAP 1.1, MAP 5.1):
   for each process AI is used in, the worst realistic outcome if the AI gets it wrong. Financial loss: under USD 100k /
@@ -159,8 +165,9 @@ an area gets a row for every subcategory that really checks it (each at most onc
 
 ## 6. Pipeline
 1. AI areas spreadsheet (person) -> `sheet_io.py import ai_areas` -> `ai_areas.json`.
-2. A script crosses the areas with MAP, MEASURE and MANAGE and prepares a compact input per area (area, the Playbook
-   definition of each function, the subcategories of each mapped function with suggested actions, the candidate CIS
+2. A script crosses the areas with MAP, MEASURE and MANAGE and prepares a compact input per area (area, the other
+   areas of the sheet (id, name, applies to, covers) so the agents can leave out what belongs to another area, the
+   Playbook definition of each function, the subcategories of each mapped function with suggested actions, the candidate CIS
    safeguards).
 3. Drafter agent goes through every MAP, MEASURE and MANAGE subcategory and writes a row for each that checks the
    area: subcategory, safeguards (from the candidates; empty only when none fits), impact, why. One area at a time.

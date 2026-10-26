@@ -14,14 +14,13 @@ checked against the guides; no row count (content decides, the evaluator fails p
 labels): all 19 GOVERN subcategories are asked once for the organisation, picked by intake role (none, consumer,
 producer), never mapped to an AI area; areas map only MAP (context), MEASURE (checking) and MANAGE (responding).
 `foundation` replaces `org_wide` in `mapping_rules.json` (foundation subcategories: MEASURE 3.2, 4.1 and MANAGE 1.2, 1.3
-on 2026-10-23; MAP 1.3, 1.5, MEASURE 1.1 and MANAGE 2.1 on 2026-10-26);
+on 2026-10-23; MAP 1.3, 1.5, 3.4, MEASURE 1.1, 1.2, 3.1, MANAGE 1.4, 2.1 on 2026-10-26);
 the per-area inventory check is gone (inventory is GOVERN 1.6). `ai_rmf_core.json` now holds the functions with their
 Playbook descriptions, which the drafter and evaluator get. See `AI_RMF_Mapping_Sheet_Design.md` section 3.
 **First full run (2026-10-23) reviewed on 2026-10-26 and deleted** (`mapping.json`, `mapping.xlsx`; the judgement log
 and audit trail are kept). 203 rows, 14 needing review, 11 subcategories reached by no area; the evaluator judged the
 rows that were there well but missed what was absent. Decided and done (2026-10-26):
-- Model impact `assets, process`; MAP 1.3, 1.5, MEASURE 1.1, MANAGE 2.1 foundation (MAP 1.2, 1.4, MEASURE 4.3 stay
-  area subcategories).
+- MAP 1.3, 1.5, MEASURE 1.1, MANAGE 2.1 foundation (MAP 1.2, 1.4, MEASURE 4.3 stay area subcategories).
 - Drafter and evaluator go through every subcategory, not only the obvious ones; an empty `cis_refs` fails when a
   candidate fits; folds only when the row fully asks the folded outcome.
 - A folded subcategory counts as reached (asked and scored through its row).
@@ -30,11 +29,22 @@ rows that were there well but missed what was absent. Decided and done (2026-10-
 - A re-draft merged with the person's decisions is checked again; removing a row with folds in the sheet is
   rejected; the sheet column is "Why (comment)".
 - Same model for drafter and evaluator in the pilot, so the comparison tests the prompt change only.
-1. Pilot the re-run on `mcp_tools`, `agent` and `model` (ask the user before running). Compare with the first run
-   (the judgement log has it): expect MAP 1.6 and MEASURE 2.6 on mcp_tools, MANAGE 4.1 on agent (override and
-   rollback), MEASURE 2.3 on model, fewer rows without CIS safeguards, model rows using the `process` impact. If
-   clearly better, draft the other 11 (then expect MEASURE 2.3 on output, MAP 3.1 on customer_facing or
-   internal_process, MAP 5.2 on customer_facing); if not, tune the prompts first.
+**Pilot re-run (mcp_tools, agent, model; 2026-10-26) reviewed and deleted.** It found what the first run missed
+(MAP 1.6, MEASURE 2.6 on mcp_tools; MANAGE 4.1 on agent; MEASURE 2.3) but over-mapped: rows doubled (model 12 -> 34,
+agent 16 -> 36, mcp_tools 14 -> 26), six subcategories written with the same why in all three areas, and model took
+model-building rows (performance, benefits, go / no-go). Cause: the agents saw only their own area. Decided and done:
+- Model is IP: impact back to `assets` (the 2026-10-26 widening to `process` was wrong).
+- New impact `people` (AI RMF harm to People; no Ecosystem), on customer_facing and output only. Agent and MCP tools
+  are access first; model building's people harm comes through output.
+- MAP 3.4, MEASURE 1.2, MEASURE 3.1, MANAGE 1.4 foundation (12 in all); MAP 1.1 and MANAGE 1.1 stay per area.
+- The input gives the agents `other_areas` (id, name, applies to, covers from the AI areas sheet); both prompts leave
+  out (evaluator: fail) a row that belongs to another area's covers or whose why would read the same for any area.
+- One question citing many safeguards is fine (no change).
+1. Pilot again on `model` and `agent` (ask the user before running). Expect: model rows only about the model as an
+   asset (theft, extraction, tampering, versions, access), roughly the first run's size plus real additions; agent
+   keeps MANAGE 4.1 and MEASURE 2.6 without the six repeated rows; no subcategory with the same why in both. If good,
+   run mcp_tools and the other 11 (expect MEASURE 2.3 on output, MAP 3.1 on customer_facing or internal_process, MAP
+   5.2 on customer_facing).
 2. Review `mapping.xlsx` (Status = needs_human_review: failed rows and missing lines; Evaluator note), then the
    Coverage sheet; `sheet_io.py import mapping`.
 3. Accept: `.venv/bin/python ./scripts/ai_pilot.py accept-mapping` (refuses while an area is missing or stale, a row
