@@ -17,18 +17,28 @@ producer), never mapped to an AI area; areas map only MAP (context), MEASURE (ch
 on 2026-10-23; MAP 1.3, 1.5, MEASURE 1.1 and MANAGE 2.1 on 2026-10-26);
 the per-area inventory check is gone (inventory is GOVERN 1.6). `ai_rmf_core.json` now holds the functions with their
 Playbook descriptions, which the drafter and evaluator get. See `AI_RMF_Mapping_Sheet_Design.md` section 3.
-**All 14 AI areas are drafted and recorded (2026-10-23)**, with folds recorded (`folded` on a row). 203 rows; 14 rows
-need human review (agent has 6: one MANAGE-level failure, "missing MANAGE 4.1", marks every MANAGE row of the area);
-11 MAP/MEASURE/MANAGE subcategories are reached by no area (MAP 1.2, 1.3, 1.4, 1.5, 1.6, 3.1, 5.2; MEASURE 1.1, 2.3,
-4.3; MANAGE 2.1), several of them only folded into another row (the Coverage sheet says "folded into ...").
-Review of the first full run (2026-10-26): re-run rather than fix the sheet by hand (no human edits yet). Decided so
-far: Model impact widened to `assets, process` (drift and reliability rows harm processes); MAP 1.3, 1.5, MEASURE 1.1,
-MANAGE 2.1 made foundation (MAP 1.2, 1.4 and MEASURE 4.3 stay area subcategories). Both make the recorded mapping
-stale. Still to decide: the rest of the decision table (prompt fixes, folds, code fixes, re-run plan).
-1. Settle the rest of the decision table, fix the prompts and code, then re-run (pilot mcp_tools, agent, model first).
-2. Accept: `.venv/bin/python ./scripts/ai_pilot.py accept-mapping` (refuses while an area is missing or stale, a row
+**First full run (2026-10-23) reviewed on 2026-10-26 and deleted** (`mapping.json`, `mapping.xlsx`; the judgement log
+and audit trail are kept). 203 rows, 14 needing review, 11 subcategories reached by no area; the evaluator judged the
+rows that were there well but missed what was absent. Decided and done (2026-10-26):
+- Model impact `assets, process`; MAP 1.3, 1.5, MEASURE 1.1, MANAGE 2.1 foundation (MAP 1.2, 1.4, MEASURE 4.3 stay
+  area subcategories).
+- Drafter and evaluator go through every subcategory, not only the obvious ones; an empty `cis_refs` fails when a
+  candidate fits; folds only when the row fully asks the folded outcome.
+- A folded subcategory counts as reached (asked and scored through its row).
+- Evaluator findings have a kind: `row`, `missing` (named subcategory, stored once per area, shown as a flagged
+  Mapped = no line; no longer flags every row of the function), `note` (does not block; e.g. area impact too narrow).
+- A re-draft merged with the person's decisions is checked again; removing a row with folds in the sheet is
+  rejected; the sheet column is "Why (comment)".
+- Same model for drafter and evaluator in the pilot, so the comparison tests the prompt change only.
+1. Pilot the re-run on `mcp_tools`, `agent` and `model` (ask the user before running). Compare with the first run:
+   expect MAP 1.6 and MEASURE 2.6 on mcp_tools, MANAGE 4.1 on agent (override and rollback), fewer rows without CIS
+   safeguards, MEASURE 2.3 on output or model, MAP 3.1 on customer_facing or internal_process, MAP 5.2 on
+   customer_facing. If clearly better, draft the other 11; if not, tune the prompts first.
+2. Review `mapping.xlsx` (Status = needs_human_review: failed rows and missing lines; Evaluator note), then the
+   Coverage sheet; `sheet_io.py import mapping`.
+3. Accept: `.venv/bin/python ./scripts/ai_pilot.py accept-mapping` (refuses while an area is missing or stale, a row
    needs review or the sheet has unimported edits; lists the unreached subcategories in the acceptance).
-3. Then TODO step 4 below.
+4. Then TODO step 4 below.
 Note: in this codespace `check_freshness.py --ai-bank` stops at "sources missing: CIS -> CSF xlsx" before it reaches
 the mapping line; upload that file (data/ai/source/README.md) to see the `mapping` stage.
 
@@ -47,7 +57,7 @@ the mapping line; upload that file (data/ai/source/README.md) to see the `mappin
 3. ~~Review and accept the mapping (the tooling).~~ Done 2026-10-23. Review sheet: `sheet_io.py export mapping` writes
    `data/ai/authoring/mapping.xlsx` (one line per area x MAP/MEASURE/MANAGE subcategory, mapped or not, Playbook outcome,
    safeguard titles; a Coverage sheet), `import mapping` validates every area like agent output and stores changed
-   lines as `decided_by: human` (a fold shows as a note on the Comments cell; removed lines are kept as
+   lines as `decided_by: human` (a fold shows as a note on the Why cell; removed lines are kept as
    `removed_by_human`). Accept gate: `ai_pilot.py accept-mapping` (`mapping_accepted.json`, a hash of the mapping's
    content). Freshness: a `mapping` stage in `check_freshness.py --ai-bank` (missing, incomplete, stale, rows needing
    review, sheet edited but not imported, not accepted or changed since, subcategories reached by no area). A re-drafted

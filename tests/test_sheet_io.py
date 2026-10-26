@@ -166,7 +166,7 @@ class MappingSheet(unittest.TestCase):
 
     def test_edits_are_stored_as_human_decisions(self):
         self.edit("MEASURE 2.10", Mapped="yes", Impact="access", **{"CIS safeguards": "MCP-6.8",
-                  "Comments": "Personal data a tool can reach is checked for privacy risk."})
+                  "Why (comment)": "Personal data a tool can reach is checked for privacy risk."})
         self.edit("MEASURE 2.7", Status="pass")                          # the person decides the failed row
         self.edit("MAP 2.2", Mapped="no")                                # and removes one
         self.assertEqual(self.do_import(), 0)
@@ -179,9 +179,9 @@ class MappingSheet(unittest.TestCase):
         self.assertEqual(rows["MANAGE 2.4"]["decided_by"], "agent")      # untouched rows keep what was recorded
 
     def test_bad_edits_are_rejected_and_nothing_is_written(self):
-        cases = [("MEASURE 2.10", {"Mapped": "yes", "Comments": "Privacy of what tools can reach is checked.",
+        cases = [("MEASURE 2.10", {"Mapped": "yes", "Why (comment)": "Privacy of what tools can reach is checked.",
                                    "Impact": "access", "CIS safeguards": "LLM-3.1"}),   # not a candidate
-                 ("MEASURE 2.10", {"Mapped": "yes", "Comments": "Privacy of what tools can reach is checked."}),
+                 ("MEASURE 2.10", {"Mapped": "yes", "Why (comment)": "Privacy of what tools can reach is checked."}),
                  ("MEASURE 2.8", {"Mapped": "no"}),                                     # the audit trail check
                  ("MAP 2.2", {"Subcategory": "GOVERN 1.6"})]                             # foundation, never per area
         for sub, cells in cases:
@@ -195,22 +195,52 @@ class MappingSheet(unittest.TestCase):
         ws = openpyxl.load_workbook(self.xlsx)["Mapping"]
         heads = [c.value for c in ws[1]]
         notes = {ws.cell(row=r, column=heads.index("Subcategory") + 1).value:
-                 ws.cell(row=r, column=heads.index("Comments") + 1).comment for r in range(2, ws.max_row + 1)}
+                 ws.cell(row=r, column=heads.index("Why (comment)") + 1).comment for r in range(2, ws.max_row + 1)}
         self.assertIn("Also covers MAP 1.6", notes["MAP 4.1"].text)
         self.assertIn("Folded into MAP 4.1", notes["MAP 1.6"].text)
         self.assertIsNone(notes["MAP 2.2"])
-        self.edit("MAP 4.1", Comments="The MCP servers and tools the AI can call are identified, with what each reaches.")
+        self.edit("MAP 4.1", **{"Why (comment)": "The MCP servers and tools the AI can call are identified, with what each reaches."})
         self.assertEqual(self.do_import(), 0)
         self.assertEqual((self.rows()["MAP 4.1"]["folded"], self.rows()["MAP 4.1"]["decided_by"]), (["MAP 1.6"], "human"))
         self.export()                                                    # mapping MAP 1.6 on its own ends the fold
-        self.edit("MAP 1.6", Mapped="yes", Impact="access", Comments="The intended access of each tool is documented.")
+        self.edit("MAP 1.6", Mapped="yes", Impact="access", **{"Why (comment)": "The intended access of each tool is documented."})
         self.assertEqual(self.do_import(), 0)
         self.assertNotIn("folded", self.rows()["MAP 4.1"])
         self.assertEqual(self.rows()["MAP 1.6"]["decided_by"], "human")
 
+    def test_removing_a_row_with_folds_is_rejected(self):
+        before = self.json.read_text()
+        self.edit("MAP 4.1", Mapped="no")                                # MAP 1.6 is folded into it
+        self.assertEqual(self.do_import(), 1)
+        self.assertEqual(self.json.read_text(), before)
+
+    def test_a_missing_row_is_a_flagged_line_the_person_decides(self):
+        doc = json.loads(self.json.read_text())
+        doc["areas"]["mcp_tools"]["missing"] = [
+            {"function": "MANAGE", "subcategory": "MANAGE 4.1", "reason": "Override and rollback of tool actions."},
+            {"function": "MEASURE", "subcategory": "MEASURE 2.6", "reason": "A failed tool fails safely."}]
+        doc["areas"]["mcp_tools"]["notes"] = [{"function": "MAP", "subcategory": "MAP 2.2", "reason": "Impact too narrow."}]
+        self.json.write_text(json.dumps(doc))
+        self.export()
+        ws = openpyxl.load_workbook(self.xlsx)["Mapping"]
+        heads = [c.value for c in ws[1]]
+        line = {ws.cell(row=r, column=heads.index("Subcategory") + 1).value:
+                {h: ws.cell(row=r, column=i + 1).value for i, h in enumerate(heads)} for r in range(2, ws.max_row + 1)}
+        self.assertEqual((line["MANAGE 4.1"]["Mapped"], line["MANAGE 4.1"]["Status"]), ("no", "needs_human_review"))
+        self.assertTrue(line["MANAGE 4.1"]["Evaluator note"].startswith("Missing: "))
+        self.assertEqual((line["MAP 2.2"]["Status"], line["MAP 2.2"]["Evaluator note"]), ("pass", "Note: Impact too narrow."))
+        self.edit("MANAGE 4.1", Mapped="yes", Impact="access", Status="pass",
+                  **{"Why (comment)": "A tool's actions can be overridden and rolled back in operation."})
+        self.edit("MEASURE 2.6", Status="pass")                         # decided: not needed
+        self.assertEqual(self.do_import(), 0)
+        entry = json.loads(self.json.read_text())["areas"]["mcp_tools"]
+        self.assertNotIn("missing", entry)
+        self.assertEqual(self.rows()["MANAGE 4.1"]["decided_by"], "human")
+        self.assertEqual(len(entry["notes"]), 1)
+
     def test_a_redraft_keeps_what_the_person_decided(self):
         import record_ai_bank as R
-        self.edit("MEASURE 2.10", Mapped="yes", Impact="access", Comments="Personal data a tool can reach is checked.")
+        self.edit("MEASURE 2.10", Mapped="yes", Impact="access", **{"Why (comment)": "Personal data a tool can reach is checked."})
         self.edit("MAP 2.2", Mapped="no")
         self.assertEqual(self.do_import(), 0)
         self.assertEqual(json.loads(self.json.read_text())["areas"]["mcp_tools"]["removed_by_human"], ["MAP 2.2"])
@@ -243,6 +273,12 @@ class MappingSheet(unittest.TestCase):
             self.assertFalse(ok)
             self.assertIn("incomplete (1 of", text)                                    # one area of the 14
             self.assertIn("1 rows need human review", text)
+            doc = json.loads(self.json.read_text())
+            doc["areas"]["mcp_tools"]["missing"] = [{"function": "MANAGE", "subcategory": "MANAGE 4.1", "reason": "x"}]
+            self.json.write_text(json.dumps(doc))
+            self.assertIn("1 missing rows to decide", PL.mapping_status()[1])
+            del doc["areas"]["mcp_tools"]["missing"]
+            self.json.write_text(json.dumps(doc))
             with self.assertRaises(SystemExit):
                 PL.accept_mapping(None)
             real = PL.mapping_problems

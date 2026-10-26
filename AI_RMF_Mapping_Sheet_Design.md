@@ -162,18 +162,26 @@ an area gets a row for every subcategory that really checks it (each at most onc
 2. A script crosses the areas with MAP, MEASURE and MANAGE and prepares a compact input per area (area, the Playbook
    definition of each function, the subcategories of each mapped function with suggested actions, the candidate CIS
    safeguards).
-3. Drafter agent fills each pair: subcategory, safeguards (from the candidates), impact, why. One area at a time.
-4. Evaluator agent (fresh context): returns failing rows only; one revision turn.
+3. Drafter agent goes through every MAP, MEASURE and MANAGE subcategory and writes a row for each that checks the
+   area: subcategory, safeguards (from the candidates; empty only when none fits), impact, why. One area at a time.
+4. Evaluator agent (fresh context): goes through every subcategory too and returns findings only, each with a kind:
+   `row` (a row fails), `missing` (a subcategory that should be a row, named), `note` (a remark that does not block,
+   e.g. the area's impacts look too narrow; the person decides the areas). One revision turn.
 5. Recording script: validates the whole file (ids, safeguards exist, impacts belong to the area, every area has rows,
    all 72 subcategories reached), stores the mapping JSON, write-once record.
 6. The mapping goes to a spreadsheet for review (`sheet_io.py export mapping` -> `data/ai/authoring/mapping.xlsx`):
    one line per AI area x MAP, MEASURE or MANAGE subcategory, mapped or not, with the Playbook outcome and safeguard
    titles, so missing subcategories are visible, plus a Coverage sheet (subcategory x area). The person edits; `import
-   mapping` checks every area like agent output and stores changed lines as `decided_by: human`. When the drafter merges two
-   subcategories into one row, the row lists the other in `folded`; the sheet shows it as a note on the Comments cell
-   of both lines.
+   mapping` checks every area like agent output and stores changed lines as `decided_by: human`. A failed row and a
+   `missing` line show Status needs_human_review with the evaluator's note; a `missing` line is decided by mapping it
+   or by setting Status to pass (a missing finding is stored once per area, so it does not flag the area's other
+   rows). When the drafter merges two subcategories into one row, the row lists the other in `folded`; the sheet shows
+   it as a note on the Why cell of both lines. **A folded subcategory counts as reached** (decided 2026-10-26): it is
+   asked and scored through the row it is folded into, so a fold is allowed only when that row's question fully asks
+   the folded outcome. A row with folds cannot be set to Mapped = no until its folds are mapped on their own lines.
 7. Accept gate (person): `ai_pilot.py accept-mapping`, tied to a hash of the mapping's content; the `mapping` stage of
-   `check_freshness.py --ai-bank` reports it. A re-drafted area keeps the person's decisions.
+   `check_freshness.py --ai-bank` reports it. A re-drafted area keeps the person's decisions, and the merged area is
+   checked against the rules again before it is stored.
 8. Questions per mapping row (generator, evaluator) -> producer and consumer banks; GOVERN questions per subcategory,
    each tagged with the roles it applies to (none, consumer, producer).
 

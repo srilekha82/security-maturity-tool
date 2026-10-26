@@ -59,12 +59,13 @@ time; the first run is a pilot on one area the user names, then stop and report.
 2. **Drafter** (a fresh subagent): follow `prompts/ai_rmf_mapping_drafter.md` with that input; write
    `work/mapping_<area>_draft1.json`. Pass paths, not content.
 3. **Evaluator** (another fresh subagent; it must not see the drafter's prompt): follow
-   `prompts/ai_rmf_mapping_evaluator.md` with the input and the draft; write the failures to
-   `work/mapping_<area>_eval1.json`.
-4. If there are failures: a fresh drafter revises (inputs: the input file, `draft1`, `eval1`; output the complete
+   `prompts/ai_rmf_mapping_evaluator.md` with the input and the draft; write its findings (kinds `row`, `missing`,
+   `note`) to `work/mapping_<area>_eval1.json`.
+4. If there are `row` or `missing` findings (notes alone do not need a revision): a fresh drafter revises (inputs: the input file, `draft1`, `eval1`; output the complete
    `work/mapping_<area>_draft2.json`), and a fresh evaluator checks it into `work/mapping_<area>_eval2.json`. Two turns at
    most.
-5. Record the last draft with the last evaluation (rows still failing are stored as `needs_human_review`):
+5. Record the last draft with the last evaluation (rows still failing are stored as `needs_human_review`, subcategories
+   still missing in the area's `missing` list, notes in `notes`; all three show in the review sheet):
    ```bash
    .venv/bin/python ./scripts/record_ai_bank.py mapping data/ai/bank_build/work/mapping_<area>_draft<N>.json \
        --review data/ai/bank_build/work/mapping_<area>_eval<N>.json --model <drafter model id> --session "evaluator=<model id>"
@@ -77,8 +78,8 @@ After each area is recorded, refresh the review sheet: `.venv/bin/python ./scrip
 `data/ai/authoring/mapping.xlsx`; it refuses if the sheet has edits not yet imported: ask the user to import them first
 with `sheet_io.py import mapping`).
 
-After the pilot area: stop. Show the user the recorded rows (function, subcategory, safeguards, impact, why), what the
-evaluator failed, the subcategories still unreached, and token use if you can see it, and point them to the review
+After the pilot areas (the user names them; for the 2026-10-26 re-run: `mcp_tools`, `agent`, `model`): stop. Show the user the recorded rows (function, subcategory, safeguards, impact, why), what the
+evaluator failed, the missing rows and notes, the subcategories still unreached, and token use if you can see it, and point them to the review
 sheet. The user reviews before any other area is drafted.
 
 When every area is recorded and the user has reviewed the sheet (no row left needs_human_review, edits imported), the

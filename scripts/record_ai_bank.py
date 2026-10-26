@@ -35,8 +35,13 @@ Record modes (agent output; every one needs --model, optional --session, --promp
                            this row also covers, merged by the drafter) names mapped subcategories that have no row of
                            their own and are folded once; every function has rows or a
                            no_question reason (not both); no repeated function + subcategory; every required check that applies to
-                           the area is met. --review is the evaluator's last list of failures [{"function", "subcategory" (or null for the whole function), "reason"}]:
-                           those rows (or functions) are stored as needs_human_review with the reason.
+                           the area is met. --review is the evaluator's last list [{"kind", "function", "subcategory",
+                           "reason"}]: kind "row" (default) fails a row, stored as needs_human_review with the reason;
+                           "missing" names a subcategory that should be a row, stored once in the area's `missing` list
+                           (it needs human review; the area's other rows are not flagged); "note" is a remark that never
+                           blocks (e.g. the area's impacts look too narrow), stored in the area's `notes`.
+                           The rows a person decided (decided_by human, removed_by_human) are merged in and the result
+                           is checked again before anything is stored.
                            -> data/ai/mapping.json   (the area's entry replaced; other areas kept)
 
 Candidate schema: subcategory_id is the key; each candidate has question_text, playbook_ref, cis_refs[],
@@ -238,14 +243,23 @@ def validate_mapping(data, inp, m: dict, review) -> list[str]:
         if not isinstance(review, list):
             errors.append("the review file must be a list of failures")
         else:
+            folded = {sid for r in rows if isinstance(r, dict) for sid in r.get("folded") or []}
             for f in review:
+                kind = f.get("kind", "row") if isinstance(f, dict) else None
                 key = (f.get("function"), f.get("subcategory")) if isinstance(f, dict) else None
-                if key is None or not str(f.get("reason", "")).strip():
-                    errors.append(f"review entry {f!r}: needs function, subcategory (or null) and reason")
-                elif key[1] is None and key[0] not in rules["functions"]:
-                    errors.append(f"review entry {f!r}: unknown function")
-                elif key[1] is not None and key not in seen:
-                    errors.append(f"review entry {f!r}: no such row in the mapping")
+                sub = inp["subs"].get(key[1]) if key else None
+                if key is None or kind not in REVIEW_KINDS or not str(f.get("reason", "")).strip():
+                    errors.append(f"review entry {f!r}: needs kind ({', '.join(REVIEW_KINDS)}), function, subcategory "
+                                  "and reason")
+                elif sub is None or sub["function"] != key[0]:
+                    errors.append(f"review entry {f!r}: subcategory must be a subcategory of the function")
+                elif kind == "row" and key not in seen:
+                    errors.append(f"review entry {f!r}: no such row in the mapping (use kind missing for a subcategory "
+                                  "that should be a row)")
+                elif kind == "missing" and (key in seen or key[1] in folded
+                                            or key[1] in rules["foundation"]["subcategories"]):
+                    errors.append(f"review entry {f!r}: missing must name a subcategory that is not a row, not folded "
+                                  "and not foundation (fail the row it is folded into instead)")
     return errors
 
 
@@ -272,29 +286,51 @@ def folded_problems(rows: list, inp: dict, rules: dict) -> list[str]:
     return errors
 
 
+REVIEW_KINDS = ("row", "missing", "note")
+
+
 def store_mapping(data, inp, m: dict, review) -> tuple[Path, str]:
-    failing = {}
+    failing, missing, notes = {}, [], []
     for f in review or []:
-        failing.setdefault((f["function"], f["subcategory"]), []).append(str(f["reason"]).strip())
+        entry = {"function": f["function"], "subcategory": f["subcategory"], "reason": str(f["reason"]).strip()[:500]}
+        kind = f.get("kind", "row")
+        if kind == "row":
+            failing.setdefault((f["function"], f["subcategory"]), []).append(entry["reason"])
+        else:
+            (missing if kind == "missing" else notes).append(entry)
     rows = []
     for r in data["rows"]:
-        why = failing.get((r["function"], r["subcategory"])) or failing.get((r["function"], None))
+        why = failing.get((r["function"], r["subcategory"]))
         rows.append({**r, "status": "needs_human_review" if why else "pass", "decided_by": "agent",
                      **({"review_reason": "; ".join(why)[:500]} if why else {})})
     doc = load_json(AI_MAPPING, "mapping.json") if AI_MAPPING.is_file() else {"areas": {}}
     rows, no_question, kept, removed = keep_human_decisions(rows, data.get("no_question", []),
                                                            doc["areas"].get(data["area"]), inp)
+    merged = {"area": data["area"], "no_question": no_question,
+              "rows": [{k: r[k] for k in ("function", "subcategory", "cis_refs", "impact", "why", "folded") if k in r}
+                       for r in rows]}
+    problems = validate_mapping(merged, inp, m, None) if kept else []
+    if problems:   # a person's earlier decision no longer fits the current rules: they decide, not the script
+        print("[record_ai_bank] ERROR: merged with the rows a person decided, the area breaks the rules; nothing "
+              "stored. Fix those lines in mapping.xlsx (sheet_io.py import mapping), then record again:\n  - "
+              + "\n  - ".join(problems), file=sys.stderr)
+        sys.exit(1)
+    own = {r["subcategory"] for r in rows}
+    missing = [x for x in missing if x["subcategory"] not in own and x["subcategory"] not in removed]
     doc["description"] = ("AI RMF mapping: per AI area, rows of AI RMF function -> subcategory, CIS safeguards that prove "
                           "it, impact. Drafted and evaluated by agents (prompts/ai_rmf_mapping_*.md), recorded by "
                           "record_ai_bank.py mapping, reviewed by a person. Model: AI_RMF_Mapping_Sheet_Design.md.")
     doc["areas"][data["area"]] = {
         "recorded_on": date.today().isoformat(), "inputs": mapping_input_hashes(inp),
-        "rows": rows, "no_question": no_question, **({"removed_by_human": removed} if removed else {})}
+        "rows": rows, "no_question": no_question, **({"missing": missing} if missing else {}),
+        **({"notes": notes} if notes else {}), **({"removed_by_human": removed} if removed else {})}
     doc["areas"] = {a: doc["areas"][a] for a in m["areas"] if a in doc["areas"]}   # ai_areas.json order
     AI_MAPPING.write_text(json.dumps(doc, indent=2, ensure_ascii=False))
     review_n = sum(1 for r in rows if r["status"] != "pass")
     reached, unreached = mapping_coverage(doc, inp, m["rules"])
     return AI_MAPPING, (f"{data['area']}: {len(rows)} rows ({review_n} need human review"
+                        + (f"; {len(missing)} missing rows to decide" if missing else "")
+                        + (f"; {len(notes)} evaluator notes" if notes else "")
                         + (f"; {kept} human decisions kept" if kept else "") + "); mapping has "
                         f"{len(doc['areas'])} of {len(m['areas'])} areas, {len(unreached)} subcategories not reached yet")
 
@@ -327,8 +363,9 @@ def mapping_input_hashes(inp: dict) -> dict:
 
 
 def mapping_coverage(doc: dict, inp: dict, rules: dict) -> tuple[set, list]:
-    """(subcategories reached by an area row or by a foundation function, the ones not reached, in AI RMF order)."""
-    reached = {r["subcategory"] for a in doc.get("areas", {}).values() for r in a["rows"]}
+    """(subcategories reached by an area row, a fold or the foundation, the ones not reached, in AI RMF order). A folded
+    subcategory is reached: it is asked and scored through the row it is folded into."""
+    reached = {s for a in doc.get("areas", {}).values() for r in a["rows"] for s in [r["subcategory"], *r.get("folded", [])]}
     reached |= set(foundation_subcategories(rules, inp))
     return reached, [s for s in inp["subs"] if s not in reached]
 
@@ -347,6 +384,10 @@ def mapping_sheet_rows(doc: dict, inp: dict, m: dict) -> tuple[list[dict], list[
     for area_id, entry in doc.get("areas", {}).items():
         by_sub = {r["subcategory"]: r for r in entry["rows"]}
         into = {f: r["subcategory"] for r in entry["rows"] for f in r.get("folded", [])}
+        missing = {x["subcategory"]: x["reason"] for x in entry.get("missing", [])}
+        notes = {}
+        for x in entry.get("notes", []):
+            notes.setdefault(x["subcategory"], []).append(x["reason"])
         for s in mapped_subs:
             r = by_sub.get(s["subcategory_id"])
             refs = r["cis_refs"] if r else []
@@ -360,8 +401,13 @@ def mapping_sheet_rows(doc: dict, inp: dict, m: dict) -> tuple[list[dict], list[
                 "subcategory": s["subcategory_id"], "outcome": s["outcome"], "mapped": bool(r),
                 "why": r["why"] if r else "", "cis_refs": refs,
                 "cis_titles": "; ".join(f"{g}: {inp['safeguards'][g]['title']}" for g in refs if g in inp["safeguards"]),
-                "impact": r["impact"] if r else [], "status": r["status"] if r else "",
-                "review_reason": r.get("review_reason", "") if r else "", "decided_by": r["decided_by"] if r else "",
+                "impact": r["impact"] if r else [],
+                "status": r["status"] if r else "needs_human_review" if s["subcategory_id"] in missing else "",
+                "review_reason": " ".join(filter(None, [
+                    r.get("review_reason", "") if r else "",
+                    f"Missing: {missing[s['subcategory_id']]}" if s["subcategory_id"] in missing else "",
+                    *[f"Note: {t}" for t in notes.get(s["subcategory_id"], [])]])),
+                "decided_by": r["decided_by"] if r else "",
             })
     drafted = doc.get("areas", {})
     reach = {(a, r["subcategory"]) for a in drafted for r in drafted[a]["rows"]}
@@ -374,10 +420,9 @@ def mapping_sheet_rows(doc: dict, inp: dict, m: dict) -> tuple[list[dict], list[
             coverage.append([s["function"], s["subcategory_id"], s["outcome"], "foundation (asked once, by role)",
                              *["" for _ in m["areas"]]])
             continue
-        hits = [a for a in m["areas"] if (a, s["subcategory_id"]) in reach]
-        cells = ["yes" if a in hits else f"folded into {folds[(a, s['subcategory_id'])]}"
+        cells = ["yes" if (a, s["subcategory_id"]) in reach else f"folded into {folds[(a, s['subcategory_id'])]}"
                  if (a, s["subcategory_id"]) in folds else "" for a in m["areas"]]
-        coverage.append([s["function"], s["subcategory_id"], s["outcome"], len(hits), *cells])
+        coverage.append([s["function"], s["subcategory_id"], s["outcome"], sum(1 for c in cells if c), *cells])
     return lines, coverage
 
 
@@ -405,12 +450,21 @@ def mapping_from_sheet(lines: list[dict], doc: dict, inp: dict, m: dict) -> tupl
         problems += [f"{area_id} / {sid}: the line is missing from the sheet; set Mapped to no instead of deleting it"
                      for sid in recorded if sid not in subs]
         rows, removed = [], set(areas[area_id].get("removed_by_human", []))
+        missing = {x["subcategory"]: x for x in areas[area_id].get("missing", [])}
         for sid, ln in subs.items():
             if not ln["mapped"]:
                 if sid in recorded:
                     changed += 1
                     removed.add(sid)
+                    if recorded[sid].get("folded"):
+                        problems.append(f"{area_id}: sheet row {ln['line']} ({sid}): {', '.join(recorded[sid]['folded'])} "
+                                        "folded into it would be lost; map them on their own lines first, or keep this row")
+                elif sid in missing and ln["status"] != "needs_human_review":
+                    changed += 1   # the person decided the evaluator's missing row is not needed
+                    missing.pop(sid)
                 continue
+            if missing.pop(sid, None):
+                changed += 1
             removed.discard(sid)
             new = {"function": ln["function"], "subcategory": sid, "cis_refs": ln["cis_refs"], "impact": ln["impact"],
                    "why": ln["why"], "status": ln["status"] or "pass"}
@@ -438,6 +492,9 @@ def mapping_from_sheet(lines: list[dict], doc: dict, inp: dict, m: dict) -> tupl
         problems += [f"{area_id}: " + next((e.replace(a, b, 1) for a, b in at.items() if e.startswith(a + " ")), e)
                      for e in validate_mapping(draft, inp, m, None)]
         new_doc["areas"][area_id].update(rows=rows, no_question=draft["no_question"])
+        new_doc["areas"][area_id].pop("missing", None)
+        if missing:
+            new_doc["areas"][area_id]["missing"] = list(missing.values())
         new_doc["areas"][area_id].pop("removed_by_human", None)
         if removed:
             new_doc["areas"][area_id]["removed_by_human"] = sorted(removed, key=list(inp["subs"]).index)

@@ -14,7 +14,10 @@ only. Do not read the Playbook or CIS PDFs, other data files, or any file from a
 - `rules`: `min_why_chars`, `required_checks` (checks this area must have).
 
 ## Task
-For each of the three mapped functions, choose the subcategories of that function that check THIS area: a subcategory
+Go through every subcategory in `subcategories`, one by one, and decide for each whether it checks this area. Do not
+stop at the obvious ones (security, privacy, logging, switching off): requirements, intended use, benefits, failing
+safely, performance in real conditions, feedback from the people affected and the like count as much. For each of the
+three mapped functions, choose the subcategories of that function that check THIS area: a subcategory
 whose outcome and suggested actions let an assessor ask how the org handles this area in practice (what it does, who
 does it, what evidence exists). A later step writes the questions; you decide only where they land. GOVERN sets the
 policies these practices follow; a row here asks whether the practice happens for this area, not whether a policy
@@ -38,14 +41,17 @@ exists.
 3. Meet every entry in `required_checks`: a row on one of its `any_of` subcategories, and where it has `cis_control`,
    that row cites a safeguard of that CIS control.
 4. `cis_refs`: ids from `cis_candidates` only, and only safeguards that support this row (evidence an assessor would
-   ask for). Prefer the lowest IG that fits; cite every safeguard that supports the row and no others; `[]` when none
-   fits.
+   ask for). Prefer the lowest IG that fits; cite every safeguard that supports the row and no others. Look through
+   all the candidates before leaving it empty: `[]` only when no candidate supports the row (the evaluator fails an
+   empty list when one does).
 5. `impact`: the one or more of the area's impacts this row protects (e.g. a MEASURE 2.10 privacy row on source data is
    `data`; a MEASURE 2.7 row on retrieval permissions is `access`). Never an impact the area does not list.
 6. `why`: one sentence saying what this subcategory checks about this area.
-7. `folded` (optional): when one row also covers what another subcategory of the same area would check (you merged
-   them instead of writing two rows), list that subcategory there, e.g. `"folded": ["MAP 2.2"]`. A folded subcategory
-   has no row of its own. Leave `folded` out when nothing was merged.
+7. `folded` (optional): when one row's question fully asks what another subcategory of the same area would check (you
+   merged them instead of writing two rows), list that subcategory there, e.g. `"folded": ["MAP 2.2"]`. A folded
+   subcategory has no row and no question of its own: it is asked and scored through this row, so fold only when the
+   row's `why` really covers the folded outcome. When in doubt, write two rows. Leave `folded` out when nothing was
+   merged.
 8. Do not decide by sector, org size or how any client works. Never invent an id.
 
 ## Output
@@ -71,6 +77,8 @@ wrong; nothing is stored until it passes.
 
 ## Revision turn
 If you are given the evaluator's failures, return the complete corrected file in the same format: fix or remove each
-failing row, add what the evaluator says is missing, and leave correct rows unchanged. When you remove a row and move
+failing row, add a row for each subcategory the evaluator lists as `missing` unless you are sure it does not check
+this area (then leave it out; it stays flagged for the person reviewing), and leave correct rows unchanged.
+Evaluator `note` entries are for the person reviewing; you need not act on them. When you remove a row and move
 its content into another row, list the removed subcategory in that row's `folded`, so a reviewer can see where it
 went.

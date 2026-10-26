@@ -480,6 +480,41 @@ class Mapping(unittest.TestCase):
         self.assertEqual(self.go(dict(g, rows=[r for r in rows if r["function"] != "MAP"],
                                       no_question=[{"function": "MAP", "reason": "Nothing about the tools' context here."}])), 0)
 
+    def test_missing_rows_and_notes_are_recorded_once_without_flagging_good_rows(self):
+        g = self.good()
+        bad_reviews = [[{"function": "MANAGE", "subcategory": None, "reason": "Missing MANAGE 4.1."}],      # name it
+                       [{"kind": "missing", "function": "MANAGE", "subcategory": "MANAGE 2.4", "reason": "x"}],  # a row
+                       [{"kind": "missing", "function": "MANAGE", "subcategory": "MANAGE 2.1", "reason": "x"}],  # foundation
+                       [{"kind": "guess", "function": "MAP", "subcategory": "MAP 2.2", "reason": "x"}]]
+        for rv in bad_reviews:
+            self.assertEqual(self.go(g, review=rv), 1, rv)
+            self.assertFalse(R.AI_MAPPING.exists(), rv)
+        review = [{"kind": "missing", "function": "MANAGE", "subcategory": "MANAGE 4.1",
+                   "reason": "Nothing checks that a tool's actions can be overridden and rolled back."},
+                  {"kind": "note", "function": "MEASURE", "subcategory": "MEASURE 2.7",
+                   "reason": "Protects processes too; the area's impacts may be too narrow."}]
+        self.assertEqual(self.go(g, review=review), 0)
+        entry = json.loads(R.AI_MAPPING.read_text())["areas"]["mcp_tools"]
+        self.assertEqual([x["subcategory"] for x in entry["missing"]], ["MANAGE 4.1"])
+        self.assertEqual([x["subcategory"] for x in entry["notes"]], ["MEASURE 2.7"])
+        self.assertTrue(all(r["status"] == "pass" for r in entry["rows"]))     # no MANAGE row is flagged
+
+    def test_a_fold_counts_as_reached(self):
+        g = self.good()
+        self.assertEqual(self.go(dict(g, rows=[dict(g["rows"][0], folded=["MAP 1.6"])] + g["rows"][1:])), 0)
+        reached, unreached = R.mapping_coverage(json.loads(R.AI_MAPPING.read_text()), self.inp,
+                                                json.loads(R.AI_MAPPING_RULES.read_text()))
+        self.assertIn("MAP 1.6", reached)
+
+    def test_a_redraft_that_breaks_the_rules_with_the_persons_decisions_is_rejected(self):
+        self.assertEqual(self.go(self.good()), 0)
+        doc = json.loads(R.AI_MAPPING.read_text())                       # as if the person removed the audit row
+        doc["areas"]["mcp_tools"]["removed_by_human"] = ["MEASURE 2.8"]   # under rules that allowed it
+        R.AI_MAPPING.write_text(json.dumps(doc))
+        before = R.AI_MAPPING.read_text()
+        self.assertEqual(self.go(self.good()), 1)
+        self.assertEqual(R.AI_MAPPING.read_text(), before)
+
     def test_recorded_with_review_and_coverage(self):
         review = [{"function": "MEASURE", "subcategory": "MEASURE 2.7", "reason": "Too generic for tool credentials."}]
         self.assertEqual(self.go(self.good(), review=review), 0)

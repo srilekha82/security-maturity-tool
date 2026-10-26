@@ -84,6 +84,10 @@ def mapping_problems(doc: dict | None) -> tuple[list[str], list[str]]:
     review = sum(1 for e in doc["areas"].values() for r in e["rows"] if r.get("status") != "pass")
     if review:
         problems.append(f"{review} rows need human review (Status in {AI_MAPPING_XLSX.name})")
+    missing = sum(len(e.get("missing", [])) for e in doc["areas"].values())
+    if missing:
+        problems.append(f"{missing} missing rows to decide (Mapped = no lines with Status needs_human_review in "
+                        f"{AI_MAPPING_XLSX.name}: map them, or set Status to pass)")
     if AI_MAPPING_XLSX.is_file() and not sheet_status("mapping", AI_MAPPING_XLSX, AI_MAPPING)[0]:
         problems.append(f"{AI_MAPPING_XLSX.name} edited but not imported (sheet_io.py import mapping)")
     return problems, R.mapping_coverage(doc, inp, m["rules"])[1]
