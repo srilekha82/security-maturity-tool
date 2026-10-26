@@ -1,0 +1,248 @@
+{
+  "recorded_at": "2026-10-26T15:35:30.475130+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-opus-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_model_draft2.json",
+    "sha": "cd080b4879e87c9f"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "5c1b5017772549c7"
+  },
+  "output_snapshot": {
+    "area": "model",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.6",
+        "cis_refs": [
+          "LLM-3.7"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Protection requirements for the model's weights, fine-tuned versions, system prompts and configurations (confidentiality, integrity, who may copy or export them) are set as requirements of the system."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-2.1",
+          "LLM-2.2"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model's components (base model, fine-tuned variants, adapters) are inventoried with source, version and licence, and the legal and IP risks of owning and sharing the model, including third-party rights in it, are mapped."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "LLM-4.1",
+          "LLM-6.1",
+          "LLM-3.11"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The internal controls that protect the model as an asset (access to weights and registries, encryption, version control of prompts and configurations) are identified and documented for each model."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.1",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "folded": [
+          "MAP 3.2"
+        ],
+        "why": "The likelihood and cost of the model being stolen, copied, extracted through its API or tampered with are assessed and documented against the organisation's risk tolerance."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.1",
+        "cis_refs": [
+          "LLM-11.2"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "For each model version and configuration released, the test sets, metrics and tools used to verify it are recorded with that version, so a version can be re-checked against the same tests."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "LLM-2.4",
+          "LLM-8.11"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model version and configuration running in production are monitored, so unexpected changes in behaviour, version or system prompt (drift or tampering) are detected."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.5",
+        "cis_refs": [
+          "LLM-4.1"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Each model version or configuration change is shown to be accurate and consistent before it is promoted, with its limits documented, and the version pinned in production is the one validated."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-8.11",
+          "LLM-11.5"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model's resistance to theft, extraction through the API and tampering with versions is tested (red teaming, extraction attempts, restore of a clean version) and the results are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.1",
+          "LLM-8.2",
+          "LLM-8.5"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Access to weights, downloads and exports, version promotions and changes to system prompts and configurations are logged with who did them, so misuse of the model can be traced."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [
+          "LLM-3.1"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The privacy risk carried by the model itself is examined: whether personal data memorised in its weights can be exposed through extraction or inversion attacks on the API or by a leaked copy of the weights, and the results are documented."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "LLM-6.1",
+          "LLM-6.2",
+          "LLM-6.3",
+          "LLM-6.5",
+          "LLM-3.11",
+          "LLM-11.3"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Controls protecting the model are applied: least-privilege access to weights and registries, MFA on model consoles, encryption of weights and backups, and authentication and throttling on the API against extraction."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.1",
+          "LLM-17.3",
+          "LLM-17.4"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "There is a response for a leaked or stolen copy of the weights, an exposed system prompt or an extraction attempt through the API: who is alerted, how the exposure is contained and its scope assessed."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-11.5",
+          "LLM-17.9"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "A tampered or compromised model version can be taken out of service and rolled back to a verified version, with clear responsibility and the evidence preserved."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.1",
+        "cis_refs": [
+          "LLM-2.1",
+          "LLM-6.1",
+          "LLM-6.2"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Third parties that hold or host copies of the model (cloud ML platforms, partners or licensees given the weights, contractors tuning it) are recorded, their access is granted and revoked under controls against copying or leaking it, and that is monitored."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-4.1",
+          "LLM-17.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "A version history of weights, system prompts and configurations (what changed, why, who approved) is kept, and incidents involving the model are tracked and communicated to those relying on it."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_model_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.4",
+      "reason": "The why also monitors behavioural drift, which is the output area's 'quality drifting over time'; keep this row to detecting unexpected changes of the running version, weights hash or system prompt (tampering)."
+    },
+    {
+      "kind": "missing",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 3.2",
+      "reason": "Nothing checks that the pre-trained base models the fine-tuned versions are built on are monitored (integrity of downloaded weights, upstream changes, licence changes); a tampered base model is tampering with versions."
+    },
+    {
+      "kind": "missing",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 4.1",
+      "reason": "Nothing checks decommissioning: retired model versions, old fine-tunes and their backups are removed and securely disposed of (LLM-3.4, LLM-3.5) so stale copies of the weights cannot be stolen."
+    },
+    {
+      "kind": "note",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.5",
+      "reason": "Accuracy and consistency of a promoted version harm the processes and people relying on the model, not the model as an asset; the area's impacts (assets) may be too narrow."
+    },
+    {
+      "kind": "note",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.10",
+      "reason": "Personal data memorised in the weights and exposed through extraction harms the people the data is about; the area's impacts (assets) may be too narrow."
+    }
+  ]
+}

@@ -1,0 +1,1078 @@
+{
+  "area": {
+    "id": "model",
+    "name": "Model",
+    "kind": "component",
+    "applies_to": "producer",
+    "impact": [
+      "assets"
+    ],
+    "covers": "The model itself as IP: weights, fine-tuned versions, system prompts and configurations. Theft, copying, extraction through the API, tampering with versions."
+  },
+  "other_areas": [
+    {
+      "id": "internal_process",
+      "name": "Internal process",
+      "applies_to": "both",
+      "covers": "AI output driving internal decisions and workflows (HR, finance, approvals, operations). Staff are the users: over-reliance, misuse by insiders, decisions made on wrong output."
+    },
+    {
+      "id": "code_generation",
+      "name": "Code generation",
+      "applies_to": "both",
+      "covers": "Only the AI-specific part; secure development (review, testing, scanning) is assessed by the CSF. Made-up or untrusted dependencies, secrets placed in prompts, AI code merged without review."
+    },
+    {
+      "id": "customer_facing",
+      "name": "Customer-facing application",
+      "applies_to": "both",
+      "covers": "Public users can attack the AI (prompt injection, abuse), and AI output reaches customers directly: wrong, harmful or leaked answers in front of customers."
+    },
+    {
+      "id": "vendor_ai",
+      "name": "Vendor AI",
+      "applies_to": "both",
+      "covers": "Vendors and products the org uses run AI on the org's data (Jira, Slack, ServiceNow, GitHub, RPA). The org does not control the model: data flows to the vendor's model provider, the vendor may keep or train on it, features change without notice."
+    },
+    {
+      "id": "model_building",
+      "name": "Model building",
+      "applies_to": "producer",
+      "covers": "The org owns a model: built from scratch, or modified by domain-specific training or tuning of an existing model. If the model is given to others (API, weights, embedded in a product), recipients depend on it: limits not communicated, unsafe changes, no way to withdraw a release."
+    },
+    {
+      "id": "invisible_usage",
+      "name": "Invisible AI usage (unapproved or external)",
+      "applies_to": "both",
+      "covers": "AI use the org did not choose and may not see. Inside out: staff using AI tools or features nobody approved (including PoCs and experiments), so data leaves through them. Outside in: other people's agents, MCP clients and scrapers reaching the org's systems (signing in on behalf of users, calling APIs, at machine speed). Applies even when no AI is in use."
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "applies_to": "both",
+      "covers": "Prompts, pasted text and files people and systems send to the model. Sensitive data can leave the org or reach a provider that keeps it. Prompt and response logs kept as a record belong here (retention, access)."
+    },
+    {
+      "id": "output",
+      "name": "Output",
+      "applies_to": "both",
+      "covers": "Answers that are wrong and are then trusted by people and systems, so they become a wrong decision or action. Two kinds: steered by an attacker (prompt injection through user input or retrieved content, poisoned answers), or simply inaccurate with no attacker (made-up facts, different answers to the same question, quality drifting over time)."
+    },
+    {
+      "id": "test_tuning_data",
+      "name": "Test, tuning and evaluation data",
+      "applies_to": "producer",
+      "covers": "Training and tuning sets, evaluation and test sets, the harness (the test cases reliability is measured with), and feedback or logs reused for tuning. Poisoning, tampering with the evaluation set or harness to hide failures, sensitive data in feedback, rights to the data."
+    },
+    {
+      "id": "source_data",
+      "name": "Source data (RAG / knowledge graph)",
+      "applies_to": "both",
+      "covers": "The data the AI retrieves to answer. The AI becomes a new path to it: anyone who can ask the AI may see what the store holds, poisoned content changes answers, and the content can be copied out through the AI. Includes data classification."
+    },
+    {
+      "id": "mcp_tools",
+      "name": "MCP / tools (inside or outside)",
+      "applies_to": "both",
+      "covers": "Tools and MCP servers the AI can call, hosted by the org or used from outside, and the credentials they use. The AI can read, write and act with those permissions, often sized for a human or borrowed from the user. An outside server is also a supplier: who runs it and whether it is trusted."
+    },
+    {
+      "id": "agent",
+      "name": "Agent",
+      "applies_to": "both",
+      "covers": "Agents acting inside processes with little or no human oversight: chains of actions, irreversible changes, actions triggered by manipulated input."
+    },
+    {
+      "id": "hosting",
+      "name": "Hosting",
+      "applies_to": "both",
+      "covers": "Where the org hosts a model, as a producer or for a consumer's PoC on its own infrastructure: servers, GPUs, model registry, serving endpoints, secrets and keys. Compromise, outage, cost abuse."
+    }
+  ],
+  "functions": [
+    "MAP",
+    "MEASURE",
+    "MANAGE"
+  ],
+  "function_definitions": {
+    "GOVERN": "Policies, processes, procedures and practices across the organization related to the mapping, measuring and managing of AI risks are in place, transparent, and implemented effectively.",
+    "MAP": "Context is established and understood.",
+    "MEASURE": "Appropriate methods and metrics are identified and applied.",
+    "MANAGE": "AI risks based on assessments and other analytical output from the Map and Measure functions are prioritized, responded to, and managed."
+  },
+  "foundation": [
+    "GOVERN",
+    "MAP 1.3",
+    "MAP 1.5",
+    "MAP 3.4",
+    "MEASURE 1.1",
+    "MEASURE 1.2",
+    "MEASURE 3.1",
+    "MEASURE 3.2",
+    "MEASURE 4.1",
+    "MANAGE 1.2",
+    "MANAGE 1.3",
+    "MANAGE 1.4",
+    "MANAGE 2.1"
+  ],
+  "rules": {
+    "min_why_chars": 20,
+    "required_checks": [
+      {
+        "name": "audit trail",
+        "areas": "all",
+        "any_of": [
+          "MEASURE 2.8",
+          "MANAGE 4.1"
+        ],
+        "cis_control": 8
+      },
+      {
+        "name": "incident response",
+        "areas": "all",
+        "any_of": [
+          "MANAGE 2.3",
+          "MANAGE 4.3"
+        ]
+      },
+      {
+        "name": "reliability: accuracy and consistency",
+        "areas": [
+          "output",
+          "model"
+        ],
+        "any_of": [
+          "MEASURE 2.5"
+        ]
+      },
+      {
+        "name": "reliability: monitored in use",
+        "areas": [
+          "output",
+          "model"
+        ],
+        "any_of": [
+          "MEASURE 2.4",
+          "MANAGE 4.1"
+        ]
+      },
+      {
+        "name": "reliability: test sets and harness documented",
+        "areas": [
+          "output",
+          "model"
+        ],
+        "any_of": [
+          "MEASURE 2.1"
+        ]
+      }
+    ]
+  },
+  "subcategories": {
+    "MAP": [
+      {
+        "id": "MAP 1.1",
+        "outcome": "Intended purpose, potentially beneficial uses, context-specific laws, norms and expectations, and prospective settings in which the AI system will be deployed are understood and documented. Considerations include: specific set or types of users along with their expectations; potential positive and negative impacts of system uses to individuals, communities, organizations, society, and the planet; assumptions and related limitations about AI system purposes; uses and risks across the development or product AI lifecycle; TEVV and system metrics.",
+        "actions": [
+          "Maintain awareness of industry, technical, and applicable legal standards.",
+          "Examine trustworthiness of AI system design and consider, non-AI solutions",
+          "Consider intended AI system design tasks along with unanticipated purposes in collaboration with human factors and socio-technical domain experts.",
+          "Define and document the task, purpose, minimum functionality, and benefits of the AI system to inform considerations about whether the utility of the project or its lack of.",
+          "Identify whether there are non-AI or non-technology alternatives that will lead to more trustworthy outcomes.",
+          "Examine how changes in system performance affect downstream events such as decision-making (e.g: changes in an AI model objective function create what types of impacts in how many candidates do/do not get a job intervie…"
+        ]
+      },
+      {
+        "id": "MAP 1.2",
+        "outcome": "Inter-disciplinary AI actors, competencies, skills and capacities for establishing context reflect demographic diversity and broad domain and user experience expertise, and their participation is documented. Opportunities for interdisciplinary collaboration are prioritized.",
+        "actions": [
+          "Establish interdisciplinary teams to reflect a wide range of skills, competencies, and capabilities for AI efforts. Verify that team membership includes demographic diversity, broad domain expertise, and lived experienc…",
+          "Create and empower interdisciplinary expert teams to capture, learn, and engage the interdependencies of deployed AI systems and related terminologies and concepts from disciplines outside of AI practice such as law, so…"
+        ]
+      },
+      {
+        "id": "MAP 1.4",
+        "outcome": "The business value or context of business use has been clearly defined or – in the case of assessing existing AI systems – re-evaluated.",
+        "actions": [
+          "Document business value or context of business use",
+          "Reconcile documented concerns about the system’s purpose within the business context of use compared to the organization’s stated values, mission statements, social responsibility commitments, and AI principles.",
+          "Reconsider the design, implementation strategy, or deployment of AI systems with potential impacts that do not reflect institutional values."
+        ]
+      },
+      {
+        "id": "MAP 1.6",
+        "outcome": "System requirements (e.g., “the system shall respect the privacy of its users”) are elicited from and understood by relevant AI actors. Design decisions take socio-technical implications into account to address AI risks.",
+        "actions": [
+          "Proactively incorporate trustworthy characteristics into system requirements.",
+          "Establish mechanisms for regular communication and feedback between relevant AI actors and internal or external stakeholders related to system design or deployment decisions.",
+          "Develop and standardize practices to assess potential impacts at all stages of the AI lifecycle, and in collaboration with interdisciplinary experts, actors external to the team that developed or deployed the AI system,…",
+          "Include potentially impacted groups, communities and external entities (e.g. civil society organizations, research institutes, local community groups, and trade associations) in the formulation of priorities, definition…",
+          "Conduct qualitative interviews with end user(s) to regularly evaluate expectations and design plans related to Human-AI configurations and tasks.",
+          "Analyze dependencies between contextual factors and system requirements. List potential impacts that may arise from not fully considering the importance of trustworthiness characteristics in any decision making."
+        ]
+      },
+      {
+        "id": "MAP 2.1",
+        "outcome": "The specific task, and methods used to implement the task, that the AI system will support is defined (e.g., classifiers, generative models, recommenders).",
+        "actions": [
+          "Define and document AI system’s existing and potential learning task(s) along with known assumptions and limitations."
+        ]
+      },
+      {
+        "id": "MAP 2.2",
+        "outcome": "Information about the AI system’s knowledge limits and how system output may be utilized and overseen by humans is documented. Documentation provides sufficient information to assist relevant AI actors when making informed decisions and taking subsequent actions.",
+        "actions": [
+          "Document settings, environments and conditions that are outside the AI system’s intended use.",
+          "Design for end user workflows and toolsets, concept of operations, and explainability and interpretability criteria in conjunction with end user(s) and associated qualitative feedback.",
+          "Plan and test human-AI configurations under close to real-world conditions and document results.",
+          "Follow stakeholder feedback processes to determine whether a system achieved its documented purpose within a given use context, and whether end users can correctly comprehend system outputs or results.",
+          "Document dependencies on upstream data and other AI systems, including if the specified system is an upstream dependency for another AI system or other data.",
+          "Document connections the AI system or data will have to external networks (including the internet), financial markets, and critical infrastructure that have potential for negative externalities. Identify and document ne…"
+        ]
+      },
+      {
+        "id": "MAP 2.3",
+        "outcome": "Scientific integrity and TEVV considerations are identified and documented, including those related to experimental design, data collection and selection (e.g., availability, representativeness, suitability), system trustworthiness, and construct validation.",
+        "actions": [
+          "Identify and document experiment design and statistical techniques that are valid for testing complex socio-technical systems like AI, which involve human factors, emergent properties, and dynamic context(s) of use.",
+          "Develop and apply TEVV protocols for models, system and its subcomponents, deployment, and operation.",
+          "Demonstrate and document that AI system performance and validation metrics are interpretable and unambiguous for downstream decision making tasks, and take socio- technical factors such as context of use into considerat…",
+          "Identify and document assumptions, techniques, and metrics used for testing and evaluation throughout the AI lifecycle including experimental design techniques for data collection, selection, and management practices in…",
+          "Identify testing modules that can be incorporated throughout the AI lifecycle, and verify that processes enable corroboration by independent evaluators.",
+          "Establish mechanisms for regular communication and feedback among relevant AI actors and internal or external stakeholders related to the validity of design and deployment assumptions."
+        ]
+      },
+      {
+        "id": "MAP 3.1",
+        "outcome": "Potential benefits of intended AI system functionality and performance are examined and documented.",
+        "actions": [
+          "Utilize participatory approaches and engage with system end users to understand and document AI systems’ potential benefits, efficacy and interpretability of AI task output.",
+          "Maintain awareness and documentation of the individuals, groups, or communities who make up the system’s internal and external stakeholders.",
+          "Verify that appropriate skills and practices are available in-house for carrying out participatory activities such as eliciting, capturing, and synthesizing user, operator and external feedback, and translating it for A…",
+          "Establish mechanisms for regular communication and feedback between relevant AI actors and internal or external stakeholders related to system design or deployment decisions.",
+          "Consider performance to human baseline metrics or other standard benchmarks.",
+          "Incorporate feedback from end users, and potentially impacted individuals and communities about perceived system benefits ."
+        ]
+      },
+      {
+        "id": "MAP 3.2",
+        "outcome": "Potential costs, including non-monetary costs, which result from expected or realized AI errors or system functionality and trustworthiness - as connected to organizational risk tolerance - are examined and documented.",
+        "actions": [
+          "Perform context analysis to map potential negative impacts arising from not integrating trustworthiness characteristics. When negative impacts are not direct or obvious, AI actors can engage with stakeholders external t…",
+          "Who could be harmed?",
+          "What could be harmed?",
+          "When could harm arise?",
+          "How could harm arise?",
+          "Identify and implement procedures for regularly evaluating the qualitative and quantitative costs of internal and external AI system failures. Develop actions to prevent, detect, and/or correct potential risks and relat…"
+        ]
+      },
+      {
+        "id": "MAP 3.3",
+        "outcome": "Targeted application scope is specified and documented based on the system’s capability, established context, and AI system categorization.",
+        "actions": [
+          "Consider narrowing contexts for system deployment, including factors related to:",
+          "How outcomes may directly or indirectly affect users, groups, communities and the environment.",
+          "Length of time the system is deployed in between re-trainings.",
+          "Geographical regions in which the system operates.",
+          "Dynamics related to community standards or likelihood of system misuse or abuses (either purposeful or unanticipated).",
+          "How AI system features and capabilities can be utilized within other applications, or in place of other existing processes."
+        ]
+      },
+      {
+        "id": "MAP 3.5",
+        "outcome": "Processes for human oversight are defined, assessed, and documented in accordance with organizational policies from GOVERN function.",
+        "actions": [
+          "Identify and document AI systems’ features and capabilities that require human oversight, in relation to operational and societal contexts, trustworthy characteristics, and risks identified in MAP-1.",
+          "Establish practices for AI systems’ oversight in accordance with policies developed in GOVERN-1.",
+          "Define and develop training materials for relevant AI Actors about AI system performance, context of use, known limitations and negative impacts, and suggested warning labels.",
+          "Include relevant AI Actors in AI system prototyping and testing activities. Conduct testing activities under scenarios similar to deployment conditions.",
+          "Evaluate AI system oversight practices for validity and reliability. When oversight practices undergo extensive updates or adaptations, retest, evaluate results, and course correct as necessary.",
+          "Verify that model documents contain interpretable descriptions of system mechanisms, enabling oversight personnel to make informed, risk-based decisions about system risks."
+        ]
+      },
+      {
+        "id": "MAP 4.1",
+        "outcome": "Approaches for mapping AI technology and legal risks of its components – including the use of third-party data or software – are in place, followed, and documented, as are risks of infringement of a third-party’s intellectual property or other rights.",
+        "actions": [
+          "Review audit reports, testing results, product roadmaps, warranties, terms of service, end user license agreements, contracts, and other documentation related to third-party entities to assist in value assessment and ri…",
+          "Review third-party software release schedules and software change management plans (hotfixes, patches, updates, forward- and backward- compatibility guarantees) for irregularities that may contribute to AI system risks.",
+          "Inventory third-party material (hardware, open-source software, foundation models, open source data, proprietary software, proprietary data, etc.) required for system implementation and maintenance.",
+          "Review redundancies related to third-party technology and personnel to assess potential risks due to lack of adequate support."
+        ]
+      },
+      {
+        "id": "MAP 4.2",
+        "outcome": "Internal risk controls for components of the AI system including third-party AI technologies are identified and documented.",
+        "actions": [
+          "Track third-parties preventing or hampering risk-mapping as indications of increased risk.",
+          "Supply resources such as model documentation templates and software safelists to assist in third-party technology inventory and approval activities.",
+          "Review third-party material (including data and models) for risks related to bias, data privacy, and security vulnerabilities.",
+          "Apply traditional technology risk controls – such as procurement, security, and data privacy controls – to all acquired third-party technologies."
+        ]
+      },
+      {
+        "id": "MAP 5.1",
+        "outcome": "Likelihood and magnitude of each identified impact (both potentially beneficial and harmful) based on expected use, past uses of AI systems in similar contexts, public incident reports, feedback from those external to the team that developed or deployed the AI system, or other data are identified and documented.",
+        "actions": [
+          "Establish assessment scales for measuring AI systems’ impact. Scales may be qualitative, such as red-amber-green (RAG), or may entail simulations or econometric approaches. Document and apply scales uniformly across the…",
+          "Apply TEVV regularly at key stages in the AI lifecycle, connected to system impacts and frequency of system updates.",
+          "Identify and document likelihood and magnitude of system benefits and negative impacts in relation to trustworthiness characteristics.",
+          "Establish processes for red teaming to identify and connect system limitations to AI lifecycle stage(s) and potential downstream impacts"
+        ]
+      },
+      {
+        "id": "MAP 5.2",
+        "outcome": "Practices and personnel for supporting regular engagement with relevant AI actors and integrating feedback about positive, negative, and unanticipated impacts are in place and documented.",
+        "actions": [
+          "Establish and document stakeholder engagement processes at the earliest stages of system formulation to identify potential impacts from the AI system on individuals, groups, communities, organizations, and society.",
+          "Employ methods such as value sensitive design (VSD) to identify misalignments between organizational and societal values, and system implementation and impact.",
+          "Identify approaches to engage, capture, and incorporate input from system end users and other key stakeholders to assist with continuous monitoring for potential impacts and emergent risks.",
+          "Incorporate quantitative, qualitative, and mixed methods in the assessment and documentation of potential impacts to individuals, groups, communities, organizations, and society.",
+          "Identify a team (internal or external) that is independent of AI design and development functions to assess AI system benefits, positive and negative impacts and their likelihood and magnitude.",
+          "Evaluate and document stakeholder feedback to assess potential impacts for actionable insights regarding trustworthiness characteristics and changes in design approaches and principles."
+        ]
+      }
+    ],
+    "MEASURE": [
+      {
+        "id": "MEASURE 1.3",
+        "outcome": "Internal experts who did not serve as front-line developers for the system and/or independent assessors are involved in regular assessments and updates. Domain experts, users, AI actors external to the team that developed or deployed the AI system, and affected communities are consulted in support of assessments as necessary per organizational risk tolerance.",
+        "actions": [
+          "Evaluate TEVV processes regarding incentives to identify risks and impacts.",
+          "Utilize separate testing teams established in the Govern function (2.1 and 4.1) to enable independent decisions and course-correction for AI systems. Track processes and measure and document change in performance.",
+          "Plan and evaluate AI system prototypes with end user populations early and continuously in the AI lifecycle. Document test outcomes and course correct.",
+          "Assess independence and stature of TEVV and oversight AI actors, to ensure they have the required levels of independence and resources to perform assurance, compliance, and feedback tasks effectively",
+          "Evaluate interdisciplinary and demographically diverse internal team established in Map 1.2",
+          "Evaluate effectiveness of external stakeholder feedback mechanisms, specifically related to processes for eliciting, evaluating and integrating input from diverse groups."
+        ]
+      },
+      {
+        "id": "MEASURE 2.1",
+        "outcome": "Test sets, metrics, and details about the tools used during test, evaluation, validation, and verification (TEVV) are documented.",
+        "actions": [
+          "Leverage existing industry best practices for transparency and documentation of all possible aspects of measurements. Examples include: data sheet for data sets, model cards",
+          "Regularly assess the effectiveness of tools used to document measurement approaches, test sets, metrics, processes and materials used",
+          "Update the tools as needed"
+        ]
+      },
+      {
+        "id": "MEASURE 2.2",
+        "outcome": "Evaluations involving human subjects meet applicable requirements (including human subject protection) and are representative of the relevant population.",
+        "actions": [
+          "Follow human subjects research requirements as established by organizational and disciplinary requirements, including informed consent and compensation, during dataset collection activities.",
+          "Analyze differences between intended and actual population of users or data subjects, including likelihood for errors, incidents or negative impacts.",
+          "Utilize disaggregated evaluation methods (e.g. by race, age, gender, ethnicity, ability, region) to improve AI system performance when deployed in real world settings.",
+          "Establish thresholds and alert procedures for dataset representativeness within the context of use.",
+          "Construct datasets in close collaboration with experts with knowledge of the context of use.",
+          "Follow intellectual property and privacy rights related to datasets and their use, including for the subjects represented in the data."
+        ]
+      },
+      {
+        "id": "MEASURE 2.3",
+        "outcome": "AI system performance or assurance criteria are measured qualitatively or quantitatively and demonstrated for conditions similar to deployment setting(s). Measures are documented.",
+        "actions": [
+          "Conduct regular and sustained engagement with potentially impacted communities",
+          "Maintain a demographically diverse and multidisciplinary and collaborative internal team",
+          "Regularly test and evaluate systems in non-optimized conditions, and in collaboration with AI actors in user interaction and user experience (UI/UX) roles.",
+          "Evaluate feedback from stakeholder engagement activities, in collaboration with human factors and socio-technical experts.",
+          "Collaborate with socio-technical, human factors, and UI/UX experts to identify notable characteristics in context of use that can be translated into system testing scenarios.",
+          "Measure AI systems prior to deployment in conditions similar to expected scenarios."
+        ]
+      },
+      {
+        "id": "MEASURE 2.4",
+        "outcome": "The functionality and behavior of the AI system and its components – as identified in the MAP function – are monitored when in production.",
+        "actions": [
+          "Monitor and document how metrics and performance indicators observed in production differ from the same metrics collected during pre-deployment testing. When differences are observed, consider error propagation and feed…",
+          "Utilize hypothesis testing or human domain expertise to measure monitored distribution differences in new input or output data relative to test environments",
+          "Monitor for anomalies using approaches such as control limits, confidence intervals, integrity constraints and ML algorithms. When anomalies are observed, consider error propagation and feedback loop risks.",
+          "Verify alerts are in place for when distributions in new input data or generated predictions observed in production differ from pre-deployment test outcomes, or when anomalies are detected.",
+          "Assess the accuracy and quality of generated outputs against new collected ground- truth information as it becomes available.",
+          "Utilize human review to track processing of unexpected data and reliability of generated outputs; warn system users when outputs may be unreliable. Verify that human overseers responsible for these processes have clearl…"
+        ]
+      },
+      {
+        "id": "MEASURE 2.5",
+        "outcome": "The AI system to be deployed is demonstrated to be valid and reliable. Limitations of the generalizability beyond the conditions under which the technology was developed are documented.",
+        "actions": [
+          "Define the operating conditions and socio-technical context under which the AI system will be validated.",
+          "Define and document processes to establish the system’s operational conditions and limits.",
+          "Establish or identify, and document approaches to measure forms of validity, including:",
+          "construct validity (the test is measuring the concept it claims to measure)",
+          "internal validity (relationship being tested is not influenced by other factors or variables)",
+          "external validity (results are generalizable beyond the training condition)"
+        ]
+      },
+      {
+        "id": "MEASURE 2.6",
+        "outcome": "AI system is evaluated regularly for safety risks – as identified in the MAP function. The AI system to be deployed is demonstrated to be safe, its residual negative risk does not exceed the risk tolerance, and can fail safely, particularly if made to operate beyond its knowledge limits. Safety metrics implicate system reliability and robustness, real-time monitoring, and response times for AI system failures.",
+        "actions": [
+          "Thoroughly measure system performance in development and deployment contexts, and under stress conditions.",
+          "Employ test data assessments and simulations before proceeding to production testing. Track multiple performance quality and error metrics.",
+          "Stress-test system performance under likely scenarios (e.g., concept drift, high load) and beyond known limitations, in consultation with domain experts.",
+          "Test the system under conditions similar to those related to past known incidents or near-misses and measure system performance and safety characteristics",
+          "Apply chaos engineering approaches to test systems in extreme conditions and gauge unexpected responses.",
+          "Document the range of conditions under which the system has been tested and demonstrated to fail safely."
+        ]
+      },
+      {
+        "id": "MEASURE 2.7",
+        "outcome": "AI system security and resilience – as identified in the MAP function – are evaluated and documented.",
+        "actions": [
+          "Establish and track AI system security tests and metrics (e.g., red-teaming activities, frequency and rate of anomalous events, system down-time, incident response times, time-to-bypass, etc.).",
+          "Use red-team exercises to actively test the system under adversarial or stress conditions, measure system response, assess failure modes or determine if system can return to normal function after an unexpected adverse e…",
+          "Document red-team exercise results as part of continuous improvement efforts, including the range of security test conditions and results.",
+          "Use red-teaming exercises to evaluate potential mismatches between claimed and actual system performance.",
+          "Use countermeasures (e.g, authentication, throttling, differential privacy, robust ML approaches) to increase the range of security conditions under which the system is able to return to normal function.",
+          "Modify system security procedures and countermeasures to increase robustness and resilience to attacks in response to testing and events experienced in production."
+        ]
+      },
+      {
+        "id": "MEASURE 2.8",
+        "outcome": "Risks associated with transparency and accountability – as identified in the MAP function – are examined and documented.",
+        "actions": [
+          "Instrument the system for measurement and tracking, e.g., by maintaining histories, audit logs and other information that can be used by AI actors to review and evaluate possible sources of error, bias, or vulnerability.",
+          "Calibrate controls for users in close collaboration with experts in user interaction and user experience (UI/UX), human computer interaction (HCI), and/or human-AI teaming.",
+          "Test provided explanations for calibration with different audiences including operators, end users, decision makers and decision subjects (individuals for whom decisions are being made), and to enable recourse for conse…",
+          "Measure and document human oversight of AI systems:",
+          "Document the degree of oversight that is provided by specified AI actors regarding AI system output.",
+          "Maintain statistics about downstream actions by end users and operators such as system overrides."
+        ]
+      },
+      {
+        "id": "MEASURE 2.9",
+        "outcome": "The AI model is explained, validated, and documented, and AI system output is interpreted within its context – as identified in the MAP function – and to inform responsible use and governance.",
+        "actions": [
+          "Verify systems are developed to produce explainable models, post-hoc explanations and audit logs.",
+          "When possible or available, utilize approaches that are inherently explainable, such as traditional and penalized generalized linear models , decision trees, nearest-neighbor and prototype-based approaches, rule-based m…",
+          "Test explanation methods and resulting explanations prior to deployment to gain feedback from relevant AI actors, end users, and potentially impacted individuals or groups about whether explanations are accurate, clear,…",
+          "Document AI model details including model type (e.g., convolutional neural network, reinforcement learning, decision tree, random forest, etc.) data features, training algorithms, proposed uses, decision thresholds, tra…",
+          "Establish, document, and report performance and error metrics across demographic groups and other segments relevant to the deployment context.",
+          "Explain systems using a variety of methods, e.g., visualizations, model extraction, feature importance, and others. Since explanations may not accurately summarize complex systems, test explanations according to propert…"
+        ]
+      },
+      {
+        "id": "MEASURE 2.10",
+        "outcome": "Privacy risk of the AI system – as identified in the MAP function – is examined and documented.",
+        "actions": [
+          "Specify privacy-related values, frameworks, and attributes that are applicable in the context of use through direct engagement with end users and potentially impacted groups and communities.",
+          "Document collection, use, management, and disclosure of personally sensitive information in datasets, in accordance with privacy and data governance policies",
+          "Quantify privacy-level data aspects such as the ability to identify individuals or groups (e.g. k-anonymity metrics, l-diversity, t-closeness).",
+          "Establish and document protocols (authorization, duration, type) and access controls for training sets or production data containing personally sensitive information, in accordance with privacy and data governance polic…",
+          "Monitor internal queries to production data for detecting patterns that isolate personal records.",
+          "Monitor PSI disclosures and inference of sensitive or legally protected attributes"
+        ]
+      },
+      {
+        "id": "MEASURE 2.11",
+        "outcome": "Fairness and bias – as identified in the MAP function – is evaluated and results are documented.",
+        "actions": [
+          "Conduct fairness assessments to manage computational and statistical forms of bias which include the following steps:",
+          "Identify types of harms, including allocational, representational, quality of service, stereotyping, or erasure",
+          "Identify across, within, and intersecting groups that might be harmed",
+          "Quantify harms using both a general fairness metric, if appropriate (e.g. demographic parity, equalized odds, equal opportunity, statistical hypothesis tests), and custom, context-specific metrics developed in collabora…",
+          "Analyze quantified harms for contextually significant differences across groups, within groups, and among intersecting groups",
+          "Refine identification of within-group and intersectional group disparities."
+        ]
+      },
+      {
+        "id": "MEASURE 2.12",
+        "outcome": "Environmental impact and sustainability of AI model training and management activities – as identified in the MAP function – are assessed and documented.",
+        "actions": [
+          "Include environmental impact indicators in AI system design and development plans, including reducing consumption and improving efficiencies.",
+          "Identify and implement key indicators of AI system energy and water consumption and efficiency, and/or GHG emissions.",
+          "Establish measurable baselines for sustainable AI system operation in accordance with organizational policies, regulatory compliance, legal frameworks, and environmental protection and sustainability norms.",
+          "Assess tradeoffs between AI system performance and sustainable operations in accordance with organizational principles and policies, regulatory compliance, legal frameworks, and environmental protection and sustainabili…",
+          "Identify and establish acceptable resource consumption and efficiency, and GHG emissions levels, along with actions to be taken if indicators rise above acceptable levels.",
+          "Estimate AI system emissions levels throughout the AI lifecycle via carbon calculators or similar process."
+        ]
+      },
+      {
+        "id": "MEASURE 2.13",
+        "outcome": "Effectiveness of the employed TEVV metrics and processes in the MEASURE function are evaluated and documented.",
+        "actions": [
+          "Review selected system metrics and associated TEVV processes to determine if they are able to sustain system improvements, including the identification and removal of errors.",
+          "Regularly evaluate system metrics for utility, and consider descriptive approaches in place of overly complex methods.",
+          "Review selected system metrics for acceptability within the end user and impacted community of interest.",
+          "Assess effectiveness of metrics for identifying and measuring risks."
+        ]
+      },
+      {
+        "id": "MEASURE 3.3",
+        "outcome": "Feedback processes for end users and impacted communities to report problems and appeal system outcomes are established and integrated into AI system evaluation metrics.",
+        "actions": [
+          "Measure efficacy of end user and operator error reporting processes.",
+          "Categorize and analyze type and rate of end user appeal requests and results.",
+          "Measure feedback activity participation rates and awareness of feedback activity availability.",
+          "Utilize feedback to analyze measurement approaches and determine subsequent courses of action.",
+          "Evaluate measurement approaches to determine efficacy for enhancing organizational understanding of real world impacts.",
+          "Analyze end user and community feedback in close collaboration with domain experts."
+        ]
+      },
+      {
+        "id": "MEASURE 4.2",
+        "outcome": "Measurement results regarding AI system trustworthiness in deployment context(s) and across AI lifecycle are informed by input from domain experts and other relevant AI actors to validate whether the system is performing consistently as intended. Results are documented.",
+        "actions": [
+          "Integrate feedback from end users, operators, and affected individuals and communities from Map function as inputs to assess AI system trustworthiness characteristics. Ensure both positive and negative feedback is being…",
+          "Evaluate feedback in connection with AI system trustworthiness characteristics from Measure 2.5 to 2.11.",
+          "Evaluate feedback regarding end user satisfaction with, and confidence in, AI system performance including whether output is considered valid and reliable, and explainable and interpretable.",
+          "Identify mechanisms to confirm/support AI system output (e.g. recommendations), and end user perspectives about that output.",
+          "Measure frequency of AI systems’ override decisions, evaluate and document results, and feed insights back into continual improvement processes.",
+          "Consult AI actors in impact assessment, human factors and socio-technical tasks to assist with analysis and interpretation of results."
+        ]
+      },
+      {
+        "id": "MEASURE 4.3",
+        "outcome": "Measurable performance improvements or declines based on consultations with relevant AI actors including affected communities, and field data about context-relevant risks and trustworthiness characteristics, are identified and documented.",
+        "actions": [
+          "Develop baseline quantitative measures for trustworthy characteristics.",
+          "Delimit and characterize baseline operation values and states.",
+          "Utilize qualitative approaches to augment and complement quantitative baseline measures, in close coordination with impact assessment, human factors and socio- technical AI actors.",
+          "Monitor and assess measurements as part of continual improvement to identify potential system adjustments or modifications",
+          "Perform and document sensitivity analysis to characterize actual and expected variance in performance after applying system or procedural updates.",
+          "Document decisions related to the sensitivity analysis and record expected influence on system performance and identified risks."
+        ]
+      }
+    ],
+    "MANAGE": [
+      {
+        "id": "MANAGE 1.1",
+        "outcome": "A determination is made as to whether the AI system achieves its intended purpose and stated objectives and whether its development or deployment should proceed.",
+        "actions": [
+          "Consider trustworthiness characteristics when evaluating AI systems’ negative risks and benefits.",
+          "Utilize TEVV outputs from map and measure functions when considering risk treatment.",
+          "Regularly track and monitor negative risks and benefits throughout the AI system lifecycle including in post-deployment monitoring.",
+          "Regularly assess and document system performance relative to trustworthiness characteristics and tradeoffs between negative risks and opportunities.",
+          "Evaluate tradeoffs in connection with real-world use cases and impacts and as enumerated in Map function outcomes."
+        ]
+      },
+      {
+        "id": "MANAGE 2.2",
+        "outcome": "Mechanisms are in place and applied to sustain the value of deployed AI systems.",
+        "actions": [
+          "Establish risk controls considering trustworthiness characteristics, including:",
+          "Data management, quality, and privacy (e.g. minimization, rectification or deletion requests) controls as part of organizational data governance policies.",
+          "Machine learning and end-point security countermeasures (e.g., robust models, differential privacy, authentication, throttling).",
+          "Business rules that augment, limit or restrict AI system outputs within certain contexts",
+          "Utilizing domain expertise related to deployment context for continuous improvement and TEVV across the AI lifecycle.",
+          "Development and regular tracking of human-AI teaming configurations."
+        ]
+      },
+      {
+        "id": "MANAGE 2.3",
+        "outcome": "Procedures are followed to respond to and recover from a previously unknown risk when it is identified.",
+        "actions": [
+          "Protocols, resources, and metrics are in place for continual monitoring of AI systems’ performance, trustworthiness, and alignment with contextual norms and values",
+          "Establish and regularly review treatment and response plans for incidents, negative impacts, or outcomes.",
+          "Establish and maintain procedures to regularly monitor system components for drift, decontextualization, or other AI system behavior factors,",
+          "Establish and maintain procedures for capturing feedback about negative impacts.",
+          "Verify contingency processes to handle any negative impacts associated with mission- critical AI systems, and to deactivate systems.",
+          "Enable preventive and post-hoc exploration of AI system limitations by relevant AI actor groups."
+        ]
+      },
+      {
+        "id": "MANAGE 2.4",
+        "outcome": "Mechanisms are in place and applied, responsibilities are assigned and understood to supersede, disengage, or deactivate AI systems that demonstrate performance or outcomes inconsistent with intended use.",
+        "actions": [
+          "Regularly review established procedures for AI system bypass actions, including plans for redundant or backup systems to ensure continuity of operational and/or business functionality.",
+          "Regularly review Identify system incident thresholds for activating bypass or deactivation responses.",
+          "Apply change management processes to understand the upstream and downstream consequences of bypassing or deactivating an AI system or AI system components.",
+          "Apply protocols, resources and metrics for decisions to supersede, bypass or deactivate AI systems or AI system components.",
+          "Preserve materials for forensic, regulatory, and legal review.",
+          "Conduct internal root cause analysis and process reviews of bypass or deactivation events."
+        ]
+      },
+      {
+        "id": "MANAGE 3.1",
+        "outcome": "AI risks and benefits from third-party resources are regularly monitored, and risk controls are applied and documented.",
+        "actions": [
+          "Have legal requirements been addressed?",
+          "Apply organizational risk tolerance to third-party AI systems.",
+          "Apply and document organizational risk management plans and practices to third-party AI technology, personnel, or other resources.",
+          "Identify and maintain documentation for third-party AI systems and components.",
+          "Establish testing, evaluation, validation and verification processes for third-party AI systems which address the needs for transparency without exposing proprietary algorithms .",
+          "Establish processes to identify beneficial use and risk indicators in third-party systems or components, such as inconsistent software release schedule, sparse documentation, and incomplete software change management (e…"
+        ]
+      },
+      {
+        "id": "MANAGE 3.2",
+        "outcome": "Pre-trained models which are used for development are monitored as part of AI system regular monitoring and maintenance.",
+        "actions": [
+          "Identify pre-trained models within AI system inventory for risk tracking.",
+          "Establish processes to independently and continually monitor performance and trustworthiness of pre-trained models, and as part of third-party risk tracking.",
+          "Monitor performance and trustworthiness of AI system components connected to pre- trained models, and as part of third-party risk tracking.",
+          "Identify, document and remediate risks arising from AI system components and pre- trained models per organizational risk management procedures, and as part of third- party risk tracking.",
+          "Decommission AI system components and pre-trained models which exceed risk tolerances, and as part of third-party risk tracking."
+        ]
+      },
+      {
+        "id": "MANAGE 4.1",
+        "outcome": "Post-deployment AI system monitoring plans are implemented, including mechanisms for capturing and evaluating input from users and other relevant AI actors, appeal and override, decommissioning, incident response, recovery, and change management.",
+        "actions": [
+          "Establish and maintain procedures to monitor AI system performance for risks and negative and positive impacts associated with trustworthiness characteristics.",
+          "Perform post-deployment TEVV tasks to evaluate AI system validity and reliability, bias and fairness, privacy, and security and resilience.",
+          "Evaluate AI system trustworthiness in conditions similar to deployment context of use, and prior to deployment.",
+          "Establish and implement red-teaming exercises at a prescribed cadence, and evaluate their efficacy.",
+          "Establish procedures for tracking dataset modifications such as data deletion or rectification requests.",
+          "Establish mechanisms for regular communication and feedback between relevant AI actors and internal or external stakeholders to capture information about system performance, trustworthiness and impact."
+        ]
+      },
+      {
+        "id": "MANAGE 4.2",
+        "outcome": "Measurable activities for continual improvements are integrated into AI system updates and include regular engagement with interested parties, including relevant AI actors.",
+        "actions": [
+          "Integrate trustworthiness characteristics into protocols and metrics used for continual improvement.",
+          "Establish processes for evaluating and integrating feedback into AI system improvements.",
+          "Assess and evaluate alignment of proposed improvements with relevant regulatory and legal frameworks",
+          "Assess and evaluate alignment of proposed improvements connected to the values and norms within the context of use.",
+          "Document the basis for decisions made relative to tradeoffs between trustworthy characteristics, system risks, and system opportunities"
+        ]
+      },
+      {
+        "id": "MANAGE 4.3",
+        "outcome": "Incidents and errors are communicated to relevant AI actors including affected communities. Processes for tracking, responding to, and recovering from incidents and errors are followed and documented.",
+        "actions": [
+          "Establish procedures to regularly share information about errors, incidents and negative impacts with relevant stakeholders, operators, practitioners and users, and impacted parties.",
+          "Maintain a database of reported errors, near-misses, incidents and negative impacts including date reported, number of reports, assessment of impact and severity, and responses.",
+          "Maintain a database of system changes, reason for change, and details of how the change was made, tested and deployed.",
+          "Maintain version history information and metadata to enable continuous improvement processes.",
+          "Verify that relevant AI actors responsible for identifying complex or emergent risks are properly resourced and empowered."
+        ]
+      }
+    ]
+  },
+  "cis_candidates": [
+    {
+      "id": "LLM-1.1",
+      "title": "Establish and Maintain Detailed Enterprise Asset Inventory",
+      "lowest_ig": "IG1",
+      "ai_text": "Maintain an inventory of all AI LLM enterprise assets, including compute (e.g., GPUs/inference/training), control plane (e.g., model gateways, registries, prompt/config stores), data plane (e.g., vector databases, retrieval corpora, log stores), and integrati…"
+    },
+    {
+      "id": "LLM-1.2",
+      "title": "Address Unauthorized Assets",
+      "lowest_ig": "IG1",
+      "ai_text": "Identify and monitor unapproved or “shadow AI” environments such as personal laptops, unmanaged cloud resources, and unauthorized VMs running local models. Experimentation by analysts, developers, or researchers often leads to unmanaged environments. Shadow a…"
+    },
+    {
+      "id": "LLM-1.3",
+      "title": "Utilize an Active Discovery Tool",
+      "lowest_ig": "IG2",
+      "ai_text": "Ensure that endpoint-hosted models are visible to Mobile Device Management (MDM)/EDR systems and included in existing asset governance processes. Ensure that detection includes local model runners and toolchains (e.g., Ollama/ LM Studio/llama.cpp, local vecto…"
+    },
+    {
+      "id": "LLM-1.4",
+      "title": "Use Dynamic Host Configuration Protocol (DHCP) Logging to Update Enterprise Asset Inventory",
+      "lowest_ig": "IG2",
+      "ai_text": "No Additional AI LLM Guidance"
+    },
+    {
+      "id": "LLM-1.5",
+      "title": "Use a Passive Asset Discovery Tool",
+      "lowest_ig": "IG3",
+      "ai_text": "Focus passive discovery on parsing application and cloud logs for model interaction signatures, since AI software assets rarely generate the distinct network artifacts captured by traditional DHCP listeners. LLMs, especially LLMs used through APIs from major…"
+    },
+    {
+      "id": "LLM-2.1",
+      "title": "Establish and Maintain a Software Inventory",
+      "lowest_ig": "IG1",
+      "ai_text": "Maintain an inventory of all models and AI-related software components, including model name, version, license, source, and hosting type. This inventory must include base models, fine-tuned variants, model registry exports, container registry manifests, token…"
+    },
+    {
+      "id": "LLM-2.2",
+      "title": "Ensure Authorized Software is Currently Supported",
+      "lowest_ig": "IG1",
+      "ai_text": "Treat model weights (e.g., Llama, Mistral) as software artifacts that require a clear line of support to be considered authorized for use. This support must be established through either a commercial vendor contract or a formal internal enterprise support pro…"
+    },
+    {
+      "id": "LLM-2.3",
+      "title": "Address Unauthorized Software",
+      "lowest_ig": "IG1",
+      "ai_text": "Remove unapproved or unsupported AI components from environments where they are not authorized. Untracked third- party models, libraries, or frameworks introduce supply-chain and operational risk. Removing them ensures only approved, secure components are use…"
+    },
+    {
+      "id": "LLM-2.4",
+      "title": "Utilize Automated Software Inventory Tools",
+      "lowest_ig": "IG2",
+      "ai_text": "Use automated tools to track inference servers, runtimes, fine-tuning libraries, and embedding models used in production, development, and research environments. These components are often updated independently of the models they serve, and untracked updates…"
+    },
+    {
+      "id": "LLM-2.5",
+      "title": "Allowlist Authorized Software",
+      "lowest_ig": "IG2",
+      "ai_text": "Validate ML frameworks and runtime environments to prevent unsafe loading or evaluation of untrusted code or model extensions. Some AI frameworks auto-discover operations or extensions; without validation, attackers may introduce malicious components or achie…"
+    },
+    {
+      "id": "LLM-2.6",
+      "title": "Allowlist Authorized Libraries",
+      "lowest_ig": "IG2",
+      "ai_text": "Allowlist/load-control for runtime libraries (CUDA, cuDNN, PyTorch extensions, kernel modules, native deps) and block unknown shared objects in model-serving processes."
+    },
+    {
+      "id": "LLM-2.7",
+      "title": "Allowlist Authorized Scripts",
+      "lowest_ig": "IG3",
+      "ai_text": "No Additional AI LLM Guidance"
+    },
+    {
+      "id": "LLM-3.1",
+      "title": "Establish and Maintain a Data Management Process",
+      "lowest_ig": "IG1",
+      "ai_text": "Enforce data minimization and integrity controls across the AI life cycle, sanitizing sensitive inputs before inference or training while securing fine-tuning datasets and RAG corpora against unauthorized modification. Models can memorize sensitive data or in…"
+    },
+    {
+      "id": "LLM-3.2",
+      "title": "Establish and Maintain a Data Inventory",
+      "lowest_ig": "IG1",
+      "ai_text": "Inventory all data that has been fed into LLMs, especially SaaS-hosted LLMs, as prompts, attachments, or using any other methods (including data that may come from RAG processes, vector databases, etc.), and ensure all this data is properly tracked and annota…"
+    },
+    {
+      "id": "LLM-3.3",
+      "title": "Configure Data Access Control Lists",
+      "lowest_ig": "IG1",
+      "ai_text": "Retrieved content and long-term memory act as “trusted inputs” that can bypass other controls; unauthorized access or poisoning of these stores allows attackers to manipulate model behavior, exfiltrate sensitive knowledge, or permanently embed malicious instr…"
+    },
+    {
+      "id": "LLM-3.4",
+      "title": "Enforce Data Retention",
+      "lowest_ig": "IG1",
+      "ai_text": "Apply retention policies to model-related artifacts. Establish and enforce documented retention policies for model interaction logs, embeddings, cached outputs, and other transient artifacts to ensure storage duration is intentional, minimal, and compliant wi…"
+    },
+    {
+      "id": "LLM-3.5",
+      "title": "Securely Dispose of Data",
+      "lowest_ig": "IG1",
+      "ai_text": "Apply secure disposal policies to model-related artifacts. Implement secure deletion processes for model interaction logs, embeddings, cached outputs, and transient artifacts to ensure sensitive or residual content is irreversibly removed when no longer requi…"
+    },
+    {
+      "id": "LLM-3.6",
+      "title": "Encrypt Data on End-User Devices",
+      "lowest_ig": "IG1",
+      "ai_text": "Ensure that all endpoints used for AI work are using encrypted storage to ensure all the LLM assets on such endpoints (e.g., local prompt/output caches and local vector stores) are properly protected and require MDM controls to enforce this."
+    },
+    {
+      "id": "LLM-3.7",
+      "title": "Establish and Maintain a Data Classification Scheme",
+      "lowest_ig": "IG2",
+      "ai_text": "Classify LLM-related data (e.g., prompts, completions, embeddings, datasets) according to existing enterprise data classification schemes. Proper classification ensures sensitive information is handled according to enterprise requirements, including restricti…"
+    },
+    {
+      "id": "LLM-3.8",
+      "title": "Document Data Flows",
+      "lowest_ig": "IG2",
+      "ai_text": "Track network segments and storage systems used to host or serve models, including specialized hardware, inference clusters, dedicated GPU nodes, and model artifact storage. Model data and runtime state may reside across distributed storage systems and networ…"
+    },
+    {
+      "id": "LLM-3.9",
+      "title": "Encrypt Data on Removable Media",
+      "lowest_ig": "IG2",
+      "ai_text": "No Additional AI LLM Guidance"
+    },
+    {
+      "id": "LLM-3.10",
+      "title": "Encrypt Sensitive Data in Transit",
+      "lowest_ig": "IG2",
+      "ai_text": "Encrypt sensitive model-related data, including datasets, embeddings, outputs, and intermediate representations, while in transit to protect confidentiality and integrity during network transfer."
+    },
+    {
+      "id": "LLM-3.11",
+      "title": "Encrypt Sensitive Data at Rest",
+      "lowest_ig": "IG2",
+      "ai_text": "Encrypt all model-related data at rest and enforce the use of secure, OS-managed storage for all API credentials and access tokens to prevent plaintext exposure. Unprotected artifacts, including datasets, embeddings, and caches, can leak sensitive semantic in…"
+    },
+    {
+      "id": "LLM-3.12",
+      "title": "Segment Data Processing and Storage Based on Sensitivity",
+      "lowest_ig": "IG2",
+      "ai_text": "Enforce strict network and storage segmentation between AI training environments, inference pipelines, and retrieval corpora, isolating high-trust model components from untrusted external inputs and general enterprise networks. Without explicit trust boundari…"
+    },
+    {
+      "id": "LLM-3.13",
+      "title": "Deploy a Data Loss Prevention Solution",
+      "lowest_ig": "IG3",
+      "ai_text": "Ensure that DLP solutions are examining data being passed to and from LLMs of all types to ensure that data flow is following enterprise policies. LLM interactions represent just as large a vector for data loss as any other application or network data flow an…"
+    },
+    {
+      "id": "LLM-3.14",
+      "title": "Log Sensitive Data Access",
+      "lowest_ig": "IG3",
+      "ai_text": "Monitor all LLM logging for indications of access to known sensitive data."
+    },
+    {
+      "id": "LLM-4.1",
+      "title": "Establish and Maintain a Secure Configuration Process",
+      "lowest_ig": "IG1",
+      "ai_text": "Establish managed configuration baselines for all AI components, enforcing version control for system prompts and model parameters, strict version pinning for model artifacts, and hardened defaults for inference environments. System prompts, token limits, and…"
+    },
+    {
+      "id": "LLM-4.2",
+      "title": "Establish and Maintain a Secure Configuration Process for Network Infrastructure",
+      "lowest_ig": "IG1",
+      "ai_text": "No Additional AI LLM Guidance"
+    },
+    {
+      "id": "LLM-4.3",
+      "title": "Configure Automatic Session Locking on Enterprise Assets",
+      "lowest_ig": "IG1",
+      "ai_text": "No Additional AI LLM Guidance"
+    },
+    {
+      "id": "LLM-4.4",
+      "title": "Implement and Manage a Firewall on Servers",
+      "lowest_ig": "IG1",
+      "ai_text": "Configure host-based firewalls on model hosting servers to strictly limit inbound inference requests to authorized internal gateways and block all unauthorized outbound connections to public repositories where such connections are not pre- authorized. Comprom…"
+    },
+    {
+      "id": "LLM-4.5",
+      "title": "Implement and Manage a Firewall on End- User Devices",
+      "lowest_ig": "IG1",
+      "ai_text": "Configure host-based firewalls on end-user devices to block inbound connections to local AI runtimes and restrict outbound traffic to only authorized model APIs and repositories. Local AI tools often bind API services to open network ports by default; without…"
+    },
+    {
+      "id": "LLM-4.6",
+      "title": "Securely Manage Enterprise Assets and Software",
+      "lowest_ig": "IG1",
+      "ai_text": "Enforce secure management practices for all AI execution environments, applying strict sandboxing and network isolation to endpoint-hosted models while mandating centralized, scoped secret management for SaaS API credentials. Local LLM runtimes effectively tu…"
+    },
+    {
+      "id": "LLM-4.7",
+      "title": "Manage Default Accounts on Enterprise Assets and Software",
+      "lowest_ig": "IG1",
+      "ai_text": "No Additional AI LLM Guidance"
+    },
+    {
+      "id": "LLM-4.8",
+      "title": "Uninstall or Disable Unnecessary Services on Enterprise Assets and Software",
+      "lowest_ig": "IG2",
+      "ai_text": "Disable all tools, plugins, and non-text modalities by default; enable only with explicit approval. Tools and plugins empower models to execute real-world actions that can bypass standard application policies, while non-text modalities (e.g., images, audio) i…"
+    },
+    {
+      "id": "LLM-4.9",
+      "title": "Configure Trusted DNS Servers on Enterprise Assets",
+      "lowest_ig": "IG2",
+      "ai_text": "Use enterprise DNS and protect resolution paths for model endpoints, model registries, and dependency sources. Alert on suspicious AI-related domains."
+    },
+    {
+      "id": "LLM-4.10",
+      "title": "Enforce Automatic Device Lockout on Portable End- User Devices",
+      "lowest_ig": "IG2",
+      "ai_text": "No Additional AI LLM Guidance"
+    },
+    {
+      "id": "LLM-4.11",
+      "title": "Enforce Remote Wipe Capability on Portable End- User Devices",
+      "lowest_ig": "IG2",
+      "ai_text": "No Additional AI LLM Guidance"
+    },
+    {
+      "id": "LLM-4.12",
+      "title": "Separate Enterprise Workspaces on Mobile End- User Devices",
+      "lowest_ig": "IG3",
+      "ai_text": "Enforce separation of enterprise AI data and personal AI usage on mobile devices using containerization or work profiles. This prevents sensitive corporate data from leaking into personal AI accounts or unmanaged model interactions on employee devices, while…"
+    },
+    {
+      "id": "LLM-6.1",
+      "title": "Establish an Access Granting Process",
+      "lowest_ig": "IG1",
+      "ai_text": "Implement a formal, documented process for granting access to AI models, datasets, and computing resources based on business need and least privilege. Explicit approval workflows prevent unauthorized users or shadow teams from accessing sensitive model weight…"
+    },
+    {
+      "id": "LLM-6.2",
+      "title": "Establish an Access Revoking Process",
+      "lowest_ig": "IG1",
+      "ai_text": "Establish a process to immediately revoke access to AI platforms, model repositories, and vector databases upon employee termination or role change. Prevents former employees from retaining access to proprietary models and sensitive training data, mitigating…"
+    },
+    {
+      "id": "LLM-6.3",
+      "title": "Require MFA for Externally- Exposed Applications",
+      "lowest_ig": "IG1",
+      "ai_text": "Require MFA and SSO for all model management and deployment consoles, including SaaS portals and internal orchestration dashboards. Model management interfaces are high-value targets. Authentication must reflect the sensitivity of operations like fine-tuning,…"
+    },
+    {
+      "id": "LLM-6.4",
+      "title": "Require MFA for Remote Network Access",
+      "lowest_ig": "IG1",
+      "ai_text": "Enforce MFA for all remote connections to AI training clusters, model development environments, and inference servers. Protects high-value AI infrastructure from credential theft; attackers often target these environments to steal model IP or inject malicious…"
+    },
+    {
+      "id": "LLM-6.5",
+      "title": "Require MFA for Administrative Access",
+      "lowest_ig": "IG1",
+      "ai_text": "Require MFA for administrative access to model registries, cloud-based AI consoles, and centralized orchestration platforms. Compromise of an administrative AI account can lead to total system takeover, including the ability to poison models, delete datasets,…"
+    },
+    {
+      "id": "LLM-6.6",
+      "title": "Establish and Maintain an Inventory of Authentication and Authorization Systems",
+      "lowest_ig": "IG2",
+      "ai_text": "Maintain an inventory of all identity providers and API gateway authentication mechanisms used for AI models and data stores. Ensures visibility into all entry points for AI resources, preventing “shadow” authentication methods that could be bypassed to gain…"
+    },
+    {
+      "id": "LLM-6.7",
+      "title": "Centralize Access Control",
+      "lowest_ig": "IG2",
+      "ai_text": "Centralize access control decisions for AI resources through a unified policy engine or identity management system (e.g., SSO). This ensures consistent enforcement of security policies across diverse AI tools and platforms, preventing coverage gaps where acce…"
+    },
+    {
+      "id": "LLM-6.8",
+      "title": "Define and Maintain Role-Based Access Control",
+      "lowest_ig": "IG3",
+      "ai_text": "Enforce strict, role-based separation of duties for training data modification, model retraining, and production promotion. For example, this may introduce new role types including model publisher, model operator, prompt/policy maintainer, data curator, vecto…"
+    },
+    {
+      "id": "LLM-8.1",
+      "title": "Establish and Maintain an Audit Log Management Process",
+      "lowest_ig": "IG1",
+      "ai_text": "Define and maintain a process for collecting and reviewing logs from LLMs, APIs, and training environments. Ensures that necessary evidence is available to detect, investigate, and respond to security incidents involving AI systems, enabling effective account…"
+    },
+    {
+      "id": "LLM-8.2",
+      "title": "Collect Audit Logs",
+      "lowest_ig": "IG1",
+      "ai_text": "Log all inference traffic, life cycle events, data access, and multi-modal inputs with granular metadata. Comprehensive logging is the backbone of AI forensics. API logs with strict identity attribution reveal abuse patterns, while recording training and fine…"
+    },
+    {
+      "id": "LLM-8.3",
+      "title": "Ensure Adequate Audit Log Storage",
+      "lowest_ig": "IG1",
+      "ai_text": "Provision sufficient storage to retain logs from LLM systems, including high-volume inference logs, for the required retention period. Prevents the loss of critical forensic data due to storage exhaustion, ensuring logs are available for post- incident analys…"
+    },
+    {
+      "id": "LLM-8.4",
+      "title": "Standardize Time Synchronization",
+      "lowest_ig": "IG2",
+      "ai_text": "Synchronize clocks across all AI infrastructure components to ensure accurate correlation of events in logs. Accurate timestamps are essential for reconstructing the timeline of an attack that spans multiple AI systems and services, enabling effective root ca…"
+    },
+    {
+      "id": "LLM-8.5",
+      "title": "Collect Detailed Audit Logs",
+      "lowest_ig": "IG2",
+      "ai_text": "Configure LLM systems to generate detailed logs, including user inputs, model outputs (where appropriate), and system state changes. Detailed logs provide the context needed to understand the nature and impact of complex attacks against AI models, such as pro…"
+    },
+    {
+      "id": "LLM-8.6",
+      "title": "Collect DNS Query Audit Logs",
+      "lowest_ig": "IG2",
+      "ai_text": "Collect DNS logs for AI-related domains (e.g., model providers, model hubs, artifact registries) and alert on unknown AI endpoints."
+    },
+    {
+      "id": "LLM-8.7",
+      "title": "Collect URL Request Audit Logs",
+      "lowest_ig": "IG2",
+      "ai_text": "Log and attribute outbound HTTP/API requests initiated by models or agents, specifically distinguishing “tool use” traffic from standard infrastructure updates. Models used in conjunction with browsing or URL fetching tool capabilities can be manipulated (e.g…"
+    },
+    {
+      "id": "LLM-8.8",
+      "title": "Collect Command-Line Audit Logs",
+      "lowest_ig": "IG2",
+      "ai_text": "Capture execution logs from “code interpreter” sandboxes and training environments, ensuring transient containers offload logs to central storage before termination. AI systems capable of generating and executing code (e.g., Python agents) act as remote shell…"
+    },
+    {
+      "id": "LLM-8.9",
+      "title": "Centralize Audit Logs",
+      "lowest_ig": "IG2",
+      "ai_text": "Aggregate logs from all LLM components into a central repository for unified analysis and correlation. Centralization enables the detection of complex attack patterns that span multiple systems and provides a single source of truth for investigations across t…"
+    },
+    {
+      "id": "LLM-8.10",
+      "title": "Retain Audit Logs",
+      "lowest_ig": "IG2",
+      "ai_text": "Retain AI-related audit logs for a defined period to support long-term trend analysis and forensic investigations. Ensures that historical data is available to investigate incidents that may not be detected immediately, supporting compliance and long-term sec…"
+    },
+    {
+      "id": "LLM-8.11",
+      "title": "Conduct Audit Log Reviews",
+      "lowest_ig": "IG2",
+      "ai_text": "Review logs for adversarial interaction patterns, excessive errors, and unexpected behavioral drift. Behavioral signals, such as rapid sequences of adversarial prompts or excessive error rates, often serve as the earliest indicators of an active exploitation…"
+    },
+    {
+      "id": "LLM-8.12",
+      "title": "Collect Service Provider Logs",
+      "lowest_ig": "IG3",
+      "ai_text": "Integrate SaaS model API telemetry (if available) with network monitoring to detect suspicious or abnormal usage patterns. Provider-side logs often reflect rate limits, warnings, or policy issues. Correlating this data with network telemetry improves detectio…"
+    },
+    {
+      "id": "LLM-11.1",
+      "title": "Establish and Maintain a Data Recovery Process",
+      "lowest_ig": "IG1",
+      "ai_text": "Establish a process for the backup and recovery of AI models, training data, and configuration files. Ensures business continuity by enabling the restoration of critical AI capabilities following data loss or corruption events, minimizing downtime and operati…"
+    },
+    {
+      "id": "LLM-11.2",
+      "title": "Perform Automated Backups",
+      "lowest_ig": "IG1",
+      "ai_text": "Back up model registry states, prompt/policy configurations, evaluation datasets, RAG corpora, and the CI/CD artifacts (including embedding pipelines) required to rebuild or verify AI-enabled systems. These assets represent core intellectual property and must…"
+    },
+    {
+      "id": "LLM-11.3",
+      "title": "Protect Recovery Data",
+      "lowest_ig": "IG1",
+      "ai_text": "Encrypt and restrict access to backups of AI models and data to prevent unauthorized access or tampering. Backup data contains the same sensitive IP and information as production systems and requires equivalent protection to prevent data breaches or integrity…"
+    },
+    {
+      "id": "LLM-11.4",
+      "title": "Establish and Maintain an Isolated Instance of Recovery Data",
+      "lowest_ig": "IG1",
+      "ai_text": "Maintain an isolated (offline or immutable) copy of AI backups to protect against ransomware and destructive attacks. This ensures that a clean, uncorrupted copy of data is available for recovery even if the primary network is compromised or data is encrypted…"
+    },
+    {
+      "id": "LLM-11.5",
+      "title": "Test Data Recovery",
+      "lowest_ig": "IG2",
+      "ai_text": "Test recovery procedures for all AI components, verifying the integrity of restored artifacts and maintaining rollback capabilities. Restoring a corrupted or poisoned model checkpoint can reintroduce vulnerabilities or unsafe behaviors. Therefore, recovery te…"
+    },
+    {
+      "id": "LLM-17.1",
+      "title": "Designate Personnel to Manage Incident Handling",
+      "lowest_ig": "IG1",
+      "ai_text": "Assign specific personnel with AI expertise to manage incidents involving LLMs and generative AI systems. AI incidents require specialized knowledge to diagnose and mitigate; designated experts ensure an effective and informed response."
+    },
+    {
+      "id": "LLM-17.2",
+      "title": "Establish and Maintain Contact Information for Reporting Security Incidents",
+      "lowest_ig": "IG1",
+      "ai_text": "Maintain up-to-date contact information for reporting AI- related security incidents to internal teams and external AI providers. Facilitates rapid communication during a crisis, ensuring that the right people are alerted immediately to contain the incident."
+    },
+    {
+      "id": "LLM-17.3",
+      "title": "Establish and Maintain an Enterprise Process for Reporting Incidents",
+      "lowest_ig": "IG1",
+      "ai_text": "Define a clear process for employees to report suspected AI security incidents, including specific indicators to look for. Encourages timely reporting of anomalies, enabling the security team to investigate and contain threats earlier in the attack life cycle."
+    },
+    {
+      "id": "LLM-17.4",
+      "title": "Establish and Maintain an Incident Response Process",
+      "lowest_ig": "IG2",
+      "ai_text": "Define incident response procedures that address AI-specific attack scenarios, such as unsafe model behavior, leakage, extraction attempts, poisoning, or compromised tools. IR plans must explicitly identify how to detect and respond to incidents involving LLM…"
+    },
+    {
+      "id": "LLM-17.5",
+      "title": "Assign Key Roles and Responsibilities",
+      "lowest_ig": "IG2",
+      "ai_text": "Define specific roles and responsibilities for AI incident response, including data scientists, legal representatives, and privacy officers. Ensures a coordinated effort where all aspects of an AI incident (e.g., technical, legal, reputational) are addressed…"
+    },
+    {
+      "id": "LLM-17.6",
+      "title": "Define Mechanisms for Communicating During Incident Response",
+      "lowest_ig": "IG2",
+      "ai_text": "Establish secure communication channels for discussing AI incidents, especially those involving sensitive data leaks. Prevents attackers from intercepting incident response communications and ensures stakeholders are kept informed securely without tipping off…"
+    },
+    {
+      "id": "LLM-17.7",
+      "title": "Conduct Routine Incident Response Exercises",
+      "lowest_ig": "IG2",
+      "ai_text": "Conduct AI-inclusive incident response exercises to validate readiness and clarify cross-team responsibilities. Exercises should incorporate realistic model-specific threats (e.g., injection attempts, data contamination, misuse of tool invocation) and help te…"
+    },
+    {
+      "id": "LLM-17.8",
+      "title": "Conduct Post- Incident Reviews",
+      "lowest_ig": "IG2",
+      "ai_text": "Conduct post-incident reviews focusing on data sources, model changes, prompt changes, policy changes, tool usage, and gaps in monitoring. These reviews should mandate that these assets, at a minimum, are preserved for review: ▪ Prompts/policies versions ▪ Mo…"
+    },
+    {
+      "id": "LLM-17.9",
+      "title": "Establish and Maintain Security Incident Thresholds",
+      "lowest_ig": "IG3",
+      "ai_text": "Enterprises should define clear security incident thresholds that distinguish normal model behavior from unsafe or compromised behavior and tie those thresholds to rapid-disable mechanisms. This includes identifying what constitutes an “event” versus an “inci…"
+    }
+  ]
+}
