@@ -52,7 +52,7 @@ on internal_process. Decided: Model building's covers narrowed to the activity (
 limits told, withdraw; testing answers is Output, weights are Model, data is Test, tuning and evaluation data);
 Output's covers add bias (treating people or groups unequally) and say TEVV of answers is done there for everyone;
 internal_process does not get `people` (bias in answers is a people harm at Output; bias awareness is foundation,
-GOVERN). Any change to the AI areas sheet makes every recorded area stale (each draft's input carries the other areas'
+GOVERN); internal_process and customer_facing covers add that wrong or biased output is tested at Output and the area asks how staff or customers check, report and challenge it and how high-impact decisions are caught and audited (the business view: audit and high-impact decisions, not bias). Any change to the AI areas sheet makes every recorded area stale (each draft's input carries the other areas'
 covers), so all 6 recorded areas must be re-drafted. Sonnet is fine for the remaining runs.
 1. Run the remaining batches (ask the user before running; Sonnet): batch 2 model, agent, mcp_tools, source_data,
    test_tuning_data; batch 3 code_generation, vendor_ai, invisible_usage, input, hosting; batch 4 (re-draft)

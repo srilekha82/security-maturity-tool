@@ -1,7 +1,7 @@
 {
   "description": "AI areas of the AI RMF assessment: the ways AI is used and the components of the AI ecosystem, each with the attack areas it impacts. Generated from data/ai/authoring/ai_areas.xlsx by scripts/sheet_io.py import; the spreadsheet is the decision, edit it, not this file. Model: AI_RMF_Mapping_Sheet_Design.md.",
   "source": "data/ai/authoring/ai_areas.xlsx",
-  "source_sha": "a149c59bb93ae58f",
+  "source_sha": "c7e0a52359dc576e",
   "generated_by": "scripts/sheet_io.py import ai_areas",
   "ai_areas": [
     {
@@ -13,7 +13,7 @@
         "process",
         "data"
       ],
-      "covers": "AI output driving internal decisions and workflows (HR, finance, approvals, operations). Staff are the users: over-reliance, misuse by insiders, decisions made on wrong output."
+      "covers": "AI output driving internal decisions and workflows (HR, finance, approvals, operations). Staff are the users: over-reliance, misuse by insiders, decisions made on wrong output. Whether the output is wrong or biased is tested at Output; here: how staff check, challenge and override it, and how high-impact decisions made on it are caught and audited."
     },
     {
       "id": "code_generation",
@@ -36,7 +36,7 @@
         "data",
         "people"
       ],
-      "covers": "Public users can attack the AI (prompt injection, abuse), and AI output reaches customers directly: wrong, harmful or leaked answers in front of customers."
+      "covers": "Public users can attack the AI (prompt injection, abuse), and AI output reaches customers directly: wrong, harmful or leaked answers in front of customers. Whether answers are wrong or biased is tested at Output; here: how customers report problems and negative feedback, and how high-impact answers are caught and audited."
     },
     {
       "id": "vendor_ai",
