@@ -1,0 +1,471 @@
+{
+  "recorded_at": "2026-10-26T14:50:52.619392+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-opus-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "a6e3dc0917faab69"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "ecbe4e1ece1aed75"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_model_draft2.json",
+    "sha": "d52eac8ce67148c6"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "6142a51e19b2ae51"
+  },
+  "output_snapshot": {
+    "area": "model",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.1",
+        "cis_refs": [
+          "LLM-2.1"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "The intended purpose, users, deployment settings and known limitations of each model and fine-tuned version are documented, so it is clear what each version is for and where it may run."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.4",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The business value and context of business use of each model and fine-tuned version are defined, and re-evaluated for existing versions, so it is clear which applications and processes depend on each version and why."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.6",
+        "cis_refs": [
+          "LLM-4.1"
+        ],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "Requirements for the model are set and understood by the people who build and run it, such as weights staying in approved stores, versions pinned and system prompts under version control."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.1",
+        "cis_refs": [
+          "LLM-2.1"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "The task each model performs and the method behind it (base model, model type, fine-tuning approach) are defined and documented with their assumptions and limits."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [
+          "LLM-3.8",
+          "LLM-6.6"
+        ],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "The model's knowledge limits, conditions outside its intended use, its upstream dependencies and the networks, storage and APIs through which the weights and endpoints can be reached are documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.1",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The expected benefits of the model's performance are examined and documented, for example against a human baseline or standard benchmarks, before a version is relied on."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.2",
+        "cis_refs": [],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "The costs of model errors and of the model being stolen, extracted through the API or tampered with are examined and set against the organisation's risk tolerance."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.3",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The scope each model version is deployed for is specified, including how long it runs between retrainings and which applications or processes may use it."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-2.1",
+          "LLM-2.2"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Third-party base models, weights, libraries and datasets the model is built on are inventoried with their licences and support, and the risk of infringing a third party's IP is reviewed."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "LLM-1.2",
+          "LLM-2.3",
+          "LLM-2.5",
+          "LLM-2.6"
+        ],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "Internal controls over the model's components, including acquired pre-trained models, are identified: security review of third-party weights, safelists of frameworks and libraries, and removal of unapproved models."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.1",
+        "cis_refs": [],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "The likelihood and magnitude of harms to the model, such as weight theft, extraction through the API or version tampering, are rated on a defined scale using red teaming and known incidents."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 1.2",
+        "cis_refs": [],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "The metrics used for the model and the effectiveness of the controls protecting its weights, versions and prompts are reassessed regularly, including after errors and incidents."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 1.3",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "People who did not build the model, or independent assessors, take part in evaluating model versions before and after release."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.1",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The TEVV protocol for each model version is documented, including the experimental design, test data selection, metrics and tools used (for example in model cards), so results can be repeated, compared and corroborated.",
+        "folded": [
+          "MAP 2.3"
+        ]
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.3",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The model's performance is measured before release in conditions similar to deployment, including non-optimised conditions, and the measures are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "LLM-8.2",
+          "LLM-8.11"
+        ],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "The model is monitored in production for drift from pre-release test results, anomalies and usage patterns that suggest extraction, with alerts when these are detected."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.5",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "Each model version is shown to be accurate and consistent under defined operating conditions, and the limits of how far its results generalise are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.6",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The model is stress-tested beyond its known limits (drift, high load, past incident scenarios) and the conditions under which it has been shown to fail safely are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-8.11",
+          "LLM-11.5"
+        ],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "The model's security and resilience are tested and documented, such as red teaming for extraction through the API and weight tampering, and whether a clean version can be restored after an attack."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.1",
+          "LLM-8.2",
+          "LLM-8.3",
+          "LLM-8.4",
+          "LLM-8.5",
+          "LLM-8.9",
+          "LLM-8.10"
+        ],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "Access to the weights, changes to model versions, system prompts and configurations, and inference API use are logged with identity, so actions on the model can be traced and accounted for."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.13",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The metrics and test processes used for the model are reviewed for whether they actually find errors and risks, and changed when they do not."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 3.1",
+        "cis_refs": [],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "Someone tracks new and emerging risks to the model, such as new extraction or tampering techniques and gaps between intended and actual performance in deployment."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 4.2",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "Feedback from the application teams, operators and domain experts using each model version is gathered and used to validate that the version performs consistently as intended in deployment, and the results are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 4.3",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "Baseline performance is set for the model and changes in performance after each new version or fine-tune are measured and documented."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 1.1",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "A documented decision is made, from test results, on whether each model version meets its purpose and may be promoted to production."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 1.4",
+        "cis_refs": [],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "Residual risks of the model that are accepted or only partly treated are documented and disclosed to downstream users and acquirers, with its known limits."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "LLM-3.10",
+          "LLM-3.11",
+          "LLM-3.12",
+          "LLM-4.1",
+          "LLM-4.4",
+          "LLM-6.1",
+          "LLM-6.2",
+          "LLM-6.3",
+          "LLM-6.4",
+          "LLM-6.5",
+          "LLM-6.7",
+          "LLM-6.8"
+        ],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "Controls protect the model in use: least-privilege and role-separated access to weights, registries and prompt stores, MFA, encryption and segmentation of model artefacts, version pinning, and API throttling against extraction."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-11.1",
+          "LLM-11.2",
+          "LLM-11.3",
+          "LLM-11.4",
+          "LLM-17.1",
+          "LLM-17.4"
+        ],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "Procedures are followed to respond to and recover from a newly found risk to the model, such as stolen weights or a tampered version, including restoring a clean version from protected backups."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-11.5",
+          "LLM-17.9"
+        ],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "Named people can roll back, supersede or switch off a model version that behaves outside its intended use or is compromised, at defined thresholds, with material preserved for review."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.1",
+        "cis_refs": [
+          "LLM-2.2",
+          "LLM-2.3"
+        ],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "Third-party resources the model depends on other than pre-trained models, such as ML frameworks, libraries, runtimes and hosting or registry providers, are monitored for support status, release irregularities and new risks, with risk controls applied and unsupported components removed."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.2",
+        "cis_refs": [
+          "LLM-2.1",
+          "LLM-2.2",
+          "LLM-2.4"
+        ],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "Pre-trained models used to build the model are in the inventory and monitored for performance and new risks, and are decommissioned when they exceed risk tolerance."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.1",
+        "cis_refs": [
+          "LLM-8.11"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "A post-deployment monitoring plan for the model is implemented, covering post-release testing, red teaming at a set cadence, change management, rollback and decommissioning."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.2",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "Model updates and fine-tunes include measurable improvement activities, with documented reasons for tradeoffs between performance and risk."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-4.1",
+          "LLM-17.2",
+          "LLM-17.3",
+          "LLM-17.6",
+          "LLM-17.8"
+        ],
+        "impact": [
+          "assets",
+          "process"
+        ],
+        "why": "Incidents and errors involving the model are recorded, communicated and reviewed, and a version history of model, prompt and configuration changes is kept with how each was tested and deployed."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_model_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 1.4",
+      "reason": "The second half of the why ('which applications and processes depend on each version') repeats MAP 3.3 ('which applications or processes may use it'); keep MAP 1.4 to the business value of each version and its re-evaluation for versions already in use."
+    },
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.1",
+      "reason": "Folded MAP 2.3 also covers construct validation and whether test data is representative and suitable; the why only says 'test data selection' and never asks whether the tests measure what they claim to, so the folded outcome is not fully asked."
+    },
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.13",
+      "reason": "Repeats MEASURE 1.2, whose why already has the model's metrics reassessed regularly after errors; narrow MEASURE 1.2 to the effectiveness of the controls protecting weights, versions and prompts, or make 2.13 clearly about the TEVV test processes only."
+    },
+    {
+      "kind": "missing",
+      "function": "MAP",
+      "subcategory": "MAP 3.4",
+      "reason": "Nothing checks that the people who run, promote, roll back and change model versions and system prompts have defined proficiency, operational documentation and training on the model's limits and operating boundaries."
+    },
+    {
+      "kind": "missing",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.9",
+      "reason": "This subcategory is about the model itself: model details (type, training approach, decision thresholds, proposed uses) documented, and how each version's behaviour is explained and validated; no row asks whether model versions are explainable to the people relying on them."
+    },
+    {
+      "kind": "missing",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.12",
+      "reason": "The outcome names model training and management directly; an assessor could ask whether the energy use and emissions of training, fine-tuning and serving each model version are measured, and nothing covers it."
+    },
+    {
+      "kind": "note",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.6",
+      "reason": "Failing safely beyond known limits (and accuracy in MEASURE 2.5) protects the people affected by the model's results, not only assets and processes; the area's impacts (assets, process) may be too narrow for the required reliability rows."
+    }
+  ]
+}

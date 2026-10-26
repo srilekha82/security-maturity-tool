@@ -1,0 +1,521 @@
+{
+  "recorded_at": "2026-10-26T14:50:36.477057+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-opus-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "a6e3dc0917faab69"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "ecbe4e1ece1aed75"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_agent_draft2.json",
+    "sha": "4389d5c389536d81"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "6999bd6338cf3db8"
+  },
+  "output_snapshot": {
+    "area": "agent",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.1",
+        "cis_refs": [
+          "AGENT-1.1"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Each agent's intended purpose, the processes it acts in, who relies on it and the settings it must not be used in are documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.4",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The business value of letting an agent act in each process, rather than a person or a non-autonomous tool, and the benefits it is expected to bring to that process are examined with the people who use it, documented and re-evaluated.",
+        "folded": [
+          "MAP 3.1"
+        ]
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.6",
+        "cis_refs": [
+          "AGENT-16.10",
+          "AGENT-16.14"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "Requirements for the agent, such as which actions need approval, which changes must be reversible and how manipulated input is handled, are set and shape its design."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.1",
+        "cis_refs": [
+          "AGENT-2.1"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "The tasks each agent performs on its own and the tools, actions and chains of steps it uses to perform them are defined and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [
+          "AGENT-2.1"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "The people relying on the agent are told its knowledge limits, the upstream data, models and systems it depends on and the external systems and networks it connects to, so they can oversee and act on its actions."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.2",
+        "cis_refs": [
+          "AGENT-16.14"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "The costs of agent errors, such as irreversible changes, runaway action chains and actions triggered by manipulated input, are examined against risk tolerance."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.3",
+        "cis_refs": [
+          "AGENT-1.1"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "The scope each agent may act in (processes, systems, kinds of action and degree of autonomy) is specified and narrowed to what its capability supports."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.4",
+        "cis_refs": [
+          "AGENT-16.9"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "The people who build, operate and supervise agents are trained on agent behaviour, tool risks and known limits, and their proficiency is checked."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.5",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "Human oversight of each agent, including which actions need a person in or on the loop and who that person is, is defined and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "AGENT-2.1",
+          "AGENT-16.4"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "The agent's components, including third-party frameworks, tools, MCP servers and models, are identified with the technology and legal risks each brings."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "AGENT-2.5",
+          "AGENT-2.6",
+          "AGENT-16.5"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Internal controls for the agent's components, such as allowlisted frameworks, libraries and tools and integrity checks on them, are identified and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.1",
+        "cis_refs": [
+          "AGENT-16.6",
+          "AGENT-16.14"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "The likelihood and size of harm from each agent's actions are rated, taking account of its autonomy, tool access and known agent incidents."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.2",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "People who work alongside or are affected by the agent are regularly engaged, and their feedback on its positive, negative and unanticipated impacts is captured and used."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 1.2",
+        "cis_refs": [
+          "AGENT-18.4"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "The controls and metrics used for agents are regularly checked for effectiveness, using agent errors and incidents, and updated when they fall short."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 1.3",
+        "cis_refs": [
+          "AGENT-18.1"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Agents are assessed by people independent of those who built or deployed them, with process owners consulted."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.1",
+        "cis_refs": [
+          "AGENT-16.13"
+        ],
+        "impact": [
+          "process"
+        ],
+        "folded": [
+          "MAP 2.3"
+        ],
+        "why": "The test scenarios, metrics and evaluation harnesses used for agents are documented, and the test design is shown valid for multi-step agent behaviour: scenarios representative of the real process, metrics clear enough for go/no-go decisions and the assumptions behind the tests recorded."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.3",
+        "cis_refs": [
+          "AGENT-16.13"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Agent task performance is measured in conditions close to the real process, including messy inputs and unexpected tool outputs."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "AGENT-8.11",
+          "AGENT-17.9"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "Agent behaviour in production, such as tool calls, action chains, rates and costs, is monitored for anomalies with alerts set."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.5",
+        "cis_refs": [
+          "AGENT-16.13"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "The agent is shown to complete its tasks reliably before deployment, and the conditions beyond which it is not reliable are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.6",
+        "cis_refs": [
+          "AGENT-16.10",
+          "AGENT-16.13"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "The agent is tested to fail safely, stopping rather than looping or making irreversible changes when it goes beyond its limits."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "AGENT-16.2",
+          "AGENT-16.13",
+          "AGENT-18.1",
+          "AGENT-18.2",
+          "AGENT-18.5"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "The agent is red-teamed and penetration tested for prompt injection, tool abuse, sandbox escape and workflow exploits, with results documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "AGENT-6.1",
+          "AGENT-8.1",
+          "AGENT-8.2",
+          "AGENT-8.3",
+          "AGENT-8.5",
+          "AGENT-8.7",
+          "AGENT-8.8",
+          "AGENT-8.9",
+          "AGENT-8.10",
+          "AGENT-8.12"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Each agent acts under its own identity and its reasoning, tool calls, commands and access decisions are logged so every action can be traced and accounted for."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.9",
+        "cis_refs": [
+          "AGENT-8.5",
+          "AGENT-8.11"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "The agent's chain of actions can be explained and interpreted in the context of its process, so the process owner can see why it took an action and act on that explanation."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 3.1",
+        "cis_refs": [
+          "AGENT-8.11"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "New and unexpected agent risks, such as new tools, behaviour drift or new attack techniques, are identified and tracked in deployment."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 3.3",
+        "cis_refs": [
+          "AGENT-17.3"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "People affected by agent actions can report problems and contest outcomes, and these reports feed the agent's evaluation."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 4.2",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "Process owners and operators review the agent's results in use to confirm it performs as intended, and their findings are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 4.3",
+        "cis_refs": [
+          "AGENT-17.9"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Baselines for agent behaviour are set and improvements or declines in agent performance in the field are identified and documented."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 1.1",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "A decision is made and recorded on whether each agent meets its purpose and may be deployed or keep running."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 1.4",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "Residual risks of each agent's autonomy and access that are accepted are documented and made known to the people relying on it."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "AGENT-2.7",
+          "AGENT-5.1",
+          "AGENT-5.2",
+          "AGENT-5.4",
+          "AGENT-5.5",
+          "AGENT-5.6",
+          "AGENT-6.1",
+          "AGENT-6.3",
+          "AGENT-6.5",
+          "AGENT-6.7",
+          "AGENT-6.8",
+          "AGENT-16.10"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Agent access is granted least-privilege with separate credentials per component, and controls such as approval gates, sandboxed execution, rate limits and circuit breakers restrict what it can do."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "AGENT-17.1",
+          "AGENT-17.4",
+          "AGENT-17.5",
+          "AGENT-17.7"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "Incident response covers agent-specific scenarios such as runaway or hijacked agents, with named responders, containment and recovery steps."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "AGENT-6.2",
+          "AGENT-16.10",
+          "AGENT-17.9"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "Each agent can be stopped and its credentials revoked quickly, with thresholds that trigger it, named people responsible and a fallback for the process."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.1",
+        "cis_refs": [
+          "AGENT-2.2",
+          "AGENT-16.4",
+          "AGENT-16.5"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "Third-party agent platforms, frameworks and tools are monitored for risk, kept supported and controlled."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.1",
+        "cis_refs": [
+          "AGENT-6.2",
+          "AGENT-16.1"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "Post-deployment plans for each agent cover monitoring, override, controlled change and decommissioning with removal of its access."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.2",
+        "cis_refs": [
+          "AGENT-16.3",
+          "AGENT-18.3"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Findings from tests, incidents and user feedback are fed into agent updates and tracked as measurable improvements."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "AGENT-17.2",
+          "AGENT-17.3",
+          "AGENT-17.6",
+          "AGENT-17.8"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "Agent incidents and errors are recorded, root-caused through the chain of actions, and communicated to affected people and providers."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_agent_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 1.6",
+      "reason": "\"Which actions need approval\" repeats the MAP 3.5 check (which actions need a person in or on the loop), and MANAGE 2.2 asks about approval gates too; the why also leaves out the outcome's core, requirements elicited from and understood by the relevant actors (process owners, operators). Keep approval in MAP 3.5 and make this row about how agent requirements are gathered."
+    },
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 2.2",
+      "reason": "The why's list of upstream data, models, systems and networks maps dependencies, which MAP 4.1 already asks; MAP 2.2 is about knowledge limits and how people oversee and use the agent's actions. AGENT-2.1 (software inventory) is not evidence that the people relying on the agent were told its limits."
+    },
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 3.5",
+      "reason": "cis_refs is empty, but AGENT-1.1 (the inventory records the business owner responsible for the agent's actions) supports the 'who that person is' part of the oversight check."
+    },
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 1.3",
+      "reason": "The why is generic: independent assessment would read the same for any area, with nothing agent-specific (for example independent review of action chains or autonomy limits). AGENT-18.1 (agent components in pen testing scope) says nothing about the assessors being independent of the builders."
+    },
+    {
+      "kind": "row",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 2.2",
+      "reason": "MANAGE 2.2 is about mechanisms that sustain the deployed agent's value; the why asks only about least-privilege access restrictions and never about keeping the agent delivering value safely over time. Also AGENT-5.4, AGENT-6.3 and AGENT-6.5 (admin accounts, MFA on consoles and admin actions) protect the platform from human attackers and do not restrict what the agent itself can do."
+    },
+    {
+      "kind": "missing",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.10",
+      "reason": "Nothing checks the privacy risk of agents that read, store in memory and move personal data through tools and outbound calls (exfiltration, retention in memory and logs). An assessor could ask this of agents. Mapping it may also show that the area's impacts (access, process) leave out data."
+    }
+  ]
+}

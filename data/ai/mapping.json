@@ -1,0 +1,1500 @@
+{
+  "areas": {
+    "model": {
+      "recorded_on": "2026-10-26",
+      "inputs": {
+        "ai_areas": "cb4442986fe5fa62",
+        "rules": "32f0ba82b2e26184",
+        "playbook": "65d6101d80650287",
+        "guides": {
+          "LLM": "fae3d032d78cd956",
+          "MCP": "4faa140a9b5f3071",
+          "AGENT": "824ab8a2e829a11a"
+        }
+      },
+      "rows": [
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.1",
+          "cis_refs": [
+            "LLM-2.1"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "The intended purpose, users, deployment settings and known limitations of each model and fine-tuned version are documented, so it is clear what each version is for and where it may run.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.4",
+          "cis_refs": [],
+          "impact": [
+            "assets"
+          ],
+          "why": "The business value and context of business use of each model and fine-tuned version are defined, and re-evaluated for existing versions, so it is clear which applications and processes depend on each version and why.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "The second half of the why ('which applications and processes depend on each version') repeats MAP 3.3 ('which applications or processes may use it'); keep MAP 1.4 to the business value of each version and its re-evaluation for versions already in use."
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.6",
+          "cis_refs": [
+            "LLM-4.1"
+          ],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "Requirements for the model are set and understood by the people who build and run it, such as weights staying in approved stores, versions pinned and system prompts under version control.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 2.1",
+          "cis_refs": [
+            "LLM-2.1"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "The task each model performs and the method behind it (base model, model type, fine-tuning approach) are defined and documented with their assumptions and limits.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 2.2",
+          "cis_refs": [
+            "LLM-3.8",
+            "LLM-6.6"
+          ],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "The model's knowledge limits, conditions outside its intended use, its upstream dependencies and the networks, storage and APIs through which the weights and endpoints can be reached are documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.1",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "The expected benefits of the model's performance are examined and documented, for example against a human baseline or standard benchmarks, before a version is relied on.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.2",
+          "cis_refs": [],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "The costs of model errors and of the model being stolen, extracted through the API or tampered with are examined and set against the organisation's risk tolerance.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.3",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "The scope each model version is deployed for is specified, including how long it runs between retrainings and which applications or processes may use it.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 4.1",
+          "cis_refs": [
+            "LLM-2.1",
+            "LLM-2.2"
+          ],
+          "impact": [
+            "assets"
+          ],
+          "why": "Third-party base models, weights, libraries and datasets the model is built on are inventoried with their licences and support, and the risk of infringing a third party's IP is reviewed.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 4.2",
+          "cis_refs": [
+            "LLM-1.2",
+            "LLM-2.3",
+            "LLM-2.5",
+            "LLM-2.6"
+          ],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "Internal controls over the model's components, including acquired pre-trained models, are identified: security review of third-party weights, safelists of frameworks and libraries, and removal of unapproved models.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 5.1",
+          "cis_refs": [],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "The likelihood and magnitude of harms to the model, such as weight theft, extraction through the API or version tampering, are rated on a defined scale using red teaming and known incidents.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 1.2",
+          "cis_refs": [],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "The metrics used for the model and the effectiveness of the controls protecting its weights, versions and prompts are reassessed regularly, including after errors and incidents.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 1.3",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "People who did not build the model, or independent assessors, take part in evaluating model versions before and after release.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.1",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "The TEVV protocol for each model version is documented, including the experimental design, test data selection, metrics and tools used (for example in model cards), so results can be repeated, compared and corroborated.",
+          "folded": [
+            "MAP 2.3"
+          ],
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "Folded MAP 2.3 also covers construct validation and whether test data is representative and suitable; the why only says 'test data selection' and never asks whether the tests measure what they claim to, so the folded outcome is not fully asked."
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.3",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "The model's performance is measured before release in conditions similar to deployment, including non-optimised conditions, and the measures are documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.4",
+          "cis_refs": [
+            "LLM-8.2",
+            "LLM-8.11"
+          ],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "The model is monitored in production for drift from pre-release test results, anomalies and usage patterns that suggest extraction, with alerts when these are detected.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.5",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "Each model version is shown to be accurate and consistent under defined operating conditions, and the limits of how far its results generalise are documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.6",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "The model is stress-tested beyond its known limits (drift, high load, past incident scenarios) and the conditions under which it has been shown to fail safely are documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.7",
+          "cis_refs": [
+            "LLM-8.11",
+            "LLM-11.5"
+          ],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "The model's security and resilience are tested and documented, such as red teaming for extraction through the API and weight tampering, and whether a clean version can be restored after an attack.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.8",
+          "cis_refs": [
+            "LLM-8.1",
+            "LLM-8.2",
+            "LLM-8.3",
+            "LLM-8.4",
+            "LLM-8.5",
+            "LLM-8.9",
+            "LLM-8.10"
+          ],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "Access to the weights, changes to model versions, system prompts and configurations, and inference API use are logged with identity, so actions on the model can be traced and accounted for.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.13",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "The metrics and test processes used for the model are reviewed for whether they actually find errors and risks, and changed when they do not.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "Repeats MEASURE 1.2, whose why already has the model's metrics reassessed regularly after errors; narrow MEASURE 1.2 to the effectiveness of the controls protecting weights, versions and prompts, or make 2.13 clearly about the TEVV test processes only."
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 3.1",
+          "cis_refs": [],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "Someone tracks new and emerging risks to the model, such as new extraction or tampering techniques and gaps between intended and actual performance in deployment.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 4.2",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "Feedback from the application teams, operators and domain experts using each model version is gathered and used to validate that the version performs consistently as intended in deployment, and the results are documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 4.3",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "Baseline performance is set for the model and changes in performance after each new version or fine-tune are measured and documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 1.1",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "A documented decision is made, from test results, on whether each model version meets its purpose and may be promoted to production.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 1.4",
+          "cis_refs": [],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "Residual risks of the model that are accepted or only partly treated are documented and disclosed to downstream users and acquirers, with its known limits.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.2",
+          "cis_refs": [
+            "LLM-3.10",
+            "LLM-3.11",
+            "LLM-3.12",
+            "LLM-4.1",
+            "LLM-4.4",
+            "LLM-6.1",
+            "LLM-6.2",
+            "LLM-6.3",
+            "LLM-6.4",
+            "LLM-6.5",
+            "LLM-6.7",
+            "LLM-6.8"
+          ],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "Controls protect the model in use: least-privilege and role-separated access to weights, registries and prompt stores, MFA, encryption and segmentation of model artefacts, version pinning, and API throttling against extraction.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.3",
+          "cis_refs": [
+            "LLM-11.1",
+            "LLM-11.2",
+            "LLM-11.3",
+            "LLM-11.4",
+            "LLM-17.1",
+            "LLM-17.4"
+          ],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "Procedures are followed to respond to and recover from a newly found risk to the model, such as stolen weights or a tampered version, including restoring a clean version from protected backups.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.4",
+          "cis_refs": [
+            "LLM-11.5",
+            "LLM-17.9"
+          ],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "Named people can roll back, supersede or switch off a model version that behaves outside its intended use or is compromised, at defined thresholds, with material preserved for review.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 3.1",
+          "cis_refs": [
+            "LLM-2.2",
+            "LLM-2.3"
+          ],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "Third-party resources the model depends on other than pre-trained models, such as ML frameworks, libraries, runtimes and hosting or registry providers, are monitored for support status, release irregularities and new risks, with risk controls applied and unsupported components removed.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 3.2",
+          "cis_refs": [
+            "LLM-2.1",
+            "LLM-2.2",
+            "LLM-2.4"
+          ],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "Pre-trained models used to build the model are in the inventory and monitored for performance and new risks, and are decommissioned when they exceed risk tolerance.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 4.1",
+          "cis_refs": [
+            "LLM-8.11"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "A post-deployment monitoring plan for the model is implemented, covering post-release testing, red teaming at a set cadence, change management, rollback and decommissioning.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 4.2",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "Model updates and fine-tunes include measurable improvement activities, with documented reasons for tradeoffs between performance and risk.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 4.3",
+          "cis_refs": [
+            "LLM-4.1",
+            "LLM-17.2",
+            "LLM-17.3",
+            "LLM-17.6",
+            "LLM-17.8"
+          ],
+          "impact": [
+            "assets",
+            "process"
+          ],
+          "why": "Incidents and errors involving the model are recorded, communicated and reviewed, and a version history of model, prompt and configuration changes is kept with how each was tested and deployed.",
+          "status": "pass",
+          "decided_by": "agent"
+        }
+      ],
+      "no_question": [],
+      "notes": [
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.6",
+          "reason": "Failing safely beyond known limits (and accuracy in MEASURE 2.5) protects the people affected by the model's results, not only assets and processes; the area's impacts (assets, process) may be too narrow for the required reliability rows."
+        }
+      ],
+      "missing": [
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.4",
+          "reason": "Nothing checks that the people who run, promote, roll back and change model versions and system prompts have defined proficiency, operational documentation and training on the model's limits and operating boundaries."
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.9",
+          "reason": "This subcategory is about the model itself: model details (type, training approach, decision thresholds, proposed uses) documented, and how each version's behaviour is explained and validated; no row asks whether model versions are explainable to the people relying on them."
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.12",
+          "reason": "The outcome names model training and management directly; an assessor could ask whether the energy use and emissions of training, fine-tuning and serving each model version are measured, and nothing covers it."
+        }
+      ]
+    },
+    "mcp_tools": {
+      "recorded_on": "2026-10-26",
+      "inputs": {
+        "ai_areas": "cb4442986fe5fa62",
+        "rules": "32f0ba82b2e26184",
+        "playbook": "65d6101d80650287",
+        "guides": {
+          "LLM": "fae3d032d78cd956",
+          "MCP": "4faa140a9b5f3071",
+          "AGENT": "824ab8a2e829a11a"
+        }
+      },
+      "rows": [
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.1",
+          "cis_refs": [
+            "MCP-1.1"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "Each tool or MCP server the AI can call has a documented purpose, the AI systems and users it serves, and the assumptions and limits on its use.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.6",
+          "cis_refs": [
+            "MCP-16.1",
+            "MCP-16.10"
+          ],
+          "impact": [
+            "access",
+            "process"
+          ],
+          "why": "Security and safety requirements for tool connections (least privilege, authentication, confirmation for risky actions, input validation) are set before a tool is built or connected.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.1",
+          "cis_refs": [],
+          "impact": [
+            "access",
+            "process"
+          ],
+          "why": "The benefit each tool connection brings to the AI system and its users is examined and documented, so the permissions granted to the tool can be weighed against it.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.3",
+          "cis_refs": [
+            "MCP-16.4",
+            "MCP-16.10"
+          ],
+          "impact": [
+            "access",
+            "process"
+          ],
+          "why": "The capabilities, tools and resources each server exposes to the AI are limited to the documented scope, with declared capabilities recorded and reviewed.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.4",
+          "cis_refs": [
+            "MCP-16.9"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "People who build, configure and operate tools and MCP servers are trained on tool-specific risks such as OAuth scopes, token handling, prompt injection through tool output and confused-deputy abuse.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.5",
+          "cis_refs": [
+            "MCP-16.10"
+          ],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "Tool actions that need human review or confirmation before they run (writes, deletes, payments, outbound messages) are identified and the oversight step is defined.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 4.1",
+          "cis_refs": [
+            "MCP-1.1",
+            "MCP-2.1",
+            "MCP-2.2",
+            "MCP-12.4",
+            "MCP-15.1",
+            "MCP-15.4",
+            "MCP-16.4",
+            "MCP-16.5"
+          ],
+          "impact": [
+            "access",
+            "data"
+          ],
+          "why": "The technology and legal risks of each tool and outside MCP server are mapped and documented, drawing on its terms of service, licences, data-use and intellectual-property rights, support and release or change schedules, and the systems and data it can reach.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "MCP-1.1 (enterprise asset inventory of hosts, clients, servers, gateways) is inventory (GOVERN), not evidence that the technology and legal risks of each tool or outside server are mapped; drop it."
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 4.2",
+          "cis_refs": [
+            "MCP-2.3",
+            "MCP-2.5",
+            "MCP-2.6",
+            "MCP-15.2",
+            "MCP-15.3",
+            "MCP-15.4"
+          ],
+          "impact": [
+            "access",
+            "process"
+          ],
+          "why": "The controls applied to each tool and outside MCP server (allowlisting, security review, provider classification and contract requirements) are identified and documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 5.1",
+          "cis_refs": [
+            "MCP-16.10",
+            "MCP-16.14",
+            "MCP-15.3"
+          ],
+          "impact": [
+            "access",
+            "data",
+            "process"
+          ],
+          "why": "What a wrong or abused tool call could cost, including non-monetary costs (data exfiltration, unwanted writes, privilege escalation through borrowed credentials), is examined against the organisation's risk tolerance, and its likelihood and magnitude are documented, e.g. through threat modelling.",
+          "folded": [
+            "MAP 3.2"
+          ],
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 1.2",
+          "cis_refs": [
+            "MCP-6.8",
+            "MCP-8.11"
+          ],
+          "impact": [
+            "access"
+          ],
+          "why": "The effectiveness of tool access controls is reassessed regularly by comparing granted scopes and roles with actual tool usage and removing excess permissions.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.3",
+          "cis_refs": [
+            "MCP-16.13"
+          ],
+          "impact": [
+            "access",
+            "process"
+          ],
+          "why": "Tool integrations are tested before go-live in conditions like production (real permission scopes, data volumes, rate limits and error conditions) and the results are documented.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "MCP-16.13 is security/penetration testing (abuse cases, adversarial prompts, authz enforcement), already cited for MEASURE 2.6 and 2.7; it is not evidence of tool performance measured in production-like conditions."
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.4",
+          "cis_refs": [
+            "MCP-8.9",
+            "MCP-8.11"
+          ],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "Tool calls in production are monitored for anomalies, unauthorised activity and use outside approved capabilities.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.6",
+          "cis_refs": [
+            "MCP-16.13"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "Tools are tested for failing safely when calls error, time out, repeat or are pushed beyond intended use, so no partial or runaway action results.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.7",
+          "cis_refs": [
+            "MCP-16.12",
+            "MCP-16.13"
+          ],
+          "impact": [
+            "access",
+            "data"
+          ],
+          "why": "Tools and MCP servers are security tested (authorisation enforcement, prompt injection through tool output, tool poisoning, code and dependency scanning) and results are documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.8",
+          "cis_refs": [
+            "MCP-8.1",
+            "MCP-8.2",
+            "MCP-8.3",
+            "MCP-8.4",
+            "MCP-8.5",
+            "MCP-8.7",
+            "MCP-8.8",
+            "MCP-8.10",
+            "MCP-8.12"
+          ],
+          "impact": [
+            "access",
+            "process"
+          ],
+          "why": "Tool calls are logged with the identity and credentials used, the tool, parameters and result, so every action the AI takes through a tool can be traced and accounted for.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.10",
+          "cis_refs": [
+            "MCP-15.3"
+          ],
+          "impact": [
+            "data"
+          ],
+          "why": "The personal and sensitive data tools can read, write or send to outside servers is identified and its privacy risk examined.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 3.1",
+          "cis_refs": [
+            "MCP-1.2",
+            "MCP-15.6",
+            "MCP-16.14"
+          ],
+          "impact": [
+            "access",
+            "process"
+          ],
+          "why": "New and emerging tool risks (new tools or capabilities on a known server, provider changes, advisories) are tracked and re-assessed as they appear.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 3.3",
+          "cis_refs": [
+            "MCP-17.3"
+          ],
+          "impact": [
+            "access",
+            "process"
+          ],
+          "why": "Users on whose behalf or with whose credentials tools act can report unwanted tool actions, and these reports are tracked and fed into the evaluation of the tools.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 1.1",
+          "cis_refs": [
+            "MCP-16.4"
+          ],
+          "impact": [
+            "access",
+            "process"
+          ],
+          "why": "Before a tool or MCP server (or a new capability on one) goes into production, a documented decision is made on whether it achieves its intended purpose for the AI system, weighing its benefits against the risks found in review and testing, and whether deployment should proceed.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 1.4",
+          "cis_refs": [],
+          "impact": [
+            "access",
+            "data",
+            "process"
+          ],
+          "why": "Residual risks accepted for a tool or outside MCP server (broad scopes, an untrusted provider, no confirmation step) are documented and disclosed to the users and teams relying on it.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.2",
+          "cis_refs": [
+            "MCP-5.2",
+            "MCP-5.4",
+            "MCP-6.1",
+            "MCP-6.3",
+            "MCP-6.5",
+            "MCP-6.7",
+            "MCP-6.8",
+            "MCP-12.2",
+            "MCP-16.7",
+            "MCP-16.8",
+            "MCP-16.11"
+          ],
+          "impact": [
+            "access",
+            "data"
+          ],
+          "why": "Tool access is controlled in practice: credentials are scoped to the AI's task rather than borrowed from users, access is granted per tool, authenticated, segmented and validated against declared schemas.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.3",
+          "cis_refs": [
+            "MCP-17.1",
+            "MCP-17.4",
+            "MCP-17.5",
+            "MCP-17.7",
+            "MCP-17.9"
+          ],
+          "impact": [
+            "access",
+            "process",
+            "data"
+          ],
+          "why": "There are practised procedures to contain and recover from a tool incident, such as unauthorised invocation, tool poisoning or a compromised token.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.4",
+          "cis_refs": [
+            "MCP-5.3",
+            "MCP-6.2",
+            "MCP-15.7",
+            "MCP-17.4"
+          ],
+          "impact": [
+            "access",
+            "process"
+          ],
+          "why": "A tool or MCP server can be disabled quickly by named people, with its tokens revoked, sessions ended and data flows stopped.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "MCP-5.3 (disable dormant accounts after inactivity) is account hygiene, not evidence that a misbehaving tool or server can be superseded or switched off; drop it."
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 3.1",
+          "cis_refs": [
+            "MCP-2.2",
+            "MCP-8.12",
+            "MCP-15.4",
+            "MCP-15.5",
+            "MCP-15.6",
+            "MCP-16.5"
+          ],
+          "impact": [
+            "access",
+            "data"
+          ],
+          "why": "Outside MCP servers and third-party tool components are regularly monitored as suppliers, with their security commitments assessed and risk controls applied.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 4.1",
+          "cis_refs": [
+            "MCP-1.2",
+            "MCP-12.3",
+            "MCP-16.2",
+            "MCP-16.6"
+          ],
+          "impact": [
+            "access",
+            "process"
+          ],
+          "why": "After deployment, changes to tools and servers go through change management, and vulnerabilities found in them are triaged, fixed and verified.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "The why asks only change management and vulnerability triage, not that a post-deployment monitoring plan for tools is implemented; the capability-change check repeats MEASURE 3.1 (both cite MCP-1.2), vulnerability work is MEASURE 2.7/MANAGE 2.3 ground, and MCP-12.3 is network infrastructure change control, not tools."
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 4.3",
+          "cis_refs": [
+            "MCP-17.2",
+            "MCP-17.3",
+            "MCP-17.8"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "Tool incidents and errors are reported, recorded, reviewed afterwards and communicated to server maintainers, providers and affected users.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "Impact is only process, but the tool incidents recorded and communicated (unauthorised invocation, compromised tokens, exfiltration) harm access and data too, as MANAGE 2.3 lists."
+        }
+      ],
+      "no_question": []
+    },
+    "agent": {
+      "recorded_on": "2026-10-26",
+      "inputs": {
+        "ai_areas": "cb4442986fe5fa62",
+        "rules": "32f0ba82b2e26184",
+        "playbook": "65d6101d80650287",
+        "guides": {
+          "LLM": "fae3d032d78cd956",
+          "MCP": "4faa140a9b5f3071",
+          "AGENT": "824ab8a2e829a11a"
+        }
+      },
+      "rows": [
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.1",
+          "cis_refs": [
+            "AGENT-1.1"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "Each agent's intended purpose, the processes it acts in, who relies on it and the settings it must not be used in are documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.4",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "The business value of letting an agent act in each process, rather than a person or a non-autonomous tool, and the benefits it is expected to bring to that process are examined with the people who use it, documented and re-evaluated.",
+          "folded": [
+            "MAP 3.1"
+          ],
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 1.6",
+          "cis_refs": [
+            "AGENT-16.10",
+            "AGENT-16.14"
+          ],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "Requirements for the agent, such as which actions need approval, which changes must be reversible and how manipulated input is handled, are set and shape its design.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "\"Which actions need approval\" repeats the MAP 3.5 check (which actions need a person in or on the loop), and MANAGE 2.2 asks about approval gates too; the why also leaves out the outcome's core, requirements elicited from and understood by the relevant actors (process owners, operators). Keep approval in MAP 3.5 and make this row about how agent requirements are gathered."
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 2.1",
+          "cis_refs": [
+            "AGENT-2.1"
+          ],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "The tasks each agent performs on its own and the tools, actions and chains of steps it uses to perform them are defined and documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 2.2",
+          "cis_refs": [
+            "AGENT-2.1"
+          ],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "The people relying on the agent are told its knowledge limits, the upstream data, models and systems it depends on and the external systems and networks it connects to, so they can oversee and act on its actions.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "The why's list of upstream data, models, systems and networks maps dependencies, which MAP 4.1 already asks; MAP 2.2 is about knowledge limits and how people oversee and use the agent's actions. AGENT-2.1 (software inventory) is not evidence that the people relying on the agent were told its limits."
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.2",
+          "cis_refs": [
+            "AGENT-16.14"
+          ],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "The costs of agent errors, such as irreversible changes, runaway action chains and actions triggered by manipulated input, are examined against risk tolerance.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.3",
+          "cis_refs": [
+            "AGENT-1.1"
+          ],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "The scope each agent may act in (processes, systems, kinds of action and degree of autonomy) is specified and narrowed to what its capability supports.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.4",
+          "cis_refs": [
+            "AGENT-16.9"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "The people who build, operate and supervise agents are trained on agent behaviour, tool risks and known limits, and their proficiency is checked.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 3.5",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "Human oversight of each agent, including which actions need a person in or on the loop and who that person is, is defined and documented.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "cis_refs is empty, but AGENT-1.1 (the inventory records the business owner responsible for the agent's actions) supports the 'who that person is' part of the oversight check."
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 4.1",
+          "cis_refs": [
+            "AGENT-2.1",
+            "AGENT-16.4"
+          ],
+          "impact": [
+            "access"
+          ],
+          "why": "The agent's components, including third-party frameworks, tools, MCP servers and models, are identified with the technology and legal risks each brings.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 4.2",
+          "cis_refs": [
+            "AGENT-2.5",
+            "AGENT-2.6",
+            "AGENT-16.5"
+          ],
+          "impact": [
+            "access"
+          ],
+          "why": "Internal controls for the agent's components, such as allowlisted frameworks, libraries and tools and integrity checks on them, are identified and documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 5.1",
+          "cis_refs": [
+            "AGENT-16.6",
+            "AGENT-16.14"
+          ],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "The likelihood and size of harm from each agent's actions are rated, taking account of its autonomy, tool access and known agent incidents.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MAP",
+          "subcategory": "MAP 5.2",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "People who work alongside or are affected by the agent are regularly engaged, and their feedback on its positive, negative and unanticipated impacts is captured and used.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 1.2",
+          "cis_refs": [
+            "AGENT-18.4"
+          ],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "The controls and metrics used for agents are regularly checked for effectiveness, using agent errors and incidents, and updated when they fall short.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 1.3",
+          "cis_refs": [
+            "AGENT-18.1"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "Agents are assessed by people independent of those who built or deployed them, with process owners consulted.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "The why is generic: independent assessment would read the same for any area, with nothing agent-specific (for example independent review of action chains or autonomy limits). AGENT-18.1 (agent components in pen testing scope) says nothing about the assessors being independent of the builders."
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.1",
+          "cis_refs": [
+            "AGENT-16.13"
+          ],
+          "impact": [
+            "process"
+          ],
+          "folded": [
+            "MAP 2.3"
+          ],
+          "why": "The test scenarios, metrics and evaluation harnesses used for agents are documented, and the test design is shown valid for multi-step agent behaviour: scenarios representative of the real process, metrics clear enough for go/no-go decisions and the assumptions behind the tests recorded.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.3",
+          "cis_refs": [
+            "AGENT-16.13"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "Agent task performance is measured in conditions close to the real process, including messy inputs and unexpected tool outputs.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.4",
+          "cis_refs": [
+            "AGENT-8.11",
+            "AGENT-17.9"
+          ],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "Agent behaviour in production, such as tool calls, action chains, rates and costs, is monitored for anomalies with alerts set.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.5",
+          "cis_refs": [
+            "AGENT-16.13"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "The agent is shown to complete its tasks reliably before deployment, and the conditions beyond which it is not reliable are documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.6",
+          "cis_refs": [
+            "AGENT-16.10",
+            "AGENT-16.13"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "The agent is tested to fail safely, stopping rather than looping or making irreversible changes when it goes beyond its limits.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.7",
+          "cis_refs": [
+            "AGENT-16.2",
+            "AGENT-16.13",
+            "AGENT-18.1",
+            "AGENT-18.2",
+            "AGENT-18.5"
+          ],
+          "impact": [
+            "access",
+            "process"
+          ],
+          "why": "The agent is red-teamed and penetration tested for prompt injection, tool abuse, sandbox escape and workflow exploits, with results documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.8",
+          "cis_refs": [
+            "AGENT-6.1",
+            "AGENT-8.1",
+            "AGENT-8.2",
+            "AGENT-8.3",
+            "AGENT-8.5",
+            "AGENT-8.7",
+            "AGENT-8.8",
+            "AGENT-8.9",
+            "AGENT-8.10",
+            "AGENT-8.12"
+          ],
+          "impact": [
+            "access",
+            "process"
+          ],
+          "why": "Each agent acts under its own identity and its reasoning, tool calls, commands and access decisions are logged so every action can be traced and accounted for.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.9",
+          "cis_refs": [
+            "AGENT-8.5",
+            "AGENT-8.11"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "The agent's chain of actions can be explained and interpreted in the context of its process, so the process owner can see why it took an action and act on that explanation.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 3.1",
+          "cis_refs": [
+            "AGENT-8.11"
+          ],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "New and unexpected agent risks, such as new tools, behaviour drift or new attack techniques, are identified and tracked in deployment.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 3.3",
+          "cis_refs": [
+            "AGENT-17.3"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "People affected by agent actions can report problems and contest outcomes, and these reports feed the agent's evaluation.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 4.2",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "Process owners and operators review the agent's results in use to confirm it performs as intended, and their findings are documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 4.3",
+          "cis_refs": [
+            "AGENT-17.9"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "Baselines for agent behaviour are set and improvements or declines in agent performance in the field are identified and documented.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 1.1",
+          "cis_refs": [],
+          "impact": [
+            "process"
+          ],
+          "why": "A decision is made and recorded on whether each agent meets its purpose and may be deployed or keep running.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 1.4",
+          "cis_refs": [],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "Residual risks of each agent's autonomy and access that are accepted are documented and made known to the people relying on it.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.2",
+          "cis_refs": [
+            "AGENT-2.7",
+            "AGENT-5.1",
+            "AGENT-5.2",
+            "AGENT-5.4",
+            "AGENT-5.5",
+            "AGENT-5.6",
+            "AGENT-6.1",
+            "AGENT-6.3",
+            "AGENT-6.5",
+            "AGENT-6.7",
+            "AGENT-6.8",
+            "AGENT-16.10"
+          ],
+          "impact": [
+            "access",
+            "process"
+          ],
+          "why": "Agent access is granted least-privilege with separate credentials per component, and controls such as approval gates, sandboxed execution, rate limits and circuit breakers restrict what it can do.",
+          "status": "needs_human_review",
+          "decided_by": "agent",
+          "review_reason": "MANAGE 2.2 is about mechanisms that sustain the deployed agent's value; the why asks only about least-privilege access restrictions and never about keeping the agent delivering value safely over time. Also AGENT-5.4, AGENT-6.3 and AGENT-6.5 (admin accounts, MFA on consoles and admin actions) protect the platform from human attackers and do not restrict what the agent itself can do."
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.3",
+          "cis_refs": [
+            "AGENT-17.1",
+            "AGENT-17.4",
+            "AGENT-17.5",
+            "AGENT-17.7"
+          ],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "Incident response covers agent-specific scenarios such as runaway or hijacked agents, with named responders, containment and recovery steps.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 2.4",
+          "cis_refs": [
+            "AGENT-6.2",
+            "AGENT-16.10",
+            "AGENT-17.9"
+          ],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "Each agent can be stopped and its credentials revoked quickly, with thresholds that trigger it, named people responsible and a fallback for the process.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 3.1",
+          "cis_refs": [
+            "AGENT-2.2",
+            "AGENT-16.4",
+            "AGENT-16.5"
+          ],
+          "impact": [
+            "access"
+          ],
+          "why": "Third-party agent platforms, frameworks and tools are monitored for risk, kept supported and controlled.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 4.1",
+          "cis_refs": [
+            "AGENT-6.2",
+            "AGENT-16.1"
+          ],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "Post-deployment plans for each agent cover monitoring, override, controlled change and decommissioning with removal of its access.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 4.2",
+          "cis_refs": [
+            "AGENT-16.3",
+            "AGENT-18.3"
+          ],
+          "impact": [
+            "process"
+          ],
+          "why": "Findings from tests, incidents and user feedback are fed into agent updates and tracked as measurable improvements.",
+          "status": "pass",
+          "decided_by": "agent"
+        },
+        {
+          "function": "MANAGE",
+          "subcategory": "MANAGE 4.3",
+          "cis_refs": [
+            "AGENT-17.2",
+            "AGENT-17.3",
+            "AGENT-17.6",
+            "AGENT-17.8"
+          ],
+          "impact": [
+            "process",
+            "access"
+          ],
+          "why": "Agent incidents and errors are recorded, root-caused through the chain of actions, and communicated to affected people and providers.",
+          "status": "pass",
+          "decided_by": "agent"
+        }
+      ],
+      "no_question": [],
+      "missing": [
+        {
+          "function": "MEASURE",
+          "subcategory": "MEASURE 2.10",
+          "reason": "Nothing checks the privacy risk of agents that read, store in memory and move personal data through tools and outbound calls (exfiltration, retention in memory and logs). An assessor could ask this of agents. Mapping it may also show that the area's impacts (access, process) leave out data."
+        }
+      ]
+    }
+  },
+  "description": "AI RMF mapping: per AI area, rows of AI RMF function -> subcategory, CIS safeguards that prove it, impact. Drafted and evaluated by agents (prompts/ai_rmf_mapping_*.md), recorded by record_ai_bank.py mapping, reviewed by a person. Model: AI_RMF_Mapping_Sheet_Design.md.",
+  "source_sha": "e2ed03954ce8625a"
+}
