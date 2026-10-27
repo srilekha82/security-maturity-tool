@@ -59,7 +59,7 @@ covers), so all 6 recorded areas must be re-drafted. Sonnet is fine for the rema
 Output and customer_facing). Decided 2026-10-27: MAP 1.2 and MAP 1.4 stay area subcategories, mapped by hand in the
 sheet (MAP 1.2 on model_building, impact assets: the team that builds the model spots bias; consumers' bias knowledge
 is GOVERN. MAP 1.4 on internal_process, customer_facing and vendor_ai: business value of what the AI's results are
-used for; not invisible_usage, whose need is MAP 3.1; not Output, a noun). A change is now a delta:
+used for; not invisible_usage, whose need is MAP 3.1; not Output, a noun; not code_generation, which goes through the audit and usual software review process, assessed by the CSF). A change is now a delta:
 `record_ai_bank.py revalidate` re-checks areas after a rules or other-area change, no agent.
 1. Human review of `mapping.xlsx` (the user): flagged rows and missing lines (Status = needs_human_review), the folds
    flagged "not fully asked", MAP 1.2 and MAP 1.4 by hand (not flagged: see the Coverage sheet).
