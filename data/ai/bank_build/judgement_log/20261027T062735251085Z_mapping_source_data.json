@@ -1,0 +1,215 @@
+{
+  "recorded_at": "2026-10-27T06:27:35.250573+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_source_data_draft2.json",
+    "sha": "edc02506eaef3a51"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "2eaeff874660138f"
+  },
+  "output_snapshot": {
+    "area": "source_data",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.3",
+        "cis_refs": [
+          "LLM-3.1"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "What content is collected into the retrieval store and how it is selected for suitability, quality and trustworthiness of source is defined and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [
+          "LLM-3.2",
+          "LLM-3.8"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "What the retrieval store covers and does not cover, and the upstream data the AI depends on, is documented so users and assessors know what answers can rest on it."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-3.2",
+          "LLM-3.8"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "The sources feeding the retrieval store, including third-party or external content, are identified with where the data flows and the rights to use it."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "LLM-3.3",
+          "LLM-3.7"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "Controls on the store itself are identified and documented: classification of its content, who can read or change it, and protection against tampering."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "LLM-8.11"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "The content of the store and the answers drawn from it are monitored in production for unexpected changes, poisoned or stale material."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-3.3",
+          "LLM-3.12"
+        ],
+        "impact": [
+          "access",
+          "data"
+        ],
+        "why": "Retrieval permissions, poisoning and copying out of the store through the AI are tested, so users only see what they are entitled to."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.2",
+          "LLM-3.14"
+        ],
+        "impact": [
+          "access",
+          "data"
+        ],
+        "why": "Retrievals and changes to the store are logged with who asked and what was returned, so access to sensitive content can be traced."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [
+          "LLM-3.7",
+          "LLM-3.13"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Personal and sensitive data held in the store is identified, classified and checked for exposure through the AI."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "LLM-3.4",
+          "LLM-3.5"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Store content is kept current and accurate, and outdated or no longer needed material is retired or securely disposed of."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.4"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "Procedures exist to respond to and recover from poisoned or leaked store content, including cleaning the store and re-indexing."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-17.9"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "A source or the whole store can be disconnected from retrieval quickly when it is found poisoned or over-exposed, with responsibility assigned."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.1",
+        "cis_refs": [
+          "LLM-3.5",
+          "LLM-8.2"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Changes to the store after go-live are tracked, and deletion and rectification requests reach the store and its index so removed content stops being retrieved."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_source_data_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 2.2",
+      "reason": "Subcategory is knowledge limits and human oversight of output; the why (coverage plus upstream data) repeats MAP 4.1's source identification, with the same CIS refs LLM-3.2 and LLM-3.8."
+    },
+    {
+      "kind": "row",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 2.3",
+      "reason": "The why asks whether procedures 'exist' (a GOVERN-style existence check) rather than what is done in practice when store content is found poisoned or leaked."
+    },
+    {
+      "kind": "missing",
+      "function": "MAP",
+      "subcategory": "MAP 1.6",
+      "reason": "Requirements for the store (who may see which content through the AI, privacy and entitlement expectations) are not asked anywhere; this is where retrieval entitlements are set."
+    },
+    {
+      "kind": "missing",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 3.1",
+      "reason": "Nothing checks that third-party or external content feeding the store is monitored and its risks controlled over time; MAP 4.1 only covers identification."
+    },
+    {
+      "kind": "missing",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.6",
+      "reason": "Nothing checks that retrieval fails safely, for example refusing rather than exposing restricted content when permission or classification checks fail or the store misbehaves."
+    },
+    {
+      "kind": "note",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.4",
+      "reason": "Stale or poisoned content makes answers wrong and harms decisions and processes using them; the area's impacts (data, access) may be too narrow."
+    }
+  ]
+}

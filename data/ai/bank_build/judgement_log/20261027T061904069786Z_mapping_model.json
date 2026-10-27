@@ -1,0 +1,152 @@
+{
+  "recorded_at": "2026-10-27T06:19:04.069353+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_model_draft2.json",
+    "sha": "8278816f2a77b6eb"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "0868c796b0100fcc"
+  },
+  "output_snapshot": {
+    "area": "model",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-2.1"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The legal and IP risks of the model's components are mapped: licence terms and provenance of base models, fine-tuning data and third-party prompts or configurations, and the risk of infringing or leaking rights in the model itself."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "LLM-4.1",
+          "LLM-3.3"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Internal controls that protect the model artifacts (storage, access, versioning, release of weights) are identified and documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "LLM-8.11"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "API usage and version state are monitored in production for signs of model extraction, copying or unexpected changes to a deployed version."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The model is tested for theft, extraction through the API and tampering with versions, and the results are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.2",
+          "LLM-8.5",
+          "LLM-3.14"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Access to weights, prompts and configurations, and changes to model versions, are logged so copying or tampering can be traced to who did it."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "LLM-3.3",
+          "LLM-6.1",
+          "LLM-3.11",
+          "LLM-11.2"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Controls such as restricted access, encryption and protected backups are applied to weights, fine-tuned versions and system prompts."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.4",
+          "LLM-17.3"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Procedures exist and are followed to respond to and recover from theft, leakage or tampering of the model or its configuration."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-11.1",
+          "LLM-6.2"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "A tampered or leaked model version can be withdrawn, rolled back to a trusted version, and access to it revoked."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_model_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 4.1",
+      "reason": "Licence terms and provenance of base models and fine-tuning data belong to Model building and Test, tuning and evaluation data; the Model area is the weights and versions as IP, so the why mixes in other areas' checks."
+    },
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 4.2",
+      "reason": "Repeats MANAGE 2.2 (controls on weights, versions, prompts) in different words, and only asks that controls are identified and documented; LLM-3.3 is about retrieved content and memory stores (Source data), off-topic here."
+    },
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.8",
+      "reason": "LLM-3.14 (monitor LLM logging for access to known sensitive data) does not support logging access to weights, prompts and version changes; LLM-8.5 is mostly about user inputs and outputs (Input area); LLM-8.1 or LLM-8.10 would fit better."
+    },
+    {
+      "kind": "row",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 2.2",
+      "reason": "LLM-3.3 is about retrieved content and memory stores (Source data), off-topic for protecting weights; LLM-6.8 (role separation for model promotion) or LLM-6.5 (MFA on model registries) would support it."
+    }
+  ]
+}

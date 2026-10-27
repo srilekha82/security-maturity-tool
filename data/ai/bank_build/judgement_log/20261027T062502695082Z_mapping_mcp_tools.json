@@ -1,0 +1,259 @@
+{
+  "recorded_at": "2026-10-27T06:25:02.694537+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_mcp_tools_draft2.json",
+    "sha": "c9e15934bbf93bdc"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "0c60f5b41736fe45"
+  },
+  "output_snapshot": {
+    "area": "mcp_tools",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "MCP-1.1",
+          "MCP-2.1",
+          "MCP-15.1"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "The tools and MCP servers the AI can call, hosted inside or used from outside, are identified with who runs each and what third-party software it brings."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "MCP-6.1",
+          "MCP-6.8",
+          "MCP-2.5"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Internal controls for each tool or MCP server (approval before use, permission limits, allowed versions) are identified and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.3",
+        "cis_refs": [
+          "MCP-6.8",
+          "MCP-5.5"
+        ],
+        "impact": [
+          "access",
+          "data"
+        ],
+        "why": "The scope of what each tool can read, write and do, and the credentials it uses, is specified against what the use case needs."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [
+          "MCP-12.4",
+          "MCP-15.1"
+        ],
+        "impact": [
+          "access",
+          "data"
+        ],
+        "why": "The outside networks, servers and upstream systems the AI's tools connect to, and how data flows to them, are documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.1",
+        "cis_refs": [
+          "MCP-16.14"
+        ],
+        "impact": [
+          "access",
+          "process",
+          "data"
+        ],
+        "why": "The likelihood and size of harm from tool misuse (injected instructions, over-broad permissions, a compromised outside server) are assessed."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "MCP-16.13"
+        ],
+        "impact": [
+          "access",
+          "data"
+        ],
+        "why": "Tools and MCP servers are tested for security, including prompt injection driving tool calls, permission abuse and a malicious or changed server."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "MCP-8.1",
+          "MCP-8.2",
+          "MCP-8.5"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Tool calls are logged with the credentials used and what was done, so actions can be traced and accounted for."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "MCP-8.11",
+          "MCP-8.9"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Tool use in production is monitored for unexpected calls, new capabilities on a known server and unusual volume."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [
+          "MCP-8.7",
+          "MCP-15.3"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "The privacy risk of data flowing through tools to MCP servers and outside services is examined, including what leaves and to whom."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "MCP-5.2",
+          "MCP-6.7",
+          "MCP-6.8"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Controls that keep tool use within bounds in practice (permissions narrower than the user's, short-lived credentials, gateway enforcement, rate limits) are applied and kept working."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "MCP-17.4",
+          "MCP-17.3"
+        ],
+        "impact": [
+          "access",
+          "process",
+          "data"
+        ],
+        "why": "A tool or MCP incident (misused credential, injected call, compromised server) has a response and recovery procedure that is followed."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "MCP-6.2",
+          "MCP-5.3",
+          "MCP-1.2"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "A tool, credential or MCP server can be switched off or revoked quickly, with an owner assigned, when it misbehaves."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.1",
+        "cis_refs": [
+          "MCP-15.5",
+          "MCP-15.6",
+          "MCP-16.5"
+        ],
+        "impact": [
+          "access",
+          "data"
+        ],
+        "why": "Outside MCP servers and tool suppliers are monitored regularly and their risk controls applied and documented."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.1",
+        "cis_refs": [
+          "MCP-8.11",
+          "MCP-15.7"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Post-deployment monitoring of tools covers change management for new tools or permissions, review of use, and decommissioning of unused tools."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "MCP-17.8",
+          "MCP-17.2"
+        ],
+        "impact": [
+          "access",
+          "process",
+          "data"
+        ],
+        "why": "Tool incidents and errors are recorded, communicated to those affected, and followed up after recovery."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_mcp_tools_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 4.2",
+      "reason": "The why's 'permission limits' repeats MAP 3.3 (scope and credentials) and MANAGE 2.2 (permissions kept within bounds), and MCP-6.8 is reused in all three; narrow it to approval before use and allowed versions."
+    },
+    {
+      "kind": "row",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 4.1",
+      "reason": "'Review of use' repeats the MEASURE 2.4 check on production tool use (same MCP-8.11); keep only change management for new tools or permissions and decommissioning."
+    },
+    {
+      "kind": "missing",
+      "function": "MAP",
+      "subcategory": "MAP 3.5",
+      "reason": "Nothing asks which tool actions (writes, deletes, payments, external sends) need a human to confirm before they run; MCP-17.4 itself mentions human confirmation enforcement."
+    },
+    {
+      "kind": "missing",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.6",
+      "reason": "Nothing checks that the AI fails safely when a tool or MCP server errors, times out, is unavailable or returns something unexpected, rather than retrying or taking partial changes."
+    }
+  ]
+}

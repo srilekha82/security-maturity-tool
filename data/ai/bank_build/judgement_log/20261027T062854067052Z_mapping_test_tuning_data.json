@@ -1,0 +1,167 @@
+{
+  "recorded_at": "2026-10-27T06:28:54.066457+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_test_tuning_data_draft1.json",
+    "sha": "2a1459dc1498dd91"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "f5a9ee389d6fb7be"
+  },
+  "output_snapshot": {
+    "area": "test_tuning_data",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.3",
+        "cis_refs": [
+          "LLM-3.2",
+          "LLM-3.1"
+        ],
+        "impact": [
+          "data",
+          "assets"
+        ],
+        "why": "How training, tuning, evaluation and test sets are collected and selected (availability, representativeness, suitability) is documented, and the harness test cases are kept separate from the data the model was trained on."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-3.2"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "The sources of third-party and licensed data used for training, tuning and testing are identified, with the rights and IP or licence risks of using them."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "LLM-3.1"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Third-party datasets and feedback or logs reused for tuning are reviewed for bias, privacy and poisoning risk before they enter a training, tuning or test set."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.1",
+        "cis_refs": [
+          "LLM-3.2",
+          "LLM-11.2"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The evaluation and test sets, metrics and harness tools are documented and versioned, so a result can be traced to the exact data and test cases used."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.2",
+        "cis_refs": [],
+        "impact": [
+          "data"
+        ],
+        "why": "Evaluation sets drawn from people (human-subject data, feedback) meet consent and protection requirements and represent the population the system serves."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-3.1",
+          "LLM-3.3",
+          "LLM-6.8"
+        ],
+        "impact": [
+          "data",
+          "assets"
+        ],
+        "why": "Training and tuning sets, the evaluation set and the harness are tested and protected against poisoning and tampering, including changes made to hide failures."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.2",
+          "LLM-8.1"
+        ],
+        "impact": [
+          "data",
+          "assets"
+        ],
+        "why": "Changes to and access to training, tuning and evaluation data and the harness are logged and attributable to a person, so tampering and misuse can be traced."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [
+          "LLM-3.7",
+          "LLM-3.1",
+          "LLM-3.14"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Personal and sensitive data in training sets and in feedback or logs reused for tuning is identified, minimised or removed, and its use is documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.13",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The evaluation set and harness are reviewed to confirm they still catch real failures, are refreshed, and have not been narrowed or leaked into training."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "LLM-3.1",
+          "LLM-3.4",
+          "LLM-3.5",
+          "LLM-3.10",
+          "LLM-3.11"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Controls on the data used for training, tuning and testing (quality, minimisation, encryption, retention, deletion on request) are applied in practice."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.4",
+          "LLM-11.1",
+          "LLM-11.5"
+        ],
+        "impact": [
+          "data",
+          "assets"
+        ],
+        "why": "When poisoned or tampered training, tuning or evaluation data, or a leak from them, is found, the org responds and restores a clean, verified copy of the data and harness."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_test_tuning_data_eval1.json",
+  "review": []
+}

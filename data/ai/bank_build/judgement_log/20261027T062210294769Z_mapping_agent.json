@@ -1,0 +1,364 @@
+{
+  "recorded_at": "2026-10-27T06:22:10.294295+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_agent_draft2.json",
+    "sha": "0f62faa4772fdc5c"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "7df5148276474250"
+  },
+  "output_snapshot": {
+    "area": "agent",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.1",
+        "cis_refs": [
+          "AGENT-1.1",
+          "AGENT-2.1"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "The tasks each agent performs and the chains of actions, tools and systems it uses to do them are defined and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "The agent's knowledge limits, the conditions outside its intended use, and how its output is used and overseen by humans are documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.3",
+        "cis_refs": [
+          "AGENT-6.8",
+          "AGENT-16.10"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "The scope of what each agent may do on its own is specified: which systems, which actions, which data, and which actions are never left to it."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.5",
+        "cis_refs": [
+          "AGENT-16.10"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "Human oversight of agent actions is defined: which steps need approval or review, who does it, and how it is trained and assessed."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "AGENT-2.1",
+          "AGENT-2.5",
+          "AGENT-2.6",
+          "AGENT-16.5"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "The components an agent is built on (models, orchestration frameworks, libraries, executors) are identified and held to approved, controlled versions, with their legal and supply-chain risks documented.",
+        "folded": [
+          "MAP 4.1"
+        ]
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.1",
+        "cis_refs": [
+          "AGENT-16.14",
+          "AGENT-16.6"
+        ],
+        "impact": [
+          "process",
+          "data",
+          "access"
+        ],
+        "why": "The likelihood and magnitude of harm from agent actions are assessed, including irreversible changes and actions triggered by manipulated input."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [
+          "AGENT-8.1",
+          "AGENT-8.5"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Privacy risk from the data an agent reads, keeps in memory and passes between tools is examined, including redaction in logs."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "AGENT-8.11",
+          "AGENT-17.9"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "Agent behaviour in production is monitored for unexpected action chains, tool use and drift from what was approved."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.5",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The agent is shown to complete its tasks correctly and reliably under realistic conditions, and the limits of where it can be trusted are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.6",
+        "cis_refs": [
+          "AGENT-16.10",
+          "AGENT-17.9",
+          "AGENT-16.13"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Agents are tested under stress and unexpected conditions to show they fail safely, with loops and runaway action chains stopped."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "AGENT-16.13",
+          "AGENT-18.1",
+          "AGENT-18.5",
+          "AGENT-18.2"
+        ],
+        "impact": [
+          "access",
+          "process",
+          "data"
+        ],
+        "why": "Agent security is tested with adversarial and red-team exercises, including manipulated input that triggers actions and attempts to break out of the sandbox."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "AGENT-8.1",
+          "AGENT-8.2",
+          "AGENT-8.5",
+          "AGENT-8.9"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "Agent actions, tool calls and the identity used are logged and kept so what an agent did can be traced and reviewed."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.9",
+        "cis_refs": [
+          "AGENT-8.5",
+          "AGENT-8.11"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "An agent's decisions and action chains can be explained, documented and interpreted in context, so reviewers understand why it acted."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 3.3",
+        "cis_refs": [
+          "AGENT-17.3"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Staff and others can report agent misbehaviour and unexpected actions, and these reports feed how the agent is evaluated."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 4.2",
+        "cis_refs": [
+          "AGENT-8.11"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Feedback from operators and users, and how often staff override the agent, are used to judge whether it performs as intended."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 1.1",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "Results are used to decide whether the agent achieves its purpose and whether its autonomy should continue, be reduced or be stopped."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "AGENT-6.8",
+          "AGENT-6.1",
+          "AGENT-5.5",
+          "AGENT-2.7",
+          "AGENT-16.10"
+        ],
+        "impact": [
+          "access",
+          "process",
+          "data"
+        ],
+        "why": "Controls limit what an agent can do: least-privilege identities, sandboxing, approval for high-impact or irreversible steps, and limits on rate and cost."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "AGENT-17.4",
+          "AGENT-17.5",
+          "AGENT-17.1"
+        ],
+        "impact": [
+          "process",
+          "access",
+          "data"
+        ],
+        "why": "Agent-specific incidents are responded to and recovered from, including reversing the changes an agent made."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "AGENT-6.2",
+          "AGENT-17.9"
+        ],
+        "impact": [
+          "access",
+          "process"
+        ],
+        "why": "An agent can be stopped, bypassed or its access revoked quickly when it acts outside its intended use, and who may do so is assigned."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.1",
+        "cis_refs": [
+          "AGENT-8.11",
+          "AGENT-16.1",
+          "AGENT-2.4"
+        ],
+        "impact": [
+          "process",
+          "access"
+        ],
+        "why": "Post-deployment monitoring of agents covers staff override, change management of agent configuration and tools, and retirement of agents."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "AGENT-17.3",
+          "AGENT-17.8",
+          "AGENT-17.2"
+        ],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "Agent incidents and errors are recorded, communicated to those affected and reviewed for root cause."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_agent_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 4.2",
+      "reason": "Folded MAP 4.1 is not fully asked: the why says 'legal and supply-chain risks documented' but not third-party IP/rights infringement or the inventory of third-party material; AGENT-16.4 (third-party component inventory) supports it and is missing."
+    },
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 5.1",
+      "reason": "AGENT-16.6 is a vulnerability severity rating process, not evidence for likelihood and magnitude of harm from agent actions; drop it."
+    },
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.10",
+      "reason": "Redaction in logs and the log CIS refs (AGENT-8.1, 8.5) belong to Input (prompt and response logs); privacy of data passed between tools overlaps Input, Source data and MCP/tools; the row reads as generic privacy."
+    },
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.5",
+      "reason": "Showing the agent answers correctly and reliably is accuracy/consistency TEVV, done at Output for everyone; keep only if reworded to agent task completion and limits of autonomy; empty cis_refs although AGENT-16.13 (evaluation harnesses, adversarial inputs) supports it."
+    },
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.9",
+      "reason": "Largely repeats MEASURE 2.8 (what the agent did, traced from logs); AGENT-8.5/8.11 are the same evidence; no distinct explainability check for this area."
+    },
+    {
+      "kind": "row",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 4.1",
+      "reason": "Staff override is the same check as MEASURE 4.2 (override frequency); the why also mixes change management and retirement, so it asks several things; AGENT-8.11 log review does not support override."
+    },
+    {
+      "kind": "missing",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.3",
+      "reason": "Nothing checks agent performance and assurance criteria measured under conditions like the real deployment (real systems, messy inputs, non-optimised conditions); AGENT-16.13 supports it."
+    },
+    {
+      "kind": "missing",
+      "function": "MAP",
+      "subcategory": "MAP 3.1",
+      "reason": "Nothing asks what benefit justifies giving the agent autonomy (time saved, error rates against a human baseline) as examined with its users."
+    },
+    {
+      "kind": "note",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 2.2",
+      "reason": "The row limits rate and cost, which harms spend/assets; the area's impacts (access, process, data) may be too narrow."
+    }
+  ]
+}
