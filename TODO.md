@@ -54,12 +54,15 @@ Output's covers add bias (treating people or groups unequally) and say TEVV of a
 internal_process does not get `people` (bias in answers is a people harm at Output; bias awareness is foundation,
 GOVERN); internal_process and customer_facing covers add that wrong or biased output is tested at Output and the area asks how staff or customers check, report and challenge it and how high-impact decisions are caught and audited (the business view: audit and high-impact decisions, not bias). Any change to the AI areas sheet makes every recorded area stale (each draft's input carries the other areas'
 covers), so all 6 recorded areas must be re-drafted. Sonnet is fine for the remaining runs.
-1. Run the remaining batches (ask the user before running; Sonnet): batch 2 model, agent, mcp_tools, source_data,
-   test_tuning_data; batch 3 code_generation, vendor_ai, invisible_usage, input, hosting; batch 4 (re-draft)
-   customer_facing, output, internal_process, model_building. Delete the work and `mapping_input_*.json` files after.
-   Expect on model the two missing rows of the pilot (MANAGE 3.2 base models monitored, MANAGE 4.1 old versions
-   disposed of); on output MEASURE 2.1, 2.4, 2.5 and 2.3; on agent MANAGE 4.1 and MEASURE 2.6; MAP 3.1 on
-   customer_facing or internal_process, MAP 5.2 on customer_facing; no subcategory with the same why in every area.
+**All 14 areas drafted (Sonnet, 2026-10-27)**: 190 rows, 31 flagged, 19 missing lines, 3 unreached (MAP 1.2, MAP
+1.4, MEASURE 1.3). Decisions held (bias and TEVV at Output, Model is IP, Model building the activity, people only on
+Output and customer_facing). Decided 2026-10-27: MAP 1.2 and MAP 1.4 stay area subcategories, mapped by hand in the
+sheet (MAP 1.2 on model_building, impact assets: the team that builds the model spots bias; consumers' bias knowledge
+is GOVERN. MAP 1.4 on internal_process, customer_facing and vendor_ai: business value of what the AI's results are
+used for; not invisible_usage, whose need is MAP 3.1; not Output, a noun). A change is now a delta:
+`record_ai_bank.py revalidate` re-checks areas after a rules or other-area change, no agent.
+1. Human review of `mapping.xlsx` (the user): flagged rows and missing lines (Status = needs_human_review), the folds
+   flagged "not fully asked", MAP 1.2 and MAP 1.4 by hand (not flagged: see the Coverage sheet).
 2. Review `mapping.xlsx` (Status = needs_human_review: failed rows and missing lines; Evaluator note), then the
    Coverage sheet; `sheet_io.py import mapping`.
 3. Accept: `.venv/bin/python ./scripts/ai_pilot.py accept-mapping` (refuses while an area is missing or stale, a row

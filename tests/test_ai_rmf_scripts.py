@@ -519,6 +519,47 @@ class Mapping(unittest.TestCase):
         self.assertEqual(self.go(self.good()), 1)
         self.assertEqual(R.AI_MAPPING.read_text(), before)
 
+    def test_a_change_is_a_delta(self):
+        self.assertEqual(self.go(self.good()), 0)
+        entry = lambda: json.loads(R.AI_MAPPING.read_text())["areas"]["mcp_tools"]   # noqa: E731
+        self.assertEqual(R.mapping_freshness(entry(), "mcp_tools", self.inp), "current")
+        real_rules, real_areas = R.AI_MAPPING_RULES, R.AI_AREAS
+        rules = json.loads(real_rules.read_text())
+        tmp_rules, tmp_areas = self.tmp / "rules.json", self.tmp / "areas.json"
+        try:
+            R.AI_MAPPING_RULES = tmp_rules                               # a subcategory no row uses becomes foundation
+            tmp_rules.write_text(json.dumps(dict(rules, foundation=dict(rules["foundation"], subcategories=
+                                 rules["foundation"]["subcategories"] + ["MAP 1.4"]))))
+            self.assertEqual(R.mapping_freshness(entry(), "mcp_tools", self.inp), "recheck")
+            _, lines, cleared = R.revalidate(self.inp, R.mapping_inputs(self.inp))
+            self.assertEqual((lines, cleared), ([], 1))
+            self.assertEqual(R.mapping_freshness(entry(), "mcp_tools", self.inp), "current")
+            before = entry()["rows"]                                     # a subcategory a row uses becomes foundation
+            tmp_rules.write_text(json.dumps(dict(rules, foundation=dict(rules["foundation"], subcategories=
+                                 rules["foundation"]["subcategories"] + ["MAP 2.2"]))))
+            _, lines, cleared = R.revalidate(self.inp, R.mapping_inputs(self.inp))
+            self.assertEqual(cleared, 0)
+            self.assertTrue(any("MAP 2.2 is foundation" in ln for ln in lines), lines)
+            self.assertEqual((entry()["rows"], R.mapping_freshness(entry(), "mcp_tools", self.inp)), (before, "recheck"))
+            R.AI_MAPPING_RULES = real_rules
+            areas = json.loads(real_areas.read_text())                   # another area's row changes: recheck
+            for a in areas["ai_areas"]:
+                if a["id"] == "agent":
+                    a["covers"] += " Changed."
+            tmp_areas.write_text(json.dumps(areas))
+            R.AI_AREAS = tmp_areas
+            self.assertEqual(R.mapping_freshness(entry(), "mcp_tools", self.inp), "recheck")
+            for a in areas["ai_areas"]:                                  # its own row changes: re-draft
+                if a["id"] == "mcp_tools":
+                    a["covers"] += " Changed."
+            tmp_areas.write_text(json.dumps(areas))
+            self.assertEqual(R.mapping_freshness(entry(), "mcp_tools", self.inp), "redraft")
+            _, lines, cleared = R.revalidate(self.inp, R.mapping_inputs(self.inp))
+            self.assertEqual(cleared, 0)
+            self.assertIn("re-draft", lines[0])
+        finally:
+            R.AI_MAPPING_RULES, R.AI_AREAS = real_rules, real_areas
+
     def test_recorded_with_review_and_coverage(self):
         review = [{"function": "MEASURE", "subcategory": "MEASURE 2.7", "reason": "Too generic for tool credentials."}]
         self.assertEqual(self.go(self.good(), review=review), 0)

@@ -77,10 +77,15 @@ def mapping_problems(doc: dict | None) -> tuple[list[str], list[str]]:
     missing = [a for a in m["areas"] if a not in doc["areas"]]
     if missing:
         problems.append(f"incomplete ({len(doc['areas'])} of {len(m['areas'])} AI areas; missing: {', '.join(missing)})")
-    now = R.mapping_input_hashes(inp)
-    stale = [a for a, e in doc["areas"].items() if e.get("inputs") != now]
-    if stale:
-        problems.append(f"stale (sources, AI areas or mapping rules changed since drafted: {', '.join(stale)})")
+    state = {a: R.mapping_freshness(e, a, inp) for a, e in doc["areas"].items()}
+    redraft = [a for a, s in state.items() if s == "redraft"]
+    recheck = [a for a, s in state.items() if s == "recheck"]
+    if redraft:
+        problems.append(f"stale, re-draft (the area's own row in the AI areas sheet or the sources changed: "
+                        f"{', '.join(redraft)})")
+    if recheck:
+        problems.append(f"to recheck (the mapping rules or other AI areas changed; record_ai_bank.py revalidate, no "
+                        f"agent needed: {', '.join(recheck)})")
     review = sum(1 for e in doc["areas"].values() for r in e["rows"] if r.get("status") != "pass")
     if review:
         problems.append(f"{review} rows need human review (Status in {AI_MAPPING_XLSX.name})")

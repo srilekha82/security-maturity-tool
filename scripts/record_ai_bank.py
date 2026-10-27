@@ -44,6 +44,13 @@ Record modes (agent output; every one needs --model, optional --session, --promp
                            is checked again before anything is stored.
                            -> data/ai/mapping.json   (the area's entry replaced; other areas kept)
 
+Script-only modes (no agent output):
+  revalidate               a change is a delta: when only the mapping rules or other AI areas changed, every recorded
+                           area that is not current is checked again against the current rules (the same validator as
+                           agent output). An area that passes is stamped current, its rows untouched; one that fails is
+                           listed with its problems (fix them in mapping.xlsx). An area whose own row in the AI areas
+                           sheet changed, or whose sources (Playbook, CIS guides) changed, must be re-drafted instead.
+
 Candidate schema: subcategory_id is the key; each candidate has question_text, playbook_ref, cis_refs[],
 scope_tags[] (empty = all usage contexts), capability, topic, optional modifiers[]. Enums and their definitions live in
 data/ai/question_categories.json. This script checks structure only: whether a question is practice-revealing is the
@@ -51,6 +58,7 @@ evaluator's job.
 """
 
 import argparse
+import hashlib
 import json
 import sys
 from datetime import date
@@ -321,7 +329,7 @@ def store_mapping(data, inp, m: dict, review) -> tuple[Path, str]:
                           "it, impact. Drafted and evaluated by agents (prompts/ai_rmf_mapping_*.md), recorded by "
                           "record_ai_bank.py mapping, reviewed by a person. Model: AI_RMF_Mapping_Sheet_Design.md.")
     doc["areas"][data["area"]] = {
-        "recorded_on": date.today().isoformat(), "inputs": mapping_input_hashes(inp),
+        "recorded_on": date.today().isoformat(), "inputs": mapping_input_hashes(inp, data["area"]),
         "rows": rows, "no_question": no_question, **({"missing": missing} if missing else {}),
         **({"notes": notes} if notes else {}), **({"removed_by_human": removed} if removed else {})}
     doc["areas"] = {a: doc["areas"][a] for a in m["areas"] if a in doc["areas"]}   # ai_areas.json order
@@ -355,11 +363,59 @@ def keep_human_decisions(rows: list, no_question: list, prev: dict | None, inp: 
     return out, [q for q in no_question if q["function"] not in fns], kept, removed
 
 
-def mapping_input_hashes(inp: dict) -> dict:
-    """What a recorded area was built from; check_freshness.py compares these with the current files."""
-    return {"ai_areas": audit.sha(AI_AREAS), "rules": audit.sha(AI_MAPPING_RULES),
+def mapping_input_hashes(inp: dict, area_id: str) -> dict:
+    """What a recorded area was built from: its own row of the AI areas sheet (`area`), the whole sheet and the rules
+    (both reach the drafter: other areas' covers, candidates, foundation), and the sources."""
+    row = next((a for a in load_json(AI_AREAS, "ai_areas.json")["ai_areas"] if a["id"] == area_id), None)
+    return {"area": hashlib.sha256(json.dumps(row, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:16],
+            "ai_areas": audit.sha(AI_AREAS), "rules": audit.sha(AI_MAPPING_RULES),
             "playbook": inp["core"]["source_sha256_16"],
             "guides": {g: s["sha256_16"] for g, s in inp["sg_doc"]["sources"].items()}}
+
+
+def mapping_freshness(entry: dict, area_id: str, inp: dict) -> str:
+    """current, recheck (only the rules or other areas changed: `revalidate` can clear it without an agent) or redraft
+    (the area's own row or the sources changed). An entry recorded before the area hash existed can only be rechecked
+    if the whole AI areas sheet is unchanged."""
+    rec, now = entry.get("inputs") or {}, mapping_input_hashes(inp, area_id)
+    if rec == now:
+        return "current"
+    if rec.get("playbook") != now["playbook"] or rec.get("guides") != now["guides"]:
+        return "redraft"
+    if rec.get("area", None if rec.get("ai_areas") == now["ai_areas"] else "unknown") not in (None, now["area"]):
+        return "redraft"
+    return "recheck"
+
+
+def revalidate(inp: dict, m: dict) -> tuple[dict, list[str], int]:
+    """(the mapping, one line per area that is not current, areas stamped current). Checks only; decides nothing: the
+    recorded rows are kept as they are, and an area that breaks the current rules stays stale."""
+    doc = load_json(AI_MAPPING, "mapping.json") if AI_MAPPING.is_file() else {"areas": {}}
+    lines, cleared = [], 0
+    foundation = set(m["rules"]["foundation"]["subcategories"])
+    for area_id, entry in doc["areas"].items():
+        state = mapping_freshness(entry, area_id, inp)
+        if state == "current":
+            continue
+        if state == "redraft":
+            lines.append(f"{area_id}: its own row in the AI areas sheet or the sources changed; re-draft it")
+            continue
+        draft = {"area": area_id, "no_question": entry.get("no_question", []),
+                 "rows": [{k: r[k] for k in ("function", "subcategory", "cis_refs", "impact", "why", "folded") if k in r}
+                          for r in entry["rows"]]}
+        problems = validate_mapping(draft, inp, m, None)
+        if problems:
+            lines += [f"{area_id}: {p}" for p in problems]
+            continue
+        if entry.get("missing"):   # a missing finding on a subcategory that is now foundation no longer applies
+            entry["missing"] = [x for x in entry["missing"] if x["subcategory"] not in foundation]
+            if not entry["missing"]:
+                del entry["missing"]
+        entry["inputs"] = mapping_input_hashes(inp, area_id)
+        cleared += 1
+    if cleared:
+        AI_MAPPING.write_text(json.dumps(doc, indent=2, ensure_ascii=False))
+    return doc, lines, cleared
 
 
 def mapping_coverage(doc: dict, inp: dict, rules: dict) -> tuple[set, list]:
@@ -606,6 +662,7 @@ def main():
     for name in ("gen1", "eval1", "gen2", "eval2"):
         pa.add_argument(f"--{name}", required=name in ("gen1", "eval1"))
     pa.add_argument("--out", required=True)
+    sub.add_parser("revalidate")
 
     for m in ("candidates", "notes", "mapping"):
         p = sub.add_parser(m)
@@ -619,6 +676,17 @@ def main():
         p.add_argument("--prompt", nargs="*", help="prompt file(s) the agent followed, relative to the repo root")
     args = ap.parse_args()
 
+    if args.mode == "revalidate":
+        inp = load_inputs()
+        m = mapping_inputs(inp)
+        ev = audit.begin(AI_BUILD / "audit.jsonl", "revalidate_mapping", {})
+        _, lines, cleared = revalidate(inp, m)
+        for ln in lines:
+            print(f"[record_ai_bank] {ln}")
+        line = f"revalidate: {cleared} areas checked against the current rules and stamped current; {len(lines)} problems"
+        print(f"[record_ai_bank] {line}")
+        ev.finish(inputs=[AI_AREAS, AI_MAPPING_RULES], outputs=[AI_MAPPING] if cleared else [], detail=line)
+        sys.exit(1 if lines else 0)
     if args.mode == "assemble":
         ev = audit.begin(AI_BUILD / "audit.jsonl", "assemble_candidates", {"gen1": args.gen1, "gen2": args.gen2})
         ins = [Path(p) for p in (args.gen1, args.eval1, args.gen2, args.eval2) if p]

@@ -188,7 +188,10 @@ an area gets a row for every subcategory that really checks it (each at most onc
    the folded outcome. A row with folds cannot be set to Mapped = no until its folds are mapped on their own lines.
 7. Accept gate (person): `ai_pilot.py accept-mapping`, tied to a hash of the mapping's content; the `mapping` stage of
    `check_freshness.py --ai-bank` reports it. A re-drafted area keeps the person's decisions, and the merged area is
-   checked against the rules again before it is stored.
+   checked against the rules again before it is stored. **A change is a delta** (2026-10-27): an area must be
+   re-drafted only when its own row in the AI areas sheet or the sources change; when only the mapping rules or other
+   areas change, `record_ai_bank.py revalidate` checks every recorded area against the current rules (no agent) and
+   stamps the ones that pass current, listing the problems of the rest.
 8. Questions per mapping row (generator, evaluator) -> producer and consumer banks; GOVERN questions per subcategory,
    each tagged with the roles it applies to (none, consumer, producer).
 

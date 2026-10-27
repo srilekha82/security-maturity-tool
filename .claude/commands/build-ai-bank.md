@@ -82,6 +82,10 @@ After the pilot areas (the user names them; for the 2026-10-26 re-run: `mcp_tool
 evaluator failed, the missing rows and notes, the subcategories still unreached, and token use if you can see it, and point them to the review
 sheet. The user reviews before any other area is drafted.
 
+After a change to `data/ai/mapping_rules.json` or to another AI area's row, do not re-draft: run
+`.venv/bin/python ./scripts/record_ai_bank.py revalidate` (script only). Re-draft only the areas it names (their own
+row or the sources changed), and send the user any rule problems it lists to fix in the sheet.
+
 When every area is recorded and the user has reviewed the sheet (no row left needs_human_review, edits imported), the
 user accepts the mapping: `.venv/bin/python ./scripts/ai_pilot.py accept-mapping`. Re-drafting an area later keeps the
 user's decisions (rows decided_by human, lines they removed).
