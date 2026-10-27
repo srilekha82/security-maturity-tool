@@ -1,0 +1,169 @@
+{
+  "recorded_at": "2026-10-27T06:35:25.537385+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_code_generation_draft2.json",
+    "sha": "5d1a45bc551b0ceb"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "32d4f24489b2713d"
+  },
+  "output_snapshot": {
+    "area": "code_generation",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.3",
+        "cis_refs": [
+          "LLM-16.1"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "It is decided and documented where AI code generation is allowed and where it is not (for example authentication, cryptography or regulated code)."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.5",
+        "cis_refs": [
+          "LLM-16.1",
+          "LLM-16.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The human review that AI-generated code must pass before it is merged or reaches production is defined, assigned and shown to be followed, with reviewers told that such code can be wrong or insecure.",
+        "folded": [
+          "MAP 2.2"
+        ]
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-16.4",
+          "LLM-2.1"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The libraries, packages and snippets the AI brings into code are inventoried with their source, so made-up or untrusted dependencies can be found."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "LLM-16.5",
+          "LLM-2.5",
+          "LLM-2.6",
+          "LLM-7.1"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Dependencies suggested by the AI are checked against approved sources and for known vulnerabilities before they are used."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-16.3"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The coding assistant and its output are tested for AI-specific weaknesses: invented or malicious packages being suggested and manipulation through poisoned context."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.1",
+          "LLM-8.2",
+          "LLM-8.5"
+        ],
+        "impact": [
+          "assets",
+          "data"
+        ],
+        "why": "Use of AI code generation is logged (who, which tool, what was generated and merged) so AI-written code and prompts can be traced."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [
+          "LLM-3.13",
+          "LLM-3.14",
+          "LLM-3.1"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Secrets, credentials and sensitive data placed in prompts to code assistants are looked for and measured."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.4",
+          "LLM-17.3"
+        ],
+        "impact": [
+          "assets",
+          "data"
+        ],
+        "why": "There is a procedure to respond when a secret leaks into a prompt or a malicious or invented dependency reaches the code base."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-17.9",
+          "LLM-17.4"
+        ],
+        "impact": [
+          "assets",
+          "data"
+        ],
+        "why": "A coding assistant can be switched off or its access revoked quickly, with defined thresholds, when it leaks secrets or keeps suggesting invented or malicious packages."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.8",
+          "LLM-17.3"
+        ],
+        "impact": [
+          "assets",
+          "data"
+        ],
+        "why": "Incidents and near-misses from AI-generated code or prompt leaks are recorded, reviewed and communicated to those affected."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_code_generation_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 4.2",
+      "reason": "cis_refs LLM-2.6 (runtime libraries like CUDA in model-serving processes), LLM-2.5 (ML framework extension loading) and LLM-7.1 (AI framework vulnerabilities) are about hosting AI runtimes, not dependencies the AI suggests into code; LLM-16.5 is about training data and model weights. Keep only refs that fit, e.g. LLM-16.4."
+    }
+  ]
+}

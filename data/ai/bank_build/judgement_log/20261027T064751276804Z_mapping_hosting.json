@@ -1,0 +1,236 @@
+{
+  "recorded_at": "2026-10-27T06:47:51.276365+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_hosting_draft2.json",
+    "sha": "21bb8ba66e435b9e"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "59cb860350a8d085"
+  },
+  "output_snapshot": {
+    "area": "hosting",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [
+          "LLM-12.4"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The hosting environment's dependencies and connections to external networks and the internet (serving endpoints, registries, providers) are documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.2",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The costs of a hosting compromise, outage or cost abuse (stolen compute, runaway spend, downtime) are examined and tied to risk tolerance."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-1.1",
+          "LLM-2.1"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The servers, GPUs, registries, serving software and third-party hosting material the org relies on are inventoried and their risks mapped."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "LLM-2.5",
+          "LLM-2.6"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Third-party hosting material (base images, serving software, models and packages pulled from registries, provider services) is reviewed for security vulnerabilities and approved before it is used."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.1",
+        "cis_refs": [
+          "LLM-17.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The likelihood and magnitude of hosting compromise, outage and cost abuse are assessed, drawing on past incidents and provider reports, to prioritise treatment."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "LLM-13.2",
+          "LLM-13.3",
+          "LLM-8.11"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Hosts and serving endpoints are monitored in production for anomalies such as unusual load, cost spikes, configuration changes or tampering."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.6",
+        "cis_refs": [
+          "LLM-11.5"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The hosted service is tested to fail safely and recover under high load, resource exhaustion and component failure."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-7.5",
+          "LLM-7.6",
+          "LLM-13.3"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Security and resilience of the hosting environment and exposed endpoints are tested through vulnerability scans and adversarial exercises."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.2",
+          "LLM-8.1",
+          "LLM-8.9"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Administrative, registry, secret-access and endpoint activity on the hosting environment is logged so actions can be traced and accounted for."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "LLM-12.3",
+          "LLM-12.2",
+          "LLM-4.4"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Controls that sustain the hosted service (authenticated access, network isolation, throttling, firewalling) are in place and applied."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.4",
+          "LLM-11.1",
+          "LLM-11.4"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Procedures exist and are followed to respond to and recover hosting from compromise, outage or abuse, including restoring from backups."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-17.9"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The org can rapidly disable or isolate a hosted endpoint or revoke its keys when compromise or cost abuse is detected."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.1",
+        "cis_refs": [
+          "LLM-8.12"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Risks from third-party infrastructure used for hosting (cloud, GPU and registry providers) are monitored and controls applied."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.1",
+        "cis_refs": [
+          "LLM-7.2",
+          "LLM-7.3",
+          "LLM-11.2"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Post-deployment plans for the hosting environment cover patching and change management, backups and recovery."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.3",
+          "LLM-17.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Hosting incidents and errors are tracked, communicated, reviewed after the fact and documented."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_hosting_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 2.2",
+      "reason": "Why leaves out secrets, keys and the model registry, which the area covers, and cis_refs omit LLM-4.6 (centralised, scoped secret management) and LLM-4.1 (hardened serving configuration), which support it."
+    },
+    {
+      "kind": "row",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 4.1",
+      "reason": "Backups and recovery repeat the restore-from-backup check in MANAGE 2.3 (and LLM-11.x refs); keep this row to patching and change management of the hosting stack, or drop the overlap."
+    },
+    {
+      "kind": "note",
+      "function": "MAP",
+      "subcategory": "MAP 3.2",
+      "reason": "Outage and cost abuse harm the processes that depend on the hosted model, not only assets; the area's impacts may be too narrow."
+    },
+    {
+      "kind": "note",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.6",
+      "reason": "Failing safely under load or component failure protects the processes relying on the service; the area's impacts (assets only) may be too narrow."
+    }
+  ]
+}

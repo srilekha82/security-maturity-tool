@@ -1,0 +1,252 @@
+{
+  "recorded_at": "2026-10-27T06:51:38.238968+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_customer_facing_draft2.json",
+    "sha": "79ac24074c3c87fd"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "470261a5a4ff1742"
+  },
+  "output_snapshot": {
+    "area": "customer_facing",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.1",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The intended purpose, the types of customers and the settings and laws the customer-facing AI operates in are understood and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [],
+        "impact": [
+          "people"
+        ],
+        "why": "Customers are told what the customer-facing AI cannot do and that answers may be wrong, and the limits of its output are documented for the people who oversee it."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.2",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The costs to customers and to the business of wrong, harmful or leaked answers reaching customers are examined and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.3",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The scope of what the customer-facing AI may answer or do is narrowed and documented, taking public misuse and abuse into account."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.5",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The oversight that catches high-impact answers before or after they reach customers is defined, assessed and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.2",
+        "cis_refs": [],
+        "impact": [
+          "people"
+        ],
+        "why": "Practices and people are in place to take in customer feedback about negative and unexpected impacts and act on it."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "LLM-8.11"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Production behaviour of the customer-facing AI is monitored for abuse patterns, unusual answers and high-impact answers, with alerts."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.6",
+        "cis_refs": [
+          "LLM-16.13"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The customer-facing AI is shown to fail safely when pushed beyond its knowledge limits or abused by the public, by declining, handing over to a person or staying within bounds."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-18.2",
+          "LLM-16.13"
+        ],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "Prompt injection and other abuse by public users is tested against the customer-facing AI, and the results are documented and acted on."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.1",
+          "LLM-8.2",
+          "LLM-8.5"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Customer interactions and high-impact answers are logged so they can be audited, and overrides and human review of answers are recorded."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [
+          "LLM-3.13",
+          "LLM-3.14"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Leaks of personal or confidential data in answers to customers are monitored and examined."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 3.3",
+        "cis_refs": [],
+        "impact": [
+          "people"
+        ],
+        "why": "Customers can report problems and appeal outcomes, and the reports are counted and fed into evaluation of the application."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "LLM-13.10",
+          "LLM-16.11"
+        ],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "Business rules, filters and throttling limit what the customer-facing AI can say or do for the public."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.4"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Customer reports of problems and newly found risks are handled through a response and recovery procedure."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-17.9"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The customer-facing AI can be switched off or replaced when answers go wrong, with thresholds and owners defined."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.2",
+        "cis_refs": [],
+        "impact": [
+          "people"
+        ],
+        "why": "Customer feedback is turned into measurable improvements in each update of the customer-facing AI."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.3",
+          "LLM-17.8"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Incidents and errors in front of customers are tracked, communicated to those affected, and reviewed afterwards."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_customer_facing_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.10",
+      "reason": "LLM-3.14 is about monitoring LLM logs for access to known sensitive data, not leaks in answers shown to customers; it is off-topic for this row (LLM-3.13 DLP on data passing to and from the model fits)."
+    },
+    {
+      "kind": "missing",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 4.1",
+      "reason": "Nothing asks whether post-deployment monitoring of the customer-facing AI is run in practice, including capturing customer input, appeal and override, and change management."
+    },
+    {
+      "kind": "missing",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 4.2",
+      "reason": "Customer feedback, positive and negative, and how often answers are overridden are not used to check whether the application performs as intended in front of customers."
+    },
+    {
+      "kind": "missing",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.3",
+      "reason": "Nothing checks performance of the customer-facing AI under real public conditions (unexpected, non-optimised use by customers) rather than only lab conditions."
+    },
+    {
+      "kind": "missing",
+      "function": "MAP",
+      "subcategory": "MAP 3.1",
+      "reason": "Nothing asks whether the benefits customers are meant to get from the AI are examined, with customer input on perceived benefit, so harms can be weighed against them."
+    }
+  ]
+}

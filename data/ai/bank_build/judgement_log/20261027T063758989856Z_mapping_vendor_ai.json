@@ -1,0 +1,208 @@
+{
+  "recorded_at": "2026-10-27T06:37:58.989289+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_vendor_ai_draft2.json",
+    "sha": "f67578221a06afc0"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "b5be5ab6060504cf"
+  },
+  "output_snapshot": {
+    "area": "vendor_ai",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.1",
+        "cis_refs": [
+          "LLM-3.2",
+          "LLM-3.8"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "The vendor AI features in use and the org data each one processes are identified, with their intended purpose and the settings they run in."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [
+          "LLM-15.1",
+          "LLM-3.8"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "The vendor's model provider, sub-processors, upstream dependencies and external data connections behind each AI feature are documented, with what the vendor states about the feature's limits and intended use."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-15.1",
+          "LLM-15.4",
+          "LLM-15.5"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "The risks of each vendor's AI, its model provider, data retention and training use, terms of service, and the vendor's security and tenant isolation are assessed and documented before and during use.",
+        "folded": [
+          "MEASURE 2.7"
+        ]
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "LLM-15.6",
+          "LLM-8.12"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Vendor AI behaviour and unannounced feature or model changes are watched in production, not only at onboarding."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.12",
+          "LLM-8.2",
+          "LLM-8.1"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Vendor AI activity on org data is traceable through the vendor's own logs or the org's, so data flows to the provider can be reviewed."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [
+          "LLM-3.13",
+          "LLM-3.7",
+          "LLM-3.1"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "The privacy risk of org data flowing to vendor AI, including retention and training use by the provider, is examined and documented."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 1.1",
+        "cis_refs": [
+          "LLM-15.6"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "The org decides whether each vendor AI feature is worth its data risk and stays enabled, and re-decides when the vendor changes it without notice."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.4",
+          "LLM-17.9"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "When a new vendor AI risk appears, such as a changed data practice or a vendor-side leak, there is a procedure to respond and recover."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-15.7",
+          "LLM-17.9"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "A vendor AI feature can be switched off, or the vendor's access to data revoked, when it behaves outside intended use or terms change."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.1",
+        "cis_refs": [
+          "LLM-15.6",
+          "LLM-15.2",
+          "LLM-15.4",
+          "LLM-3.1"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Each vendor's AI is monitored regularly and the risk controls actually applied are documented, such as training opt-out, history retention off, data minimisation, risky features disabled and which data classes may go to the vendor.",
+        "folded": [
+          "MANAGE 2.2",
+          "MAP 4.2"
+        ]
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.2",
+          "LLM-17.3",
+          "LLM-17.8"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Vendor AI incidents and errors are reported between the vendor and the org, tracked, responded to and recorded."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_vendor_ai_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 4.1",
+      "reason": "Folds MEASURE 2.7 (security and resilience evaluated) but the why only asks the vendor's security and tenant isolation are assessed; resilience (vendor outage, failure of the AI feature) is not asked, and the org cannot red-team a vendor model."
+    },
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.10",
+      "reason": "Repeats MAP 4.1 and MANAGE 3.1 (retention and training use by the provider) and overlaps Input (sensitive data sent to a provider); the why is not distinct."
+    },
+    {
+      "kind": "row",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 3.1",
+      "reason": "Folds MANAGE 2.2 (mechanisms applied to sustain the value of deployed AI) but the why never asks about sustaining value or business rules limiting output; folding MAP 4.2 (controls identified) into a MANAGE row also blurs a MAP check, so MAP 4.2 would be clearer as its own row."
+    },
+    {
+      "kind": "missing",
+      "function": "MAP",
+      "subcategory": "MAP 3.3",
+      "reason": "Nothing asks which systems, data classes and uses each vendor AI feature is scoped to; this is only buried in MANAGE 3.1's why."
+    },
+    {
+      "kind": "note",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.4",
+      "reason": "Unannounced vendor feature or model changes also harm the processes relying on the feature; the area's impacts (data only) may be too narrow."
+    }
+  ]
+}

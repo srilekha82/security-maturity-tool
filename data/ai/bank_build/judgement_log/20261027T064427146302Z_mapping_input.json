@@ -1,0 +1,182 @@
+{
+  "recorded_at": "2026-10-27T06:44:27.145824+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_input_draft2.json",
+    "sha": "ee0a67c6bf4f1f00"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "ef296501fd5e534b"
+  },
+  "output_snapshot": {
+    "area": "input",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-3.2",
+          "LLM-3.8"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "The third-party providers that receive prompts and files are identified, with what their terms say about keeping or reusing that input."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.1",
+        "cis_refs": [
+          "LLM-3.7",
+          "LLM-3.2"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "How likely and how serious exposure of data through prompts and files is judged to be, based on what staff and systems actually send and its data class."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.1",
+          "LLM-8.2",
+          "LLM-8.5",
+          "LLM-8.3"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Prompts and responses are logged as a record with who sent what, who can read those logs and how long they are kept, so exposure can be traced and accounted for."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [
+          "LLM-3.13",
+          "LLM-3.14",
+          "LLM-3.1",
+          "LLM-3.7",
+          "LLM-8.11"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Personal and sensitive data in prompts and files is examined and monitored in production, with alerts when it appears, including data leaving the org and access to the stored prompt and response logs.",
+        "folded": [
+          "MEASURE 2.4"
+        ]
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "LLM-3.1",
+          "LLM-3.13",
+          "LLM-3.10",
+          "LLM-3.11"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Controls are applied to what goes into the model, such as removing sensitive data, blocking it, and protecting prompts and logs in transit and at rest."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.4",
+          "LLM-17.3"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "When sensitive data is found to have been sent to a model or provider, the org follows a procedure to respond, contain and recover."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-17.9"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Sending input to a model or provider can be stopped quickly (blocking the provider, cutting the feed) when sensitive data is found leaving, with defined thresholds and who decides."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.1",
+        "cis_refs": [
+          "LLM-8.12",
+          "LLM-3.2"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Risk controls are applied and monitored for providers that receive the org's prompts and files, including what they keep."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.1",
+        "cis_refs": [
+          "LLM-3.4",
+          "LLM-3.5",
+          "LLM-8.10"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "Retention and deletion of prompt and response logs and of input held by providers are carried out and tracked, including deletion requests."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_input_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.8",
+      "reason": "The why asks how long logs are kept, which MANAGE 4.1 already asks (retention); keep this row to who sent what and who can read the logs."
+    },
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.10",
+      "reason": "Folds MEASURE 2.4 but the why only asks for sensitive data monitoring; monitoring what staff and systems send in production (volumes, file types, unexpected input) is not asked, so 2.4 is not fully covered."
+    },
+    {
+      "kind": "row",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 3.1",
+      "reason": "Repeats MAP 4.1 (providers receiving prompts and what they keep) and the vendor's model provider handling belongs to vendor_ai; the why is vague and LLM-8.12 (provider logs) does not support it."
+    },
+    {
+      "kind": "row",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 4.1",
+      "reason": "This outcome is post-deployment monitoring, appeal, override and change; retention and deletion of logs is a data control that fits MANAGE 2.2, which already protects prompts and logs."
+    },
+    {
+      "kind": "missing",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 4.3",
+      "reason": "Nothing checks that exposures of sensitive input are recorded and communicated to the affected people, providers and regulators after they are found."
+    }
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "recorded_at": "2026-10-27T06:59:36.117764+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_model_building_draft2.json",
+    "sha": "8d5ccdd15f494936"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "b79aa5a10d702bbf"
+  },
+  "output_snapshot": {
+    "area": "model_building",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.1",
+        "cis_refs": [
+          "LLM-16.1"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The task the org builds or tunes its model for, and the method used (from scratch or tuning an existing model), are defined and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 1.6",
+        "cis_refs": [
+          "LLM-16.1"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Requirements for the model being built (privacy, security, trustworthiness) are gathered from its recipients and put into build and tuning decisions."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The limits of the model it builds, and the settings outside its intended use, are documented and told to the recipients of each release."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.1",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The benefits of building or tuning an own model, compared with using an existing one, are examined and documented before the work is run."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.3",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The scope a built model is released for (users, products, regions, uses) is specified and documented, and releases outside it are limited."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-16.4",
+          "LLM-2.1"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Base models, components and third-party data or software used to build or tune are assessed for legal, licence and IP risk before use."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "LLM-2.1",
+          "LLM-2.2",
+          "LLM-16.5",
+          "LLM-2.3"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Internal risk controls apply to the base models and components chosen for building, and only approved ones are used."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.1",
+          "LLM-8.2"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Build, tuning and release events are logged with who did what, so changes to the model and its releases can be traced and accounted for."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.12",
+        "cis_refs": [],
+        "impact": [
+          "assets"
+        ],
+        "why": "The environmental impact of training and tuning runs is assessed and documented as part of how building is run."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 1.1",
+        "cis_refs": [
+          "LLM-16.1",
+          "LLM-16.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Before a built or tuned version is released, a decision is made on whether it meets its intended purpose and should proceed."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.4",
+          "LLM-17.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "A problem found in a released model is responded to and recovered from by a defined procedure that covers rebuilding or withdrawing it."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-17.9"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "A release can be withdrawn or superseded, with responsibility assigned and recipients told, when it performs against its intended use."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.2",
+        "cis_refs": [
+          "LLM-16.2",
+          "LLM-2.1"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "The pre-trained base models used for building are tracked and monitored, including for published vulnerabilities and upstream changes."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.2",
+        "cis_refs": [
+          "LLM-4.1",
+          "LLM-16.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Changes to how the model is built or tuned, and new versions, are managed, reviewed and approved with recipients engaged before release."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.8"
+        ],
+        "impact": [
+          "assets"
+        ],
+        "why": "Errors and incidents in released models are communicated to recipients, and a record is kept of system changes and why they were made."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_model_building_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 2.3",
+      "reason": "Its why ends in 'rebuilding or withdrawing it', which repeats the withdrawal check of MANAGE 2.4; keep this row to responding to and recovering from a newly found problem (rebuild, fix, restore) and leave withdrawal to MANAGE 2.4."
+    },
+    {
+      "kind": "missing",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.9",
+      "reason": "Nothing checks that the model it builds is explained and documented for recipients (model type, training approach, intended uses, thresholds, e.g. a model card shipped with each release); MAP 2.2 covers limits only."
+    },
+    {
+      "kind": "missing",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 3.3",
+      "reason": "Nothing checks that recipients of a release have a way to report problems with the model and that those reports feed back into building and tuning."
+    },
+    {
+      "kind": "note",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.12",
+      "reason": "Environmental impact of training runs harms the environment and society, not assets; the area's impacts (assets only) may be too narrow."
+    }
+  ]
+}

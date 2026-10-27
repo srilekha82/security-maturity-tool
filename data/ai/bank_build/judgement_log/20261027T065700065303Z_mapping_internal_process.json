@@ -1,0 +1,188 @@
+{
+  "recorded_at": "2026-10-27T06:57:00.064776+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_internal_process_draft2.json",
+    "sha": "59ff02445c22573b"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "770e235def2f55d7"
+  },
+  "output_snapshot": {
+    "area": "internal_process",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [
+          "LLM-14.1"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Staff who use AI output in internal workflows are given the documented knowledge limits of the AI and the conditions outside its intended use."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.1",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The benefit of AI in internal workflows is examined with the staff who use it and compared with a human baseline, so reliance on it is weighed against what it adds."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.2",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "The cost of a wrong or misused AI output in an internal decision (HR, finance, approvals, operations) is examined by likelihood and magnitude, so the high-impact decisions are identified.",
+        "folded": [
+          "MAP 5.1"
+        ]
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.3",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The internal decisions and workflows the AI output may drive are scoped and documented, including which are out of bounds."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.5",
+        "cis_refs": [
+          "LLM-14.1"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Defined human oversight steps tell staff when to check, challenge or override AI output before it drives a decision."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.6",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The internal workflow is shown to fail safely, with a manual fallback or hand-off to a person, when AI output is wrong, unavailable or beyond its limits."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.1",
+          "LLM-8.2",
+          "LLM-8.5",
+          "LLM-8.10"
+        ],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "AI-assisted internal decisions leave an audit trail, and human oversight and overrides are recorded so high-impact decisions can be audited."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 3.3",
+        "cis_refs": [
+          "LLM-17.3"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Staff have a way to report problems with AI output and to appeal or challenge decisions made on it, and the reports are analysed."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 4.2",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "Staff feedback and the frequency of overrides are measured to show whether people rely on AI output too much or too little."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "data"
+        ],
+        "why": "Controls such as business rules, second approval or limits on AI output keep it from driving high-impact internal decisions unchecked."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.4",
+          "LLM-17.3"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "A procedure exists to respond to and recover from decisions found to rest on wrong or misused AI output."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-17.9"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "The AI-driven internal workflow can be suspended or bypassed, with named owners, when its output proves inconsistent with intended use."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.3",
+          "LLM-17.8"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Wrong decisions and misuse of AI output are recorded as incidents, communicated to those affected, and followed up."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_internal_process_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 3.2",
+      "reason": "Folds MAP 5.1, which also asks the likelihood and magnitude of beneficial impacts and learning from past uses and outside feedback; the why covers only the cost of wrong output."
+    },
+    {
+      "kind": "note",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 3.3",
+      "reason": "Appeals against HR or approval decisions made on AI output protect the people affected; the area's impacts (process, data) may be too narrow."
+    }
+  ]
+}

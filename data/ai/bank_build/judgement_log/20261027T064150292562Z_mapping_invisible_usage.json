@@ -1,0 +1,212 @@
+{
+  "recorded_at": "2026-10-27T06:41:50.291906+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_invisible_usage_draft2.json",
+    "sha": "ed8d60e55f00f414"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "a79283f9d7cf4ac7"
+  },
+  "output_snapshot": {
+    "area": "invisible_usage",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.1",
+        "cis_refs": [
+          "LLM-1.2",
+          "LLM-1.3",
+          "LLM-1.5",
+          "LLM-2.1",
+          "LLM-3.2",
+          "LLM-3.8"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "The org finds and lists the AI tools, features, PoCs and local models staff use without approval, what data they receive and where it goes, and the outside AI agents connecting in, not only the approved ones.",
+        "folded": [
+          "MAP 2.2"
+        ]
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 4.2",
+        "cis_refs": [
+          "LLM-2.5",
+          "LLM-9.2",
+          "LLM-9.4"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "The org has controls that decide which AI services, browser extensions and software are allowed (safelists, DNS and extension limits) and applies them to third-party AI."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "LLM-8.6",
+          "LLM-8.12",
+          "LLM-13.1",
+          "LLM-1.5"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "The org watches in practice for new unapproved AI use and for outside agents or MCP clients reaching its systems, using network, DNS and provider telemetry with alerts."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.1",
+          "LLM-8.2",
+          "LLM-8.6",
+          "MCP-8.2"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "Logs record which AI services staff reach and which outside agents or MCP clients call org systems and under whose identity, so activity can be traced and accounted for."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-13.3",
+          "MCP-13.10",
+          "AGENT-13.10"
+        ],
+        "impact": [
+          "access"
+        ],
+        "why": "The org tests and measures how its systems hold up to outside agents, scrapers and MCP clients acting on behalf of users at machine speed (authentication, throttling, filtering)."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.10",
+        "cis_refs": [
+          "LLM-3.13",
+          "LLM-3.14",
+          "LLM-3.7"
+        ],
+        "impact": [
+          "data"
+        ],
+        "why": "The org checks whether personal, regulated or confidential data is being sent to unapproved AI tools, for example through data loss prevention on AI traffic."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 3.1",
+        "cis_refs": [
+          "LLM-3.13",
+          "LLM-9.2",
+          "LLM-6.7",
+          "LLM-14.4",
+          "LLM-14.5",
+          "AGENT-6.3"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "Risks from AI inside third-party tools and services staff use are monitored, and controls such as blocking, data loss prevention, central sign-in for machine clients and staff training are applied and documented in practice.",
+        "folded": [
+          "MANAGE 2.2"
+        ]
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.3",
+          "LLM-17.4",
+          "LLM-17.1",
+          "LLM-14.6"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "The org has a followed procedure for responding to and recovering from data leaving through unapproved AI or an outside agent misusing access, including how staff report it."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-2.3",
+          "LLM-6.2",
+          "MCP-1.2",
+          "AGENT-1.2"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "The org can switch off or block an unapproved AI tool or an outside agent or MCP client, and revoke the access it holds, once found."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.3",
+          "LLM-17.8",
+          "LLM-17.2"
+        ],
+        "impact": [
+          "data",
+          "access"
+        ],
+        "why": "Incidents and near-misses from unapproved AI use or outside agents are recorded, communicated to those affected and reviewed afterwards."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_invisible_usage_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MAP",
+      "subcategory": "MAP 4.1",
+      "reason": "Folds MAP 2.2 (documented knowledge limits and how output is overseen by humans) but the why only asks about finding and listing unapproved tools and agents; that outcome is not asked, so drop the fold."
+    },
+    {
+      "kind": "row",
+      "function": "MANAGE",
+      "subcategory": "MANAGE 3.1",
+      "reason": "The why repeats other rows (blocking = MAP 4.2, data loss prevention = MEASURE 2.10, training), and AI inside vendor tools is the vendor_ai area; it also folds MANAGE 2.2 (sustaining the value of deployed AI), which the why never asks and which does not fit this area."
+    },
+    {
+      "kind": "missing",
+      "function": "MAP",
+      "subcategory": "MAP 5.1",
+      "reason": "Nothing checks that the org assesses likelihood and magnitude of harm from the unapproved AI use and outside agents it finds (what data, how sensitive, how often), which is needed to prioritise treatment."
+    },
+    {
+      "kind": "missing",
+      "function": "MAP",
+      "subcategory": "MAP 3.1",
+      "reason": "Nothing checks whether the org understands what benefits staff get from unapproved AI tools and whether approved alternatives meet that need; unmet need is what drives invisible usage."
+    }
+  ]
+}

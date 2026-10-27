@@ -1,0 +1,310 @@
+{
+  "recorded_at": "2026-10-27T06:54:20.108506+00:00",
+  "step": "record_ai_bank_mapping",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_mapping_drafter.md",
+      "sha": "b8d66ecc345a703c"
+    },
+    {
+      "path": "prompts/ai_rmf_mapping_evaluator.md",
+      "sha": "59989424e0a4ff43"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/mapping_output_draft2.json",
+    "sha": "ec3a5376680e6de2"
+  },
+  "store": {
+    "path": "data/ai/mapping.json",
+    "sha": "80238b773c44965b"
+  },
+  "output_snapshot": {
+    "area": "output",
+    "rows": [
+      {
+        "function": "MAP",
+        "subcategory": "MAP 2.2",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The knowledge limits of the AI's answers, and how people and systems may rely on them, are documented for those who use them."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.2",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The cost of wrong, manipulated or biased answers, and who could be harmed by acting on them, is examined and documented."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 3.3",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The AI is limited to the uses and contexts where its answers have been shown trustworthy, and use beyond that scope is restricted."
+      },
+      {
+        "function": "MAP",
+        "subcategory": "MAP 5.1",
+        "cis_refs": [
+          "LLM-16.3"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The likelihood and size of harm from wrong or manipulated answers are assessed, including red teaming for prompt injection and unsafe output."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.1",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The test sets, metrics, tools and assumptions used to test answers for accuracy, consistency and bias are defined and documented.",
+        "folded": [
+          "MAP 2.3"
+        ]
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.2",
+        "cis_refs": [],
+        "impact": [
+          "people"
+        ],
+        "why": "The test cases for accuracy and bias match the people and situations actually affected, and gaps between test and real users are analysed."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.3",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Answer quality is measured under conditions like real use (real prompts, messy input), not only ideal ones, and the results are kept."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.4",
+        "cis_refs": [
+          "LLM-8.11"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Answer quality and behaviour are monitored in production so drift, anomalies and rising error rates are noticed and alerted."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.5",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The AI is shown to give accurate and consistent answers before use, and the conditions beyond which answers cannot be trusted are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.6",
+        "cis_refs": [
+          "LLM-16.13"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "The AI is tested to fail safely, for example declining or flagging when it is outside its knowledge limits, rather than giving a confident wrong answer."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.7",
+        "cis_refs": [
+          "LLM-16.3",
+          "LLM-18.2"
+        ],
+        "impact": [
+          "process"
+        ],
+        "why": "Answers are tested against attacker steering such as prompt injection through user input or retrieved content, and the results are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.8",
+        "cis_refs": [
+          "LLM-8.2",
+          "LLM-8.5"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Answers are logged with enough detail to trace how a wrong or manipulated answer came about and who relied on it."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.11",
+        "cis_refs": [],
+        "impact": [
+          "people"
+        ],
+        "why": "Answers are tested for bias, comparing how people or groups are treated, and the results are documented."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 2.13",
+        "cis_refs": [],
+        "impact": [
+          "process"
+        ],
+        "why": "The accuracy, consistency and bias tests are themselves reviewed for whether they actually catch bad answers."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 4.2",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Domain experts and users confirm that answers are valid, reliable and consistent in real use, and how often people override answers is measured."
+      },
+      {
+        "function": "MEASURE",
+        "subcategory": "MEASURE 4.3",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Baselines for answer quality are set and improvements or declines over time are identified and documented."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 1.1",
+        "cis_refs": [],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Someone decides from test results whether the answers are good enough for the intended purpose to keep using the AI."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.2",
+        "cis_refs": [
+          "LLM-16.11"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Controls such as business rules and output guardrails limit or restrict what answers can do in certain contexts."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.3",
+        "cis_refs": [
+          "LLM-17.4"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "There is a procedure to respond to and recover from a newly found answer problem such as an injection route, a bias or a drift."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 2.4",
+        "cis_refs": [
+          "LLM-17.9"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Thresholds and owners exist to bypass or switch off the AI when its answers prove inconsistent with intended use."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.1",
+        "cis_refs": [
+          "LLM-8.11"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "A post-deployment plan re-tests answers for validity, reliability, bias and security, with red teaming at a set cadence."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.2",
+        "cis_refs": [
+          "LLM-18.3"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Wrong, biased or inconsistent answers lead to measurable fixes (prompts, data, model, rules) that are re-tested."
+      },
+      {
+        "function": "MANAGE",
+        "subcategory": "MANAGE 4.3",
+        "cis_refs": [
+          "LLM-17.3"
+        ],
+        "impact": [
+          "process",
+          "people"
+        ],
+        "why": "Wrong, biased or manipulated answers are recorded as errors or incidents, tracked, and shared with those affected."
+      }
+    ],
+    "no_question": []
+  },
+  "review_file": "data/ai/bank_build/work/mapping_output_eval2.json",
+  "review": [
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 2.1",
+      "reason": "Folds MAP 2.3 but the why does not ask experimental design, validity of the tests or how test data was chosen; it only asks that test sets, metrics and tools are documented."
+    },
+    {
+      "kind": "row",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 4.2",
+      "reason": "The clause on how often people override answers belongs to Internal process (how staff check, challenge and override); keep only expert and user confirmation of answer validity."
+    },
+    {
+      "kind": "missing",
+      "function": "MAP",
+      "subcategory": "MAP 1.1",
+      "reason": "Nothing asks what the AI's intended purpose and prospective settings are, and what counts as a correct answer for them; accuracy, consistency and bias tests have no stated target without it."
+    },
+    {
+      "kind": "missing",
+      "function": "MEASURE",
+      "subcategory": "MEASURE 1.3",
+      "reason": "Nothing checks that accuracy, consistency and bias tests are done or reviewed by someone other than the developers (independent assessors, domain experts, affected users); the area includes testing for organisations that build their own model."
+    }
+  ]
+}
