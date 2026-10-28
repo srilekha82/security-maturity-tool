@@ -61,6 +61,7 @@ sheet (MAP 1.2 on model_building, impact assets: the team that builds the model 
 is GOVERN. MAP 1.4 on internal_process, customer_facing and vendor_ai: business value of what the AI's results are
 used for; not invisible_usage, whose need is MAP 3.1; not Output, a noun; not code_generation, which goes through the audit and usual software review process, assessed by the CSF). A change is now a delta:
 `record_ai_bank.py revalidate` re-checks areas after a rules or other-area change, no agent.
+**Step 3 done 2026-10-28: mapping accepted** (14 areas, 208 rows, every MAP/MEASURE/MANAGE subcategory reached by an area or the foundation; `data/ai/bank_build/mapping_accepted.json`). MEASURE 2.9 mapped on Output (answers presented with enough context to judge trust). Next: TODO step 4.
 2026-10-28: the user reviewed part of the sheet; Claude filled the rest as suggestions in `data/ai/authoring/mapping.xlsx`
 (yellow cells, a note on the Subcategory cell says why; NOT imported). The sheet has a new editable column "Folded into
 this row". Still open: MEASURE 2.9 (model explained, output interpreted in context) is reached by no area.
