@@ -158,7 +158,8 @@ Rows per AI area: AI RMF function -> subcategory, CIS safeguards that prove it, 
 an area gets a row for every subcategory that really checks it (each at most once), and the evaluator fails padding.
 - Score per AI RMF subcategory (the 72-row profile XLS), like CSET questions mapping to CSF subcategories. AI areas
   and impacts are report views on top; nothing counts twice.
-- All 72 subcategories must be reached: the 19 GOVERN ones as foundation, the other 53 by area rows.
+- All 72 subcategories must be reached: 31 as foundation (the 19 GOVERN ones and 12 single MAP, MEASURE and MANAGE
+  subcategories), the other 41 by area rows or folds (accepted 2026-10-28: 14 areas, 208 rows).
 - CIS Implementation Groups give the levels (IG1 basic, IG2, IG3); `data/tier_definitions.json` maps to them.
   Subcategories with no CIS link (42 of 72) are scored from Playbook practices.
 - List `LLM-` safeguards; a script adds the `MCP-` / `AGENT-` equivalents for MCP / tools and agents.
