@@ -78,7 +78,9 @@
         {"key": "review_reason", "header": "Evaluator note", "type": "text", "required": false, "width": 40, "in_json": false,
          "help": "Do not edit. Why the evaluator failed the row, 'Missing:' when it says the row should exist, 'Note:' for a remark that does not block (e.g. the area's impacts look too narrow: change them in ai_areas.xlsx)."},
         {"key": "decided_by", "header": "Decided by", "type": "text", "required": false, "width": 10, "in_json": false,
-         "help": "Do not edit. agent or human; a row you change becomes human on import."}
+         "help": "Do not edit. agent or human; a row you change becomes human on import."},
+        {"key": "folded", "header": "Folded into this row", "type": "codes", "required": false, "width": 18,
+         "help": "Subcategories this row also covers (merged by the drafter): they are asked and scored through this row. Remove one to unfold it (it then has no row unless you map its own line); clear the cell before setting Mapped to no."}
       ],
       "readme": [
         "The AI RMF mapping for review: one line per AI area x MAP, MEASURE or MANAGE subcategory, mapped or not.",

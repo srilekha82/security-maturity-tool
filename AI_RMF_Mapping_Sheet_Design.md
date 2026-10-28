@@ -183,7 +183,8 @@ an area gets a row for every subcategory that really checks it (each at most onc
    `missing` line show Status needs_human_review with the evaluator's note; a `missing` line is decided by mapping it
    or by setting Status to pass (a missing finding is stored once per area, so it does not flag the area's other
    rows). When the drafter merges two subcategories into one row, the row lists the other in `folded`; the sheet shows
-   it as a note on the Why cell of both lines. **A folded subcategory counts as reached** (decided 2026-10-26): it is
+   it as a note on the Why cell of both lines, and in an editable "Folded into this row" column (2026-10-28): clearing a
+   subcategory there unfolds it, and a row's folds must be cleared before the row can be set to Mapped = no. **A folded subcategory counts as reached** (decided 2026-10-26): it is
    asked and scored through the row it is folded into, so a fold is allowed only when that row's question fully asks
    the folded outcome. A row with folds cannot be set to Mapped = no until its folds are mapped on their own lines.
 7. Accept gate (person): `ai_pilot.py accept-mapping`, tied to a hash of the mapping's content; the `mapping` stage of

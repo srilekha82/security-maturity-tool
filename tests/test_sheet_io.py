@@ -214,6 +214,16 @@ class MappingSheet(unittest.TestCase):
         self.assertEqual(self.do_import(), 1)
         self.assertEqual(self.json.read_text(), before)
 
+    def test_a_fold_can_be_cleared_in_the_sheet(self):
+        self.edit("MAP 4.1", **{"Folded into this row": ""})            # unfold MAP 1.6
+        self.assertEqual(self.do_import(), 0)
+        self.assertNotIn("folded", self.rows()["MAP 4.1"])
+        self.assertEqual(self.rows()["MAP 4.1"]["decided_by"], "human")
+        self.export()
+        self.edit("MAP 4.1", Mapped="no")                                # now the row can be removed
+        self.assertEqual(self.do_import(), 0)
+        self.assertNotIn("MAP 4.1", self.rows())
+
     def test_a_missing_row_is_a_flagged_line_the_person_decides(self):
         doc = json.loads(self.json.read_text())
         doc["areas"]["mcp_tools"]["missing"] = [

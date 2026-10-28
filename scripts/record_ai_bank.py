@@ -428,7 +428,7 @@ def mapping_coverage(doc: dict, inp: dict, rules: dict) -> tuple[set, list]:
 
 # ── the review sheet (sheet_io.py export / import mapping) ──────────────────
 
-ROW_FIELDS = ("cis_refs", "impact", "why", "status")   # what a person can change on a row in the sheet
+ROW_FIELDS = ("cis_refs", "impact", "why", "status", "folded")   # what a person can change on a row in the sheet
 
 
 def mapping_sheet_rows(doc: dict, inp: dict, m: dict) -> tuple[list[dict], list[list[str]]]:
@@ -463,7 +463,7 @@ def mapping_sheet_rows(doc: dict, inp: dict, m: dict) -> tuple[list[dict], list[
                     r.get("review_reason", "") if r else "",
                     f"Missing: {missing[s['subcategory_id']]}" if s["subcategory_id"] in missing else "",
                     *[f"Note: {t}" for t in notes.get(s["subcategory_id"], [])]])),
-                "decided_by": r["decided_by"] if r else "",
+                "decided_by": r["decided_by"] if r else "", "folded": r.get("folded", []) if r else [],
             })
     drafted = doc.get("areas", {})
     reach = {(a, r["subcategory"]) for a in drafted for r in drafted[a]["rows"]}
@@ -512,9 +512,10 @@ def mapping_from_sheet(lines: list[dict], doc: dict, inp: dict, m: dict) -> tupl
                 if sid in recorded:
                     changed += 1
                     removed.add(sid)
-                    if recorded[sid].get("folded"):
-                        problems.append(f"{area_id}: sheet row {ln['line']} ({sid}): {', '.join(recorded[sid]['folded'])} "
-                                        "folded into it would be lost; map them on their own lines first, or keep this row")
+                    if ln["folded"]:
+                        problems.append(f"{area_id}: sheet row {ln['line']} ({sid}): {', '.join(ln['folded'])} "
+                                        "folded into it would be lost; clear 'Folded into this row' (or map them on their "
+                                        "own lines) before setting Mapped to no")
                 elif sid in missing and ln["status"] != "needs_human_review":
                     changed += 1   # the person decided the evaluator's missing row is not needed
                     missing.pop(sid)
@@ -524,10 +525,10 @@ def mapping_from_sheet(lines: list[dict], doc: dict, inp: dict, m: dict) -> tupl
             removed.discard(sid)
             new = {"function": ln["function"], "subcategory": sid, "cis_refs": ln["cis_refs"], "impact": ln["impact"],
                    "why": ln["why"], "status": ln["status"] or "pass"}
+            if ln["folded"]:
+                new["folded"] = ln["folded"]
             old = recorded.get(sid)
-            if old and old.get("folded"):
-                new["folded"] = old["folded"]   # not editable in the sheet; kept with the row
-            if old and all(new[k] == (str(old[k]).strip() if k == "why" else old[k]) for k in ROW_FIELDS):
+            if old and all(new.get(k, []) == (str(old[k]).strip() if k == "why" else old.get(k, [])) for k in ROW_FIELDS):
                 rows.append(old)
             else:
                 changed += 1

@@ -61,6 +61,9 @@ sheet (MAP 1.2 on model_building, impact assets: the team that builds the model 
 is GOVERN. MAP 1.4 on internal_process, customer_facing and vendor_ai: business value of what the AI's results are
 used for; not invisible_usage, whose need is MAP 3.1; not Output, a noun; not code_generation, which goes through the audit and usual software review process, assessed by the CSF). A change is now a delta:
 `record_ai_bank.py revalidate` re-checks areas after a rules or other-area change, no agent.
+2026-10-28: the user reviewed part of the sheet; Claude filled the rest as suggestions in `data/ai/authoring/mapping.xlsx`
+(yellow cells, a note on the Subcategory cell says why; NOT imported). The sheet has a new editable column "Folded into
+this row". Still open: MEASURE 2.9 (model explained, output interpreted in context) is reached by no area.
 1. Human review of `mapping.xlsx` (the user): flagged rows and missing lines (Status = needs_human_review), the folds
    flagged "not fully asked", MAP 1.2 and MAP 1.4 by hand (not flagged: see the Coverage sheet).
 2. Review `mapping.xlsx` (Status = needs_human_review: failed rows and missing lines; Evaluator note), then the
