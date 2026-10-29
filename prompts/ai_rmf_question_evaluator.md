@@ -31,7 +31,7 @@ AI text).
    and asks for each AI system, what it involves and the worst realistic outcome if it gets things wrong; that is one
    subject by design (the sheet holds the areas and criticality bands as its columns).
 4. **Misaligned.** It tests a neighbouring subcategory, not this outcome; or (area bank) it does not ask what a covered
-   row's `why` checks, or it asks what that area's `covers` says belongs to another area; or a row with `folded` is
+   row's `why` checks (a question may trim extra details, but not the row's main subject), or it asks what that area's `covers` says belongs to another area; or a row with `folded` is
    asked without the folded outcome.
 5. **Wrong audience.** The question does not make sense for one of its `roles` (a producer question about only using
    a vendor's AI, a consumer question about training the model, `none` on a question an org with no AI cannot answer);
@@ -43,15 +43,19 @@ AI text).
    client that has only one of its areas; or it covers rows whose `why` check different things; or it adds up each
    row's extra details instead of asking the one practice they share.
 7. **Near duplicate.** It asks the same practice as another question of the same subcategory: two questions on
-   different rows that should have been one shared question, two questions on the same row and role that split one
+   different rows that should have been one shared question (compare every pair of single-row questions: two that
+   read the same apart from the area's name fail), two questions on the same row and role that split one
    practice (a row is asked twice only when its `why` holds two different practices), or (foundation) two questions
-   on the same angle.
+   on the same angle. Not a duplicate: a producer-flagged question on the base model a producer builds on (its
+   licence, training data, updates, supplier) next to a general question on third-party AI; the base model is asked
+   separately because only those producers have one.
 8. **Not about AI.** The question would read the same with the AI subject removed: it asks general security
    (logging, access control, incident response, asset inventory) that the CSF and ISO 27001 assess, not what is done
    for the AI area or for AI in the organisation.
 9. **Criticality** (area bank). It is written per AI system ("for each AI system ...") instead of once, or it lacks
    the criticality frame where the row is about systems the org runs (optional for the areas in
-   `criticality_frame_optional`).
+   `criticality_frame_optional`), or it frames the producer's own model as "for your highest-criticality AI systems,
+   how ... your model".
 
 Fail when unsure. Also fail the whole subcategory (question_number 0) when something is missing that the questions
 should ask: a covered row's `why` is not really asked by any of its questions, or (foundation) the subcategory's

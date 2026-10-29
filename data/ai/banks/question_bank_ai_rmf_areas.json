@@ -2,9 +2,8 @@
   "bank": "areas",
   "subcategories": {
     "MAP 1.4": {
-      "status": "needs_human_review",
+      "status": "pass",
       "turns": 2,
-      "review_reason": "Q3: Chains two things to answer (business purpose and which data they may work on); the data part is not supported by the cited action about business value.",
       "rows_sha": "41b66b191eb6894d",
       "rows": {
         "internal_process|MAP 1.4": {
@@ -29,55 +28,55 @@
       "questions": [
         {
           "question_text": "For your highest-criticality AI systems, how is the business value of using AI output in each internal workflow defined? Who owns that definition?",
-          "rows": [
-            "internal_process|MAP 1.4"
+          "playbook_refs": [
+            "MAP 1.4 — suggested action 1"
           ],
+          "cis_refs": [],
           "roles": [
             "consumer",
             "producer"
           ],
           "producer_flags": [],
-          "playbook_refs": [
-            "MAP 1.4 — suggested action 1"
-          ],
-          "cis_refs": []
+          "rows": [
+            "internal_process|MAP 1.4"
+          ]
         },
         {
           "question_text": "For your highest-criticality AI systems, how is the business value of your customer-facing AI defined? Who owns that definition?",
+          "playbook_refs": [
+            "MAP 1.4 — suggested action 1"
+          ],
+          "cis_refs": [],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
           "rows": [
             "customer_facing|MAP 1.4"
-          ],
-          "roles": [
-            "consumer",
-            "producer"
-          ],
-          "producer_flags": [],
-          "playbook_refs": [
-            "MAP 1.4 — suggested action 1"
-          ],
-          "cis_refs": []
+          ]
         },
         {
-          "question_text": "For the AI features inside vendor products you use, how do you decide what business purpose they serve and which of your data they may work on? Who owns that decision?",
-          "rows": [
-            "vendor_ai|MAP 1.4"
+          "question_text": "For the AI features inside vendor products you use, how do you decide what business purpose they serve? Who owns that decision?",
+          "playbook_refs": [
+            "MAP 1.4 — suggested action 1"
           ],
+          "cis_refs": [],
           "roles": [
             "consumer",
             "producer"
           ],
           "producer_flags": [],
-          "playbook_refs": [
-            "MAP 1.4 — suggested action 1"
-          ],
-          "cis_refs": []
+          "rows": [
+            "vendor_ai|MAP 1.4"
+          ]
         }
-      ]
+      ],
+      "decided_by": "human"
     },
     "MAP 3.2": {
-      "status": "needs_human_review",
+      "status": "pass",
       "turns": 2,
-      "review_reason": "Q1: Row is shared with folded MAP 5.1 (likelihood and magnitude, benefits as well as costs, identifying high-impact decisions) but the question asks only for the cost of wrong output.",
       "rows_sha": "14e57285c1c97bb8",
       "rows": {
         "internal_process|MAP 3.2": {
@@ -111,39 +110,160 @@
       "questions": [
         {
           "question_text": "For your highest-criticality AI systems, how do you estimate the cost of wrong AI output in internal decisions, for example from past use and feedback? Where is this recorded?",
-          "rows": [
-            "internal_process|MAP 3.2"
+          "playbook_refs": [
+            "MAP 3.2 — suggested action 6"
           ],
+          "cis_refs": [],
           "roles": [
             "consumer",
             "producer"
           ],
           "producer_flags": [],
+          "rows": [
+            "internal_process|MAP 3.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you rate how likely and how large the effects of AI in internal decisions are, benefits as well as harms? Who reviews these ratings?",
           "playbook_refs": [
-            "MAP 3.2 — suggested action 6",
             "MAP 5.1 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "rows": [
+            "internal_process|MAP 3.2"
+          ]
         },
         {
           "question_text": "For your highest-criticality AI systems, how are the costs to customers and to the business of wrong, harmful or leaked answers reaching customers examined and documented? Who reviews this?",
-          "rows": [
-            "customer_facing|MAP 3.2"
+          "playbook_refs": [
+            "MAP 3.2 — suggested action 6"
           ],
+          "cis_refs": [],
           "roles": [
             "consumer",
             "producer"
           ],
           "producer_flags": [],
-          "playbook_refs": [
-            "MAP 3.2 — suggested action 6"
-          ],
-          "cis_refs": []
+          "rows": [
+            "customer_facing|MAP 3.2"
+          ]
         },
         {
           "question_text": "For your highest-criticality AI systems, how do you work out the cost of wrong, manipulated or biased AI answers and who could be harmed by acting on them? Where is this recorded?",
+          "playbook_refs": [
+            "MAP 3.2 — suggested action 1"
+          ],
+          "cis_refs": [],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
           "rows": [
             "output|MAP 3.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the costs of a hosting compromise, outage or cost abuse (stolen compute, runaway spend, downtime) examined and compared with your risk tolerance? Who owns this?",
+          "playbook_refs": [
+            "MAP 3.2 — suggested action 6"
+          ],
+          "cis_refs": [],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "rows": [
+            "hosting|MAP 3.2"
+          ]
+        }
+      ],
+      "decided_by": "human"
+    },
+    "MEASURE 2.7": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "review_reason": "Q4: Tests AI answers against prompt injection, the same practice (and same cis_refs LLM-18.2) as question 2 on customer_facing; the public-user abuse test already covers steering of answers, so the two split one practice.",
+      "rows_sha": "d8289da76441dda1",
+      "rows": {
+        "code_generation|MEASURE 2.7": {
+          "area": "code_generation",
+          "impact": [
+            "assets"
+          ]
+        },
+        "customer_facing|MEASURE 2.7": {
+          "area": "customer_facing",
+          "impact": [
+            "process",
+            "data"
+          ]
+        },
+        "invisible_usage|MEASURE 2.7": {
+          "area": "invisible_usage",
+          "impact": [
+            "access"
+          ]
+        },
+        "output|MEASURE 2.7": {
+          "area": "output",
+          "impact": [
+            "process"
+          ]
+        },
+        "test_tuning_data|MEASURE 2.7": {
+          "area": "test_tuning_data",
+          "impact": [
+            "data",
+            "assets"
+          ]
+        },
+        "model|MEASURE 2.7": {
+          "area": "model",
+          "impact": [
+            "assets"
+          ]
+        },
+        "source_data|MEASURE 2.7": {
+          "area": "source_data",
+          "impact": [
+            "access",
+            "data"
+          ]
+        },
+        "mcp_tools|MEASURE 2.7": {
+          "area": "mcp_tools",
+          "impact": [
+            "access",
+            "data"
+          ]
+        },
+        "agent|MEASURE 2.7": {
+          "area": "agent",
+          "impact": [
+            "access",
+            "process",
+            "data"
+          ]
+        },
+        "hosting|MEASURE 2.7": {
+          "area": "hosting",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "How is your AI coding assistant tested for AI-specific weaknesses, for example suggesting invented or malicious packages? Where are the results recorded?",
+          "rows": [
+            "code_generation|MEASURE 2.7"
           ],
           "roles": [
             "consumer",
@@ -151,14 +271,108 @@
           ],
           "producer_flags": [],
           "playbook_refs": [
-            "MAP 3.2 — suggested action 1"
+            "MEASURE 2.7 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-16.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems facing the public, how is abuse by public users tested, for example prompt injection? How are results documented and acted on?",
+          "rows": [
+            "customer_facing|MEASURE 2.7"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 2",
+            "MEASURE 2.7 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-18.2",
+            "LLM-16.13"
+          ]
+        },
+        {
+          "question_text": "How do you test and measure how your systems hold up to other people's AI agents, scrapers and MCP clients acting at machine speed, for example through authentication and throttling? Where are the results recorded?",
+          "rows": [
+            "invisible_usage|MEASURE 2.7"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 1",
+            "MEASURE 2.7 — suggested action 5"
+          ],
+          "cis_refs": [
+            "LLM-13.3",
+            "MCP-13.10",
+            "AGENT-13.10"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the AI's answers tested against attacker steering, for example prompt injection through user input or retrieved content? Where are the results documented?",
+          "rows": [
+            "output|MEASURE 2.7"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 2",
+            "MEASURE 2.7 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-16.3",
+            "LLM-18.2"
+          ]
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how are training, tuning and evaluation data and the test harness checked and protected against poisoning and tampering, for example changes that hide failures? Who reviews changes to them?",
+          "rows": [
+            "test_tuning_data|MEASURE 2.7"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-3.1",
+            "LLM-3.3",
+            "LLM-6.8"
+          ]
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how is the model tested against theft, extraction through the API and tampering with versions? Where are the results documented?",
+          "rows": [
+            "model|MEASURE 2.7"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 3",
+            "MEASURE 2.7 — suggested action 10"
           ],
           "cis_refs": []
         },
         {
-          "question_text": "For your highest-criticality AI systems, how are the costs of a hosting compromise, outage or cost abuse (stolen compute, runaway spend, downtime) examined and compared with your risk tolerance? Who owns this?",
+          "question_text": "For your highest-criticality AI systems, how is the AI's retrieval from your data stores tested, for example that users only see what they are entitled to and that content cannot be poisoned or copied out? Where are the results recorded?",
           "rows": [
-            "hosting|MAP 3.2"
+            "source_data|MEASURE 2.7"
           ],
           "roles": [
             "consumer",
@@ -166,9 +380,71 @@
           ],
           "producer_flags": [],
           "playbook_refs": [
-            "MAP 3.2 — suggested action 6"
+            "MEASURE 2.7 — suggested action 2"
           ],
-          "cis_refs": []
+          "cis_refs": [
+            "LLM-3.3",
+            "LLM-3.12"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the tools and MCP servers the AI can call tested for security, for example prompt injection driving tool calls or a changed server? Where are the results recorded?",
+          "rows": [
+            "mcp_tools|MEASURE 2.7"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 2",
+            "MEASURE 2.7 — suggested action 3"
+          ],
+          "cis_refs": [
+            "MCP-16.13"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI agents, how is security tested with adversarial or red-team exercises, for example manipulated input that triggers actions? How are the results documented and acted on?",
+          "rows": [
+            "agent|MEASURE 2.7"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 2",
+            "MEASURE 2.7 — suggested action 3"
+          ],
+          "cis_refs": [
+            "AGENT-16.13",
+            "AGENT-18.1",
+            "AGENT-18.5",
+            "AGENT-18.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that you host, how are the hosting environment and exposed AI endpoints tested for security and resilience, for example through vulnerability scans? Who follows up on the findings?",
+          "rows": [
+            "hosting|MEASURE 2.7"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 1",
+            "MEASURE 2.7 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-7.5",
+            "LLM-7.6",
+            "LLM-13.3"
+          ]
         }
       ]
     },
@@ -552,10 +828,10 @@
     "AGENT": "824ab8a2e829a11a"
   },
   "summary": {
-    "subcategories": 4,
-    "passed": 2,
-    "needs_human_review": 2,
-    "questions": 20
+    "subcategories": 5,
+    "passed": 4,
+    "needs_human_review": 1,
+    "questions": 31
   },
-  "source_sha": "7e6514ba956e1906"
+  "source_sha": "39fc82663a0eb925"
 }

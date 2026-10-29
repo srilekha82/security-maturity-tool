@@ -43,8 +43,11 @@ this file. Do not read PDFs or other data files.
 Every row must be asked, for each role in its area's `roles_allowed`, by **one** question, or by **two** when its
 `why` holds two different practices (see Splitting).
 - **Ask the core of the row's `why`, not all of it.** A `why` often names two or three things in one sentence; the
-  question asks the one practice at its centre, for that area as its `covers` describes it. Stay inside the area:
-  what `covers` says belongs to another area is not asked here.
+  question asks the one practice at its centre, for that area as its `covers` describes it. The core always keeps
+  the row's main subject (what is logged, tested or decided, e.g. "weights, system prompts and configurations") and
+  every `folded` outcome; only extra details are trimmed. If that is too much for one question, split (below): a
+  folded outcome is often the second question. Stay inside the area: what `covers` says belongs to another area is
+  not asked here.
 - **Short and single.** One "how" about one practice, then at most one short follow-up: who owns or reviews it, how
   often, or where it is recorded. No lists of asks ("including A, B and C", "and what ... and how ..."): details the
   answer might mention go after "for example" and are not asked one by one. No purpose clauses ("so that it can be
@@ -57,10 +60,14 @@ Every row must be asked, for each role in its area's `roles_allowed`, by **one**
 - **Asked once for all the org's AI systems, never once per AI system.** Write it proportionate to criticality: frame it with
   `criticality_frame` ("for your highest-criticality AI systems, ...") so the answer shows whether practice is
   stronger where the stakes are higher. Leave the frame out where the row is not about systems the org runs
-  (AI used without approval, others' agents or scrapers reaching in); for the areas in `criticality_frame_optional`
-  it is optional (vendor AI usually sits inside another use, where criticality is asked).
+  (AI used without approval, others' agents or scrapers reaching in). For the areas in `criticality_frame_optional`
+  it is optional (see its description): vendor AI usually sits inside another use, where criticality is asked, and
+  for the producer's own model, data or build never write "for your highest-criticality AI systems, how ... your
+  model"; frame by the model ("for the models behind your most critical AI systems") or leave it out.
 - **Similar rows share one question.** If two or more rows of the same subcategory would get what is really the same
-  question, write it once and list all their `row_id`s in `rows`. Do not write near-copies that differ only in the
+  question, write it once and list all their `row_id`s in `rows`. Short questions make this more likely, not less:
+  before you finish, compare your single-row questions of each subcategory, and share any two that read the same
+  apart from the area's name (e.g. "how is the business value of ... defined? Who owns that definition?"). Do not write near-copies that differ only in the
   area's name. A shared question must not name an area: the questionnaire shows the client a note listing which of
   their areas it covers, and a client may have only one of them, so the text must read correctly for each area alone.
   A question for a single row may name its area. Share only when the rows check the same single practice; the shared

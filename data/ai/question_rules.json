@@ -38,10 +38,13 @@
   },
   "criticality_frame": "for your highest-criticality AI systems",
   "criticality_frame_optional": {
-    "description": "Areas whose questions may leave out the criticality frame: code generation, and vendor AI, which usually sits inside another use (an internal process, a customer-facing application) where criticality is asked.",
+    "description": "Areas whose questions may leave out the criticality frame: code generation; vendor AI, which usually sits inside another use (an internal process, a customer-facing application) where criticality is asked; and the producer's own model, its data and its build, where 'for your highest-criticality AI systems, how ... your model' reads badly (frame by the model instead, e.g. 'for the models behind your most critical AI systems', or leave it out).",
     "areas": [
       "code_generation",
-      "vendor_ai"
+      "vendor_ai",
+      "model_building",
+      "model",
+      "test_tuning_data"
     ]
   },
   "area_question_rule": "Each mapping row is asked, for each role it can carry, by one question, or by two when its why holds two different practices (row_questions max). One question may carry several roles and cover several rows of the same subcategory when they check the same single practice.",

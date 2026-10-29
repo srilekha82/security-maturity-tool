@@ -123,19 +123,20 @@
       "turns": 2,
       "questions": [
         {
-          "question_text": "Where are your rules for using third-party AI systems and data kept, and how do the people they apply to come to know them and any changes (for example onboarding, training or announcements)?",
+          "question_text": "Where are your rules for using third-party AI (models, AI services and the data they rely on) kept, and how do the people they apply to come to know them and any changes, for example through onboarding, training or announcements?",
           "roles": [
             "consumer",
             "producer"
           ],
           "producer_flags": [],
           "playbook_refs": [
-            "GOVERN 6.1 — suggested action 1"
+            "GOVERN 6.1 — suggested action 1",
+            "GOVERN 6.1 — suggested action 7"
           ],
           "cis_refs": []
         },
         {
-          "question_text": "Before you start using a third-party AI system or data source, how do you check and test it? Who approves it?",
+          "question_text": "Before your organisation starts using a third-party AI system or data source, how is it checked for what it does, what it was trained on and its known limits, for example through vendor documentation and your own testing? Who signs off?",
           "roles": [
             "consumer",
             "producer"
@@ -149,14 +150,41 @@
           "cis_refs": []
         },
         {
-          "question_text": "How do you check that using third-party AI and data does not infringe someone else's intellectual property or other rights, for example licence terms, contract clauses or legal review? Who is responsible?",
+          "question_text": "How do you check that third-party AI and the data it was built on do not infringe someone else's intellectual property or other rights, for example through contract terms or licence reviews? Where is the outcome recorded?",
           "roles": [
             "consumer",
             "producer"
           ],
           "producer_flags": [],
           "playbook_refs": [
+            "GOVERN 6.1 — suggested action 2",
             "GOVERN 6.1 — suggested action 7"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How are your rules for third-party AI reviewed and updated, for example after a vendor change, an incident or a new law? Who owns that review?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 6.1 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do you choose, check and keep watching the existing model your own model is built on, for example its source, licence and known weaknesses? Who owns this?",
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [
+            "built_on_existing_model"
+          ],
+          "playbook_refs": [
+            "GOVERN 6.1 — suggested action 3",
+            "GOVERN 6.1 — suggested action 4"
           ],
           "cis_refs": []
         }
@@ -175,7 +203,7 @@
     "subcategories": 3,
     "passed": 3,
     "needs_human_review": 0,
-    "questions": 11
+    "questions": 13
   },
-  "source_sha": "e11b5997fe01463c"
+  "source_sha": "332f329b9bfaac19"
 }
