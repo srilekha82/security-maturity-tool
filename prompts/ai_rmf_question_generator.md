@@ -19,6 +19,12 @@ this file. Do not read PDFs or other data files.
   `questions_per_subcategory` (min and max).
 
 ## What a good question is (both banks)
+- **About AI, never general security.** Every question asks how something is done for AI: for the area ("for your AI
+  agents", "for the AI used in your internal processes", "for the model you host") or, in the foundation, for AI in
+  the organisation ("your AI systems", "AI use by staff"). The client's general security (logging, access control,
+  incident response, asset inventory) is assessed separately by the CSF and ISO 27001; a question that would read the
+  same with the AI subject removed asks the wrong thing. The client may answer by naming a general control; the
+  question still asks what happens for the AI (are agent actions in the log, not only human logins).
 - **Practice-revealing, not checkbox.** Not "Do you have a policy for X?" or "Is X documented?". Ask how X is done,
   who owns it, how often or what triggers it, and what evidence exists (record, report, log, ticket, register).
 - **One subject per question.** One "how" plus at most one follow-up (who owns it, how often, or where it is

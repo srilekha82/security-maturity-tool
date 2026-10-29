@@ -28,7 +28,8 @@ Picks the client's questions from the banks by their role, producer flags and AI
 `data/ai/scope_rules.json`: do not read it or re-apply it by hand) and writes `ai_scope.json`,
 `ai_questions_draft_<bank>.json` and a snapshot `ai_question_bank_used_<bank>.json`. A question shared by several of
 the client's areas carries a note naming them. Subcategories with no question for this client are left out (they do
-not apply). With a CSF assessment or ISO 27001 it prints that the per-row gap rule is not built yet: pass that on. Exit 1 lists what is wrong with `ai_usage.json`: tell the user, fix it with them
+not apply). Every AI question is full discovery: they ask what is done for AI, so a CSF assessment or ISO 27001
+changes nothing here. Exit 1 lists what is wrong with `ai_usage.json`: tell the user, fix it with them
 (re-run `scripts/intake.py` for a new intake) and run again.
 
 ## Done

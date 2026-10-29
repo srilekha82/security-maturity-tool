@@ -27,8 +27,9 @@ A question is picked when
   rows            (area questions) it covers a row of one of the client's AI areas
 Each picked area question carries the names of the client's areas it covers; a question shared by several areas shows
 them to the client as scope_rules.json covers_note. A subcategory with no picked question is left out (it does not
-apply to this client). Every question is full_discovery: the per-row gap rule (CIS -> CSF) is not built yet, and a CSF
-assessment or ISO 27001 only prints scope_rules.json gap_note. Entries whose bank record is needs_human_review carry
+apply to this client). Every question is full_discovery for every client: the questions are about AI (an AI area, or
+AI in the organisation), so they never repeat the general security the CSF sheet or ISO 27001 covers, and the
+engagement flags change nothing here. Entries whose bank record is needs_human_review carry
 the rules' review_flag as confidence_flag.
 
 Errors (bad profile, missing bank) exit 1 and write nothing. Requires the banks built by /build-ai-bank.
@@ -71,7 +72,7 @@ def validate_profile(p: dict, areas: list[str], qrules: dict, rules: dict) -> li
     if not isinstance(got, list) or not set(got) <= set(areas):
         errors.append(f"ai_areas must be a list from {areas}")
     eflags = p.get("engagement_flags")
-    known = set(rules["gap_flags"]) | set(rules["no_effect_flags"])
+    known = set(rules["engagement_flags"]["flags"])
     if not isinstance(eflags, dict) or set(eflags) != known or not all(isinstance(x, bool) for x in eflags.values()):
         errors.append(f"engagement_flags must be an object of booleans with exactly {sorted(known)}")
     return errors
@@ -160,7 +161,6 @@ def main():
 
     roles = client_roles(profile, rules)
     flags = [f for f, v in (profile.get("producer") or {}).items() if v]
-    gap = [label for k, label in rules["gap_flags"].items() if profile["engagement_flags"][k]]
     note = usage_note(profile, names, rules)
 
     scope, drafts, summary = {}, {}, []
@@ -189,18 +189,13 @@ def main():
     outputs = [run_dir / "ai_scope.json"]
     outputs[0].write_text(json.dumps({
         "ai_in_use": profile["ai_in_use"], "role": profile.get("role"), "roles_asked_as": roles,
-        "producer_flags": flags, "ai_areas": profile["ai_areas"], "gap_flags_used": [], "usage_note": note,
+        "producer_flags": flags, "ai_areas": profile["ai_areas"], "usage_note": note,
         "banks": scope}, indent=2, ensure_ascii=False))
     for bank, (out, bank_file) in drafts.items():
         draft, used = run_dir / f"ai_questions_draft_{bank}.json", run_dir / f"ai_question_bank_used_{bank}.json"
         draft.write_text(json.dumps(out, indent=2, ensure_ascii=False))
         shutil.copy2(bank_file, used)
         outputs += [draft, used]
-    if gap:
-        print(f"[build_ai_questions] {rules['gap_note'].format(flags=' and '.join(gap))}", file=sys.stderr)
-    for k, label in rules["no_effect_flags"].items():
-        if profile["engagement_flags"].get(k):
-            print(f"[build_ai_questions] {label}", file=sys.stderr)
     detail = f"ai_in_use={profile['ai_in_use']}; roles {', '.join(roles)}; " + "; ".join(summary)
     print(f"[build_ai_questions] {detail} → {run_dir}", file=sys.stderr)
     ev.finish(inputs=inputs, outputs=outputs, detail=detail)

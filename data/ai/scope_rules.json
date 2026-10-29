@@ -60,13 +60,13 @@
   },
   "default_type": "full_discovery",
   "reason": "Picked by role ({roles}){areas}",
-  "gap_flags": {
-    "csf_assessment_done": "CSF assessment",
-    "iso27001_held": "ISO 27001"
-  },
-  "gap_note": "{flags}: the per-row gap rule (a row whose CIS safeguards map to CSF subcategories asks only the AI-specific part) is not built yet; every AI RMF question is full_discovery",
-  "no_effect_flags": {
-    "iso42001_held": "ISO/IEC 42001 held: not used to relax any question type until the AI RMF to 42001 crosswalk is verified; everything stays full_discovery"
+  "engagement_flags": {
+    "description": "The engagement flags ai_usage.json must carry (intake.py). They do not change which AI questions are asked or how: every AI question is about AI (an AI area, or AI in the organisation), so it never repeats the general security the CSF sheet or ISO 27001 covers, and is full_discovery for every client. The client may cite a general control as evidence; the assessor checks whether it reaches the AI.",
+    "flags": [
+      "csf_assessment_done",
+      "iso27001_held",
+      "iso42001_held"
+    ]
   },
   "covers_note": "This question covers: {areas}",
   "foundation_label": "Whole organisation",

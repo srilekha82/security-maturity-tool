@@ -11,8 +11,9 @@ Do not read data files, banks, scope files or any other run file.
 2. **Practice-revealing.** Rewrite any yes/no or "do you have a policy" question so it asks how, who, how often and
    what evidence.
 3. **Truncated or garbled text.** Fix cut-off sentences or a dangling "...beyond that coverage:" with nothing after it.
-4. **Gap wording.** In `gap` entries the question must ask what differs for AI beyond the general security controls the
-   org already has (CSF assessment or ISO 27001); it must not repeat a general security question.
+4. **About AI.** Every question asks what is done for AI (the area its `applies_to` names, or AI in the
+   organisation), never general security, which the CSF sheet assesses. Rewrite a question that would read the same
+   with the AI subject removed.
 5. **Area fit.** A question must fit what its `applies_to` names and the org's AI areas in `usage_note`: no question
    about agents or MCP tools when the org has neither; a shared question must read correctly for each area it covers
    and must not name an area the org does not have. If a question does not fit, rewrite it.

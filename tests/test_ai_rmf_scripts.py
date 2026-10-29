@@ -429,15 +429,16 @@ class Scope(unittest.TestCase):
         with self.assertRaises(SystemExit):   # csf mode takes exactly one question file
             WQ.main()
 
-    def test_gap_flags_only_print_a_note(self):
-        import io
-        from contextlib import redirect_stderr
-        err = io.StringIO()
-        with redirect_stderr(err):
-            self.assertEqual(self.go(self.profile()), 0)
-        self.assertIn("not built yet", err.getvalue())
-        d = json.loads((self.run / "ai_questions_draft_areas.json").read_text())
-        self.assertTrue(all(e["question_type"] == "full_discovery" for e in d))
+    def test_engagement_flags_change_nothing(self):
+        # the questions are about AI, so a CSF assessment or ISO 27001 neither drops nor rewords any of them
+        drafts = []
+        for flags in ((False, False, False), (True, True, True)):
+            ef = dict(zip(("csf_assessment_done", "iso27001_held", "iso42001_held"), flags))
+            self.assertEqual(self.go(self.profile(engagement_flags=ef)), 0)
+            drafts.append([json.loads((self.run / f"ai_questions_draft_{b}.json").read_text())
+                           for b in ("foundation", "areas")])
+        self.assertEqual(drafts[0], drafts[1])
+        self.assertTrue(all(e["question_type"] == "full_discovery" for bank in drafts[1] for e in bank))
 
     def test_missing_bank_fails(self):
         self.banks["areas"].unlink()

@@ -61,16 +61,17 @@ not needed to run the flows (`CLAUDE.md` covers that). `README.md` explains the 
   Every question carries the roles it is asked of (`none` / `consumer` / `producer`) and any producer flags
   (`question_rules.json`); `record_ai_bank.py questions` checks that every row is asked exactly once per role its area
   allows. `build_ai_questions.py` picks a client's questions by role, producer flags and AI areas only; it never
-  ranks or rewrites. Area questions are asked once, proportionate to criticality, never per AI system. Question types
-  are assigned at engagement time; every AI question is `full_discovery` until the per-row gap rule (a row's CIS
-  safeguards mapped to CSF subcategories the client was assessed on) is built. ISO 42001 coverage is not used until
-  its crosswalk is verified.
+  ranks or rewrites. Area questions are asked once, proportionate to criticality, never per AI system. There is no
+  gap rule on the AI side (decided 2026-10-29): every AI question is about AI (an AI area, or AI in the organisation), so it never repeats the general security the CSF sheet or ISO 27001 assesses, whatever the
+  client's ISO 27001 SoA excludes; every AI question is `full_discovery` and the engagement flags change nothing. The
+  client may cite a general control as evidence; the assessor checks whether it reaches the AI. ISO 42001 coverage is
+  not used until its crosswalk is verified.
 - **Question content:** practice-revealing (how, who, how often, what evidence), never checkbox ("do you have a policy").
   The Playbook's suggested actions are the source of what good looks like. CIS companion guides give the safeguards a
   question may cite as evidence, never question text. A policy is asked as practice: where it is kept and how people
   come to know it. Fairness, bias and explainability come from the Playbook only.
 - **Sources for the banks:** the Playbook and the three CIS companion guides only. The CIS to CSF mapping is used only for
-  the CSF AI impact notes and (to build) the per-row gap rule. OWASP LLM Top 10 is not a source.
+  the CSF AI impact notes. OWASP LLM Top 10 is not a source.
 - **CIS safeguard ids are read as text.** The CIS xlsx files store them as numbers, so 4.10, 8.10 and 16.10 collapse into
   4.1, 8.1 and 16.1. The guide tables also drop IDs: rebuild from control number and row order.
 - **Rebuild only when a source changed.** A bank (CSF or AI) is rebuilt only if it is missing or incomplete, or a source file

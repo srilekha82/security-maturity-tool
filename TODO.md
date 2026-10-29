@@ -34,15 +34,11 @@ Where things stand:
 - The user cannot easily edit spreadsheets: they decide in chat, Claude applies it to the sheet and imports.
 
 Open for step 4 and after:
-- **Per-row gap rule:** a row whose CIS safeguards map to CSF subcategories the client was assessed on asks only the
-  AI-specific part. Needs the CIS -> CSF mapping as a committed id file (the xlsx is not in the codespace). Until then
-  every AI question is `full_discovery` and `build_ai_questions.py` prints a note when the client has a CSF
-  assessment or ISO 27001.
+- No AI gap rule (decided 2026-10-29): every AI question asks what is done for AI, so it never repeats the CSF sheet
+  or ISO 27001, and ISO SoA exclusions leave no hole. The CIS -> CSF xlsx is now in `data/ai/source/` (parses: 153
+  safeguards, 46 mapped to 48 CSF subcategories); it is used only for the CSF AI impact notes.
 - Scoring when several areas ask one subcategory: Stage 2 (questions keep their subcategory and rows).
 
-Note: in the codespace `check_freshness.py --ai-bank` stops at "sources missing: CIS -> CSF xlsx" before it reaches
-the mapping line; upload that file (data/ai/source/README.md) to see the `mapping` stage. `ai_pilot.mapping_status()`
-reports the mapping directly.
 
 ## Build the AI RMF mapping (steps of the design note)
 0. ~~Write the model down.~~ Done 2026-10-21.
@@ -71,7 +67,7 @@ reports the mapping directly.
    batch per subcategory with every area's row so similar rows share a question; recording checks coverage;
    selection is a filter. The old model (`legacy_profile`, rungs, usage contexts, modifiers, topics,
    `question_categories.json`, `AI_APPLICABILITY`, producer and consumer banks) is removed. Review sheets built.
-   Left: the per-row gap rule (needs the CIS -> CSF ids).
+   No gap rule: the questions are AI-specific (design note section 7).
 5. Severity: the standard criticality question (USD under 100k / 100k-500k / over 500k; reputation; safety) and the
    priority rules (domain floor for healthcare and manufacturing / OT, process criticality, data classification) for
    the Stage 2 writer. The criticality question becomes the AI system inventory (GOVERN 1.6): each system with its AI

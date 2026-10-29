@@ -33,7 +33,10 @@ AI text).
    client that has only one of its areas; or it covers rows whose `why` check different things.
 7. **Near duplicate.** It asks the same practice as another question of the same subcategory: two questions on
    different rows that should have been one shared question, or (foundation) two questions on the same angle.
-8. **Criticality** (area bank). It is written per AI system ("for each AI system ...") instead of once, or it lacks
+8. **Not about AI.** The question would read the same with the AI subject removed: it asks general security
+   (logging, access control, incident response, asset inventory) that the CSF and ISO 27001 assess, not what is done
+   for the AI area or for AI in the organisation.
+9. **Criticality** (area bank). It is written per AI system ("for each AI system ...") instead of once, or it lacks
    the criticality frame where the row is about systems the org runs.
 
 Fail when unsure. Also fail the whole subcategory (question_number 0) when something is missing that the questions

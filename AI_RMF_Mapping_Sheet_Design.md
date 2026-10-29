@@ -40,9 +40,8 @@ Impact, What it covers, Example question (spreadsheet only).
   credentials used or abused), **process** (a business process or decision goes wrong), **assets** (model, code or
   infrastructure stolen, damaged or taken down).
 - GOVERN is the foundation and is not mapped to AI areas (section 3).
-- Whether general security (CSF, ISO 27001) already covers a question is decided per mapping row, not per area: when a
-  row's CIS safeguard maps (official CIS -> CSF mapping) to a CSF subcategory the client was assessed on, the question
-  asks only the AI-specific part.
+- General security (CSF, ISO 27001) is not asked again: every AI question asks what is done for the AI area or for
+  AI in the organisation (section 7; no gap rule).
 
 ## 2. Intake: the client's AI areas
 The intake asks only what the org has (capability); every control is assessed by the questions.
@@ -228,9 +227,13 @@ mapping rows changed is shown incomplete by the freshness check).
   consumer; consumer; producer; both -> consumer and producer), producer flags from the intake, and for area questions
   the client's AI areas. Nothing is ranked, capped or rewritten.
 - **Scoring** (several areas on one subcategory) is decided in Stage 2; every question keeps its subcategory and rows.
-- **Open:** the per-row gap rule (a row whose CIS safeguards map to CSF subcategories the client was assessed on asks
-  only the AI-specific part) needs the CIS -> CSF mapping as a committed id file; until then every AI question is
-  `full_discovery`.
+- **No gap rule** (decided 2026-10-29). Every question asks how something is done for AI: for the area ("for your AI
+  agents ...") or for AI in the organisation, never general security (the evaluator fails a question that would read
+  the same with the AI subject removed). So it never repeats what the CSF sheet or ISO 27001 assesses, and an ISO
+  control the client excluded in its SoA leaves no hole: every AI question is `full_discovery` for every client. A
+  client may cite a general control as evidence; the assessor checks whether it reaches the AI (are agent actions in
+  the log, not only human logins). A per-row rule from the CIS -> CSF mapping was considered and dropped: holding ISO
+  27001 does not mean a control is applied, and the questions are AI-specific anyway.
 - **Review sheets** (`sheet_io.py export / import area_questions`, `foundation_questions` ->
   `data/ai/authoring/questions_<areas|foundation>.xlsx`): one line per question (areas covered, asked of, producer
   flag, question, Playbook actions, safeguards, status). Lines may be edited, added or deleted; subcategories come from
