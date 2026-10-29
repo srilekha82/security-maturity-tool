@@ -19,7 +19,7 @@ Output (patch): `{"PR.AA-05": {"exposure": "..."}}` for all items.
 ## Layer 2: use (run second; only where AI use changes the reading, about 25 to 30 subcategories)
 For the subcategories where AI in use changes how the outcome should be read, add `use` with two short notes, 1 to 2
 sentences each:
-- `base_rag`: orgs whose highest rung is base LLM use or RAG: data leakage, retrieval permissions, what data reaches the
+- `base_rag`: orgs that use AI (a model, RAG / knowledge graph) without MCP / tools or agents: data leakage, retrieval permissions, what data reaches the
   model.
 - `mcp_agentic`: orgs with tools, MCP or agents: AI tools as identities with scoped credentials, no inheriting a user's
   full rights, human approval for write or irreversible actions.

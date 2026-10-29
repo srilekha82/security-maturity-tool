@@ -7,8 +7,9 @@ AI RMF gate (--ai-bank):
 
 Compares the SHA-256 of the current source files (Playbook, the three CIS companion guides, the CIS -> CSF xlsx) with the
 hashes each output records about its own inputs, one line per stage: parse (ai_rmf_core.json, cis_ai_safeguards.json),
-each bank, notes, and pilot. A stage is `current` only if it exists and was built from these exact sources. (The old
-applicability and crosswalk stages were removed with their files on 2026-10-22.) `mapping` is current when every AI area
+each question bank (foundation, areas), notes, and pilot. A stage is `current` only if it exists and was built from
+these exact sources; a bank must also be complete (record_ai_bank.bank_freshness: the area bank has every subcategory
+with mapping rows, each written for the rows as they are now; the foundation bank every foundation subcategory). `mapping` is current when every AI area
 is drafted from the current sources, AI areas and rules, reviewed (no row needs_human_review, no sheet edit left
 unimported) and accepted as it is now (ai_pilot.py accept-mapping); it also says how many subcategories no area reaches. `pilot` is current when the user accepted the pilot (ai_pilot.py accept) for the current
 generator and evaluator prompts. `ai areas` is current when data/ai/ai_areas.json was imported from
@@ -29,8 +30,8 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from options import AI_BANK_NAMES, CERT_FILES, DOMAINS, load_intake  # noqa: E402
-from paths import (AI_APPLICABILITY, AI_BANKS, AI_CIS_CSF_XLSX, AI_CORE,  # noqa: E402
+from options import AI_QUESTION_BANKS, CERT_FILES, DOMAINS, load_intake  # noqa: E402
+from paths import (AI_BANKS, AI_CIS_CSF_XLSX, AI_CORE,  # noqa: E402
                    AI_PARSE_CONFIG, AI_PILOT, AI_SAFEGUARDS, AI_SOURCE, AI_AREAS, AI_AREAS_XLSX, CSF_IMPACT_NOTES,
                    DATA_AUDIT, METADATA, bank_path)
 import audit  # noqa: E402
@@ -40,6 +41,12 @@ from ai_pilot import mapping_status, pilot_status  # noqa: E402
 
 def load(path: Path):
     return json.loads(path.read_text()) if path.is_file() else None
+
+
+def bank_completeness(bank: str, doc: dict) -> tuple[bool, str]:
+    """Whether a question bank holds what it must now (record_ai_bank.bank_freshness)."""
+    import record_ai_bank as R
+    return R.bank_freshness(bank, doc, R.load_inputs())
 
 
 def ai_stages() -> list[tuple[str, bool, str]]:
@@ -56,24 +63,19 @@ def ai_stages() -> list[tuple[str, bool, str]]:
             return stage, False, "missing"
         return (stage, True, "current") if same else (stage, False, f"stale ({what})")
 
-    core, sg, app = load(AI_CORE), load(AI_SAFEGUARDS), load(AI_APPLICABILITY)
+    core, sg = load(AI_CORE), load(AI_SAFEGUARDS)
     notes = load(CSF_IMPACT_NOTES)
     recorded = lambda sources: {g: v["sha256_16"] for g, v in sources.items()}  # noqa: E731
     stages = [
         verdict("parse", core and sg, core and sg and core["source_sha256_16"] == playbook
                 and recorded(sg["sources"]) == guides),
     ]
-    for bank in AI_BANK_NAMES:
+    for bank in AI_QUESTION_BANKS:
         doc = load(AI_BANKS / f"question_bank_ai_rmf_{bank}.json")
         stage, ok, text = verdict(f"bank {bank}", doc, doc and doc["playbook_sha256_16"] == playbook
                                   and doc["guide_sha256_16"] == guides)
-        if ok and app is not None:
-            want = sum(1 for v in app["subcategories"].values() if v[bank])
-            have = len(doc["subcategories"])
-            review = doc["summary"]["needs_human_review"]
-            ok = have == want
-            text = (f"current ({have} subcategories, {review} need human review)" if ok
-                    else f"incomplete ({have} of {want} applicable subcategories)")
+        if ok and stages[0][1]:
+            ok, text = bank_completeness(bank, doc)
         stages.append((stage, ok, text))
     stages.append(verdict("notes", notes, notes and notes.get("sources_sha256_16") == {
         "cis_csf": cis_csf, "MCP": guides["MCP"], "AGENT": guides["AGENT"]}))

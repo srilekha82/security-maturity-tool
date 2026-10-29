@@ -7,7 +7,7 @@ Nothing here is decided in code: change a fact by editing the JSON."""
 import json
 from pathlib import Path
 
-from paths import AI_SCOPE_RULES, INTAKE_OPTIONS, SCOPE_RULES
+from paths import AI_QUESTION_RULES, AI_SCOPE_RULES, INTAKE_OPTIONS, SCOPE_RULES
 
 _common = json.loads(INTAKE_OPTIONS.read_text())
 
@@ -38,4 +38,4 @@ def _rank(order: list) -> dict:
 CSF_FUNCTION_ORDER = _rank(json.loads(SCOPE_RULES.read_text())["function_order"])          # GV, ID, ...
 _ai_rules = json.loads(AI_SCOPE_RULES.read_text())
 AI_FUNCTION_ORDER = _rank(_ai_rules["function_order"])        # GOVERN, MAP, ...
-AI_BANK_NAMES = tuple(_ai_rules["bank_order"])                # producer, consumer (tests check it against question_categories.json)
+AI_QUESTION_BANKS = tuple(json.loads(AI_QUESTION_RULES.read_text())["banks"])   # foundation, areas

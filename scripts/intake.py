@@ -17,9 +17,7 @@ The engagement intake, as numbered choices (the menus live in data/common/intake
          "built on an existing model?" and "given to others?"; then "How do you use AI?" (ai_usage) and "What does your
          AI include?" (ai_components), which list AI area ids from data/ai/ai_areas.json and may be left blank. Giving
          any of these when they are not asked is rejected. ai_areas() turns the answers into the client's AI areas,
-         adding the automatic ones from scope_rules.json ai_area_rules (the role adds the producer areas). Until question
-         selection works on AI areas, the old profile fields (rung, usage contexts, modifiers, hosts_model) are also
-         written, worked out from the areas (scope_rules.json legacy_profile).
+         adding the automatic ones from scope_rules.json ai_area_rules (the role adds the producer areas).
          Exit 1 with the problems listed, writing nothing, if a number is not on its menu, a single-choice question gets
          several, "None" is combined with a certification, the profile breaks a rule of
          build_ai_questions.validate_profile, or the run folder already has an intake.json (same org and date):
@@ -34,7 +32,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from paths import AI_AREAS, AI_CATEGORIES, AI_SCOPE_RULES, RUNS  # noqa: E402
+from paths import AI_AREAS, AI_QUESTION_RULES, AI_SCOPE_RULES, RUNS  # noqa: E402
 from options import INTAKE_QUESTIONS  # noqa: E402
 from build_ai_questions import validate_profile  # noqa: E402
 import audit  # noqa: E402
@@ -93,16 +91,6 @@ def ai_areas(gate: str, role: str | None, usage: list, components: list, rules: 
     return [a for a in order if a in got]
 
 
-def legacy_fields(gate: str, areas: list, built_on_model, rules: dict) -> dict:
-    """The old profile fields the current question filter reads, worked out from the AI areas (removed in step 4)."""
-    if gate != "some":
-        return {"rung": None, "usage_contexts": [], "modifiers": [], "hosts_model": False}
-    lp = rules["legacy_profile"]
-    rung = next((rung for area, rung in lp["rung"] if area in areas), "base")
-    return {"rung": rung, "usage_contexts": [lp["usage_contexts"][a] for a in areas if a in lp["usage_contexts"]],
-            "modifiers": ["builds_on_base_model"] if built_on_model else [], "hosts_model": "hosting" in areas}
-
-
 def write(args) -> None:
     errors, values = [], {}
     if not re.search(r"[A-Za-z0-9]", args.org):
@@ -131,13 +119,11 @@ def write(args) -> None:
         "producer": ({"built_on_existing_model": values["built_on_model"], "given_to_others": values["given_to_others"]}
                      if role in ("producer", "both") else None),
         "ai_areas": areas,
-        **legacy_fields(gate, areas, values.get("built_on_model"), rules),
         "engagement_flags": {"csf_assessment_done": values["csf_assessment_done"],
                              "iso27001_held": "iso27001" in certs, "iso42001_held": values["iso42001_held"]},
         "captured_on": args.date,
     }
-    enums = json.loads(AI_CATEGORIES.read_text())["enums"]
-    problems = validate_profile(profile, enums, rules)
+    problems = validate_profile(profile, order, json.loads(AI_QUESTION_RULES.read_text()), rules)
     if problems:
         fail(problems)
 

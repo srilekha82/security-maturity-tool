@@ -5,21 +5,31 @@ The AI RMF bank build's one door for agent output. Same contract as record_judge
 script validates the WHOLE file and rejects it if anything is wrong (exit 1, nothing stored), otherwise stores it and
 writes a write-once record to data/ai/bank_build/judgement_log/ plus an audit line (actor "agent").
 
-Script-only mode (reshapes agent output for the `candidates` record; decides nothing):
+Script-only mode (reshapes agent output for the `questions` record; decides nothing):
   assemble --gen1 F --eval1 F [--gen2 F --eval2 F] --out F
                                              merge generator output with the evaluator's failures into the file
-                                             `candidates` records: revision (gen2) replaces the subcategories it
+                                             `questions` records: revision (gen2) replaces the subcategories it
                                              covers; a subcategory still failing after turn 2 is needs_human_review
 
 Preparing the agents' input is prepare_ai_bank.py; the pilot gate is ai_pilot.py; freshness of the stages is reported by
 check_freshness.py --ai-bank.
 
 Record modes (agent output; every one needs --model, optional --session, --prompt PATH ...):
-  candidates <bank> <file> {"GOVERN 1.1": {"status": "pass"|"needs_human_review", "turns": 1|2, "reason": "...",
-                                           "candidates": [candidate, ...]}}
+  questions <areas|foundation> <file>
+                           {"MEASURE 2.8": {"status": "pass"|"needs_human_review", "turns": 1|2, "reason": "...",
+                                            "questions": [question, ...]}}
                            -> data/ai/banks/question_bank_ai_rmf_<bank>.json   (entries replaced per subcategory)
-                           Still checks against the old applicability.json, which was removed; TODO step 4 rewires
-                           candidates to mapping rows, so it cannot run until then.
+                           A question: question_text, playbook_refs ["<subcategory> — suggested action N", ...],
+                           cis_refs, roles (none / consumer / producer), producer_flags (data/ai/question_rules.json);
+                           area bank also rows (mapping row ids "<area>|<subcategory>" it covers).
+                           Rejected unless (area bank) the subcategory has rows in data/ai/mapping.json, each row is
+                           asked exactly once for each role its area allows (area_roles), a question's roles are allowed
+                           by every row it covers, its cis_refs are safeguards of those rows, and a row with folded
+                           subcategories has its question cite a suggested action of each; (foundation) the subcategory
+                           is foundation, it has question_rules.json foundation_questions min to max questions, at least
+                           one consumer and one producer question without producer flags, and no cis_refs. Both: real
+                           suggested action numbers, distinct question texts, a question with producer flags has roles
+                           ["producer"] only. Whether a question is practice-revealing is the evaluator's job.
   notes <file>             {"PR.AA-05": {"exposure": "...", "use": {"base_rag": "...", "mcp_agentic": "..."}}}
                            exposure (layer 1) is required for a new entry; `use` (layer 2) may be added later
                            -> data/csf/ai_impact_notes.json
@@ -50,95 +60,182 @@ Script-only modes (no agent output):
                            agent output). An area that passes is stamped current, its rows untouched; one that fails is
                            listed with its problems (fix them in mapping.xlsx). An area whose own row in the AI areas
                            sheet changed, or whose sources (Playbook, CIS guides) changed, must be re-drafted instead.
-
-Candidate schema: subcategory_id is the key; each candidate has question_text, playbook_ref, cis_refs[],
-scope_tags[] (empty = all usage contexts), capability, topic, optional modifiers[]. Enums and their definitions live in
-data/ai/question_categories.json. This script checks structure only: whether a question is practice-revealing is the
-evaluator's job.
 """
 
 import argparse
 import hashlib
 import json
+import re
 import sys
 from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from paths import (AI_APPLICABILITY, AI_AREAS, AI_BANKS, AI_BUILD, AI_CIS_CSF_XLSX, AI_MAPPING,  # noqa: E402
-                   AI_MAPPING_RULES, CSF_CORE, CSF_IMPACT_NOTES)
-from ai_bank_common import (BANKS, DEFAULT_PROMPTS, area_candidates, area_rules, check_mapping_rules,  # noqa: E402
-                            foundation_subcategories, load_inputs, load_json)
+from paths import (AI_AREAS, AI_BANKS, AI_BUILD, AI_CIS_CSF_XLSX, AI_MAPPING, AI_MAPPING_RULES,  # noqa: E402
+                   AI_QUESTION_RULES, AI_SCOPE_RULES, CSF_CORE, CSF_IMPACT_NOTES)
+from ai_bank_common import (DEFAULT_PROMPTS, area_candidates, area_roles, area_rules, check_mapping_rules,  # noqa: E402
+                            foundation_subcategories, load_inputs, load_json, row_id)
+from options import AI_QUESTION_BANKS  # noqa: E402
 import audit  # noqa: E402
 
 LOG_DIR = AI_BUILD / "judgement_log"
-MIN_CANDIDATES, MAX_CANDIDATES = 3, 5
+BANK_DESCRIPTION = {
+    "areas": ("AI RMF area questions: every question that could be asked per mapping row (AI area x subcategory, "
+              "data/ai/mapping.json), keyed by subcategory. A question lists the rows it covers (one question may stand "
+              "for several areas' rows), the roles it is asked of and any producer flags; build_ai_questions.py picks a "
+              "client's questions by filtering on their AI areas, role and producer flags. rows_sha is the hash of the "
+              "subcategory's mapping rows the questions were written for; rows gives each row's area and impact (for the "
+              "covers note and the evidence prompt). Recorded by record_ai_bank.py questions."),
+    "foundation": ("AI RMF foundation questions: every question that could be asked once for the organisation (GOVERN "
+                   "and the foundation subcategories of mapping_rules.json), keyed by subcategory, each with the roles "
+                   "it is asked of (none, consumer, producer) and any producer flags. Recorded by record_ai_bank.py "
+                   "questions."),
+}
 MIN_QUESTION_CHARS = 30
+PLAYBOOK_REF = re.compile(r"^((?:GOVERN|MAP|MEASURE|MANAGE) \d+\.\d+) [—–-] suggested action (\d+)$")
 NOTE_MIN_CHARS = 30
 
 
 # ── validators (each returns a list of problems; empty = valid) ─────────────
 
-def validate_candidates(data, bank, inp) -> list[str]:
+def question_context(inp: dict) -> dict:
+    """What validate_questions checks against: the accepted mapping's rows per subcategory, the roles each area allows,
+    the foundation subcategories and the question rules."""
+    for p, how in ((AI_MAPPING, "record and accept the mapping first"), (AI_AREAS, "sheet_io.py import ai_areas")):
+        if not p.is_file():
+            sys.exit(f"[record_ai_bank] ERROR: {p} not found ({how})")
+    qrules = load_json(AI_QUESTION_RULES, "question_rules.json")
+    scope_rules = load_json(AI_SCOPE_RULES, "scope_rules.json")
+    areas = {a["id"]: a for a in load_json(AI_AREAS, "ai_areas.json")["ai_areas"]}
+    rows: dict[str, dict] = {}
+    for area_id, entry in load_json(AI_MAPPING, "mapping.json")["areas"].items():
+        roles = area_roles(areas[area_id], qrules, scope_rules)
+        for r in entry["rows"]:
+            rows.setdefault(r["subcategory"], {})[row_id(area_id, r["subcategory"])] = {
+                "roles": roles, "cis_refs": r["cis_refs"], "folded": r.get("folded", []),
+                "area": area_id, "impact": r["impact"], "sig": [r["why"], r["cis_refs"], r.get("folded", [])]}
+    return {"rows": rows, "foundation": foundation_subcategories(load_json(AI_MAPPING_RULES, "mapping_rules.json"), inp),
+            "roles": list(qrules["roles"]), "flags": list(qrules["producer_flags"]),
+            "foundation_count": qrules["foundation_questions"]}
+
+
+def rows_sha(rows: dict) -> str:
+    """Hash of a subcategory's mapping rows as the questions were written for them (a changed row makes them stale)."""
+    return hashlib.sha256(json.dumps(rows, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:16]
+
+
+def bank_freshness(bank: str, doc: dict, inp: dict) -> tuple[bool, str]:
+    """(complete?, text) for a question bank against what it must hold now: area bank, every subcategory with mapping rows,
+    each written for the rows as they are now (rows_sha); foundation bank, every foundation subcategory."""
+    ctx = question_context(inp)
+    want = list(ctx["rows"]) if bank == "areas" else ctx["foundation"]
+    have = doc["subcategories"]
+    missing = [s for s in want if s not in have]
+    extra = [s for s in have if s not in want]
+    changed = [s for s in want if s in have and bank == "areas"
+               and have[s].get("rows_sha") != rows_sha({r: v["sig"] for r, v in ctx["rows"][s].items()})]
+    review = sum(1 for e in have.values() if e["status"] == "needs_human_review")
+    if missing or extra or changed:
+        parts = ([f"{len(missing)} of {len(want)} subcategories missing"] if missing else []) + \
+                ([f"no longer in the bank's scope: {', '.join(extra)}"] if extra else []) + \
+                ([f"mapping rows changed since written: {', '.join(changed)}"] if changed else [])
+        return False, "incomplete (" + "; ".join(parts) + ")"
+    return True, f"current ({len(have)} subcategories, {review} need human review)"
+
+
+def check_question(tag: str, sid: str, q, bank: str, inp: dict, ctx: dict) -> list[str]:
+    """Problems of one question (fields, refs, roles, flags; area bank: the rows it covers)."""
+    need = {"question_text", "playbook_refs", "cis_refs", "roles", "producer_flags"} | ({"rows"} if bank == "areas" else set())
+    if not isinstance(q, dict) or set(q) != need:
+        return [f"{tag}: fields must be exactly {sorted(need)}"
+                + (f"; diff {sorted(set(q) ^ need)}" if isinstance(q, dict) else "")]
+    if not all(isinstance(q[k], list) for k in need - {"question_text"}):
+        return [f"{tag}: {sorted(need - {'question_text'})} must be lists"]
     errors = []
+    if len(str(q["question_text"]).strip()) < MIN_QUESTION_CHARS:
+        errors.append(f"{tag}: question_text shorter than {MIN_QUESTION_CHARS} characters")
+    rows = ctx["rows"].get(sid, {})
+    covered = [rows[r] for r in q.get("rows", []) if r in rows]
+    if bank == "areas":
+        bad = [r for r in q["rows"] if r not in rows]
+        if not q["rows"] or bad or len(set(q["rows"])) != len(q["rows"]):
+            errors.append(f"{tag}: rows must be distinct mapping rows of {sid} (unknown: {bad})")
+    allowed_subs = {sid} | {f for r in covered for f in r["folded"]}
+    if not q["playbook_refs"]:
+        errors.append(f"{tag}: playbook_refs must name at least one suggested action")
+    for ref in q["playbook_refs"]:
+        m = PLAYBOOK_REF.match(str(ref))
+        if not m or m.group(1) not in allowed_subs:
+            errors.append(f"{tag}: playbook_ref {ref!r} must be '<subcategory> — suggested action N' for "
+                          f"{sorted(allowed_subs)}")
+        elif not 1 <= int(m.group(2)) <= len(inp["subs"][m.group(1)]["suggested_actions"]):
+            errors.append(f"{tag}: {m.group(1)} has no suggested action {m.group(2)}")
+    allowed_cis = {c for r in covered for c in r["cis_refs"]}
+    if set(q["cis_refs"]) - allowed_cis:
+        errors.append(f"{tag}: cis_refs {sorted(set(q['cis_refs']) - allowed_cis)} are not safeguards of the rows it "
+                      f"covers" + (" (foundation questions cite none)" if bank == "foundation" else ""))
+    roles = q["roles"]
+    allowed_roles = (set.intersection(*(set(r["roles"]) for r in covered)) if covered else set()) \
+        if bank == "areas" else set(ctx["roles"])
+    if not roles or len(set(roles)) != len(roles) or set(roles) - allowed_roles:
+        errors.append(f"{tag}: roles {roles} must be distinct and from {sorted(allowed_roles)}"
+                      + (" (the roles every covered row's area allows)" if bank == "areas" else ""))
+    flags = q["producer_flags"]
+    if set(flags) - set(ctx["flags"]) or len(set(flags)) != len(flags):
+        errors.append(f"{tag}: producer_flags must be distinct and from {ctx['flags']}")
+    elif flags and roles != ["producer"]:
+        errors.append(f"{tag}: a question with producer flags is asked of producers only (roles ['producer'])")
+    return errors
+
+
+def validate_questions(data, bank: str, inp: dict, ctx: dict) -> list[str]:
+    """The whole file, per subcategory: status, the questions, and coverage (area bank: every row asked exactly once
+    per role its area allows, folded outcomes cited; foundation: the count, a consumer and a producer question)."""
     if not isinstance(data, dict) or not data:
         return ["the file must be a non-empty JSON object keyed by subcategory id"]
-    if not AI_APPLICABILITY.is_file():
-        return ["data/ai/applicability.json not found: run the applicability pass first"]
-    app = load_json(AI_APPLICABILITY, "applicability.json")["subcategories"]
-    e = inp["enums"]
+    errors = []
     for sid, entry in data.items():
-        if sid not in inp["subs"]:
-            errors.append(f"{sid}: unknown subcategory id")
+        if bank == "areas" and sid not in ctx["rows"]:
+            errors.append(f"{sid}: not a subcategory with mapping rows (foundation subcategories go in the foundation bank)")
             continue
-        if not app[sid][bank]:
-            errors.append(f"{sid}: not applicable to the {bank} bank (applicability.json)")
+        if bank == "foundation" and sid not in ctx["foundation"]:
+            errors.append(f"{sid}: not a foundation subcategory")
             continue
         if not isinstance(entry, dict) or entry.get("status") not in ("pass", "needs_human_review"):
             errors.append(f"{sid}: status must be 'pass' or 'needs_human_review'")
             continue
         if entry.get("turns") not in (1, 2):
             errors.append(f"{sid}: turns must be 1 or 2")
-        cands = entry.get("candidates")
-        if not isinstance(cands, list):
-            errors.append(f"{sid}: candidates must be a list")
+        if entry["status"] == "needs_human_review" and not str(entry.get("reason", "")).strip():
+            errors.append(f"{sid}: needs_human_review requires the evaluator's reason")
+        qs = entry.get("questions")
+        if not isinstance(qs, list) or not qs:
+            errors.append(f"{sid}: questions must be a non-empty list")
             continue
-        if entry["status"] == "pass" and not MIN_CANDIDATES <= len(cands) <= MAX_CANDIDATES:
-            errors.append(f"{sid}: a passing entry needs {MIN_CANDIDATES}-{MAX_CANDIDATES} candidates, got {len(cands)}")
-        if entry["status"] == "needs_human_review":
-            if not str(entry.get("reason", "")).strip():
-                errors.append(f"{sid}: needs_human_review requires the evaluator's reason")
-            if len(cands) > MAX_CANDIDATES:
-                errors.append(f"{sid}: at most {MAX_CANDIDATES} candidates")
-        topics_allowed = {inp["bank_cats"][bank][c]["topic"] for c in app[sid][bank]}
-        seen = set()
-        for n, c in enumerate(cands, 1):
-            tag = f"{sid}#{n}"
-            if not isinstance(c, dict):
-                errors.append(f"{tag}: must be an object")
-                continue
-            need = {"question_text", "playbook_ref", "cis_refs", "scope_tags", "capability", "topic"}
-            if not need <= set(c) or set(c) - need - {"modifiers"}:
-                errors.append(f"{tag}: fields must be {sorted(need)} (+ optional modifiers); diff {sorted(set(c) ^ need)}")
-                continue
-            q = str(c["question_text"]).strip()
-            if len(q) < MIN_QUESTION_CHARS:
-                errors.append(f"{tag}: question_text shorter than {MIN_QUESTION_CHARS} characters")
-            if q.lower() in seen:
-                errors.append(f"{tag}: duplicate question within {sid}")
-            seen.add(q.lower())
-            if not str(c["playbook_ref"]).startswith(sid):
-                errors.append(f"{tag}: playbook_ref must start with the subcategory id (e.g. '{sid} — suggested action 3')")
-            if not isinstance(c["cis_refs"], list) or [g for g in c["cis_refs"] if g not in inp["safeguards"]]:
-                errors.append(f"{tag}: cis_refs must be a list of ids from the companion guides")
-            if not isinstance(c["scope_tags"], list) or not set(c["scope_tags"]) <= set(e["scope_tags"]):
-                errors.append(f"{tag}: scope_tags must be a list from {e['scope_tags']} (empty = all)")
-            if c["capability"] not in e["capability"]:
-                errors.append(f"{tag}: capability must be one of {e['capability']}")
-            if c["topic"] not in topics_allowed:
-                errors.append(f"{tag}: topic {c['topic']!r} is not a topic of this subcategory's {bank} categories {sorted(topics_allowed)}")
-            if "modifiers" in c and (not isinstance(c["modifiers"], list) or not set(c["modifiers"]) <= set(e["modifiers"])):
-                errors.append(f"{tag}: modifiers must be a list from {e['modifiers']}")
+        problems = [e for n, q in enumerate(qs, 1) for e in check_question(f"{sid}#{n}", sid, q, bank, inp, ctx)]
+        texts = [str(q.get("question_text", "")).strip().lower() for q in qs if isinstance(q, dict)]
+        if len(set(texts)) != len(texts):
+            problems.append(f"{sid}: the same question_text twice")
+        errors += problems
+        if problems:
+            continue
+        if bank == "areas":
+            for rid, row in ctx["rows"][sid].items():
+                for role in row["roles"]:
+                    n = sum(1 for q in qs if rid in q["rows"] and role in q["roles"])
+                    if n != 1:
+                        errors.append(f"{sid}: row {rid} is asked {n} times for role {role} (exactly once)")
+                for f in row["folded"]:
+                    if any(rid in q["rows"] and not any(str(r).startswith(f + " ") for r in q["playbook_refs"])
+                           for q in qs):
+                        errors.append(f"{sid}: row {rid} folds {f}; its question must cite a suggested action of {f}")
+        else:
+            lo, hi = ctx["foundation_count"]["min"], ctx["foundation_count"]["max"]
+            if not lo <= len(qs) <= hi:
+                errors.append(f"{sid}: {len(qs)} questions; a foundation subcategory has {lo} to {hi}")
+            for role in ("consumer", "producer"):
+                if not any(role in q["roles"] and not q["producer_flags"] for q in qs):
+                    errors.append(f"{sid}: no {role} question without producer flags (every {role} is scored on it)")
     return errors
 
 
@@ -559,7 +656,7 @@ def mapping_from_sheet(lines: list[dict], doc: dict, inp: dict, m: dict) -> tupl
 
 
 def assemble(gen1: Path, eval1: Path, gen2: Path | None, eval2: Path | None, out: Path) -> str:
-    """Candidates file for `candidates` from generator output and evaluator failures. No judgement: a subcategory
+    """The file `questions` records, from generator output and evaluator failures. No judgement: a subcategory
     passes iff the last evaluation lists no failure for it."""
     g1, f1 = load_json(gen1, "generator output"), load_json(eval1, "evaluator failures")
     for name, v in (("generator output", g1), ("evaluator failures", f1)):
@@ -567,13 +664,13 @@ def assemble(gen1: Path, eval1: Path, gen2: Path | None, eval2: Path | None, out
             sys.exit(f"[record_ai_bank] ERROR: {name} has the wrong JSON type")
     if bool(gen2) != bool(eval2):
         sys.exit("[record_ai_bank] ERROR: --gen2 and --eval2 go together")
-    final, last_fail, turns = {sid: v["candidates"] for sid, v in g1.items()}, f1, {sid: 1 for sid in g1}
+    final, last_fail, turns = {sid: v["questions"] for sid, v in g1.items()}, f1, {sid: 1 for sid in g1}
     if gen2:
         g2, f2 = load_json(gen2, "revision output"), load_json(eval2, "second evaluation")
         for sid, v in g2.items():
             if sid not in final:
                 sys.exit(f"[record_ai_bank] ERROR: revision covers {sid}, which turn 1 did not")
-            final[sid], turns[sid] = v["candidates"], 2
+            final[sid], turns[sid] = v["questions"], 2
         last_fail = [f for f in f1 if f["subcategory_id"] not in g2] + f2
     failing: dict[str, list[str]] = {}
     for f in last_fail:
@@ -583,7 +680,7 @@ def assemble(gen1: Path, eval1: Path, gen2: Path | None, eval2: Path | None, out
             f"Q{f.get('question_number')}: {str(f.get('reason', '')).strip()}")
     result = {}
     for sid in final:
-        entry = {"status": "needs_human_review" if sid in failing else "pass", "turns": turns[sid], "candidates": final[sid]}
+        entry = {"status": "needs_human_review" if sid in failing else "pass", "turns": turns[sid], "questions": final[sid]}
         if sid in failing:
             entry["reason"] = "; ".join(failing[sid])[:500]
         result[sid] = entry
@@ -595,25 +692,30 @@ def assemble(gen1: Path, eval1: Path, gen2: Path | None, eval2: Path | None, out
 def store(mode: str, data: dict, args, inp: dict) -> tuple[Path, str]:
     """Write the validated data to its store; returns (store path, one-line summary)."""
     today = date.today().isoformat()
-    if mode == "candidates":
+    if mode == "questions":
         path = AI_BANKS / f"question_bank_ai_rmf_{args.bank}.json"
         AI_BANKS.mkdir(parents=True, exist_ok=True)
         bank = load_json(path, path.name) if path.is_file() else {"bank": args.bank, "subcategories": {}}
-        app = load_json(AI_APPLICABILITY, "applicability.json")["subcategories"]
+        ctx = question_context(inp)
         for sid, entry in data.items():
             bank["subcategories"][sid] = {
-                "categories": app[sid][args.bank], "status": entry["status"], "turns": entry["turns"],
+                "status": entry["status"], "turns": entry["turns"],
                 **({"review_reason": entry["reason"]} if entry.get("reason") else {}),
-                "candidates": entry["candidates"]}
+                **({"rows_sha": rows_sha({r: v["sig"] for r, v in ctx["rows"][sid].items()}),
+                    "rows": {r: {"area": v["area"], "impact": v["impact"]} for r, v in ctx["rows"][sid].items()}}
+                   if args.bank == "areas" else {}),
+                "questions": entry["questions"]}
         bank["subcategories"] = {sid: bank["subcategories"][sid] for sid in inp["subs"] if sid in bank["subcategories"]}
-        bank.update({"built_on": today, "playbook_sha256_16": inp["core"]["source_sha256_16"],
+        bank.update({"description": BANK_DESCRIPTION[args.bank], "built_on": today,
+                     "playbook_sha256_16": inp["core"]["source_sha256_16"],
                      "guide_sha256_16": {g: s["sha256_16"] for g, s in inp["sg_doc"]["sources"].items()}})
         passed = sum(1 for e in bank["subcategories"].values() if e["status"] == "pass")
         review = len(bank["subcategories"]) - passed
         bank["summary"] = {"subcategories": len(bank["subcategories"]), "passed": passed, "needs_human_review": review,
-                           "candidates": sum(len(e["candidates"]) for e in bank["subcategories"].values())}
+                           "questions": sum(len(e["questions"]) for e in bank["subcategories"].values())}
         path.write_text(json.dumps(bank, indent=2, ensure_ascii=False))
-        return path, f"{args.bank} bank: recorded {len(data)} subcategories; bank has {passed} passed, {review} needing human review"
+        return path, (f"{args.bank} bank: recorded {len(data)} subcategories; bank has {passed} passed, {review} needing "
+                      f"human review, {bank['summary']['questions']} questions")
     if mode == "notes":
         store_doc = load_json(CSF_IMPACT_NOTES, "ai_impact_notes.json") if CSF_IMPACT_NOTES.is_file() else {"notes": {}}
         for sid, v in data.items():
@@ -621,9 +723,10 @@ def store(mode: str, data: dict, args, inp: dict) -> tuple[Path, str]:
         store_doc["notes"] = dict(sorted(store_doc["notes"].items()))
         store_doc.update({
             "description": ("AI-world notes per CSF 2.0 subcategory. `exposure` is shown to every org; `use` only when AI is "
-                            "in use (base_rag for the base/rag rungs, mcp_agentic for the mcp/agentic rungs). Written by an "
-                            "agent from the CIS MCP and agents companion guides joined to CSF via the official CIS v8.1 -> CSF "
-                            "2.0 mapping, then reviewed. The Stage 2 XLS writer selects from the intake (AI in use, highest rung)."),
+                            "in use (mcp_agentic when the client's AI areas include MCP / tools or agents, else base_rag). "
+                            "Written by an agent from the CIS MCP and agents companion guides joined to CSF via the official "
+                            "CIS v8.1 -> CSF 2.0 mapping, then reviewed. The Stage 2 XLS writer selects from the intake (AI in "
+                            "use, AI areas)."),
             "judged_on": today,
             "sources_sha256_16": {"cis_csf": audit.sha(AI_CIS_CSF_XLSX),
                                   **{g: inp["sg_doc"]["sources"][g]["sha256_16"] for g in ("MCP", "AGENT")}}})
@@ -643,10 +746,10 @@ def record(mode: str, args) -> None:
         extra = {"review_file": args.review, "review": review}
         log_name = lambda d: f"mapping_{d.get('area', 'unknown')}" if isinstance(d, dict) else "mapping"  # noqa: E731
     else:
-        validate = {"candidates": lambda d: validate_candidates(d, args.bank, inp),
+        validate = {"questions": lambda d: validate_questions(d, args.bank, inp, question_context(inp)),
                     "notes": validate_notes}[mode]
         store_fn, extra = (lambda d: store(mode, d, args, inp)), None
-        log_name = f"{mode}_{args.bank}" if mode == "candidates" else mode
+        log_name = f"{mode}_{args.bank}" if mode == "questions" else mode
     audit.record_agent_output(
         log_path=AI_BUILD / "audit.jsonl", log_dir=LOG_DIR, step=f"record_ai_bank_{mode}",
         args={"file": args.file, "bank": getattr(args, "bank", None)}, file=args.file,
@@ -665,10 +768,10 @@ def main():
     pa.add_argument("--out", required=True)
     sub.add_parser("revalidate")
 
-    for m in ("candidates", "notes", "mapping"):
+    for m in ("questions", "notes", "mapping"):
         p = sub.add_parser(m)
-        if m == "candidates":
-            p.add_argument("bank", choices=BANKS)
+        if m == "questions":
+            p.add_argument("bank", choices=AI_QUESTION_BANKS)
         p.add_argument("file")
         if m == "mapping":
             p.add_argument("--review", help="the evaluator's last list of failures (rows stored as needs_human_review)")
@@ -689,7 +792,7 @@ def main():
         ev.finish(inputs=[AI_AREAS, AI_MAPPING_RULES], outputs=[AI_MAPPING] if cleared else [], detail=line)
         sys.exit(1 if lines else 0)
     if args.mode == "assemble":
-        ev = audit.begin(AI_BUILD / "audit.jsonl", "assemble_candidates", {"gen1": args.gen1, "gen2": args.gen2})
+        ev = audit.begin(AI_BUILD / "audit.jsonl", "assemble_questions", {"gen1": args.gen1, "gen2": args.gen2})
         ins = [Path(p) for p in (args.gen1, args.eval1, args.gen2, args.eval2) if p]
         line = assemble(Path(args.gen1), Path(args.eval1), Path(args.gen2) if args.gen2 else None,
                         Path(args.eval2) if args.eval2 else None, Path(args.out))

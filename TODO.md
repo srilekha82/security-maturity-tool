@@ -1,46 +1,47 @@
-# TODO (last updated 2026-10-28)
+# TODO (last updated 2026-10-29)
 
 State: the AI RMF model was redesigned (2026-10-16 to 2026-10-22): AI areas (how AI is used and what it is made of) ->
 attack areas -> AI RMF function -> subcategory. `AI_RMF_Mapping_Sheet_Design.md` is the starting point for every
-session. **The mapping is accepted (2026-10-28).** `/ai-questionnaire` has no AI RMF bank until step 6. The audit trail
-(`data/ai/bank_build/audit.jsonl`, `judgement_log/`) is kept.
+session. **The mapping is accepted (2026-10-28).** **Step 4 (question tooling) is built except the review sheet
+(2026-10-29)**; the old model (question categories, rungs, usage contexts, modifiers, producer and consumer banks) is
+removed. `/ai-questionnaire` has no AI RMF bank until step 6. The audit trail (`data/ai/bank_build/audit.jsonl`,
+`judgement_log/`) is kept.
 
 ## Start here next session
-**Next: TODO step 4, question generation from the accepted mapping. Plan it with the user before building.**
+**Next: finish step 4 with the question review sheet (`sheet_io.py export/import questions`), then step 6 (pilot the
+banks).** The step 4 decisions are in the design note, section 7.
 
 Where things stand:
-- `data/ai/mapping.json` is accepted (`data/ai/bank_build/mapping_accepted.json`): 14 AI areas, 208 rows, every
-  subcategory reached by an area row, a fold or the foundation. Review sheet: `data/ai/authoring/mapping.xlsx`.
+- `data/ai/mapping.json` is accepted (`data/ai/bank_build/mapping_accepted.json`): 14 AI areas, 208 rows (41
+  subcategories), every subcategory reached by an area row, a fold or the foundation. Review sheet:
+  `data/ai/authoring/mapping.xlsx`.
 - Foundation (asked once for the organisation, never per area): all 19 GOVERN subcategories plus 12 in
   `mapping_rules.json` `foundation.subcategories` (MAP 1.3, 1.5, 3.4; MEASURE 1.1, 1.2, 3.1, 3.2, 4.1; MANAGE 1.2, 1.3,
-  1.4, 2.1). They have no mapping rows: step 4 writes their questions per subcategory from the Playbook.
+  1.4, 2.1).
+- Built 2026-10-29: `data/ai/question_rules.json` (banks foundation and areas, roles, producer flags, impacts);
+  `prepare_ai_bank.py batch <foundation|areas>` (area batch: one item per subcategory with every area's row);
+  generator and evaluator prompts (shared questions with `rows`, roles, flags, criticality frame, policies asked as
+  practice); `record_ai_bank.py questions` (every row asked once per allowed role, folds cited, foundation needs a
+  consumer and a producer question; stores `rows_sha` and each row's area and impact) and `bank_freshness`;
+  `build_ai_questions.py` (a filter on role, producer flags and AI areas, "This question covers: ..." note, evidence by
+  impact); questionnaire AI sheet with an Area column; intake without the old fields; `scope_rules.json` and
+  `evidence_prompts.json` rewritten; `question_categories.json` removed; commands, README, DESIGN_RULES and the
+  pipeline design updated.
 - Any change is a delta: a change to an area's own row in `ai_areas.xlsx` or to the sources needs that area
   re-drafted; a change to the rules or to another area needs only `record_ai_bank.py revalidate` (no agent). A change
-  in the review sheet is imported and the mapping accepted again.
+  in the review sheet is imported and the mapping accepted again. A changed mapping row makes its subcategory's area
+  questions incomplete in the freshness check.
 - The user cannot easily edit spreadsheets: they decide in chat, Claude applies it to the sheet and imports.
 
-Decisions step 4 must respect:
-- One question per AI area x subcategory row, written from the row's `why` (what is checked for that area), with the
-  row's CIS safeguards as evidence only where they support the question. A folded subcategory has no question of its
-  own: it is asked and scored through the row it is folded into.
-- Questions are written proportionate to criticality ("for your highest-criticality AI systems, ..."), never repeated
-  per AI system; the AI system inventory with criticality is GOVERN 1.6 (design note section 4).
-- Foundation questions (GOVERN and the 12) are picked by intake role: none (AI policy, shadow-AI discovery),
-  consumer, producer (both = consumer + producer), plus a producer flag where needed (built on an existing model,
-  given to others).
-- Components are the nouns (what can be attacked or fail), usage areas the verbs (how AI is used). Model is IP
-  (theft, extraction, tampering). Model building is the activity (build or tune, base models, release, withdraw).
-  Testing answers (TEVV: accuracy, consistency, bias) is Output, for consumers and producers alike. Bias awareness is
-  GOVERN; internal_process and customer_facing ask how staff or customers check, report, challenge and audit
-  high-impact output. Code generation keeps only the AI-specific part; secure development is the CSF's.
-- Impacts: data, access, process, assets, people (people only on Output and customer_facing; no Ecosystem). A row's
-  impact names the area's attack surface it protects; severity (step 5) ranks findings by it.
-
-Open for step 4 (decide with the user):
-- How a subcategory is scored when several of the client's areas have a question on it (e.g. MEASURE 2.8 on 14
-  areas): the weakest area, an average, or another rule. Nothing may count twice (design note section 5).
-- The review sheet for foundation questions (GOVERN and the 12 are not in the mapping sheet).
-- Model for the generator and evaluator (Sonnet did well on the mapping).
+Open for step 4 and after:
+- **Question review sheet** in `sheet_io.py`: an Area questions tab (subcategory, rows covered, roles, flags,
+  question, status) and one Foundation sheet (subcategory, question, roles, flag, status); import as `decided_by:
+  human` like the mapping.
+- **Per-row gap rule:** a row whose CIS safeguards map to CSF subcategories the client was assessed on asks only the
+  AI-specific part. Needs the CIS -> CSF mapping as a committed id file (the xlsx is not in the codespace). Until then
+  every AI question is `full_discovery` and `build_ai_questions.py` prints a note when the client has a CSF
+  assessment or ISO 27001.
+- Scoring when several areas ask one subcategory: Stage 2 (questions keep their subcategory and rows).
 
 Note: in the codespace `check_freshness.py --ai-bank` stops at "sources missing: CIS -> CSF xlsx" before it reaches
 the mapping line; upload that file (data/ai/source/README.md) to see the `mapping` stage. `ai_pilot.mapping_status()`
@@ -51,8 +52,8 @@ reports the mapping directly.
 1. ~~AI areas and intake.~~ Done 2026-10-22. `data/ai/authoring/ai_areas.xlsx` (the decision: 14 areas, kind, applies
    to, impact) -> `data/ai/ai_areas.json` via `scripts/sheet_io.py`. The intake asks AI in use; "Do you build AI, use AI,
    or both?" (for producer or both: built on an existing model? given to others?); "How do you use AI?"; "What does
-   your AI include?". It writes `role`, `producer`, `ai_areas` (automatic ones in `scope_rules.json` `ai_area_rules`) and
-   the old fields derived for the current filter.
+   your AI include?". It writes `role`, `producer`, `ai_areas` (automatic ones in `scope_rules.json` `ai_area_rules`);
+   the old derived fields were removed in step 4.
 2. ~~Draft the mapping.~~ Done 2026-10-27 (all 14 areas, Sonnet drafter and evaluator; history below): `prepare_ai_bank.py mapping --area ID`, `prompts/ai_rmf_mapping_drafter.md`,
    `prompts/ai_rmf_mapping_evaluator.md`, `record_ai_bank.py mapping` (rejects a draft that breaks
    `data/ai/mapping_rules.json`: no GOVERN row, subcategory of the right function, the area's candidate safeguards and
@@ -69,18 +70,12 @@ reports the mapping directly.
    2026-10-26: evaluator findings `row` / `missing` / `note`, folds count as reached. 2026-10-27: a change is a delta
    (`revalidate`). 2026-10-28: editable "Folded into this row" column (clear it to unfold; a row's folds must be
    cleared before it can be removed).
-4. Rewire question generation to mapping rows: `prepare_ai_bank.py batch` from mapping rows, generator prompt (questions
-   per AI area x subcategory, the row's safeguards as evidence; GOVERN and the 12 other foundation subcategories: questions per subcategory from the Playbook, each
-   tagged with the roles it applies to: none (AI policy and shadow-AI discovery), consumer, producer, plus a producer
-   flag where needed; a review sheet for them in `sheet_io.py`: GOVERN subcategory, questions, roles, since GOVERN is
-   not in the mapping sheet), `build_ai_questions.py` (GOVERN questions by the intake role; area rows from the client's
-   `ai_areas`; base-model questions only when `producer.built_on_existing_model`; release questions only when
-   `producer.given_to_others`; gap rule per row from the CIS -> CSF mapping; up to 6 questions per subcategory). Retire `legacy_profile`, the modifiers,
-   `question_categories.json` and the `AI_APPLICABILITY` path (the applicability and CIS-linker prompts, modes and
-   freshness stages were already removed on 2026-10-22). Carry over the generator prompt fixes from
-   the old pilot (`archive/AI_RMF_Pilot_Decisions.md` section 4): one subject per question; cite a safeguard only if it supports
-   the question. Area questions are written proportionate to criticality ("for your highest-criticality AI
-   systems, ..."), one per AI area x subcategory, never repeated per AI system (design note section 4).
+4. Question generation from the mapping rows. Built 2026-10-29 except the review sheet (see "Start here" and design
+   note section 7): two banks (foundation, areas) of every possible question tagged with roles and producer flags;
+   batch per subcategory with every area's row so similar rows share a question; recording checks coverage;
+   selection is a filter. The old model (`legacy_profile`, rungs, usage contexts, modifiers, topics,
+   `question_categories.json`, `AI_APPLICABILITY`, producer and consumer banks) is removed. Left: the review sheet; the
+   per-row gap rule (needs the CIS -> CSF ids).
 5. Severity: the standard criticality question (USD under 100k / 100k-500k / over 500k; reputation; safety) and the
    priority rules (domain floor for healthcare and manufacturing / OT, process criticality, data classification) for
    the Stage 2 writer. The criticality question becomes the AI system inventory (GOVERN 1.6): each system with its AI
@@ -157,9 +152,7 @@ MEASURE 2.9 mapped on Output; imported (74 lines decided by a person) and accept
 ## Parked, no rush
 - `validate_questions.py`: move the mechanical assessor checks (truncated text, duplicates, blank evidence, GV must be
   `full_discovery`, wrong cert named, missing LOW flag) out of the two assessor prompts into a script.
-- Update `AI_Assessment_Pipeline_Design.md` where the new model supersedes it, once the mapping is accepted (the three
-  first-design AI RMF notes are in `archive/`).
 - Unit tests for `compute_scope.py` and `build_questions.py` (checked by hand so far, not in the test suite).
 - `.claude/settings.local.json` holds two leftover permissions from an older session's scratchpad: remove them.
-- Kept on purpose: `max_questions` stays in both `scope_rules.json` files; the CSF fallback question (38 finance subcategories)
+- Kept on purpose: `max_questions` stays in `data/csf/scope_rules.json` (the AI questionnaire has no cap); the CSF fallback question (38 finance subcategories)
   and auto-building missing banks inside `/generate-questions`.

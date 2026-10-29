@@ -15,8 +15,8 @@ from the user.
 `.venv/bin/python ./scripts/intake.py menu` prints every numbered menu. Ask the user the organisation name (free text),
 then each menu one at a time, in order, and take the number(s) typed. Ask "Do you build AI, use AI, or both?", "How do
 you use AI?" and "What does your AI include?" only if AI in use is option 2, and the two producer follow-ups only if the
-role is Build or Both (the menu says so); the two "How / What" menus may be left blank. If the user asks what an option means, answer from the `definitions` block
-of `data/ai/question_categories.json`. Then:
+role is Build or Both (the menu says so); the two "How / What" menus may be left blank. If the user asks what an option means, answer from `data/ai/ai_areas.json`
+(each AI area's name and what it covers) and `data/ai/question_rules.json` (roles and producer flags). Then:
 
 ```bash
 .venv/bin/python ./scripts/intake.py write --org "<name>" --domain N --certs "N N" --ai-in-use N \
@@ -36,7 +36,7 @@ later step; nothing else needs the answers repeated.
 It prints the reference data table, one line for the CSF bank of this domain, one line per AI RMF stage and any `note:`
 lines (for example when `git fetch` on the CSET clone failed: pass that on, it means the CSF bank was compared with the
 local CSET commit only). It reports facts and decides nothing; exit 1 only means something needs work. Act on these
-lines only; ignore the AI `crosswalk`, `notes` and `applicability` lines and any bank the profile does not need.
+lines only; ignore the AI `notes` line.
 Say what you are about to rebuild before you start.
 
 - **Reference data** flagged stale or seed: ask the user whether to refresh it first. NIST blocks automated downloads, so
@@ -46,10 +46,12 @@ Say what you are about to rebuild before you start.
   If they decline, note it and continue.
 - **CSF bank** for this domain: `missing` → run `/build-csf-bank <domain>` without asking. `stale` → ask whether to
   rebuild; if yes, the same.
-- **AI RMF banks**. Needed: consumer for role consumer, `none` and `unsure`; producer and consumer for role both;
-  producer for role producer. Read those `bank ...` lines and the `pilot` line:
+- **AI RMF banks**. Every client needs both (`bank foundation`, `bank areas`: they hold every role's questions). Read
+  those two lines, the `mapping` line and the `pilot` line:
   - bank `missing` or `incomplete`, `pilot` accepted: run `/build-ai-bank` (full run, `--missing`) without asking.
   - bank `stale`, `pilot` accepted: ask whether to rebuild; if yes, the same.
+  - `mapping` not accepted: do not build the banks; tell the user the mapping needs review and `ai_pilot.py
+    accept-mapping` first, and continue with the CSF track only.
   - `pilot` `missing` or `stale`: do not build. Tell the user the AI RMF banks need `/build-ai-bank` with a pilot review
     first, and continue with the CSF track only; the AI sheet is added later by `/ai-questionnaire` then
     `/assess-questionnaire`.
@@ -69,6 +71,6 @@ workbook.
 
 ## Done
 Tell the user: the run folder, what was rebuilt in step 2 and what was already current, the files written
-(`intake.json`, `ai_usage.json`, `csf_scope.json`, `csf_questions_draft.json`, `csf_questions_assessed.json`, and per bank
-`ai_scope.json`, `ai_questions_draft_<bank>.json`, `ai_questions_assessed_<bank>.json`, `questionnaire.xlsx`,
+(`intake.json`, `ai_usage.json`, `csf_scope.json`, `csf_questions_draft.json`, `csf_questions_assessed.json`, and 
+`ai_scope.json`, `ai_questions_draft_<bank>.json`, `ai_questions_assessed_<bank>.json` (banks foundation and areas), `questionnaire.xlsx`,
 `judgement_log/`), and the assessor's report from step 5. If the AI sheet is missing, say so plainly and what to run.

@@ -1,16 +1,16 @@
-"""Helpers shared by the AI RMF bank scripts (prepare_ai_bank.py, record_ai_bank.py, ai_pilot.py). Not a script."""
+"""Helpers shared by the AI RMF bank scripts (prepare_ai_bank.py, record_ai_bank.py, ai_pilot.py, build_ai_questions.py).
+Not a script."""
 
 import json
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from paths import AI_CATEGORIES, AI_CORE, AI_SAFEGUARDS, REPO_ROOT  # noqa: E402
-from options import AI_BANK_NAMES as BANKS  # noqa: E402,F401  (re-exported for the three scripts)
+from paths import AI_CORE, AI_SAFEGUARDS, REPO_ROOT  # noqa: E402
 
-# The prompts each agent step follows. `candidates` (generator and evaluator) is also what the pilot acceptance is tied to.
+# The prompts each agent step follows. `questions` (generator and evaluator) is also what the pilot acceptance is tied to.
 DEFAULT_PROMPTS = {
-    "candidates": ["prompts/ai_rmf_question_generator.md", "prompts/ai_rmf_question_evaluator.md"],
+    "questions": ["prompts/ai_rmf_question_generator.md", "prompts/ai_rmf_question_evaluator.md"],
     "notes": ["prompts/ai_impact_notes_writer.md"],
     "mapping": ["prompts/ai_rmf_mapping_drafter.md", "prompts/ai_rmf_mapping_evaluator.md"],
 }
@@ -21,6 +21,17 @@ def load_json(path: Path, what: str):
         return json.loads(Path(path).read_text())
     except (OSError, ValueError) as e:
         sys.exit(f"[ai_bank] ERROR: cannot read {what} ({path}): {e}")
+
+
+def row_id(area: str, subcategory: str) -> str:
+    """The id of one mapping row (AI area x subcategory) in the area question bank."""
+    return f"{area}|{subcategory}"
+
+
+def area_roles(area: dict, qrules: dict, scope_rules: dict) -> list[str]:
+    """Roles an area question may carry: the area's applies_to, plus `none` for areas every client gets."""
+    roles = list(qrules["area_roles"]["applies_to"][area["applies_to"]])
+    return (["none"] if area["id"] in scope_rules["ai_area_rules"]["always"] else []) + roles
 
 
 def core_subcategories(core: dict) -> list[dict]:
@@ -35,12 +46,9 @@ def load_inputs() -> dict:
             sys.exit(f"[ai_bank] ERROR: {p} not found. Run {step} first.")
     core = load_json(AI_CORE, "ai_rmf_core.json")
     sg = load_json(AI_SAFEGUARDS, "cis_ai_safeguards.json")
-    cats = load_json(AI_CATEGORIES, "question_categories.json")
     return {
         "core": core, "subs": {s["subcategory_id"]: s for s in core_subcategories(core)},
         "safeguards": {r["id"]: r for r in sg["safeguards"]}, "sg_doc": sg,
-        "cats": cats, "enums": cats["enums"],
-        "bank_cats": {b: {c["id"]: c for c in cats["banks"][b]["categories"]} for b in BANKS},
     }
 
 

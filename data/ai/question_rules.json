@@ -1,0 +1,45 @@
+{
+  "description": "Rules for the AI RMF question banks (TODO step 4). The banks hold every possible question: one bank of area questions (per mapping row, data/ai/mapping.json) and one of foundation questions (per foundation subcategory, mapping_rules.json foundation). Every question carries who it applies to (roles) and, where needed, producer flags, so build_ai_questions.py picks a client's questions by filtering on the intake answers alone. prepare_ai_bank.py batch gives these definitions to the generator and evaluator; record_ai_bank.py questions checks against them. Model: AI_RMF_Mapping_Sheet_Design.md.",
+  "banks": [
+    "foundation",
+    "areas"
+  ],
+  "roles": {
+    "none": "An organisation that says it uses no AI. Only questions about AI policy and finding AI that is used without approval (shadow AI) apply.",
+    "consumer": "An organisation that uses AI built by others (a vendor model, an API, AI inside products) in its processes or products.",
+    "producer": "An organisation that builds or tunes its own model, from scratch or on an existing model, for itself or to give to others."
+  },
+  "roles_note": "A question lists the roles it is asked of. A client that is both producer and consumer gets every question tagged consumer or producer. A question tagged consumer and producer is shown as 'both'. Clients unsure whether they use AI are asked as consumers and as orgs with no AI (scope_rules.json client_roles).",
+  "area_roles": {
+    "description": "Roles an area question may carry: those of the area's applies_to, plus none for the areas every client gets even with no AI in use (scope_rules.json ai_area_rules.always).",
+    "applies_to": {
+      "producer": [
+        "producer"
+      ],
+      "consumer": [
+        "consumer"
+      ],
+      "both": [
+        "consumer",
+        "producer"
+      ]
+    }
+  },
+  "producer_flags": {
+    "built_on_existing_model": "The producer's model is built on an existing model (trained or tuned from a base model). Questions about choosing, checking and monitoring the base model carry this flag.",
+    "given_to_others": "The producer gives the model to others (clients, partners, an API, devices, open weights). Questions about releasing a model, telling recipients its limits and withdrawing a release carry this flag."
+  },
+  "impacts": {
+    "data": "Data exposed, leaked or poisoned.",
+    "access": "Permissions and credentials used or abused.",
+    "process": "A business process or decision goes wrong.",
+    "assets": "Model, code or infrastructure stolen, damaged or taken down.",
+    "people": "Harm to individuals from what the AI says or decides."
+  },
+  "criticality_frame": "for your highest-criticality AI systems",
+  "area_question_rule": "Each mapping row is asked by exactly one question per role it can carry (one question may carry several roles and cover several rows of the same subcategory).",
+  "foundation_questions": {
+    "min": 1,
+    "max": 4
+  }
+}

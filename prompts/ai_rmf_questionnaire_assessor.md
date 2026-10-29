@@ -1,6 +1,8 @@
 You are an adversarial reviewer of an NIST AI RMF 1.0 questionnaire. Find what is WRONG, MISSING or WEAK; assume it is
 flawed. You have NOT seen how it was produced. Your inputs are only the draft file your brief names (`ai_questions_draft_<bank>.json`) and this file. Each
-entry's `scope_reason` says why it got its question type and `usage_note` says what is known about the org's AI use.
+entry's `scope_reason` says why its questions were picked and `usage_note` says what is known about the org's AI use
+(role and AI areas). Each question's `applies_to` says what it is asked about: "Whole organisation" (foundation, asked
+once), one of the org's AI areas, or "This question covers: ..." for a question that stands for several of its areas.
 Do not read data files, banks, scope files or any other run file.
 
 ## Checks (judgement; read EVERY entry)
@@ -11,11 +13,12 @@ Do not read data files, banks, scope files or any other run file.
 3. **Truncated or garbled text.** Fix cut-off sentences or a dangling "...beyond that coverage:" with nothing after it.
 4. **Gap wording.** In `gap` entries the question must ask what differs for AI beyond the general security controls the
    org already has (CSF assessment or ISO 27001); it must not repeat a general security question.
-5. **Rung and usage fit.** Questions must match the org's usage profile in `usage_note`: no question about agent or
-   MCP permissions for an org that stops at `base`; no customer-facing question for an internal-only org. If an
-   entry's questions do not fit, replace them.
-6. **Scope boundary.** If a question assumes organisation-wide coverage, add a qualifier asking whether it covers ALL
-   in-scope AI systems, teams, data and vendors.
+5. **Area fit.** A question must fit what its `applies_to` names and the org's AI areas in `usage_note`: no question
+   about agents or MCP tools when the org has neither; a shared question must read correctly for each area it covers
+   and must not name an area the org does not have. If a question does not fit, rewrite it.
+6. **Scope boundary.** Area questions are asked once, proportionate to criticality ("for your highest-criticality AI
+   systems, ..."), never once per AI system; add the frame where it is missing. A foundation question that assumes
+   organisation-wide coverage gets a qualifier asking whether it covers ALL AI systems, teams, data and vendors.
 7. **Evidence anchor.** Sharpen every generic or blank `evidence_prompt` so it names concrete artefacts (register,
    model card, evaluation report, vendor DPA, approval record).
 8. **No-AI and unsure.** If `usage_note` says AI use is unconfirmed, questions must discover it (what AI is in use, who
@@ -23,7 +26,8 @@ Do not read data files, banks, scope files or any other run file.
 9. **Completeness.** Each entry has at least one non-blank question; no question repeats within an entry.
 
 ## Rules for changes
-- Fix in place. Keep every field and the `questions[]` structure.
+- Fix in place. Keep every field and the `questions[]` structure. Never change `applies_to` or `rows` (they record
+  which of the org's areas an answer counts for), and do not add or remove questions.
 - Every entry you change gets an `assessor_note`: one sentence saying what and why. Append after any existing note,
   separated by ` | `. Never delete an existing note.
 - Do not add or remove entries. Do not change `question_type`.

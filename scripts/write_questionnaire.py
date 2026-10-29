@@ -6,8 +6,10 @@ XLSX, one row per question; subcategory fields repeat. The last path is the outp
 questionnaire, one sheet per framework:
 
   csf (default)  csf_questions_assessed.json -> questionnaire.xlsx, sheet "CSF Questionnaire".
-  ai             ai_questions_assessed_<bank>.json (one or two files: producer, consumer) -> the same questionnaire.xlsx,
-                 sheet "AI RMF Questionnaire", with a Role column.
+  ai             ai_questions_assessed_<bank>.json (one or two files: foundation, areas) -> the same questionnaire.xlsx,
+                 sheet "AI RMF Questionnaire", with an Area column ("Whole organisation" for a foundation question, the
+                 client's AI area, or "This question covers: ..." for a question shared by several areas) and a
+                 per-question evidence prompt.
 
 Either mode opens questionnaire.xlsx if it exists and replaces only its own sheet; the other sheet is never touched, so
 the two can be written (or re-written) in any order. The CSF sheet is always first.
@@ -22,7 +24,7 @@ from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
 sys.path.insert(0, str(Path(__file__).parent))
-from options import AI_BANK_NAMES, AI_FUNCTION_ORDER, CSF_FUNCTION_ORDER  # noqa: E402
+from options import AI_FUNCTION_ORDER, AI_QUESTION_BANKS, CSF_FUNCTION_ORDER  # noqa: E402
 import audit  # noqa: E402
 
 FRAMEWORKS = {
@@ -36,9 +38,9 @@ FRAMEWORKS = {
     "ai": {
         "sheet": "AI RMF Questionnaire",
         "order": AI_FUNCTION_ORDER,
-        "headers": ["Function", "Subcategory ID", "Role", "Q#", "Outcome", "Question Type", "Question", "Source",
-                    "CIS Reference", "Topic", "Rung", "Confidence", "Evidence Required", "Answer", "Evidence"],
-        "widths": [10, 14, 10, 5, 40, 14, 70, 35, 22, 14, 10, 20, 40, 40, 40],
+        "headers": ["Function", "Subcategory ID", "Area", "Q#", "Outcome", "Question Type", "Question", "Source",
+                    "CIS Reference", "Confidence", "Evidence Required", "Answer", "Evidence"],
+        "widths": [10, 14, 24, 5, 40, 14, 70, 35, 22, 20, 40, 40, 40],
     },
 }
 
@@ -49,8 +51,8 @@ def row_values(framework: str, entry: dict, q_num: int, q: dict) -> list:
             q.get("source_reference", "")]
     confidence, evidence = entry.get("confidence_flag", ""), entry.get("evidence_prompt", "")
     if framework == "ai":
-        return ([function, sid, entry.get("bank", ""), q_num] + rest +
-                [", ".join(q.get("cis_refs", [])), q.get("topic", ""), q.get("capability", ""), confidence, evidence, "", ""])
+        return ([function, sid, q.get("applies_to", ""), q_num] + rest +
+                [", ".join(q.get("cis_refs", [])), confidence, q.get("evidence_prompt") or evidence, "", ""])
     return [function, sid, q_num] + rest + [confidence, evidence, "", ""]
 
 
@@ -89,7 +91,7 @@ def main():
         cell.font = header_font
         cell.alignment = Alignment(wrap_text=True)
 
-    bank_order = {b: i for i, b in enumerate(AI_BANK_NAMES)}
+    bank_order = {b: i for i, b in enumerate(AI_QUESTION_BANKS)}
     sorted_entries = sorted(
         questions, key=lambda q: (spec["order"].get(q.get("function", ""), 99), q.get("subcategory_id", ""),
                                   bank_order.get(q.get("bank"), 9)))

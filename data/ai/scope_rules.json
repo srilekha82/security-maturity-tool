@@ -1,56 +1,74 @@
 {
-  "description": "Policy for the AI RMF questionnaire at engagement time. build_ai_questions.py gives each subcategory a question type per bank from the usage profile (runs/<Org>_<date>/ai_usage.json), then selects candidates with the filters and ranking below. Change policy by editing this file, not the code. The type is set at topic level: the CSF tool already assesses general security (and the ISO 27001 SoA), so with a CSF assessment done or ISO 27001 held the AI RMF questionnaire only asks the AI angle of data, infrastructure and access topics.",
-  "function_order": ["GOVERN", "MAP", "MEASURE", "MANAGE"],
-  "bank_order": ["producer", "consumer"],
-  "max_questions": {"full_discovery": 4, "gap": 3, "confirmatory": 2},
-  "rung_order": ["base", "rag", "mcp", "agentic"],
-  "default_type": "full_discovery",
-  "gap_type": "gap",
-  "gap_topics": ["data_model", "infra", "ai_access"],
-  "gap_flags": {"csf_assessment_done": "CSF assessment", "iso27001_held": "ISO 27001"},
-  "no_effect_flags": {"iso42001_held": "ISO/IEC 42001 held: not used to relax any question type until the AI RMF to 42001 crosswalk is verified; everything stays full_discovery"},
-  "always_modifiers": ["unsanctioned_use"],
+  "description": "Policy for the AI RMF questionnaire at engagement time. build_ai_questions.py picks a client's questions from the two banks (data/ai/banks/question_bank_ai_rmf_<foundation|areas>.json) by filtering on the usage profile (runs/<Org>_<date>/ai_usage.json): the roles the client is asked as (client_roles), its producer flags and, for area questions, its AI areas. Change policy by editing this file, not the code.",
+  "function_order": [
+    "GOVERN",
+    "MAP",
+    "MEASURE",
+    "MANAGE"
+  ],
   "ai_area_rules": {
     "description": "Which AI areas (data/ai/ai_areas.json) a client gets, besides the ones ticked in the intake menus ai_usage and ai_components: always, any_ai (AI in use), role (the answer to \"Do you build AI, use AI, or both?\") and with (an area that brings others). Every AI area must be reachable (a test checks it).",
-    "always": ["invisible_usage"],
-    "any_ai": ["input", "output"],
-    "role": {"producer": ["model_building", "model", "test_tuning_data"], "both": ["model_building", "model", "test_tuning_data"]},
-    "with": {"agent": ["mcp_tools"]}
-  },
-  "legacy_profile": {
-    "description": "Until question selection works on AI areas (TODO step 4), intake.py also writes the old profile fields, worked out from the AI areas with these tables. Removed in step 4.",
-    "usage_contexts": {"internal_process": "internal", "code_generation": "code_generation",
-                       "customer_facing": "customer_facing", "vendor_ai": "third_party_embedded"},
-    "rung": [["agent", "agentic"], ["mcp_tools", "mcp"], ["source_data", "rag"]]
-  },
-  "gate": {
-    "none": {
-      "banks": ["consumer"],
-      "live_categories": ["inventory_shadow_ai"],
-      "live_modifier": "unsanctioned_use",
-      "live_type": "full_discovery",
-      "skip_reason": "No AI use declared: not applicable",
-      "live_reason": "No AI use declared; the unsanctioned-use check stays live"
+    "always": [
+      "invisible_usage"
+    ],
+    "any_ai": [
+      "input",
+      "output"
+    ],
+    "role": {
+      "producer": [
+        "model_building",
+        "model",
+        "test_tuning_data"
+      ],
+      "both": [
+        "model_building",
+        "model",
+        "test_tuning_data"
+      ]
     },
-    "unsure": {
-      "profile": {"role": "consumer", "rung": "base", "usage_contexts": [], "modifiers": []},
-      "force_full_discovery": {"categories": ["inventory_shadow_ai"], "functions": ["MAP"]},
-      "reason": "AI use unconfirmed: scoped as consumer, base rung; discovery of what AI is in use comes first"
+    "with": {
+      "agent": [
+        "mcp_tools"
+      ]
     }
   },
-  "ranking": {
-    "tag_match": 2,
-    "modifier_match": 2,
-    "poc_boost": 1,
-    "poc_boost_topics": ["data_model", "ai_access"],
-    "poc_boost_categories": ["inventory_shadow_ai"]
+  "client_roles": {
+    "description": "The question roles a client is asked as, by AI in use (none, unsure) or, when AI is in use, by the answer to \"Do you build AI, use AI, or both?\". A question is picked when one of its roles is here. Unsure is asked as a consumer, plus the questions for an org with no AI (AI policy, shadow AI).",
+    "none": [
+      "none"
+    ],
+    "unsure": [
+      "none",
+      "consumer"
+    ],
+    "consumer": [
+      "consumer"
+    ],
+    "producer": [
+      "producer"
+    ],
+    "both": [
+      "consumer",
+      "producer"
+    ]
   },
-  "reasons": {
-    "gap": "{flags} covers general security; this topic ({topic}) asks only what differs for AI",
-    "default": "No CSF assessment or ISO 27001 for the {topic} topic: full discovery",
-    "ungapped_topic": "{topic} topic is always full discovery",
-    "forced": "Forced to full discovery for an unconfirmed AI profile"
+  "usage_notes": {
+    "none": "No AI use declared: only the AI policy and shadow-AI questions are asked",
+    "unsure": "AI use unconfirmed: asked as a consumer; discover what AI is in use before assuming any",
+    "some": "Role {role}; AI areas: {areas}"
   },
-  "gap_frame": "General security controls ({flags}) already cover the standard aspects of this area. What differs for AI: {text}",
+  "default_type": "full_discovery",
+  "reason": "Picked by role ({roles}){areas}",
+  "gap_flags": {
+    "csf_assessment_done": "CSF assessment",
+    "iso27001_held": "ISO 27001"
+  },
+  "gap_note": "{flags}: the per-row gap rule (a row whose CIS safeguards map to CSF subcategories asks only the AI-specific part) is not built yet; every AI RMF question is full_discovery",
+  "no_effect_flags": {
+    "iso42001_held": "ISO/IEC 42001 held: not used to relax any question type until the AI RMF to 42001 crosswalk is verified; everything stays full_discovery"
+  },
+  "covers_note": "This question covers: {areas}",
+  "foundation_label": "Whole organisation",
   "review_flag": "LOW — bank entry flagged for human review; assessor verification required"
 }

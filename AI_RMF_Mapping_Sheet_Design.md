@@ -62,8 +62,8 @@ The intake asks only what the org has (capability); every control is assessed by
 - role producer or both: model building, model, test / tuning / evaluation data; agents add MCP / tools.
 
 `ai_usage.json` holds `role`, `producer` (`built_on_existing_model`, `given_to_others`; null for a consumer) and
-`ai_areas`. Until question selection works on AI areas (TODO step 4) the intake also writes the old fields (rung, usage
-contexts, modifiers, hosts_model), worked out from the areas (`legacy_profile` in `scope_rules.json`).
+`ai_areas`. These are all question selection reads (section 7); the old fields (rung, usage contexts, modifiers,
+hosts_model) were removed in TODO step 4.
 
 ## 3. Controls: GOVERN is the foundation; MAP, MEASURE and MANAGE are asked per AI area
 Agreed 2026-10-22, after the `mcp_tools` pilot mapped operational controls under GOVERN labels (GOVERN 2.1 citing an
@@ -194,12 +194,43 @@ an area gets a row for every subcategory that really checks it (each at most onc
    re-drafted only when its own row in the AI areas sheet or the sources change; when only the mapping rules or other
    areas change, `record_ai_bank.py revalidate` checks every recorded area against the current rules (no agent) and
    stamps the ones that pass current, listing the problems of the rest.
-8. Questions per mapping row (generator, evaluator) -> producer and consumer banks; GOVERN questions per subcategory,
-   each tagged with the roles it applies to (none, consumer, producer).
+8. Questions (generator, evaluator) -> the foundation and area banks (section 7).
 
-`applicability.json` and `airmf_to_cis.json` are replaced by the mapping; the bank a row belongs to comes from the
-area's "applies to". Rebuild only when the Playbook or CIS guides change, or after the person accepts mapping changes;
-regeneration is per mapping row.
+`applicability.json` and `airmf_to_cis.json` are replaced by the mapping. Rebuild only when the Playbook or CIS guides
+change, or after the person accepts mapping changes; regeneration is per subcategory (an area subcategory whose
+mapping rows changed is shown incomplete by the freshness check).
+
+## 7. Questions: two banks of every possible question; selection is a filter (agreed 2026-10-29)
+- **The bank is every possible question, not a questionnaire.** `question_bank_ai_rmf_foundation.json`: per foundation
+  subcategory (GOVERN and the 12), 1 to 4 questions from the Playbook. `question_bank_ai_rmf_areas.json`: per
+  subcategory with mapping rows, the questions for those rows. Every question carries `roles` (`none`, `consumer`,
+  `producer`) and `producer_flags` (`built_on_existing_model`, `given_to_others`), defined in
+  `data/ai/question_rules.json`. This replaced the producer and consumer banks.
+- **Area questions.** Each mapping row is asked by exactly one question per role its area allows (the area's applies
+  to, plus `none` for invisible AI usage, which every client gets). Written from the row's why, proportionate to
+  criticality ("for your highest-criticality AI systems, ..."), never once per AI system. A row with folded
+  subcategories also asks their outcomes. One question per role only where good practice differs (a producer
+  controls training, a consumer only what it accepts); a flag only when the whole row applies only to producers with
+  it.
+- **Similar rows share one question, no cap.** The generator's batch is one item per subcategory with every area's row
+  on it, so it writes one question for rows that would get the same question and lists their row ids. A shared
+  question names no area and must read correctly for each area alone; the questionnaire shows "This question covers:
+  <the client's areas>" (`scope_rules.json` `covers_note`), and the one answer counts for every row it covers.
+- **Foundation questions.** At least one consumer and one producer question without flags per subcategory (both are
+  scored on all 72). `none` only for the AI policy and shadow-AI discovery. A policy is asked as practice: where it is
+  kept and how the people it applies to come to know it and its changes, never whether it exists. GOVERN 1.6 is the
+  AI system inventory, the one per-system question (areas and criticality per system, section 4).
+- **Recording** (`record_ai_bank.py questions`) checks coverage mechanically (rows, roles, flags, safeguards of the
+  covered rows, folds cited, foundation count and roles); the evaluator judges quality, sharing and audience. Each
+  area entry stores the hash of the rows it was written for and each row's area and impact (for the covers note and
+  the evidence prompt).
+- **Selection** (`build_ai_questions.py`): roles from `scope_rules.json` `client_roles` (none -> none; unsure -> none,
+  consumer; consumer; producer; both -> consumer and producer), producer flags from the intake, and for area questions
+  the client's AI areas. Nothing is ranked, capped or rewritten.
+- **Scoring** (several areas on one subcategory) is decided in Stage 2; every question keeps its subcategory and rows.
+- **Open:** the per-row gap rule (a row whose CIS safeguards map to CSF subcategories the client was assessed on asks
+  only the AI-specific part) needs the CIS -> CSF mapping as a committed id file; until then every AI question is
+  `full_discovery`. A review sheet for the questions (`sheet_io.py`) is still to build.
 
 ## Code review findings from the same review (not fixed yet)
 1. `parse_soa.py`: numeric control ids collapse (5.10 -> 5.1, 8.10 -> 8.1) and `compute_scope.py` then overwrites one

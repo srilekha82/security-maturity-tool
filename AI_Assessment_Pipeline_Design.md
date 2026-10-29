@@ -11,7 +11,7 @@ End-to-end pipeline that takes org inputs and produces interactive assessment HT
 ```
 Question Bank Build  (subagents in caizin-csf-tool — infrequent, runs only when sources change)
 ├── CSF      → CSET already exists; freshness check only
-└── AI RMF   → two banks (producer, consumer), generated from: AI RMF Playbook + CIS AI companion guides
+└── AI RMF   → mapping (AI area x subcategory), then two banks (foundation, areas), generated from: AI RMF Playbook + CIS AI companion guides
                gate: skip if Playbook and CIS guides unchanged this quarter
                design: AI_RMF_Mapping_Sheet_Design.md
          ↓
@@ -32,7 +32,7 @@ Stage 3: HTML Generation           (Claude skills)
 
 **Inputs:**
 - Org profile: name, industry/domain, compliance certifications held (ISO 27001, SOC2, PCI DSS)
-- AI usage profile (see the AI RMF track below): AI in use none / some / unsure, role (producer / consumer / both), technology rung, usage contexts, modifiers; plus engagement flags (CSF assessment done, ISO 27001 held, ISO 42001 held)
+- AI usage profile (see the AI RMF track below): AI in use none / some / unsure, role (producer / consumer / both), producer flags (built on an existing model, given to others), the client's AI areas; plus engagement flags (CSF assessment done, ISO 27001 held, ISO 42001 held)
 - SOA (Statement of Applicability) if ISO 27001 certified
 - Compliance reports if available
 
@@ -42,23 +42,19 @@ Stage 3: HTML Generation           (Claude skills)
 - Question types: `full_discovery` / `gap` / `confirmatory` / `skip`
 - Output: `csf_questions_assessed.json`
 
-**AI RMF track (to build — the current model is `AI_RMF_Mapping_Sheet_Design.md`; the first design is in `archive/AI_RMF_QuestionBank_Decisions.md`):**
-- Question banks: **two files, producer and consumer** (`question_bank_ai_rmf_producer.json`, `question_bank_ai_rmf_consumer.json`, stored under `data/ai/banks/`, reused across org runs). No CSET equivalent exists for AI RMF, so they are generated.
-- Sources: **AI RMF Playbook** (72 subcategories and their suggested actions — the primary question content) and the three **CIS v8.1 AI companion guides** (LLM, MCP, Agents — evidence prompts, context and tagging, not question text). The profile XLS supplies the 72-subcategory structure.
-- Generation: a generate–evaluate loop with subagents in this repo (per-subcategory pilot, then per-category batches), not the `gen-eval-loop` harness. One-time or infrequent build, not per-org. An applicability pass first decides which subcategories apply to which bank.
-- **Freshness gate:** the banks are not regenerated unless the Playbook or the CIS guides changed within the quarter. Mirrors `check_freshness.py`.
-- **Scope driver is how AI is used, not certifications or sector.** Sector is a secondary decorator (report context, regulatory notes). The intake captures:
-  - AI in use: none / some / unsure (`unsure` is scoped like `some`; `none` still gets the shadow-AI check)
-  - Role: producer / consumer / both
-  - Technology rung: `base` → `rag` → `mcp` → `agentic` (highest rung reached)
-  - Usage contexts (multi-select): `internal`, `code_generation`, `customer_facing`, `third_party_embedded`
-  - Modifiers: PoC stage, self-hosted, builds on a base model, unsanctioned use
-- Four topic areas are always asked, with depth set by the above: data and model protection, infrastructure, reliability, access by AI.
-- Question types: same names as CSF (`full_discovery` / `gap` / `confirmatory` / `skip`). Set at topic level from the engagement flags: if a CSF assessment is done or ISO 27001 is held, the data/infra/access topics become `gap`; otherwise `full_discovery`. ISO 42001 coverage is a later optional phase.
+**AI RMF track (being built — the model is `AI_RMF_Mapping_Sheet_Design.md`, build steps in `TODO.md`; the first design is in `archive/`):**
+- Model: how AI is used and what it is made of (**AI areas**, decided by a person in `data/ai/authoring/ai_areas.xlsx`) -> the attack areas they impact -> AI RMF function -> subcategory. GOVERN and 12 other subcategories are the **foundation**, asked once for the organisation; MAP, MEASURE and MANAGE are mapped per AI area (`data/ai/mapping.json`, reviewed and accepted by a person).
+- Question banks: **two files, foundation and areas** (`question_bank_ai_rmf_foundation.json`, `question_bank_ai_rmf_areas.json`, under `data/ai/banks/`, reused across org runs). They hold every possible question: area questions per mapping row (a question may stand for several areas' rows), foundation questions per subcategory, each tagged with the roles it is asked of (none / consumer / producer) and any producer flags. No CSET equivalent exists for AI RMF, so they are generated.
+- Sources: **AI RMF Playbook** (72 subcategories and their suggested actions — the primary question content) and the three **CIS v8.1 AI companion guides** (LLM, MCP, Agents — evidence and safeguards per mapping row, not question text). The profile XLS supplies the 72-subcategory structure.
+- Generation: a generate–evaluate loop with subagents in this repo (pilot, then per-function batches), not the `gen-eval-loop` harness. One-time or infrequent build, not per-org.
+- **Freshness gate:** the banks are not regenerated unless the Playbook or the CIS guides changed, or a mapping row changed after its questions were written. Mirrors `check_freshness.py`.
+- **Scope driver is how AI is used, not certifications or sector.** Sector sets a severity floor and decorates the report. The intake captures AI in use (none / some / unsure), role (producer / consumer / both), for a producer whether the model is built on an existing model and given to others, how AI is used and what it includes (the client's AI areas; some areas are automatic).
+- Selection is a filter: a client gets the questions whose roles, producer flags and (for area questions) AI areas match its intake. Area questions are asked once, proportionate to criticality ("for your highest-criticality AI systems"); the AI system inventory (GOVERN 1.6) is the only per-system question.
+- Question types: same names as CSF. Every AI RMF question is `full_discovery` for now; the per-row gap rule (a row whose CIS safeguards map to CSF subcategories the client was assessed on asks only the AI-specific part) is still to build. ISO 42001 coverage is a later optional phase.
 - Engagement sequence: the CSF assessment first, then the AI RMF assessment scoped by AI usage, then the CSF output is updated with the AI-world notes according to the same usage pattern.
-- Orgs that use no AI but are exposed to external agents or AI-enabled attackers are covered on the CSF side by short "AI-world impact" notes per CSF subcategory (`data/csf/ai_impact_notes.json`), not in the AI RMF banks. The notes have two layers: an exposure note shown to every org, plus a use note added only when AI is in use (wording by highest technology rung). The notes are produced as Step 5 of the AI RMF build (CIS MCP/agents safeguards joined to CSF subcategories through the official CIS v8.1 → CSF 2.0 mapping); the existing CSF tool has nothing like it today.
+- Orgs that use no AI but are exposed to external agents or AI-enabled attackers are covered on the CSF side by short "AI-world impact" notes per CSF subcategory (`data/csf/ai_impact_notes.json`). The notes have two layers: an exposure note shown to every org, plus a use note added only when AI is in use (one wording for orgs with MCP / tools or agents, one for the rest). They are produced in the AI RMF build (CIS MCP/agents safeguards joined to CSF subcategories through the official CIS v8.1 → CSF 2.0 mapping).
 
-The earlier 3-tier usage model (LLM prompting / MCP-agentic / client environment) is retired: it was derived from internal Caizin work and is not an official NIST or CIS construct, and it mixed technology reach with usage context.
+The earlier usage models are retired: the 3-tier model (LLM prompting / MCP-agentic / client environment) was derived from internal Caizin work and mixed technology reach with usage context, and the first AI RMF design (technology rungs, usage contexts, modifiers, topic categories; `archive/`) under-mapped the attack surface.
 
 ---
 
@@ -147,7 +143,7 @@ CIS controls appear in the roadmap tab of each HTML as the "how to fix it" layer
 | Gen-eval loop harness | ✅ Exists (generic, needs scenario config) |
 | CSF skill + HTML | ✅ Exists and working |
 | AI RMF skill + HTML | ✅ Exists and working |
-| AI RMF question banks (producer and consumer) | ❌ To build — source: AI RMF Playbook + CIS AI guides; decisions settled, build not started |
+| AI RMF mapping and question banks (foundation, areas) | 🟡 Mapping accepted; question tooling built, banks not generated yet |
 | Agentic answer session (gen-eval scenario config + prompts) | ❌ To build |
 | XLS writer (maps filled answers → profile XLS) | ❌ To build |
 
@@ -157,7 +153,7 @@ CIS controls appear in the roadmap tab of each HTML as the "how to fix it" layer
 
 1. **XLS is the canonical artefact.** Everything upstream produces it; everything downstream consumes it. Schema is fixed by the skills.
 
-2. **Question bank must be grounded and frozen.** Free-form LLM question generation per engagement is costly and non-deterministic. The bank is built once from structured sources (CSET for CSF; the Playbook and CIS guides for AI RMF), checked by an evaluator, then frozen and reused. For AI RMF the bank is generated with subagents under a strict generate–evaluate loop (see `AI_RMF_QuestionBank_Decisions.md`); the `gen-eval-loop` harness is used for *answering* (Stage 2).
+2. **Question bank must be grounded and frozen.** Free-form LLM question generation per engagement is costly and non-deterministic. The bank is built once from structured sources (CSET for CSF; the Playbook and CIS guides for AI RMF), checked by an evaluator, then frozen and reused. For AI RMF the bank is generated with subagents under a strict generate–evaluate loop (see `AI_RMF_Mapping_Sheet_Design.md`); the `gen-eval-loop` harness is used for *answering* (Stage 2).
 
 3. **Evaluator has no org context.** The evaluator agent runs in a fresh session with only the question and draft answer. This ensures it judges the answer on its own merits, not on what it knows about the org.
 

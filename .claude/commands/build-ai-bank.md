@@ -1,7 +1,10 @@
-# /build-ai-bank — build the AI RMF 1.0 producer and consumer question banks
+# /build-ai-bank — build the AI RMF 1.0 mapping and question banks
 
-Builds `data/ai/banks/question_bank_ai_rmf_producer.json` and `question_bank_ai_rmf_consumer.json` from the AI RMF
-Playbook and the three CIS AI companion guides, then the CSF AI impact notes (`data/csf/ai_impact_notes.json`).
+Builds the AI RMF mapping (AI area x subcategory, `data/ai/mapping.json`), then the two question banks,
+`data/ai/banks/question_bank_ai_rmf_foundation.json` (asked once for the organisation) and
+`question_bank_ai_rmf_areas.json` (per mapping row), from the AI RMF Playbook and the three CIS AI companion guides, then
+the CSF AI impact notes (`data/csf/ai_impact_notes.json`). The banks hold every possible question, each tagged with the
+roles it is asked of and any producer flags; `/ai-questionnaire` picks a client's questions from them.
 Run quarterly, or when a source file changes. Scripts parse, prepare, validate, record and decide nothing; agents judge,
 and hand every result in through `scripts/record_ai_bank.py`, which rejects a whole file if anything is wrong. The judging rules are
 in the prompts named in each step. Do not re-implement any parsing or validation inline.
@@ -20,7 +23,8 @@ Replace `<model id>` in the record commands with the model id of the agent that 
 .venv/bin/python ./scripts/check_freshness.py --ai-bank
 ```
 
-One line per stage (parse, applicability, crosswalk, each bank, notes): `current`, `missing`, `stale` or `incomplete`. A
+One line per stage (parse, bank foundation, bank areas, notes, pilot, ai areas, mapping): `current`, `missing`, `stale`
+or `incomplete`. A
 stage is current only if it was built from the exact source files on disk (each output records the SHA-256 of its inputs).
 
 - Exit 0: everything is current and complete. Tell the user and stop, unless they ask to force a rebuild.
@@ -39,11 +43,7 @@ suggested actions) and
 `data/ai/cis_ai_safeguards.json` (the safeguards of the three guides). It fails, writing nothing, if a count is off.
 Agents read these files, never the PDFs.
 
-> **The old Steps 3 (applicability) and 4 (AI RMF -> CIS link) were removed on 2026-10-22**, with their prompts,
-> script modes and outputs; the "Mapping" section replaces them. Step 5 below is the old question loop: it still reads
-> the removed applicability.json, so do not run it until TODO step 4 rewires it to mapping rows.
-
-## Mapping (replaces the old Steps 3 and 4; see `AI_RMF_Mapping_Sheet_Design.md`)
+## Steps 3 and 4 — Mapping (see `AI_RMF_Mapping_Sheet_Design.md`)
 
 Maps each AI area (`data/ai/ai_areas.json`, decided by the user in `data/ai/authoring/ai_areas.xlsx`) to AI RMF
 subcategories of MAP, MEASURE and MANAGE, with the CIS safeguards that prove them. GOVERN is the foundation (asked once
@@ -90,53 +90,60 @@ When every area is recorded and the user has reviewed the sheet (no row left nee
 user accepts the mapping: `.venv/bin/python ./scripts/ai_pilot.py accept-mapping`. Re-drafting an area later keeps the
 user's decisions (rows decided_by human, lines they removed).
 
-## Step 5 — Generate and evaluate (subagents) (old input; rewired to mapping rows in TODO step 4)
+## Step 5 — Questions (subagents; needs the mapping accepted as it is now)
 
-Ask the user: **pilot** (6 subcategories, per-subcategory loops, then stop for review) or **full** (all applicable
-subcategories, one AI RMF category per batch).
+Two banks, built the same way: **foundation** (GOVERN and the 12 foundation subcategories of
+`data/ai/mapping_rules.json`; questions per subcategory from the Playbook, each tagged with the roles it is asked of:
+none, consumer, producer) and **areas** (one item per subcategory with every AI area's mapping row on it; each row is
+asked exactly once per role its area allows, and rows that would get the same question share one). Use Sonnet
+(`model: "sonnet"`) for the generator and the evaluator.
+
+Ask the user: **pilot** (a few subcategories the user agrees to, then stop for review) or **full** (all subcategories
+not yet recorded, one AI RMF function per batch).
 
 ### Pilot
-Propose 6 subcategories from `data/ai/applicability.json` and `data/ai/crosswalks/airmf_to_cis.json` that span the range
-and show them to the user before running (wait for confirmation):
-- one GOVERN subcategory, producer bank
-- one MAP, consumer bank, internal usage
-- one MEASURE, consumer, customer-facing
-- one MANAGE, consumer, third-party embedded
-- one whose mapped safeguards are MCP-heavy (capability `mcp`)
-- one whose mapped safeguards are agents-heavy (capability `agentic`)
+Propose about 6 subcategories and show them to the user before running (wait for confirmation):
+- two foundation: one GOVERN policy subcategory (e.g. GOVERN 1.2) and GOVERN 1.6 (the AI system inventory)
+- one area subcategory with many areas (e.g. MEASURE 2.8, the audit trail: tests sharing)
+- one with producer-only areas and a producer flag (e.g. a MANAGE row on model_building about releases)
+- one with a folded subcategory (e.g. MAP 3.2 on internal_process folds MAP 5.1)
+- one MAP subcategory on usage areas (e.g. MAP 1.4)
 
-### The loop (per batch: one subcategory in the pilot, one AI RMF category such as `GOVERN 1` in a full run)
+### The loop (per batch: the pilot's ids of one bank, or one AI RMF function in a full run)
 Work files go under `data/ai/bank_build/work/` (create it; delete the files once the batch is recorded).
 
-1. Prepare the batch input for the bank:
+1. Prepare the batch input:
    ```bash
-   .venv/bin/python ./scripts/prepare_ai_bank.py batch <producer|consumer> --ids "<ID>" ...    # pilot
-   .venv/bin/python ./scripts/prepare_ai_bank.py batch <producer|consumer> --category "GOVERN 1"  # full
+   .venv/bin/python ./scripts/prepare_ai_bank.py batch <foundation|areas> --ids "<ID>" ... --tag <tag>   # pilot
+   .venv/bin/python ./scripts/prepare_ai_bank.py batch <foundation|areas> --function MEASURE --missing    # full
    ```
    It writes `data/ai/bank_build/batch_<bank>_<tag>.json`.
-2. **Generator** (a fresh subagent via the Agent tool): tell it to follow `prompts/ai_rmf_question_generator.md` with the
-   batch file as input and to write its output to `work/<tag>_gen1.json`. Pass paths, not content.
-3. **Evaluator** (another fresh subagent, a cheaper model such as `sonnet`): tell it to follow
-   `prompts/ai_rmf_question_evaluator.md` with the batch file and `work/<tag>_gen1.json`, and to write the failures to
-   `work/<tag>_eval1.json`. It must not see the generator's prompt.
+2. **Generator** (a fresh subagent via the Agent tool, Sonnet): tell it to follow
+   `prompts/ai_rmf_question_generator.md` with the batch file as input and to write its output to `work/<tag>_gen1.json`.
+   Pass paths, not content.
+3. **Evaluator** (another fresh subagent, Sonnet): tell it to follow `prompts/ai_rmf_question_evaluator.md` with the
+   batch file and `work/<tag>_gen1.json`, and to write the failures to `work/<tag>_eval1.json`. It must not see the
+   generator's prompt.
 4. If `eval1` lists failures: a fresh generator subagent revises only those subcategories (inputs: the batch file,
-   `gen1`, `eval1`; output `work/<tag>_gen2.json` with the COMPLETE candidate list of each failing subcategory), then a
+   `gen1`, `eval1`; output `work/<tag>_gen2.json` with the COMPLETE question list of each failing subcategory), then a
    fresh evaluator checks `gen2` into `work/<tag>_eval2.json`. Two turns at most.
 5. Assemble and record (the script marks a subcategory `needs_human_review` if it still fails after turn 2):
    ```bash
    .venv/bin/python ./scripts/record_ai_bank.py assemble --gen1 work/... --eval1 work/... [--gen2 ... --eval2 ...] --out data/ai/bank_build/work/<tag>_record.json
-   .venv/bin/python ./scripts/record_ai_bank.py candidates <bank> data/ai/bank_build/work/<tag>_record.json \
+   .venv/bin/python ./scripts/record_ai_bank.py questions <foundation|areas> data/ai/bank_build/work/<tag>_record.json \
        --model <generator model id> --session "evaluator=<evaluator model id>"
    ```
-   If `candidates` lists problems, send those subcategories back to the generator and repeat; nothing is stored until it
-   passes.
+   If `questions` lists problems (a row not asked, or asked twice, for a role; a role the area does not allow; a
+   safeguard not of the row; a fold not cited; a foundation subcategory without a consumer or producer question), send
+   them back to the generator and repeat; nothing is stored until it passes.
 
 ### After the pilot: stop
 Do not continue to a full run on your own. Report to the user: how many subcategories passed on turn 1 and turn 2, how
 many need human review, and token use per batch if you can see it. Show 2 or 3 PASSING questions as well as the
-failures, so passes get reviewed too. Run the evaluator once on a file with 3 deliberately weak, checkbox-style
-questions added to a copy of one subcategory (never recorded) and report whether it caught them. The user tunes the
-generator and evaluator prompts from this, then runs `/build-ai-bank` again for the full run.
+failures (include a shared question and its rows), so passes get reviewed too. Run the evaluator once on a file with 3
+deliberately weak, checkbox-style questions added to a copy of one subcategory (never recorded) and report whether it
+caught them. The user tunes the generator and evaluator prompts from this, then runs `/build-ai-bank` again for the
+full run.
 
 When the user says the pilot is good, record it:
 ```bash
@@ -147,17 +154,19 @@ missing or incomplete AI bank on its own, like a CSF bank. If either prompt is e
 and a new pilot is needed before the next rebuild.
 
 ### Full run
-Use `prepare_ai_bank.py batch <bank> --category "<function> <n>" --missing` so each batch holds only subcategories not yet
-recorded, and run the loop per category. At the end show the user a random sample of 5 passing subcategories to spot-check.
+Use `prepare_ai_bank.py batch <bank> --function <MAP|MEASURE|MANAGE|GOVERN> --missing` so each batch holds only
+subcategories not yet recorded (split a function with `--ids` if the batch is large), and run the loop per batch. At
+the end show the user a random sample of 5 passing subcategories to spot-check.
 
-## Step 6 — Check completeness (after both banks have every applicable subcategory)
+## Step 6 — Check completeness
 
 ```bash
 .venv/bin/python ./scripts/check_freshness.py --ai-bank
 ```
 
-Both banks must show `current`. `incomplete` means applicable subcategories are still missing from a bank: go back to
-Step 5 with `--missing`.
+Both `bank foundation` and `bank areas` must show `current`. `incomplete` lists what is missing, or the area
+subcategories whose mapping rows changed after their questions were written: go back to Step 5 (`--missing`, or
+`--ids` for the changed ones).
 
 ## Step 7 — AI impact notes (agent; skip if sources are unchanged and notes exist)
 

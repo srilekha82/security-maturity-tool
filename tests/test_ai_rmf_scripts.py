@@ -16,7 +16,7 @@ import ai_pilot as PL  # noqa: E402
 import prepare_ai_bank as P  # noqa: E402
 import record_ai_bank as R  # noqa: E402
 from ai_bank_common import DEFAULT_PROMPTS, core_subcategories  # noqa: E402
-from paths import AI_CORE, AI_SAFEGUARDS, REPO_ROOT  # noqa: E402
+from paths import AI_AREAS, AI_CORE, AI_MAPPING, AI_SAFEGUARDS, REPO_ROOT  # noqa: E402
 
 
 class ParsedSources(unittest.TestCase):
@@ -50,10 +50,11 @@ class ParsedSources(unittest.TestCase):
 class Recording(unittest.TestCase):
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
-        R.AI_APPLICABILITY, R.CSF_IMPACT_NOTES = self.tmp / "applicability.json", self.tmp / "ai_impact_notes.json"
+        R.CSF_IMPACT_NOTES = self.tmp / "ai_impact_notes.json"
         R.AI_BANKS, R.AI_BUILD, R.LOG_DIR = self.tmp / "banks", self.tmp / "build", self.tmp / "build" / "log"
-        P.AI_APPLICABILITY = R.AI_APPLICABILITY   # the batch / candidates code still reads it until TODO step 4
+        R.AI_MAPPING = AI_MAPPING                   # the accepted mapping, read only (other classes redirect it)
         P.AI_BANKS, P.AI_BUILD, PL.AI_BANKS = R.AI_BANKS, R.AI_BUILD, R.AI_BANKS
+        self.addCleanup(setattr, P, "mapping_status", P.mapping_status)   # tests stub the accept gate
         R.AI_BUILD.mkdir(parents=True, exist_ok=True)
         self.inp = R.load_inputs()
         self.subs = list(self.inp["subs"])
@@ -68,48 +69,114 @@ class Recording(unittest.TestCase):
         except SystemExit as e:
             return e.code
 
-    def applicability(self, consumer_only=()):
-        c = list(self.inp["bank_cats"]["consumer"])[0]
-        p = list(self.inp["bank_cats"]["producer"])[0]
-        return {s: {"producer": [] if s in consumer_only else [p], "consumer": [c], "reason": "test"} for s in self.subs}
+    def question(self, sid, n=1, **over):
+        q = {"question_text": f"For your highest-criticality AI systems, how is the outcome of {sid} handled (variant {n}), "
+                              "and who owns it?",
+             "playbook_refs": [f"{sid} — suggested action 1"], "cis_refs": [], "roles": ["consumer", "producer"],
+             "producer_flags": []}
+        q.update(over)
+        return q
 
-    def write_applicability(self, data):
-        """The old applicability.json the batch / candidates code reads (its recording mode was removed)."""
-        R.AI_APPLICABILITY.write_text(json.dumps({"subcategories": data}))
+    def area_questions(self, sid):
+        """Questions that cover every row of sid once per allowed role: one question per distinct set of roles."""
+        rows = R.question_context(self.inp)["rows"][sid]
+        groups = {}
+        for rid, r in rows.items():
+            groups.setdefault(tuple(r["roles"]), []).append(rid)
+        qs = []
+        for n, (roles, rids) in enumerate(groups.items(), 1):
+            folds = sorted({f for rid in rids for f in rows[rid]["folded"]})
+            qs.append(self.question(sid, n, rows=rids, roles=list(roles),
+                                    playbook_refs=[f"{x} — suggested action 1" for x in [sid] + folds]))
+        return qs
 
-    def candidate(self, sid, **over):
-        c = {"question_text": f"Describe how your organisation handles the outcome of {sid}, who owns it and what evidence exists.",
-             "playbook_ref": f"{sid} — suggested action 1", "cis_refs": ["LLM-3.1"], "scope_tags": [],
-             "capability": "base", "topic": "governance"}
-        c.update(over)
-        return c
-
-    def test_candidates(self):
-        self.write_applicability(self.applicability(consumer_only=[self.subs[0]]))
-        sid, other = self.subs[1], self.subs[0]
-        mk = lambda n: [self.candidate(sid, question_text=f"Describe how variant {i} of {sid} works in practice and who owns it.")
-                        for i in range(n)]
-        topic = self.inp["bank_cats"]["producer"][list(self.inp["bank_cats"]["producer"])[0]]["topic"]
-        good = {sid: {"status": "pass", "turns": 1, "candidates": [dict(c, topic=topic) for c in mk(3)]}}
+    def test_questions_areas(self):
+        ctx = R.question_context(self.inp)
+        sid = "MEASURE 2.8"                                          # 14 areas, incl. invisible_usage (none) and model
+        qs = self.area_questions(sid)
+        good = {sid: {"status": "pass", "turns": 1, "questions": qs}}
+        model_row = "model|MEASURE 2.8"
+        q_model = next(q for q in qs if model_row in q["rows"])
+        some_row = next(r for r in ctx["rows"][sid] if ctx["rows"][sid][r]["cis_refs"])
+        bad = lambda **k: {sid: dict(good[sid], questions=[dict(qs[0], **k)] + qs[1:])}   # noqa: E731
         cases = {
-            "too few": {sid: dict(good[sid], candidates=good[sid]["candidates"][:2])},
-            "bad capability": {sid: dict(good[sid], candidates=[dict(c, capability="llm") for c in good[sid]["candidates"]])},
-            "topic not in categories": {sid: dict(good[sid], candidates=[dict(c, topic="infra") for c in good[sid]["candidates"]])},
-            "unknown cis ref": {sid: dict(good[sid], candidates=[dict(c, cis_refs=["LLM-77.7"]) for c in good[sid]["candidates"]])},
-            "playbook_ref of another id": {sid: dict(good[sid], candidates=[dict(c, playbook_ref="GOVERN 9.9") for c in good[sid]["candidates"]])},
-            "not applicable to bank": {other: good[sid]},
-            "review without reason": {sid: {"status": "needs_human_review", "turns": 2, "candidates": []}},
+            "row asked twice": {sid: dict(good[sid], questions=qs + [self.question(sid, 9, rows=[model_row],
+                                                                                   roles=["producer"])])},
+            "row not asked": {sid: dict(good[sid], questions=[dict(q_model, rows=[model_row])] +
+                                        [q for q in qs if q is not q_model])},
+            "role the area does not allow": {sid: dict(good[sid], questions=[dict(q_model, roles=["consumer", "producer"])]
+                                                       + [q for q in qs if q is not q_model])},
+            "unknown row": bad(rows=qs[0]["rows"] + ["agent|MAP 1.1"]),
+            "cis ref not of the rows": bad(cis_refs=["LLM-77.7"]),
+            "no such suggested action": bad(playbook_refs=[f"{sid} — suggested action 99"]),
+            "playbook ref of another subcategory": bad(playbook_refs=["GOVERN 1.1 — suggested action 1"]),
+            "flag on a consumer question": bad(producer_flags=["given_to_others"]),
+            "unknown flag": {sid: dict(good[sid], questions=[dict(q_model, producer_flags=["open_weights"])]
+                                       + [q for q in qs if q is not q_model])},
+            "missing field": bad(rows=None),
+            "foundation subcategory": {"GOVERN 1.1": good[sid]},
+            "review without reason": {sid: dict(good[sid], status="needs_human_review", turns=2)},
         }
+        cases["missing field"][sid]["questions"][0].pop("rows")
         for name, data in cases.items():
-            self.assertEqual(self.run_mode("candidates", data, "consumer" if name == "x" else "producer"), 1, name)
-        self.assertEqual(self.run_mode("candidates", good, "producer"), 0)
-        bank = json.loads((R.AI_BANKS / "question_bank_ai_rmf_producer.json").read_text())
-        self.assertEqual(bank["summary"]["passed"], 1)
-        flagged = {sid: {"status": "needs_human_review", "turns": 2, "reason": "evaluator still failed Q2",
-                         "candidates": good[sid]["candidates"]}}
-        self.assertEqual(self.run_mode("candidates", flagged, "producer"), 0)
-        bank = json.loads((R.AI_BANKS / "question_bank_ai_rmf_producer.json").read_text())
-        self.assertEqual(bank["summary"], {"subcategories": 1, "passed": 0, "needs_human_review": 1, "candidates": 3})
+            self.assertEqual(self.run_mode("questions", data, "areas"), 1, name)
+        self.assertEqual(self.run_mode("questions", good, "areas"), 0)
+        bank = json.loads((R.AI_BANKS / "question_bank_ai_rmf_areas.json").read_text())
+        self.assertEqual(bank["summary"], {"subcategories": 1, "passed": 1, "needs_human_review": 0, "questions": len(qs)})
+        self.assertTrue(bank["subcategories"][sid]["rows_sha"])
+        cited = [dict(q, cis_refs=ctx["rows"][sid][some_row]["cis_refs"][:1]) if some_row in q["rows"] else q for q in qs]
+        self.assertEqual(self.run_mode("questions", {sid: dict(good[sid], questions=cited)}, "areas"), 0)
+        flagged = [dict(q_model, producer_flags=["built_on_existing_model"])] + [q for q in qs if q is not q_model]
+        self.assertEqual(self.run_mode("questions", {sid: dict(good[sid], questions=flagged)}, "areas"), 0)
+
+    def test_questions_area_folds(self):
+        sid = "MAP 3.2"                                              # internal_process folds MAP 5.1 into it
+        qs = self.area_questions(sid)
+        self.assertEqual(self.run_mode("questions", {sid: {"status": "pass", "turns": 1, "questions": qs}}, "areas"), 0)
+        unfolded = [dict(q, playbook_refs=[f"{sid} — suggested action 1"]) for q in qs]
+        self.assertEqual(self.run_mode("questions", {sid: {"status": "pass", "turns": 1, "questions": unfolded}}, "areas"), 1)
+
+    def test_questions_foundation(self):
+        sid = "GOVERN 1.1"
+        both = self.question(sid, 1, roles=["none", "consumer", "producer"])
+        prod = self.question(sid, 2, roles=["producer"])
+        good = {sid: {"status": "pass", "turns": 1, "questions": [both, prod]}}
+        cases = {
+            "no consumer question": [prod],
+            "producer only with a flag": [self.question(sid, 1, roles=["consumer"]),
+                                          self.question(sid, 2, roles=["producer"], producer_flags=["given_to_others"])],
+            "too many": [self.question(sid, n) for n in range(1, 6)],
+            "cis ref": [dict(both, cis_refs=["LLM-3.1"])],
+            "unknown role": [dict(both, roles=["vendor"])],
+            "rows on a foundation question": [dict(both, rows=[])],
+            "same text twice": [both, dict(both)],
+        }
+        for name, qs in cases.items():
+            self.assertEqual(self.run_mode("questions", {sid: dict(good[sid], questions=qs)}, "foundation"), 1, name)
+        self.assertEqual(self.run_mode("questions", {"MEASURE 2.8": good[sid]}, "foundation"), 1)   # an area subcategory
+        self.assertEqual(self.run_mode("questions", good, "foundation"), 0)
+        self.assertEqual(self.run_mode("questions", {"MANAGE 1.2": {"status": "pass", "turns": 1, "questions": [
+            self.question("MANAGE 1.2")]}}, "foundation"), 0)          # a foundation subcategory outside GOVERN
+        bank = json.loads((R.AI_BANKS / "question_bank_ai_rmf_foundation.json").read_text())
+        self.assertEqual(list(bank["subcategories"]), ["GOVERN 1.1", "MANAGE 1.2"])
+
+    def test_bank_freshness(self):
+        sid = "MAP 3.2"
+        self.assertEqual(self.run_mode("questions", {sid: {"status": "pass", "turns": 1,
+                                                           "questions": self.area_questions(sid)}}, "areas"), 0)
+        doc = json.loads((R.AI_BANKS / "question_bank_ai_rmf_areas.json").read_text())
+        ok, text = R.bank_freshness("areas", doc, self.inp)
+        self.assertFalse(ok)
+        self.assertIn("40 of 41 subcategories missing", text)
+        ctx = R.question_context(self.inp)
+        for other in ctx["rows"]:                                    # as if every subcategory were recorded
+            doc["subcategories"].setdefault(other, dict(doc["subcategories"][sid], rows_sha=R.rows_sha(
+                {r: v["sig"] for r, v in ctx["rows"][other].items()})))
+        self.assertTrue(R.bank_freshness("areas", doc, self.inp)[0])
+        doc["subcategories"][sid]["rows_sha"] = "changed"           # a mapping row changed after the questions
+        ok, text = R.bank_freshness("areas", doc, self.inp)
+        self.assertFalse(ok)
+        self.assertIn(f"mapping rows changed since written: {sid}", text)
 
     def test_notes(self):
         long = "x" * 40
@@ -122,46 +189,65 @@ class Recording(unittest.TestCase):
         self.assertEqual(set(n), {"exposure", "use"})
 
 
-    def test_prepare_batch_missing_only(self):
-        self.write_applicability(self.applicability())
-        sid = self.subs[0]
-        topic = self.inp["bank_cats"]["consumer"][list(self.inp["bank_cats"]["consumer"])[0]]["topic"]
-        mk = [self.candidate(sid, question_text=f"Describe variant {i} of {sid} in practice and who owns it, with evidence.",
-                             topic=topic) for i in range(3)]
-        self.assertEqual(self.run_mode("candidates", {sid: {"status": "pass", "turns": 1, "candidates": mk}}, "consumer"), 0)
-        out = P.prepare_batch(self.inp, "consumer", [], None, True, "t", missing_only=True)
+    def test_prepare_batch_areas(self):
+        P.mapping_status = lambda: (True, "accepted")
+        out = P.prepare_batch(self.inp, "areas", [], None, True, "t")
+        doc = json.loads(out.read_text())
+        mapping = json.loads(P.AI_MAPPING.read_text())["areas"]
+        want = sorted(f"{a}|{r['subcategory']}" for a, e in mapping.items() for r in e["rows"])
+        got = sorted(r["row_id"] for i in doc["items"] for r in i["rows"])
+        self.assertEqual(got, want)                                   # every mapping row once, grouped by subcategory
+        self.assertTrue(all(r["row_id"].endswith(i["subcategory_id"]) for i in doc["items"] for r in i["rows"]))
+        self.assertEqual(set(doc["areas"]), set(mapping))
+        self.assertEqual(set(doc["cis_safeguards"]), {c for e in mapping.values() for r in e["rows"] for c in r["cis_refs"]})
+        self.assertEqual(doc["areas"]["invisible_usage"]["roles_allowed"], ["none", "consumer", "producer"])
+        self.assertEqual(doc["areas"]["model"]["roles_allowed"], ["producer"])
+        found = json.loads(P.AI_MAPPING_RULES.read_text())["foundation"]
+        self.assertFalse({i["subcategory_id"] for i in doc["items"]} & set(found["subcategories"]))
+
+    def test_prepare_batch_refuses_a_mapping_not_accepted(self):
+        P.mapping_status = lambda: (False, "changed since accepted")
+        with self.assertRaises(SystemExit):
+            P.prepare_batch(self.inp, "areas", [], None, True, "t")
+
+    def test_prepare_batch_foundation_missing_only(self):
+        P.mapping_status = lambda: (True, "accepted")
+        R.AI_BANKS.mkdir(parents=True, exist_ok=True)
+        (R.AI_BANKS / "question_bank_ai_rmf_foundation.json").write_text(json.dumps({"subcategories": {"GOVERN 1.1": {}}}))
+        out = P.prepare_batch(self.inp, "foundation", [], "GOVERN", False, "t", missing_only=True)
         ids = [i["subcategory_id"] for i in json.loads(out.read_text())["items"]]
-        self.assertNotIn(sid, ids)
-        self.assertEqual(len(ids), len(self.subs) - 1)
+        self.assertEqual(len(ids), 18)                               # 19 GOVERN subcategories, one recorded
+        self.assertNotIn("GOVERN 1.1", ids)
+        out = P.prepare_batch(self.inp, "foundation", [], None, True, "all")
+        self.assertEqual(len(json.loads(out.read_text())["items"]), 31)   # GOVERN + the 12 foundation subcategories
+        with self.assertRaises(SystemExit):
+            P.prepare_batch(self.inp, "foundation", ["MAP 1.1"], None, False, "t")   # an area subcategory
 
     def test_accept_pilot(self):
         PL.AI_PILOT = self.tmp / "pilot_accepted.json"
         with self.assertRaises(SystemExit):
             PL.accept_pilot("too early")             # no bank has anything recorded yet
         self.assertFalse(PL.AI_PILOT.exists())
-        self.write_applicability(self.applicability())
-        sid = self.subs[0]
-        for bank in ("producer", "consumer"):
-            topic = self.inp["bank_cats"][bank][list(self.inp["bank_cats"][bank])[0]]["topic"]
-            cands = [self.candidate(sid, question_text=f"Describe variant {i} of {sid} in practice and who owns it, with evidence.",
-                                    topic=topic) for i in range(3)]
-            self.assertEqual(self.run_mode("candidates", {sid: {"status": "pass", "turns": 1, "candidates": cands}}, bank), 0)
+        self.assertEqual(self.run_mode("questions", {"GOVERN 1.1": {"status": "pass", "turns": 1, "questions": [
+            self.question("GOVERN 1.1")]}}, "foundation"), 0)
+        self.assertEqual(self.run_mode("questions", {"MAP 3.2": {"status": "pass", "turns": 1,
+                                                                 "questions": self.area_questions("MAP 3.2")}}, "areas"), 0)
         PL.accept_pilot("looks good")
         doc = json.loads(PL.AI_PILOT.read_text())
-        self.assertEqual(doc["recorded"], {"producer": 1, "consumer": 1})
-        self.assertEqual(set(doc["prompts"]), set(DEFAULT_PROMPTS["candidates"]))
+        self.assertEqual(doc["recorded"], {"areas": 1, "foundation": 1})
+        self.assertEqual(set(doc["prompts"]), set(DEFAULT_PROMPTS["questions"]))
         self.assertTrue(all(doc["prompts"].values()))
 
     def test_assemble_turns(self):
         def cands(n):
-            return [self.candidate("X", question_text=f"Describe variant {i} of the practice and who owns it, with evidence.") for i in range(n)]
+            return [self.question("X", i) for i in range(n)]
         def w(name, obj):
             (self.tmp / name).write_text(json.dumps(obj))
             return self.tmp / name
-        gen1 = w("g1.json", {"A": {"candidates": cands(3)}, "B": {"candidates": cands(4)}, "C": {"candidates": cands(3)}})
+        gen1 = w("g1.json", {"A": {"questions": cands(3)}, "B": {"questions": cands(4)}, "C": {"questions": cands(3)}})
         eval1 = w("e1.json", [{"subcategory_id": "B", "question_number": 2, "check": 1, "reason": "yes/no"},
                               {"subcategory_id": "C", "question_number": 1, "check": 4, "reason": "vague"}])
-        gen2 = w("g2.json", {"B": {"candidates": cands(4)}, "C": {"candidates": cands(3)}})
+        gen2 = w("g2.json", {"B": {"questions": cands(4)}, "C": {"questions": cands(3)}})
         eval2 = w("e2.json", [{"subcategory_id": "C", "question_number": 1, "check": 4, "reason": "still vague"}])
         out = self.tmp / "assembled.json"
         R.assemble(gen1, eval1, gen2, eval2, out)
@@ -181,55 +267,62 @@ import check_freshness as CF  # noqa: E402
 
 
 class Scope(unittest.TestCase):
-    """build_ai_questions.py on a synthetic bank (the real bank does not exist until the build)."""
+    """build_ai_questions.py on synthetic banks (the real banks do not exist until the build)."""
 
-    A, B, C, D, E = "GOVERN 1.1", "MEASURE 2.7", "MANAGE 2.3", "GOVERN 1.6", "MAP 1.1"
-
-    def cand(self, sid, text, **over):
-        c = {"question_text": f"Describe how your organisation handles {text} for {sid}, who owns it and what evidence exists.",
-             "playbook_ref": f"{sid} — suggested action 1", "cis_refs": [], "scope_tags": [], "capability": "base",
-             "topic": "governance"}
-        c.update(over)
-        return c
+    def q(self, text, roles, rows=None, flags=()):
+        q = {"question_text": f"For your highest-criticality AI systems, how is {text} handled, and who owns it?",
+             "playbook_refs": ["MAP 1.1 — suggested action 1"], "cis_refs": [], "roles": roles,
+             "producer_flags": list(flags)}
+        if rows is not None:
+            q["rows"] = rows
+        return q
 
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
-        A, B, C, D, E = self.A, self.B, self.C, self.D, self.E
-        bank = {"subcategories": {
-            A: {"categories": ["gov_accountability"], "status": "pass", "turns": 1,
-                "candidates": [self.cand(A, f"topic {i}") for i in range(3)]},
-            B: {"categories": ["data_exposure"], "status": "pass", "turns": 1,
-                "candidates": [self.cand(B, "data flows", topic="data_model"),
-                               self.cand(B, "retention", topic="data_model", scope_tags=["customer_facing"]),
-                               self.cand(B, "weights", topic="data_model", modifiers=["self_hosted"])]},
-            C: {"categories": ["ai_access_identity"], "status": "needs_human_review", "turns": 2,
-                "candidates": [self.cand(C, "tool permissions", topic="ai_access", capability="mcp"),
-                               self.cand(C, "agent approvals", topic="ai_access", capability="agentic")]},
-            D: {"categories": ["inventory_shadow_ai"], "status": "pass", "turns": 1,
-                "candidates": [self.cand(D, "shadow tools", modifiers=["unsanctioned_use"]), self.cand(D, "inventory")]},
-            E: {"categories": ["use_context_impact"], "status": "pass", "turns": 1,
-                "candidates": [self.cand(E, "intended use")]}}}
-        producer_cat = {"data_exposure": "model_assets_ip", "ai_access_identity": "ai_access_tools",
-                        "inventory_shadow_ai": "upstream_models", "use_context_impact": "intended_use_impact"}
+        m28 = lambda a: f"{a}|MEASURE 2.8"   # noqa: E731
+        foundation = {"subcategories": {
+            "GOVERN 1.1": {"status": "pass", "turns": 1, "questions": [
+                self.q("the AI policy", ["none", "consumer", "producer"]), self.q("model law", ["producer"])]},
+            "GOVERN 6.1": {"status": "pass", "turns": 1, "questions": [
+                self.q("vendor AI risk", ["consumer"]),
+                self.q("base model risk", ["producer"], flags=["built_on_existing_model"])]}}}
+        areas = {"subcategories": {
+            "MEASURE 2.8": {"status": "pass", "turns": 1, "rows_sha": "x",
+                            "rows": {m28("agent"): {"area": "agent", "impact": ["access", "process"]},
+                                     m28("mcp_tools"): {"area": "mcp_tools", "impact": ["access"]},
+                                     m28("model"): {"area": "model", "impact": ["assets"]},
+                                     m28("invisible_usage"): {"area": "invisible_usage", "impact": ["data"]}},
+                            "questions": [self.q("action logging", ["consumer", "producer"], [m28("agent"), m28("mcp_tools")]),
+                                          self.q("weights access logging", ["producer"], [m28("model")]),
+                                          self.q("shadow AI logging", ["none", "consumer", "producer"],
+                                                 [m28("invisible_usage")])]},
+            "MANAGE 2.4": {"status": "needs_human_review", "turns": 2, "review_reason": "Q1: vague", "rows_sha": "y",
+                           "rows": {"model_building|MANAGE 2.4": {"area": "model_building", "impact": ["assets"]}},
+                           "questions": [self.q("withdrawing a release", ["producer"], ["model_building|MANAGE 2.4"],
+                                                flags=["given_to_others"])]}}}
         self.banks = {}
-        for b in ("consumer", "producer"):
-            p = self.tmp / f"bank_{b}.json"
-            doc = json.loads(json.dumps(bank))
-            if b == "producer":
-                for sub in doc["subcategories"].values():
-                    sub["categories"] = [producer_cat.get(c, c) for c in sub["categories"]]
-            p.write_text(json.dumps(doc))
-            self.banks[b] = p
+        for name, doc in (("foundation", foundation), ("areas", areas)):
+            self.banks[name] = self.tmp / f"bank_{name}.json"
+            self.banks[name].write_text(json.dumps(doc))
+        real = BQ.ai_bank_path
         BQ.ai_bank_path = lambda b: self.banks[b]
+        self.addCleanup(setattr, BQ, "ai_bank_path", real)
         self.run = self.tmp / "run"
         self.run.mkdir()
+        self.names = {a["id"]: a["name"] for a in json.loads(AI_AREAS.read_text())["ai_areas"]}
 
     def profile(self, **over):
-        p = {"ai_in_use": "some", "role": "consumer", "rung": "base", "usage_contexts": ["internal"],
-             "modifiers": [], "engagement_flags": {"csf_assessment_done": True, "iso27001_held": False, "iso42001_held": False},
+        p = {"ai_in_use": "some", "role": "consumer", "producer": None,
+             "ai_areas": ["invisible_usage", "input", "output", "mcp_tools", "agent"],
+             "engagement_flags": {"csf_assessment_done": True, "iso27001_held": False, "iso42001_held": False},
              "captured_on": "2026-10-14"}
         p.update(over)
         return p
+
+    def producer(self, built=True, given=False, **over):
+        p = {"role": "producer", "producer": {"built_on_existing_model": built, "given_to_others": given},
+             "ai_areas": ["invisible_usage", "input", "output", "model_building", "model", "test_tuning_data"]}
+        return self.profile(**{**p, **over})
 
     def go(self, profile):
         (self.run / "ai_usage.json").write_text(json.dumps(profile))
@@ -240,73 +333,77 @@ class Scope(unittest.TestCase):
             return e.code
         return 0
 
-    def scope(self, bank="consumer"):
-        return {e["subcategory_id"]: e for e in json.loads((self.run / "ai_scope.json").read_text())["banks"][bank]}
+    def asked(self, bank):
+        """{subcategory: [question text fragment]} of the draft."""
+        d = json.loads((self.run / f"ai_questions_draft_{bank}.json").read_text())
+        return {e["subcategory_id"]: [q["question_text"].split(" how is ")[1].split(" handled")[0] for q in e["questions"]]
+                for e in d}
 
-    def draft(self, bank="consumer"):
-        return {e["subcategory_id"]: e for e in json.loads((self.run / f"ai_questions_draft_{bank}.json").read_text())}
-
-    def test_gap_at_topic_level_and_filters(self):
+    def test_consumer_gets_its_roles_and_areas_with_a_covers_note(self):
         self.assertEqual(self.go(self.profile()), 0)
-        s, d = self.scope(), self.draft()
-        self.assertEqual(s[self.A]["question_type"], "full_discovery")   # governance topic
-        self.assertEqual(s[self.B]["question_type"], "gap")              # CSF done, data_model
-        self.assertTrue(d[self.B]["questions"][0]["question_text"].startswith("General security controls (CSF assessment)"))
-        texts = " ".join(q["question_text"] for q in d[self.B]["questions"])
-        self.assertNotIn("retention", texts)   # customer_facing candidate dropped for an internal-only org
-        self.assertNotIn("weights", texts)     # self_hosted candidate dropped: modifier not held
-        self.assertNotIn(self.C, d)            # mcp/agentic candidates dropped at the base rung: no fallback invented
-        self.assertEqual(len(d[self.A]["questions"]), 3)
+        self.assertEqual(self.asked("foundation"), {"GOVERN 1.1": ["the AI policy"], "GOVERN 6.1": ["vendor AI risk"]})
+        self.assertEqual(self.asked("areas"), {"MEASURE 2.8": ["action logging", "shadow AI logging"]})
+        e = json.loads((self.run / "ai_questions_draft_areas.json").read_text())[0]
+        shared, single = e["questions"]
+        self.assertEqual(shared["applies_to"], f"This question covers: {self.names['mcp_tools']}; {self.names['agent']}"
+                         if shared["rows"][0].startswith("mcp") else
+                         f"This question covers: {self.names['agent']}; {self.names['mcp_tools']}")
+        self.assertEqual(single["applies_to"], self.names["invisible_usage"])
+        ev = json.loads(BQ.AI_EVIDENCE_PROMPTS.read_text())
+        self.assertEqual(shared["evidence_prompt"], " ".join([ev["by_impact"]["access"], ev["by_impact"]["process"]]))
+        self.assertEqual(e["question_type"], "full_discovery")
+        f = json.loads((self.run / "ai_questions_draft_foundation.json").read_text())
+        self.assertTrue(all(q["applies_to"] == "Whole organisation" for x in f for q in x["questions"]))
 
-    def test_rung_modifiers_and_review_flag(self):
-        self.assertEqual(self.go(self.profile(rung="agentic", usage_contexts=["customer_facing"], modifiers=["self_hosted"])), 0)
-        d = self.draft()
-        self.assertEqual(len(d[self.C]["questions"]), 2)
-        self.assertTrue(d[self.C]["confidence_flag"].startswith("LOW"))
-        self.assertEqual(d[self.B]["questions"][0]["question_text"].count("retention"), 1)  # tag match ranks first
-        self.assertEqual(len(d[self.B]["questions"]), 3)
+    def test_a_shared_question_names_only_the_clients_areas(self):
+        self.assertEqual(self.go(self.profile(ai_areas=["invisible_usage", "input", "output", "agent"])), 0)
+        e = json.loads((self.run / "ai_questions_draft_areas.json").read_text())[0]
+        self.assertEqual(e["questions"][0]["applies_to"], f"This question covers: {self.names['agent']}")
+        self.assertEqual(e["questions"][0]["rows"], ["agent|MEASURE 2.8"])
 
-    def test_no_flags_means_full_discovery(self):
-        flags = {"csf_assessment_done": False, "iso27001_held": False, "iso42001_held": True}
-        self.assertEqual(self.go(self.profile(engagement_flags=flags)), 0)
-        self.assertEqual(self.scope()[self.B]["question_type"], "full_discovery")  # 42001 does not relax anything
+    def test_producer_flags_pick_the_flagged_questions(self):
+        self.assertEqual(self.go(self.producer(built=True, given=False)), 0)
+        self.assertEqual(self.asked("foundation"), {"GOVERN 1.1": ["the AI policy", "model law"],
+                                                    "GOVERN 6.1": ["base model risk"]})
+        self.assertEqual(self.asked("areas"), {"MEASURE 2.8": ["weights access logging", "shadow AI logging"]})
+        self.assertEqual(self.go(self.producer(built=False, given=True)), 0)
+        self.assertEqual(self.asked("foundation"), {"GOVERN 1.1": ["the AI policy", "model law"]})
+        d = {e["subcategory_id"]: e for e in json.loads((self.run / "ai_questions_draft_areas.json").read_text())}
+        self.assertIn("MANAGE 2.4", d)
+        self.assertTrue(d["MANAGE 2.4"]["confidence_flag"].startswith("LOW"))
 
-    def test_none_keeps_only_the_shadow_ai_check(self):
-        self.assertEqual(self.go(self.profile(ai_in_use="none", role=None, rung=None, usage_contexts=[])), 0)
-        s, d = self.scope(), self.draft()
-        self.assertEqual({k for k, v in s.items() if v["question_type"] != "skip"}, {self.D})
-        self.assertEqual(list(d), [self.D])
-        self.assertEqual(len(d[self.D]["questions"]), 1)   # only the unsanctioned_use candidate
-        self.assertIn("No AI use declared", d[self.D]["usage_note"])
+    def test_both_gets_consumer_and_producer_questions(self):
+        p = self.producer(built=True, given=False, role="both")
+        p["ai_areas"] += ["agent", "mcp_tools"]
+        self.assertEqual(self.go(p), 0)
+        self.assertEqual(self.asked("foundation")["GOVERN 6.1"], ["vendor AI risk", "base model risk"])
+        self.assertEqual(self.asked("areas")["MEASURE 2.8"], ["action logging", "weights access logging", "shadow AI logging"])
 
-    def test_unsure_discovers_first(self):
-        self.assertEqual(self.go(self.profile(ai_in_use="unsure", role=None, rung=None, usage_contexts=[])), 0)
-        s = self.scope()
-        self.assertEqual(s[self.D]["question_type"], "full_discovery")
-        self.assertEqual(s[self.E]["state"], "forced")       # MAP function forced
-        self.assertEqual(s[self.B]["question_type"], "gap")   # topic policy still applies
-        self.assertEqual(self.scope()[self.A]["usage_note"], "AI use unconfirmed: discover what AI is in use before assuming any")
-
-    def test_role_both_writes_both_banks(self):
-        self.assertEqual(self.go(self.profile(role="both", modifiers=["builds_on_base_model"])), 0)
-        self.assertTrue((self.run / "ai_questions_draft_producer.json").is_file())
-        self.assertTrue((self.run / "ai_questions_draft_consumer.json").is_file())
+    def test_none_and_unsure(self):
+        self.assertEqual(self.go(self.profile(ai_in_use="none", role=None, ai_areas=["invisible_usage"])), 0)
+        self.assertEqual(self.asked("foundation"), {"GOVERN 1.1": ["the AI policy"]})
+        self.assertEqual(self.asked("areas"), {"MEASURE 2.8": ["shadow AI logging"]})
+        self.assertEqual(self.go(self.profile(ai_in_use="unsure", role=None,
+                                              ai_areas=["invisible_usage", "input", "output"])), 0)
+        self.assertEqual(self.asked("foundation"), {"GOVERN 1.1": ["the AI policy"], "GOVERN 6.1": ["vendor AI risk"]})
+        scope = json.loads((self.run / "ai_scope.json").read_text())
+        self.assertEqual(scope["roles_asked_as"], ["none", "consumer"])
 
     def test_ai_draft_goes_through_the_existing_assessor_patch_merge(self):
         import record_judgements as RJ
         self.assertEqual(self.go(self.profile()), 0)
-        draft = json.loads((self.run / "ai_questions_draft_consumer.json").read_text())
+        draft = json.loads((self.run / "ai_questions_draft_areas.json").read_text())
         changed = json.loads(json.dumps(draft[0]))
         changed["questions"][0]["question_text"] += " Who signs off?"
         changed["assessor_note"] = "Added an ownership prompt."
         (self.run / "patch.json").write_text(json.dumps([changed]))
-        RJ.log_run_step([str(self.run), "--step", "ai_assessor_consumer", "--base", "ai_questions_draft_consumer.json",
-                         "--patch", "patch.json", "--output", "ai_questions_assessed_consumer.json", "--model", "test"])
-        merged = json.loads((self.run / "ai_questions_assessed_consumer.json").read_text())
+        RJ.log_run_step([str(self.run), "--step", "ai_assessor_areas", "--base", "ai_questions_draft_areas.json",
+                         "--patch", "patch.json", "--output", "ai_questions_assessed_areas.json", "--model", "test"])
+        merged = json.loads((self.run / "ai_questions_assessed_areas.json").read_text())
         self.assertEqual(len(merged), len(draft))
         self.assertEqual(merged[0]["assessor_note"], "Added an ownership prompt.")
-        self.assertTrue(list((self.run / "judgement_log").glob("*ai_assessor_consumer.json")))
-        # one workbook for the client: the CSF sheet first, then one AI sheet holding both banks with a Role column
+        self.assertTrue(list((self.run / "judgement_log").glob("*ai_assessor_areas.json")))
+        # one workbook for the client: the CSF sheet first, then one AI sheet holding both banks with an Area column
         import openpyxl
         import write_questionnaire as WQ
         csf = [{"subcategory_id": "GV.RM-01", "function": "GV", "outcome": "o", "question_type": "full_discovery",
@@ -314,14 +411,7 @@ class Scope(unittest.TestCase):
                 "evidence_prompt": "ep", "confidence_flag": ""}]
         (self.run / "csf_final.json").write_text(json.dumps(csf))
         out = self.run / "questionnaire.xlsx"
-        self.assertEqual(self.go(self.profile(role="both", modifiers=["builds_on_base_model"])), 0)
-        finals = []
-        for bank in ("consumer", "producer"):
-            entries = json.loads((self.run / f"ai_questions_draft_{bank}.json").read_text())
-            self.assertTrue(all(e["bank"] == bank for e in entries))
-            f = self.run / f"ai_final_{bank}.json"
-            f.write_text(json.dumps(entries))
-            finals.append(str(f))
+        finals = [str(self.run / f"ai_questions_draft_{b}.json") for b in ("areas", "foundation")]
         for argv in (["x", str(self.run / "csf_final.json"), str(out)],
                      ["x", *finals, str(out), "--framework", "ai"],
                      ["x", *finals, str(out), "--framework", "ai"]):   # the last call replaces the AI sheet
@@ -331,28 +421,36 @@ class Scope(unittest.TestCase):
         self.assertEqual(wb.sheetnames, ["CSF Questionnaire", "AI RMF Questionnaire"])
         ws = wb["AI RMF Questionnaire"]
         header = [c.value for c in ws[1]]
-        roles = {row[header.index("Role")].value for row in ws.iter_rows(min_row=2)}
-        self.assertEqual(roles, {"producer", "consumer"})
-        rows = [(r[1].value, r[2].value) for r in ws.iter_rows(min_row=2)]
-        self.assertEqual(rows, sorted(rows, key=lambda t: (t[0], t[1] != "producer")))   # sorted, producer before consumer
+        area = [row[header.index("Area")].value for row in ws.iter_rows(min_row=2)]
+        self.assertEqual(area[0], "Whole organisation")                   # GOVERN (foundation) first
+        self.assertTrue(any(a.startswith("This question covers:") for a in area))
+        self.assertNotIn("Rung", header)
         sys.argv = ["x", str(self.run / "csf_final.json"), finals[0], str(out)]
         with self.assertRaises(SystemExit):   # csf mode takes exactly one question file
             WQ.main()
 
-    def test_bank_with_unknown_category_fails_loudly(self):
-        doc = json.loads(self.banks["consumer"].read_text())
-        doc["subcategories"][self.A]["categories"] = ["removed_category"]
-        self.banks["consumer"].write_text(json.dumps(doc))
-        self.assertIn("rebuild the bank", str(self.go(self.profile())))
+    def test_gap_flags_only_print_a_note(self):
+        import io
+        from contextlib import redirect_stderr
+        err = io.StringIO()
+        with redirect_stderr(err):
+            self.assertEqual(self.go(self.profile()), 0)
+        self.assertIn("not built yet", err.getvalue())
+        d = json.loads((self.run / "ai_questions_draft_areas.json").read_text())
+        self.assertTrue(all(e["question_type"] == "full_discovery" for e in d))
+
+    def test_missing_bank_fails(self):
+        self.banks["areas"].unlink()
+        self.assertEqual(self.go(self.profile()) != 0, True)
         self.assertFalse((self.run / "ai_scope.json").exists())
 
     def test_invalid_profiles_are_rejected_and_write_nothing(self):
-        for bad in (self.profile(ai_in_use="maybe"), self.profile(rung="llm"), self.profile(role=None),
-                    self.profile(usage_contexts=["mobile"]), self.profile(modifiers=["builds_on_base_model"]),
+        for bad in (self.profile(ai_in_use="maybe"), self.profile(role=None), self.profile(role="vendor"),
+                    self.profile(ai_areas=["mobile"]), self.profile(producer={"built_on_existing_model": True}),
+                    self.producer(producer=None), self.profile(ai_in_use="none", role="consumer"),
                     self.profile(engagement_flags={"csf_assessment_done": True})):
             self.assertEqual(self.go(bad), 1, bad)
             self.assertFalse((self.run / "ai_scope.json").exists())
-
 
 
 class Mapping(unittest.TestCase):
@@ -594,7 +692,11 @@ class FreshnessGate(unittest.TestCase):
             (self.src / name).write_text(f"content of {name}")
         CF.AI_SOURCE, CF.AI_CIS_CSF_XLSX = self.src, self.src / "mapping.xlsx"
         CF.AI_CORE, CF.AI_SAFEGUARDS = self.tmp / "core.json", self.tmp / "sg.json"
-        CF.AI_APPLICABILITY = self.tmp / "app.json"
+        self.want = 2                             # subcategories a complete bank must hold (stubbed)
+        real_completeness = CF.bank_completeness
+        CF.bank_completeness = lambda bank, doc: ((len(doc["subcategories"]) >= self.want),
+                                                  f"{len(doc['subcategories'])} of {self.want}")
+        self.addCleanup(setattr, CF, "bank_completeness", real_completeness)
         CF.AI_BANKS, CF.CSF_IMPACT_NOTES = self.tmp / "banks", self.tmp / "notes.json"
         CF.AI_PILOT = self.tmp / "pilot.json"
         real_mapping_status = CF.mapping_status   # the mapping gate has its own test (test_sheet_io.py)
@@ -609,7 +711,7 @@ class FreshnessGate(unittest.TestCase):
 
     def accept_pilot(self):
         CF.AI_PILOT.write_text(json.dumps({"accepted_on": "2026-10-14", "prompts": {
-            p: self.audit.sha(REPO_ROOT / p) for p in DEFAULT_PROMPTS["candidates"]}}))
+            p: self.audit.sha(REPO_ROOT / p) for p in DEFAULT_PROMPTS["questions"]}}))
 
     def build_everything(self, applicable=2, recorded=2):
         self.mapping_ok = True
@@ -617,9 +719,8 @@ class FreshnessGate(unittest.TestCase):
         g = {k: self.sha(self.files[k]) for k in ("LLM", "MCP", "AGENT")}
         CF.AI_CORE.write_text(json.dumps({"source_sha256_16": pb}))
         CF.AI_SAFEGUARDS.write_text(json.dumps({"sources": {k: {"sha256_16": v} for k, v in g.items()}}))
-        subs = {f"S{i}": {"producer": ["c"], "consumer": ["c"]} for i in range(applicable)}
-        CF.AI_APPLICABILITY.write_text(json.dumps({"subcategories": subs}))   # bank completeness, until step 4
-        for bank in ("producer", "consumer"):
+        self.want = applicable
+        for bank in ("foundation", "areas"):
             (CF.AI_BANKS / f"question_bank_ai_rmf_{bank}.json").write_text(json.dumps({
                 "playbook_sha256_16": pb, "guide_sha256_16": g, "subcategories": {f"S{i}": {} for i in range(recorded)},
                 "summary": {"needs_human_review": 1}}))
@@ -643,14 +744,14 @@ class FreshnessGate(unittest.TestCase):
     def test_incomplete_bank(self):
         self.build_everything(applicable=3, recorded=2)
         s = {stage: (ok, text) for stage, ok, text in CF.ai_stages()}
-        self.assertFalse(s["bank consumer"][0])
-        self.assertIn("2 of 3", s["bank consumer"][1])
+        self.assertFalse(s["bank areas"][0])
+        self.assertIn("2 of 3", s["bank areas"][1])
 
     def test_a_changed_guide_makes_only_its_dependents_stale(self):
         self.build_everything()
         (self.src / self.files["LLM"]).write_text("changed")
         s = self.states()
-        self.assertFalse(s["parse"] or s["bank producer"] or s["bank consumer"])
+        self.assertFalse(s["parse"] or s["bank foundation"] or s["bank areas"])
         self.assertTrue(s["notes"])   # notes use only the MCP and agents guides
 
     def test_missing_source_stops_everything(self):
@@ -675,7 +776,7 @@ class FreshnessGate(unittest.TestCase):
         self.assertFalse(self.states()["pilot"])
         self.accept_pilot()
         doc = json.loads(CF.AI_PILOT.read_text())
-        doc["prompts"][DEFAULT_PROMPTS["candidates"][0]] = "0" * 16   # the generator prompt was edited after acceptance
+        doc["prompts"][DEFAULT_PROMPTS["questions"][0]] = "0" * 16   # the generator prompt was edited after acceptance
         CF.AI_PILOT.write_text(json.dumps(doc))
         stages = {s: (ok, text) for s, ok, text in CF.ai_stages()}
         self.assertFalse(stages["pilot"][0])

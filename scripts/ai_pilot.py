@@ -27,7 +27,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from paths import (AI_BANKS, AI_BUILD, AI_CORE, AI_MAPPING, AI_MAPPING_ACCEPTED, AI_MAPPING_XLSX, AI_PILOT,  # noqa: E402
                    AI_SAFEGUARDS, REPO_ROOT)
-from ai_bank_common import BANKS, DEFAULT_PROMPTS, load_json  # noqa: E402
+from ai_bank_common import DEFAULT_PROMPTS, load_json  # noqa: E402
+from options import AI_QUESTION_BANKS as BANKS  # noqa: E402
 import audit  # noqa: E402
 
 
@@ -37,7 +38,7 @@ def pilot_status(pilot_file: Path | None = None) -> tuple[bool, str]:
     pilot = json.loads(pilot_file.read_text()) if pilot_file.is_file() else None
     if pilot is None:
         return False, "missing (run /build-ai-bank and review the pilot)"
-    same = pilot["prompts"] == {p: audit.sha(REPO_ROOT / p) for p in DEFAULT_PROMPTS["candidates"]}
+    same = pilot["prompts"] == {p: audit.sha(REPO_ROOT / p) for p in DEFAULT_PROMPTS["questions"]}
     return same, (f"accepted {pilot['accepted_on']}" if same
                   else "stale (generator or evaluator prompt changed since the pilot was accepted)")
 
@@ -50,7 +51,7 @@ def accept_pilot(note: str | None) -> str:
         recorded[bank] = len(load_json(path, path.name)["subcategories"]) if path.is_file() else 0
     if not all(recorded.values()):
         sys.exit(f"[ai_pilot] ERROR: run the pilot first; recorded subcategories per bank: {recorded}")
-    prompts = DEFAULT_PROMPTS["candidates"]
+    prompts = DEFAULT_PROMPTS["questions"]
     AI_PILOT.write_text(json.dumps({
         "accepted_on": date.today().isoformat(), "note": note, "recorded": recorded,
         "prompts": {p: audit.sha(REPO_ROOT / p) for p in prompts}}, indent=2, ensure_ascii=False))
@@ -146,7 +147,7 @@ def main():
     ev = audit.begin(AI_BUILD / "audit.jsonl", "accept_pilot", {"note": args.note}, actor="human")
     line = accept_pilot(args.note)
     print(f"[ai_pilot] {line}")
-    ev.finish(inputs=[REPO_ROOT / p for p in DEFAULT_PROMPTS["candidates"]], outputs=[AI_PILOT], detail=line)
+    ev.finish(inputs=[REPO_ROOT / p for p in DEFAULT_PROMPTS["questions"]], outputs=[AI_PILOT], detail=line)
 
 
 if __name__ == "__main__":

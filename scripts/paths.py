@@ -30,12 +30,9 @@ AI_PILOT = AI / "bank_build" / "pilot_accepted.json"  # written by ai_pilot.py a
 AI_CORE = AI / "ai_rmf_core.json"        # 72 subcategories + Playbook suggested actions (parse_ai_rmf_sources.py)
 AI_SAFEGUARDS = AI / "cis_ai_safeguards.json"   # CIS companion guide safeguards (parse_ai_rmf_sources.py)
 AI_PARSE_CONFIG = AI / "parse_config.json"      # expected counts and source file names for the parser
-AI_CATEGORIES = AI / "question_categories.json" # question categories per bank (content)
-AI_APPLICABILITY = AI / "applicability.json"    # REMOVED 2026-10-22 (replaced by AI_MAPPING); still named by the
-                                                # batch / candidates code until TODO step 4 rewires it
 AI_SCOPE_RULES = AI / "scope_rules.json"        # engagement-time policy for the AI RMF questionnaire
-AI_EVIDENCE_PROMPTS = AI / "evidence_prompts.json"  # evidence hint per question topic
-AI_BANKS = AI / "banks"                  # question_bank_ai_rmf_<producer|consumer>.json
+AI_EVIDENCE_PROMPTS = AI / "evidence_prompts.json"  # evidence hint per question (foundation, or by impact)
+AI_BANKS = AI / "banks"                  # question_bank_ai_rmf_<foundation|areas>.json
 AI_BUILD = AI / "bank_build"             # audit.jsonl, pending/verdict files, judgement_log/
 AI_CIS_CSF_XLSX = AI_SOURCE / "CIS_Controls_v8.1_Mapping_to_NIST_CSF_v2.0_2024-06-24.xlsx"
 CSF_IMPACT_NOTES = CSF / "ai_impact_notes.json"  # AI-world notes per CSF subcategory (Step 5)
@@ -46,6 +43,7 @@ AI_MAPPING_RULES = AI / "mapping_rules.json"   # candidate CIS controls per AI a
 AI_MAPPING = AI / "mapping.json"         # AI area x AI RMF function -> subcategory, CIS safeguards, impact (record_ai_bank.py)
 AI_MAPPING_XLSX = AI_AUTHORING / "mapping.xlsx"   # the mapping for review: one line per area x subcategory (sheet_io.py)
 AI_MAPPING_ACCEPTED = AI / "bank_build" / "mapping_accepted.json"   # written by ai_pilot.py accept-mapping
+AI_QUESTION_RULES = AI / "question_rules.json"   # question banks: roles, producer flags, impacts (step 4)
 SHEET_SPECS = COMMON / "sheet_specs.json"   # columns and allowed values of every spreadsheet sheet_io.py converts
 
 # Which folder each crosswalk file lives in (also used to resolve metadata.json keys)

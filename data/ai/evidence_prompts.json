@@ -1,11 +1,12 @@
 {
-  "description": "Evidence an assessor asks for, by AI RMF question topic (topics are defined in question_categories.json). build_ai_questions.py copies the matching line into each entry as evidence_prompt; the assessor sharpens it per subcategory.",
-  "by_topic": {
-    "governance": "AI policy or standard, AI inventory or register with owners and approvals, role descriptions, risk register entries, impact assessments, vendor contracts or DPAs, model cards or release records, minutes of review decisions.",
-    "data_model": "Data classification rules for AI inputs, data-flow diagram showing what reaches the model and retrieval stores, retention and training opt-out settings, access list for model artifacts, weights and prompts, provenance records.",
-    "infra": "Hosting inventory (endpoint, enterprise, SaaS), shared-responsibility notes, network and secrets configuration for model hosts, environment separation, provider assurance reports.",
-    "reliability": "Test and evaluation reports, guardrail or filter configuration, monitoring dashboards and alert thresholds, incident tickets and post-incident reviews, rollback or suspension procedure and its last exercise.",
-    "ai_access": "List of AI tools, agents and MCP servers with the identity each uses, permission scopes, human-approval rules for write or irreversible actions, tool and server vetting records, audit logs of AI actions."
+  "description": "Evidence an assessor asks for, per AI RMF question. build_ai_questions.py gives a foundation question the foundation line and an area question the lines of the impacts of the rows it covers for the client (impacts are defined in question_rules.json); the assessor sharpens it per question.",
+  "foundation": "AI policy or standard and how staff are told about it, AI inventory or register with owners, criticality and approvals, role descriptions, risk register entries, impact assessments, vendor contracts or DPAs, minutes of review decisions.",
+  "by_impact": {
+    "data": "Data classification rules for AI inputs and sources, data-flow diagram showing what reaches the model and retrieval stores, retention and training opt-out settings, provenance records, access lists for data stores.",
+    "access": "List of AI tools, agents and MCP servers with the identity each uses, permission scopes, human-approval rules for write or irreversible actions, vetting records, audit logs of AI actions.",
+    "process": "Test and evaluation reports, review and override records for AI-assisted decisions, monitoring dashboards and alert thresholds, incident tickets and post-incident reviews, rollback or suspension procedure and its last exercise.",
+    "assets": "Inventory of models, code and hosting, access list for model weights and artifacts, environment separation, network and secrets configuration for model hosts, release and version records, provider assurance reports.",
+    "people": "Recourse and complaint channel for people affected by AI output, bias and fairness test results, notices that AI is in use, records of challenged or overturned decisions."
   },
   "default": "Policy document, register or log extract, or a named process owner who can describe the practice."
 }
