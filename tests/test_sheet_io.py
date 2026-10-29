@@ -399,6 +399,27 @@ class QuestionSheets(unittest.TestCase):
         self.assertNotIn("review_reason", e)
         self.assertIn("traced", e["questions"][0]["question_text"])
 
+    def test_each_line_shows_only_its_own_evaluator_reason(self):
+        js = self.files["areas"][2]
+        doc = json.loads(js.read_text())
+        doc["subcategories"]["MEASURE 2.8"]["review_reason"] = "Q2: chained; Q0: nothing asks retention; Q3: wrong action"
+        js.write_text(json.dumps(doc))
+        S.export_sheet(self.files["areas"][0], self.files["areas"][1], js, self.tmp / "audit.jsonl", force=True)
+        _, ws, heads = self.sheet("areas")
+        cell = lambda line, h: ws.cell(row=line + 1, column=heads.index(h) + 1).value or ""   # noqa: E731
+        self.assertEqual((cell(1, "Status"), cell(1, "Evaluator's reason")),
+                         ("needs_human_review", "Whole subcategory: nothing asks retention"))
+        self.assertEqual(cell(2, "Evaluator's reason"), "chained\nWhole subcategory: nothing asks retention")
+        self.assertEqual(self.do_import("areas"), 0)                     # the round trip changes nothing
+        self.assertNotIn("decided_by", self.bank("areas")["MEASURE 2.8"])
+        for line in range(1, ws.max_row):                                # pass the whole-subcategory failure and Q2
+            if line != 3:
+                self.edit("areas", line, Status="pass")
+        self.assertEqual(self.do_import("areas"), 0)
+        e = self.bank("areas")["MEASURE 2.8"]
+        self.assertEqual((e["status"], e["review_reason"], e["decided_by"]),
+                         ("needs_human_review", "Q0: nothing asks retention; Q3: wrong action", "human"))
+
     def test_a_shared_question_can_be_split_by_adding_a_line(self):
         _, ws, heads = self.sheet("areas")
         line = next(n for n in range(1, ws.max_row)

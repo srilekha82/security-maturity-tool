@@ -95,7 +95,8 @@ user's decisions (rows decided_by human, lines they removed).
 Two banks, built the same way: **foundation** (GOVERN and the 12 foundation subcategories of
 `data/ai/mapping_rules.json`; questions per subcategory from the Playbook, each tagged with the roles it is asked of:
 none, consumer, producer) and **areas** (one item per subcategory with every AI area's mapping row on it; each row is
-asked exactly once per role its area allows, and rows that would get the same question share one). Use Sonnet
+asked once per role its area allows, or twice when its check holds two practices, and rows that would get the same
+question share one). Use Sonnet
 (`model: "sonnet"`) for the generator and the evaluator.
 
 Ask the user: **pilot** (a few subcategories the user agrees to, then stop for review) or **full** (all subcategories
@@ -133,7 +134,7 @@ Work files go under `data/ai/bank_build/work/` (create it; delete the files once
    .venv/bin/python ./scripts/record_ai_bank.py questions <foundation|areas> data/ai/bank_build/work/<tag>_record.json \
        --model <generator model id> --session "evaluator=<evaluator model id>"
    ```
-   If `questions` lists problems (a row not asked, or asked twice, for a role; a role the area does not allow; a
+   If `questions` lists problems (a row not asked, or asked more than twice, for a role; a role the area does not allow; a
    safeguard not of the row; a fold not cited; a foundation subcategory without a consumer or producer question), send
    them back to the generator and repeat; nothing is stored until it passes. A subcategory the user decided in the
    review sheet is refused: leave it out of the batch, or add `--replace-human` only if the user agreed.

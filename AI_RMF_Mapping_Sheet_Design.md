@@ -145,6 +145,9 @@ Assessing per AI system (AI RMF GOVERN 1.6 inventory, MAP 1.1 context per system
 question once per system. The areas already describe what systems are made of, so:
 - **Inventory in the foundation (GOVERN 1.6):** one question lists the client's AI systems, each with its AI areas and
   its criticality (the standard question above: financial, reputational, safety). This is the only per-system question.
+  It is answered in its own "AI systems" sheet of the questionnaire (decided 2026-10-29, so it reads as a table): one
+  row per system, a Yes column per AI area by its client label, and a drop-down per criticality band
+  (`question_rules.json` `ai_system_inventory`). The question only points to the sheet.
 - **Area questions are asked once per area x subcategory** and written proportionate to criticality: "for your
   highest-criticality AI systems, ...", with the example taken from the system that ranks highest in the inventory.
 - **Maturity ladder (GOVERN 1.3, risk management proportionate to risk):** low = no difference between systems;
@@ -205,17 +208,26 @@ mapping rows changed is shown incomplete by the freshness check).
   subcategory with mapping rows, the questions for those rows. Every question carries `roles` (`none`, `consumer`,
   `producer`) and `producer_flags` (`built_on_existing_model`, `given_to_others`), defined in
   `data/ai/question_rules.json`. This replaced the producer and consumer banks.
-- **Area questions.** Each mapping row is asked by exactly one question per role its area allows (the area's applies
-  to, plus `none` for invisible AI usage, which every client gets). Written from the row's why, proportionate to
-  criticality ("for your highest-criticality AI systems, ..."), never once per AI system. A row with folded
+- **Area questions.** Each mapping row is asked by one question per role its area allows (the area's applies to, plus
+  `none` for invisible AI usage, which every client gets), or by two when its why holds two different practices
+  (`question_rules.json` `row_questions`, decided 2026-10-29 after the pilot squeezed such rows into one chained
+  question). A question asks the core of the row's why: one practice, details only as "for example", no purpose
+  clauses, at most one short follow-up. Proportionate to criticality ("for your highest-criticality AI systems,
+  ..."), optional for code generation and vendor AI (`criticality_frame_optional`), never once per AI system. A row with folded
   subcategories also asks their outcomes. One question per role only where good practice differs (a producer
   controls training, a consumer only what it accepts); a flag only when the whole row applies only to producers with
   it.
 - **Similar rows share one question, no cap.** The generator's batch is one item per subcategory with every area's row
   on it, so it writes one question for rows that would get the same question and lists their row ids. A shared
   question names no area and must read correctly for each area alone; the questionnaire shows "This question covers:
-  <the client's areas>" (`scope_rules.json` `covers_note`), and the one answer counts for every row it covers.
-- **Foundation questions.** At least one consumer and one producer question without flags per subcategory (both are
+  <the client's areas>" (`scope_rules.json` `covers_note`), and the one answer counts for every row it covers. Rows
+  share only when they check the same single practice; the shared question does not add up each row's details.
+- **Client labels** (`data/ai/area_client_labels.json`, decided 2026-10-29): area id -> the plain label the client
+  sees (covers note, Area column, the GOVERN 1.6 inventory question). Ids and names stay for SMEs, agents and
+  scripts; a label is client text only and never makes the mapping or a bank stale.
+- **Foundation questions.** 1 to 4 per subcategory, plus one asked of producers only where their practice really
+  differs (decided 2026-10-29 for GOVERN 1.2: standards for training their own models); a consumer is never asked more
+  than 4. At least one consumer and one producer question without flags per subcategory (both are
   scored on all 72). `none` only for the AI policy and shadow-AI discovery. A policy is asked as practice: where it is
   kept and how the people it applies to come to know it and its changes, never whether it exists. GOVERN 1.6 is the
   AI system inventory, the one per-system question (areas and criticality per system, section 4).

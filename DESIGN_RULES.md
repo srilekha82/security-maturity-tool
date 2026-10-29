@@ -59,8 +59,8 @@ not needed to run the flows (`CLAUDE.md` covers that). `README.md` explains the 
   questions per foundation subcategory (GOVERN and `mapping_rules.json` `foundation.subcategories`), the area bank
   questions per mapping row (a question may stand for several rows of the same subcategory, and then names no area).
   Every question carries the roles it is asked of (`none` / `consumer` / `producer`) and any producer flags
-  (`question_rules.json`); `record_ai_bank.py questions` checks that every row is asked exactly once per role its area
-  allows. `build_ai_questions.py` picks a client's questions by role, producer flags and AI areas only; it never
+  (`question_rules.json`); `record_ai_bank.py questions` checks that every row is asked once (twice at most, when its why
+  holds two practices) per role its area allows. `build_ai_questions.py` picks a client's questions by role, producer flags and AI areas only; it never
   ranks or rewrites. Area questions are asked once, proportionate to criticality, never per AI system. There is no
   gap rule on the AI side (decided 2026-10-29): every AI question is about AI (an AI area, or AI in the organisation), so it never repeats the general security the CSF sheet or ISO 27001 assesses, whatever the
   client's ISO 27001 SoA excludes; every AI question is `full_discovery` and the engagement flags change nothing. The

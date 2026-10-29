@@ -1,0 +1,71 @@
+{
+  "recorded_at": "2026-10-29T15:36:46.834807+00:00",
+  "step": "record_ai_bank_questions",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5; re-pilot 2026-10-29",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_question_generator.md",
+      "sha": "635d6f8f8e4ceda7"
+    },
+    {
+      "path": "prompts/ai_rmf_question_evaluator.md",
+      "sha": "a0659ae67dc3bd61"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/pilotf2_record.json",
+    "sha": "f2b184c6fc3e82a9"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_foundation.json",
+    "sha": "cf68bf71c677f3a4"
+  },
+  "output_snapshot": {
+    "GOVERN 6.1": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "Where are your rules for using third-party AI systems and data kept, and how do the people they apply to come to know them and any changes (for example onboarding, training or announcements)?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 6.1 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "Before you start using a third-party AI system or data source, how do you check and test it? Who approves it?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 6.1 — suggested action 3",
+            "GOVERN 6.1 — suggested action 4",
+            "GOVERN 6.1 — suggested action 5"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do you check that using third-party AI and data does not infringe someone else's intellectual property or other rights, for example licence terms, contract clauses or legal review? Who is responsible?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 6.1 — suggested action 7"
+          ],
+          "cis_refs": []
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,387 @@
+{
+  "recorded_at": "2026-10-29T07:59:53.328472+00:00",
+  "step": "record_ai_bank_questions",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5; pilot 2026-10-29",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_question_generator.md",
+      "sha": "e8f3e75dbd2836c2"
+    },
+    {
+      "path": "prompts/ai_rmf_question_evaluator.md",
+      "sha": "ce62149141f0c65b"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/pilota_record.json",
+    "sha": "d4e2d0af96a1ae1e"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_areas.json",
+    "sha": "b2de7ad7fd3d62db"
+  },
+  "output_snapshot": {
+    "MAP 1.4": {
+      "status": "pass",
+      "turns": 1,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how is the business value of using the AI defined for each process or product it supports, including which decisions, answers and data depend on its output? Who owns that definition, and where is it recorded?",
+          "rows": [
+            "internal_process|MAP 1.4",
+            "customer_facing|MAP 1.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.4 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For the AI features your vendors and products run on your data, how do you decide and record what business purpose they serve, and what data of yours they use to deliver it? How often is that re-checked, for example when a vendor adds or changes an AI feature?",
+          "rows": [
+            "vendor_ai|MAP 1.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.4 — suggested action 1",
+            "MAP 1.4 — suggested action 2"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MAP 3.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems used in internal processes (HR, finance, approvals, operations), how do you work out how likely and how large the costs and benefits of the AI's output are, using past use, incidents and feedback? Where is this recorded?",
+          "rows": [
+            "internal_process|MAP 3.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.2 — suggested action 6",
+            "MAP 5.1 — suggested action 3"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you examine and document the cost of wrong, harmful, leaked, manipulated or biased answers, including who could be harmed by acting on them and what it would cost the business? How often is this re-examined?",
+          "rows": [
+            "customer_facing|MAP 3.2",
+            "output|MAP 3.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.2 — suggested action 1",
+            "MAP 3.2 — suggested action 2",
+            "MAP 3.2 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that run on models you host yourself, how do you examine and document the cost of a hosting compromise, outage or cost abuse (stolen compute, runaway spend, downtime) and tie it to the level of risk the business accepts? Who signs off?",
+          "rows": [
+            "hosting|MAP 3.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.2 — suggested action 1",
+            "MAP 3.2 — suggested action 6"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 2.8": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how is the AI's part in each decision or customer answer recorded, including human review, overrides and the output that was relied on, so that a high-impact decision or answer can be audited later? Who reviews these records, and how long are they kept?",
+          "rows": [
+            "internal_process|MEASURE 2.8",
+            "customer_facing|MEASURE 2.8"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.8 — suggested action 1",
+            "MEASURE 2.8 — suggested action 6"
+          ],
+          "cis_refs": [
+            "LLM-8.1",
+            "LLM-8.2",
+            "LLM-8.5",
+            "LLM-8.10"
+          ]
+        },
+        {
+          "question_text": "For AI code generation, how is its use logged, including who used which tool, what was generated and what was merged, so that AI-written code and the prompts behind it can be traced? Who can look at these records?",
+          "rows": [
+            "code_generation|MEASURE 2.8"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.8 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-8.1",
+            "LLM-8.2",
+            "LLM-8.5"
+          ]
+        },
+        {
+          "question_text": "For the AI features your vendors run on your data, how can you trace what the AI did with your data, through the vendor's own logs or your own? How often does someone review that activity, and what evidence of the review exists?",
+          "rows": [
+            "vendor_ai|MEASURE 2.8"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.8 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-8.12",
+            "LLM-8.2",
+            "LLM-8.1"
+          ]
+        },
+        {
+          "question_text": "For the model you build or tune, how are build, tuning and release events logged, showing who did what and when, so that changes to the model and its releases can be traced and accounted for? Who reviews these records?",
+          "rows": [
+            "model_building|MEASURE 2.8"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.8 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-8.1",
+            "LLM-8.2"
+          ]
+        },
+        {
+          "question_text": "How do your logs show which AI services your staff reach and which outside agents or automated AI clients call your systems, and under whose identity? Who reviews this, how often, and what is done when something unknown shows up?",
+          "rows": [
+            "invisible_usage|MEASURE 2.8"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.8 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-8.1",
+            "LLM-8.2",
+            "LLM-8.6",
+            "MCP-8.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are prompts and responses logged as a record of who sent what? Who can read those logs, and how long are they kept?",
+          "rows": [
+            "input|MEASURE 2.8"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.8 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-8.1",
+            "LLM-8.2",
+            "LLM-8.5",
+            "LLM-8.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are answers recorded with enough detail to trace how a wrong or manipulated answer came about and who or what relied on it? Who reviews these records, and when was one last used to look into a bad answer?",
+          "rows": [
+            "output|MEASURE 2.8"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.8 — suggested action 1",
+            "MEASURE 2.8 — suggested action 7"
+          ],
+          "cis_refs": [
+            "LLM-8.2",
+            "LLM-8.5"
+          ]
+        },
+        {
+          "question_text": "For the training, tuning and evaluation data and the test harness you use, how are changes and access logged and tied to a named person, so that tampering or misuse can be traced? Who reviews these records?",
+          "rows": [
+            "test_tuning_data|MEASURE 2.8"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.8 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-8.2",
+            "LLM-8.1"
+          ]
+        },
+        {
+          "question_text": "For your own model, how are access to its weights, system prompts and configurations, and changes to model versions, logged so that copying or tampering can be traced to a person? Who reviews these records and how long are they kept?",
+          "rows": [
+            "model|MEASURE 2.8"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.8 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-8.1",
+            "LLM-8.2",
+            "LLM-8.10"
+          ]
+        },
+        {
+          "question_text": "For the data your AI retrieves to answer questions, how are retrievals and changes to that data logged, showing who asked and what was returned, so that access to sensitive content through the AI can be traced? Who reviews these logs?",
+          "rows": [
+            "source_data|MEASURE 2.8"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.8 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-8.2",
+            "LLM-3.14"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is each action the AI takes through tools or on your systems logged, with the credentials or identity it used and what it did, so that it can be traced back to the request and approval behind it? Who reviews these logs, and how long are they kept?",
+          "rows": [
+            "mcp_tools|MEASURE 2.8",
+            "agent|MEASURE 2.8"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.8 — suggested action 1"
+          ],
+          "cis_refs": [
+            "MCP-8.1",
+            "MCP-8.2",
+            "MCP-8.5",
+            "AGENT-8.1",
+            "AGENT-8.2",
+            "AGENT-8.5",
+            "AGENT-8.9"
+          ]
+        },
+        {
+          "question_text": "For the environment where you host AI models, how are administrative actions, model registry changes, secret access and serving endpoint activity logged so that actions can be traced and accounted for? Who reviews them, and how often?",
+          "rows": [
+            "hosting|MEASURE 2.8"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.8 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-8.2",
+            "LLM-8.1",
+            "LLM-8.9"
+          ]
+        }
+      ],
+      "reason": "Q5: Chained: one how plus three follow-ups (who reviews, how often, what is done when something unknown shows up) and two subjects (staff reaching AI services, outside agents calling systems).; Q7: playbook_refs action 7 (statistics on reported errors or complaints) supports nothing the question asks; also close to question 6 (prompts and responses logged) and question 1 (output relied on is recorded)."
+    },
+    "MANAGE 3.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For the pre-trained base models you build on, how do you monitor them for published vulnerabilities, upstream changes and drops in performance or trustworthiness? Who owns this, and how often is it checked?",
+          "rows": [
+            "model_building|MANAGE 3.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [
+            "built_on_existing_model"
+          ],
+          "playbook_refs": [
+            "MANAGE 3.2 — suggested action 1",
+            "MANAGE 3.2 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-16.2",
+            "LLM-2.1"
+          ]
+        }
+      ]
+    }
+  }
+}

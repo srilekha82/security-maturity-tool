@@ -26,7 +26,8 @@ A question is picked when
   producer_flags  every flag it carries is true in the client's producer answers
   rows            (area questions) it covers a row of one of the client's AI areas
 Each picked area question carries the names of the client's areas it covers; a question shared by several areas shows
-them to the client as scope_rules.json covers_note. A subcategory with no picked question is left out (it does not
+them to the client as scope_rules.json covers_note. Areas are shown to the client by their labels
+(data/ai/area_client_labels.json). A subcategory with no picked question is left out (it does not
 apply to this client). Every question is full_discovery for every client: the questions are about AI (an AI area, or
 AI in the organisation), so they never repeat the general security the CSF sheet or ISO 27001 covers, and the
 engagement flags change nothing here. Entries whose bank record is needs_human_review carry
@@ -42,7 +43,8 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from paths import AI_AREAS, AI_CORE, AI_EVIDENCE_PROMPTS, AI_QUESTION_RULES, AI_SCOPE_RULES, ai_bank_path  # noqa: E402
+from paths import (AI_AREA_LABELS, AI_AREAS, AI_CORE, AI_EVIDENCE_PROMPTS, AI_QUESTION_RULES, AI_SCOPE_RULES,  # noqa: E402
+                   ai_bank_path)
 from options import AI_FUNCTION_ORDER, AI_QUESTION_BANKS  # noqa: E402
 from ai_bank_common import core_subcategories  # noqa: E402
 import audit  # noqa: E402
@@ -142,7 +144,7 @@ def main():
     run_dir = Path(args.run_dir)
     ev = audit.begin(audit.run_log(run_dir), "build_ai_questions", {})
     usage_path = run_dir / "ai_usage.json"
-    inputs = [usage_path, AI_SCOPE_RULES, AI_QUESTION_RULES, AI_EVIDENCE_PROMPTS, AI_AREAS, AI_CORE]
+    inputs = [usage_path, AI_SCOPE_RULES, AI_QUESTION_RULES, AI_EVIDENCE_PROMPTS, AI_AREAS, AI_AREA_LABELS, AI_CORE]
     for p in inputs:
         if not p.is_file():
             ev.fail(f"[build_ai_questions] ERROR: {p} not found" + (
@@ -151,7 +153,11 @@ def main():
     rules = json.loads(AI_SCOPE_RULES.read_text())
     qrules = json.loads(AI_QUESTION_RULES.read_text())
     evidence = json.loads(AI_EVIDENCE_PROMPTS.read_text())
-    names = {a["id"]: a["name"] for a in json.loads(AI_AREAS.read_text())["ai_areas"]}
+    labels = json.loads(AI_AREA_LABELS.read_text())["labels"]
+    names = {a["id"]: labels.get(a["id"]) for a in json.loads(AI_AREAS.read_text())["ai_areas"]}
+    if not all(names.values()):
+        ev.fail(f"[build_ai_questions] ERROR: {AI_AREA_LABELS} has no label for "
+                f"{', '.join(a for a, n in names.items() if not n)}", inputs)
     outcomes = {s["subcategory_id"]: s["outcome"] for s in core_subcategories(json.loads(AI_CORE.read_text()))}
     profile = json.loads(usage_path.read_text())
 

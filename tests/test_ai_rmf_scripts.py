@@ -100,8 +100,8 @@ class Recording(unittest.TestCase):
         some_row = next(r for r in ctx["rows"][sid] if ctx["rows"][sid][r]["cis_refs"])
         bad = lambda **k: {sid: dict(good[sid], questions=[dict(qs[0], **k)] + qs[1:])}   # noqa: E731
         cases = {
-            "row asked twice": {sid: dict(good[sid], questions=qs + [self.question(sid, 9, rows=[model_row],
-                                                                                   roles=["producer"])])},
+            "row asked three times": {sid: dict(good[sid], questions=qs + [
+                self.question(sid, n, rows=[model_row], roles=["producer"]) for n in (8, 9)])},
             "row not asked": {sid: dict(good[sid], questions=[dict(q_model, rows=[model_row])] +
                                         [q for q in qs if q is not q_model])},
             "role the area does not allow": {sid: dict(good[sid], questions=[dict(q_model, roles=["consumer", "producer"])]
@@ -126,6 +126,8 @@ class Recording(unittest.TestCase):
         self.assertTrue(bank["subcategories"][sid]["rows_sha"])
         cited = [dict(q, cis_refs=ctx["rows"][sid][some_row]["cis_refs"][:1]) if some_row in q["rows"] else q for q in qs]
         self.assertEqual(self.run_mode("questions", {sid: dict(good[sid], questions=cited)}, "areas"), 0)
+        split = qs + [self.question(sid, 9, rows=[model_row], roles=["producer"])]   # a row split in two questions
+        self.assertEqual(self.run_mode("questions", {sid: dict(good[sid], questions=split)}, "areas"), 0)
         flagged = [dict(q_model, producer_flags=["built_on_existing_model"])] + [q for q in qs if q is not q_model]
         self.assertEqual(self.run_mode("questions", {sid: dict(good[sid], questions=flagged)}, "areas"), 0)
 
@@ -135,6 +137,10 @@ class Recording(unittest.TestCase):
         self.assertEqual(self.run_mode("questions", {sid: {"status": "pass", "turns": 1, "questions": qs}}, "areas"), 0)
         unfolded = [dict(q, playbook_refs=[f"{sid} — suggested action 1"]) for q in qs]
         self.assertEqual(self.run_mode("questions", {sid: {"status": "pass", "turns": 1, "questions": unfolded}}, "areas"), 1)
+        folding = next(q for q in qs if len(q["playbook_refs"]) > 1)   # a split row: one of its two questions cites it
+        second = self.question(sid, 9, rows=folding["rows"], roles=folding["roles"])
+        self.assertEqual(self.run_mode("questions", {sid: {"status": "pass", "turns": 1, "questions": qs + [second]}},
+                                       "areas"), 0)
 
     def test_questions_foundation(self):
         sid = "GOVERN 1.1"
@@ -146,6 +152,9 @@ class Recording(unittest.TestCase):
             "producer only with a flag": [self.question(sid, 1, roles=["consumer"]),
                                           self.question(sid, 2, roles=["producer"], producer_flags=["given_to_others"])],
             "too many": [self.question(sid, n) for n in range(1, 6)],
+            "five shared": [self.question(sid, n) for n in range(1, 5)] + [self.question(sid, 5, roles=["consumer"])],
+            "six": [self.question(sid, n) for n in range(1, 5)] + [self.question(sid, n, roles=["producer"])
+                                                                   for n in (5, 6)],
             "cis ref": [dict(both, cis_refs=["LLM-3.1"])],
             "unknown role": [dict(both, roles=["vendor"])],
             "rows on a foundation question": [dict(both, rows=[])],
@@ -154,6 +163,8 @@ class Recording(unittest.TestCase):
         for name, qs in cases.items():
             self.assertEqual(self.run_mode("questions", {sid: dict(good[sid], questions=qs)}, "foundation"), 1, name)
         self.assertEqual(self.run_mode("questions", {"MEASURE 2.8": good[sid]}, "foundation"), 1)   # an area subcategory
+        extra = [self.question(sid, n) for n in range(1, 5)] + [self.question(sid, 5, roles=["producer"])]
+        self.assertEqual(self.run_mode("questions", {sid: dict(good[sid], questions=extra)}, "foundation"), 0)
         self.assertEqual(self.run_mode("questions", good, "foundation"), 0)
         self.assertEqual(self.run_mode("questions", {"MANAGE 1.2": {"status": "pass", "turns": 1, "questions": [
             self.question("MANAGE 1.2")]}}, "foundation"), 0)          # a foundation subcategory outside GOVERN
@@ -202,6 +213,8 @@ class Recording(unittest.TestCase):
         self.assertEqual(set(doc["cis_safeguards"]), {c for e in mapping.values() for r in e["rows"] for c in r["cis_refs"]})
         self.assertEqual(doc["areas"]["invisible_usage"]["roles_allowed"], ["none", "consumer", "producer"])
         self.assertEqual(doc["areas"]["model"]["roles_allowed"], ["producer"])
+        folds = [f for i in doc["items"] for r in i["rows"] for f in r["folded"]]
+        self.assertTrue(folds and all(f["suggested_actions"] for f in folds))   # so a fold's action can be cited
         found = json.loads(P.AI_MAPPING_RULES.read_text())["foundation"]
         self.assertFalse({i["subcategory_id"] for i in doc["items"]} & set(found["subcategories"]))
 
@@ -309,7 +322,7 @@ class Scope(unittest.TestCase):
         self.addCleanup(setattr, BQ, "ai_bank_path", real)
         self.run = self.tmp / "run"
         self.run.mkdir()
-        self.names = {a["id"]: a["name"] for a in json.loads(AI_AREAS.read_text())["ai_areas"]}
+        self.names = json.loads(BQ.AI_AREA_LABELS.read_text())["labels"]
 
     def profile(self, **over):
         p = {"ai_in_use": "some", "role": "consumer", "producer": None,
@@ -378,6 +391,12 @@ class Scope(unittest.TestCase):
         self.assertEqual(self.go(p), 0)
         self.assertEqual(self.asked("foundation")["GOVERN 6.1"], ["vendor AI risk", "base model risk"])
         self.assertEqual(self.asked("areas")["MEASURE 2.8"], ["action logging", "weights access logging", "shadow AI logging"])
+
+    def test_every_area_has_a_client_label(self):
+        ids = [a["id"] for a in json.loads(AI_AREAS.read_text())["ai_areas"]]
+        labels = json.loads(BQ.AI_AREA_LABELS.read_text())["labels"]
+        self.assertEqual(sorted(labels), sorted(ids))
+        self.assertTrue(all(str(v).strip() for v in labels.values()))
 
     def test_none_and_unsure(self):
         self.assertEqual(self.go(self.profile(ai_in_use="none", role=None, ai_areas=["invisible_usage"])), 0)

@@ -39,6 +39,7 @@ CSF_IMPACT_NOTES = CSF / "ai_impact_notes.json"  # AI-world notes per CSF subcat
 AI_AUTHORING = AI / "authoring"          # spreadsheets a person writes or reviews (committed; not source/)
 AI_AREAS_XLSX = AI_AUTHORING / "ai_areas.xlsx"   # AI areas (usage and ecosystem components): the decision, by a person
 AI_AREAS = AI / "ai_areas.json"          # generated from ai_areas.xlsx by sheet_io.py import; scripts read this
+AI_AREA_LABELS = AI / "area_client_labels.json"   # area id -> the plain label the client sees
 AI_MAPPING_RULES = AI / "mapping_rules.json"   # candidate CIS controls per AI area, required checks, foundation functions
 AI_MAPPING = AI / "mapping.json"         # AI area x AI RMF function -> subcategory, CIS safeguards, impact (record_ai_bank.py)
 AI_MAPPING_XLSX = AI_AUTHORING / "mapping.xlsx"   # the mapping for review: one line per area x subcategory (sheet_io.py)

@@ -1,0 +1,132 @@
+{
+  "recorded_at": "2026-10-29T07:59:45.890640+00:00",
+  "step": "record_ai_bank_questions",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5; pilot 2026-10-29",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_question_generator.md",
+      "sha": "e8f3e75dbd2836c2"
+    },
+    {
+      "path": "prompts/ai_rmf_question_evaluator.md",
+      "sha": "ce62149141f0c65b"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/pilotf_record.json",
+    "sha": "2d7828c0f865aa9d"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_foundation.json",
+    "sha": "e1c8cfb3cd831993"
+  },
+  "output_snapshot": {
+    "GOVERN 1.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "Where is your AI risk management policy kept, and how do the people it applies to (staff, developers, vendors' account owners) come to know it and any changes to it, for example through onboarding, training, acknowledgement or announcements?",
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.2 — suggested action 2",
+            "GOVERN 1.2 — suggested action 14"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do your AI rules apply to AI that others built or sold to you, as well as AI you run yourself, so that it meets your existing legal obligations and risk controls? Who checks this?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.2 — suggested action 13",
+            "GOVERN 1.2 — suggested action 15"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "What do your procedures require to happen before an AI system goes live and while it is in use (testing and validation, legal and risk review, ongoing monitoring), and what record shows these steps were followed for a recent AI system?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.2 — suggested action 6",
+            "GOVERN 1.2 — suggested action 7",
+            "GOVERN 1.2 — suggested action 8"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do your AI policies and procedures address qualities such as safety, security, fairness, explainability and privacy for your AI systems, and where can we see this applied to a recent AI system?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.2 — suggested action 14",
+            "GOVERN 1.2 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "GOVERN 1.6": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "List the AI systems your organisation uses or builds. For each, which AI areas does it use (Internal process, Code generation, Customer-facing application, Vendor AI, Model building, Invisible AI usage, Input, Output, Test, tuning and evaluation data, Model, Source data, MCP / tools, Agent, Hosting), and what is the worst realistic outcome if it gets things wrong: financial loss (under USD 100k, USD 100k to 500k, over USD 500k), reputational damage (none, local, public or regulatory) and possible harm to people (yes or no)?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.6 — suggested action 3",
+            "GOVERN 1.6 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How does a new or changed AI system get added to your AI system inventory, and who is responsible for that?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.6 — suggested action 1",
+            "GOVERN 1.6 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do the criticality ratings in your AI system inventory decide how much effort and resource goes into keeping each entry accurate and reviewed, and where is that shown?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.6 — suggested action 2"
+          ],
+          "cis_refs": []
+        }
+      ],
+      "reason": "Q3: Asks how criticality drives resourcing of the inventory, but the only cited action (2, a responsible individual or team) does not support it; action 3 (which systems are inventoried by risk) is the closest and is not cited."
+    }
+  }
+}

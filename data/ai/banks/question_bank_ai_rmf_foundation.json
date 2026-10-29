@@ -1,0 +1,181 @@
+{
+  "bank": "foundation",
+  "subcategories": {
+    "GOVERN 1.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "Where is your AI risk management policy kept, and how do the people it applies to (staff, developers, vendors' account owners) come to know it and any changes to it, for example through onboarding, training, acknowledgement or announcements?",
+          "playbook_refs": [
+            "GOVERN 1.2 — suggested action 2",
+            "GOVERN 1.2 — suggested action 14"
+          ],
+          "cis_refs": [],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": []
+        },
+        {
+          "question_text": "How do your AI rules apply to AI that others built or sold to you, as well as AI you run yourself, so that it meets your existing legal obligations and risk controls? Who checks this?",
+          "playbook_refs": [
+            "GOVERN 1.2 — suggested action 13",
+            "GOVERN 1.2 — suggested action 15"
+          ],
+          "cis_refs": [],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": []
+        },
+        {
+          "question_text": "What do your procedures require to happen before an AI system goes live and while it is in use (testing and validation, legal and risk review, ongoing monitoring), and what record shows these steps were followed for a recent AI system?",
+          "playbook_refs": [
+            "GOVERN 1.2 — suggested action 6",
+            "GOVERN 1.2 — suggested action 7",
+            "GOVERN 1.2 — suggested action 8"
+          ],
+          "cis_refs": [],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": []
+        },
+        {
+          "question_text": "How do your AI policies and procedures address qualities such as safety, security, fairness, explainability and privacy for your AI systems, and where can we see this applied to a recent AI system?",
+          "playbook_refs": [
+            "GOVERN 1.2 — suggested action 14"
+          ],
+          "cis_refs": [],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": []
+        },
+        {
+          "question_text": "How do your rules for building and training your own models set standards for data quality and model training? Where can we see them applied to your latest model?",
+          "playbook_refs": [
+            "GOVERN 1.2 — suggested action 4"
+          ],
+          "cis_refs": [],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": []
+        }
+      ],
+      "decided_by": "human"
+    },
+    "GOVERN 1.6": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "In the 'AI systems' sheet, list each AI system your organisation uses or builds, with what it involves and the worst realistic outcome if it gets things wrong.",
+          "playbook_refs": [
+            "GOVERN 1.6 — suggested action 3",
+            "GOVERN 1.6 — suggested action 4"
+          ],
+          "cis_refs": [],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": []
+        },
+        {
+          "question_text": "How does a new or changed AI system get added to your AI system inventory, and who is responsible for that?",
+          "playbook_refs": [
+            "GOVERN 1.6 — suggested action 1",
+            "GOVERN 1.6 — suggested action 2"
+          ],
+          "cis_refs": [],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": []
+        },
+        {
+          "question_text": "How does an AI system's criticality decide how much goes into its inventory entry — which details are recorded and how often it is reviewed — and where is that shown?",
+          "playbook_refs": [
+            "GOVERN 1.6 — suggested action 3",
+            "GOVERN 1.6 — suggested action 4"
+          ],
+          "cis_refs": [],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": []
+        }
+      ],
+      "decided_by": "human"
+    },
+    "GOVERN 6.1": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "Where are your rules for using third-party AI systems and data kept, and how do the people they apply to come to know them and any changes (for example onboarding, training or announcements)?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 6.1 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "Before you start using a third-party AI system or data source, how do you check and test it? Who approves it?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 6.1 — suggested action 3",
+            "GOVERN 6.1 — suggested action 4",
+            "GOVERN 6.1 — suggested action 5"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do you check that using third-party AI and data does not infringe someone else's intellectual property or other rights, for example licence terms, contract clauses or legal review? Who is responsible?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 6.1 — suggested action 7"
+          ],
+          "cis_refs": []
+        }
+      ]
+    }
+  },
+  "description": "AI RMF foundation questions: every question that could be asked once for the organisation (GOVERN and the foundation subcategories of mapping_rules.json), keyed by subcategory, each with the roles it is asked of (none, consumer, producer) and any producer flags. Recorded by record_ai_bank.py questions.",
+  "built_on": "2026-10-29",
+  "playbook_sha256_16": "65d6101d80650287",
+  "guide_sha256_16": {
+    "LLM": "fae3d032d78cd956",
+    "MCP": "4faa140a9b5f3071",
+    "AGENT": "824ab8a2e829a11a"
+  },
+  "summary": {
+    "subcategories": 3,
+    "passed": 3,
+    "needs_human_review": 0,
+    "questions": 11
+  },
+  "source_sha": "e11b5997fe01463c"
+}

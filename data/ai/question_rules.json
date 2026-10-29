@@ -37,9 +37,45 @@
     "people": "Harm to individuals from what the AI says or decides."
   },
   "criticality_frame": "for your highest-criticality AI systems",
-  "area_question_rule": "Each mapping row is asked by exactly one question per role it can carry (one question may carry several roles and cover several rows of the same subcategory).",
+  "criticality_frame_optional": {
+    "description": "Areas whose questions may leave out the criticality frame: code generation, and vendor AI, which usually sits inside another use (an internal process, a customer-facing application) where criticality is asked.",
+    "areas": [
+      "code_generation",
+      "vendor_ai"
+    ]
+  },
+  "area_question_rule": "Each mapping row is asked, for each role it can carry, by one question, or by two when its why holds two different practices (row_questions max). One question may carry several roles and cover several rows of the same subcategory when they check the same single practice.",
+  "row_questions": {
+    "max": 2
+  },
   "foundation_questions": {
     "min": 1,
-    "max": 4
+    "max": 4,
+    "producer_only_extra": 1,
+    "description": "Questions per foundation subcategory: min to max, plus at most producer_only_extra more asked of producers only (roles ['producer']) where producers' practice really differs (e.g. standards for training their own models, GOVERN 1.2). A consumer or an org with no AI is never asked more than max. Decided 2026-10-29."
+  },
+  "ai_system_inventory": {
+    "description": "The AI system inventory (GOVERN 1.6), the one per-system question, answered in its own sheet of questionnaire.xlsx so it reads as a table: one row per AI system, a Yes column per AI area (by its client label, data/ai/area_client_labels.json) and a drop-down per criticality band (AI_RMF_Mapping_Sheet_Design.md section 4). write_questionnaire.py adds the sheet when the AI questions include the subcategory; the question text points to it and does not repeat the areas or bands. Decided 2026-10-29.",
+    "subcategory": "GOVERN 1.6",
+    "sheet": "AI systems",
+    "instructions": "One row per AI system your organisation uses or builds. Mark Yes under each thing it involves, then pick the worst realistic outcome if it gets things wrong.",
+    "system_column": "AI system (name and what it is used for)",
+    "criticality": {
+      "Financial loss if it gets things wrong": [
+        "Under USD 100k",
+        "USD 100k to 500k",
+        "Over USD 500k"
+      ],
+      "Reputational damage if it gets things wrong": [
+        "None",
+        "Local",
+        "Public or regulatory"
+      ],
+      "Possible harm to people": [
+        "No",
+        "Yes"
+      ]
+    },
+    "rows": 30
   }
 }

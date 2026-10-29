@@ -1,0 +1,19 @@
+{
+  "description": "What the client sees for each AI area (key: the area id of data/ai/ai_areas.json, used by SMEs, agents and scripts; value: the plain label shown in the questionnaire, in the covers note, the Area column and the AI system inventory question). Decided by the user 2026-10-29. Client text only: changing a label never makes the mapping or a bank stale. A test checks every area has one.",
+  "labels": {
+    "internal_process": "AI used in your internal decisions and workflows (HR, finance, approvals, operations)",
+    "code_generation": "AI that writes or suggests code for your developers",
+    "customer_facing": "AI your customers or the public talk to or get answers from",
+    "vendor_ai": "AI features inside the products and services you buy (e.g. Jira, Slack, ServiceNow)",
+    "model_building": "Building or tuning your own AI model",
+    "invisible_usage": "AI used without your approval: staff tools nobody approved, and outside AI agents reaching your systems",
+    "input": "What people and systems send to the AI (prompts, pasted text, files)",
+    "output": "The AI's answers and how people and systems rely on them",
+    "test_tuning_data": "The data you train, tune and test your model with",
+    "model": "Your own model itself (its weights, settings and instructions)",
+    "source_data": "Your data the AI looks up to answer",
+    "mcp_tools": "Tools and systems the AI can use or act on",
+    "agent": "AI that carries out tasks on its own with little human oversight",
+    "hosting": "Servers and cloud where you run AI models yourself"
+  }
+}

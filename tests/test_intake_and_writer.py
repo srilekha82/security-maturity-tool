@@ -199,6 +199,29 @@ class Workbook(unittest.TestCase):
         self.assertEqual(wb["AI RMF Questionnaire"].max_row, 2)
         self.assertEqual(wb["CSF Questionnaire"].max_row, 2)
 
+    def test_the_ai_system_inventory_gets_its_own_table_sheet(self):
+        import openpyxl
+        from paths import AI_AREA_LABELS, AI_QUESTION_RULES
+        tmp = Path(tempfile.mkdtemp())
+        ai, out = tmp / "ai.json", tmp / "questionnaire.xlsx"
+        ai.write_text(json.dumps(self.entries("GOVERN", "GOVERN 1.1", "How is AI governed?", bank="foundation")))
+        self.write("ai", ai, out=out)
+        self.assertEqual(openpyxl.load_workbook(out).sheetnames, ["AI RMF Questionnaire"])   # no inventory asked
+        inv = json.loads(AI_QUESTION_RULES.read_text())["ai_system_inventory"]
+        ai.write_text(json.dumps(self.entries("GOVERN", inv["subcategory"], "In the AI systems sheet, list ...",
+                                              bank="foundation")))
+        self.write("ai", ai, out=out)
+        self.write("ai", ai, out=out)                                    # a re-run replaces it
+        wb = openpyxl.load_workbook(out)
+        self.assertEqual(wb.sheetnames, ["AI RMF Questionnaire", inv["sheet"]])
+        ws = wb[inv["sheet"]]
+        heads = [c.value for c in ws[2]]
+        labels = list(json.loads(AI_AREA_LABELS.read_text())["labels"].values())
+        self.assertEqual(heads[0], inv["system_column"])
+        self.assertEqual(sorted(heads[1:1 + len(labels)]), sorted(labels))
+        self.assertEqual(heads[1 + len(labels):], list(inv["criticality"]))
+        self.assertEqual(len(ws.data_validations.dataValidation), len(heads) - 1)
+
 
 if __name__ == "__main__":
     unittest.main()

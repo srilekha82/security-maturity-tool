@@ -29,8 +29,8 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from paths import (AI_AREAS, AI_BANKS, AI_BUILD, AI_CORE, AI_MAPPING, AI_MAPPING_RULES, AI_QUESTION_RULES,  # noqa: E402
-                   AI_SAFEGUARDS, AI_SCOPE_RULES, ai_bank_path)
+from paths import (AI_AREA_LABELS, AI_AREAS, AI_BANKS, AI_BUILD, AI_CORE, AI_MAPPING, AI_MAPPING_RULES,  # noqa: E402
+                   AI_QUESTION_RULES, AI_SAFEGUARDS, AI_SCOPE_RULES, ai_bank_path)
 from ai_bank_common import (area_candidates, area_roles, area_rules, check_mapping_rules,  # noqa: E402
                             foundation_subcategories, load_inputs, load_json, rel, row_id)
 from options import AI_FUNCTION_ORDER, AI_QUESTION_BANKS as QUESTION_BANKS  # noqa: E402
@@ -53,7 +53,8 @@ def area_items(inp: dict, chosen: list[str] | None) -> list[dict]:
             rows.setdefault(r["subcategory"], []).append({
                 "row_id": row_id(area_id, r["subcategory"]), "area": area_id, "why": r["why"], "impact": r["impact"],
                 "cis_refs": r["cis_refs"],
-                "folded": [{"subcategory_id": f, "outcome": inp["subs"][f]["outcome"]} for f in r.get("folded", [])],
+                "folded": [{"subcategory_id": f, "outcome": inp["subs"][f]["outcome"],
+                            "suggested_actions": inp["subs"][f]["suggested_actions"]} for f in r.get("folded", [])],
             })
     return [{**sub_fields(inp["subs"][sid]), "rows": rows[sid]} for sid in inp["subs"]
             if sid in rows and (chosen is None or sid in chosen)]
@@ -108,10 +109,13 @@ def prepare_batch(inp: dict, bank: str, ids: list[str], function: str | None, ev
         chosen = [s for s in chosen if s not in done]
     if not chosen:
         sys.exit("[prepare_ai_bank] ERROR: no subcategories selected" + (" (all already recorded)" if missing_only else ""))
-    definitions = {k: qrules[k] for k in ("roles", "roles_note", "producer_flags", "impacts", "criticality_frame")}
+    definitions = {k: qrules[k] for k in ("roles", "roles_note", "producer_flags", "impacts", "criticality_frame",
+                                          "criticality_frame_optional")}
     if bank == "foundation":
         doc = {"bank": bank, "definitions": definitions, "questions_per_subcategory": qrules["foundation_questions"],
-               "ai_areas": [{k: a[k] for k in ("id", "name", "applies_to")}
+               "ai_system_inventory": {k: qrules["ai_system_inventory"][k] for k in ("subcategory", "sheet")},
+               "ai_areas": [{**{k: a[k] for k in ("id", "name", "applies_to")},
+                             "client_label": load_json(AI_AREA_LABELS, "area_client_labels.json")["labels"][a["id"]]}
                             for a in load_json(AI_AREAS, "ai_areas.json")["ai_areas"]],
                "items": [sub_fields(inp["subs"][s]) for s in chosen]}
     else:

@@ -7,15 +7,17 @@ this file. Do not read PDFs or other data files.
 ## Input
 - `bank`: `areas` or `foundation`.
 - `definitions`: the roles (`none`, `consumer`, `producer`), the producer flags (`built_on_existing_model`,
-  `given_to_others`), the impacts and the `criticality_frame`.
+  `given_to_others`), the impacts, the `criticality_frame` and the areas where it is optional.
 - `items`: one per AI RMF subcategory, with its `outcome`, `actions_preamble` and `suggested_actions` (numbered by
   order, starting at 1).
 - Area bank only: each item has `rows`, one per AI area mapped to that subcategory. A row has `row_id`, `area`, `why`
   (what is checked for that area: the question is written from this), `impact`, `cis_refs` and `folded` (other
-  subcategories this row also asks; the question must ask their outcome too). `areas` gives each area's `name`,
+  subcategories this row also asks, with their outcome and numbered suggested actions; the question must ask
+  their outcome too). `areas` gives each area's `name`,
   `applies_to`, `roles_allowed` and `covers` (what the area is, and what belongs to other areas). `cis_safeguards`
   gives each safeguard's title and AI text.
-- Foundation bank only: `ai_areas` (for questions that name them, such as the AI system inventory) and
+- Foundation bank only: `ai_areas` (name an area to the client by its `client_label`), `ai_system_inventory`
+  (the subcategory and the questionnaire sheet the inventory is answered in) and
   `questions_per_subcategory` (min and max).
 
 ## What a good question is (both banks)
@@ -38,18 +40,32 @@ this file. Do not read PDFs or other data files.
   from the Playbook only: `cis_refs: []`.
 
 ## Area bank
-Every row must be asked, for each role in its area's `roles_allowed`, by **exactly one** question.
-- **Write from the row's `why`**, for that area as its `covers` describes it. Stay inside the area: what `covers`
-  says belongs to another area is not asked here.
-- **One question per row and role, never one per AI system.** Write it proportionate to criticality: frame it with
+Every row must be asked, for each role in its area's `roles_allowed`, by **one** question, or by **two** when its
+`why` holds two different practices (see Splitting).
+- **Ask the core of the row's `why`, not all of it.** A `why` often names two or three things in one sentence; the
+  question asks the one practice at its centre, for that area as its `covers` describes it. Stay inside the area:
+  what `covers` says belongs to another area is not asked here.
+- **Short and single.** One "how" about one practice, then at most one short follow-up: who owns or reviews it, how
+  often, or where it is recorded. No lists of asks ("including A, B and C", "and what ... and how ..."): details the
+  answer might mention go after "for example" and are not asked one by one. No purpose clauses ("so that it can be
+  traced and accounted for"); the practice says it. Written this way:
+  "For your highest-criticality AI systems, how is the AI's part in a decision recorded so it can be audited later,
+  for example the output used and any human override? Who reviews these records?"
+- **Splitting.** When a row's `why` really holds two different practices (for example staff reaching AI services,
+  and outside agents calling your systems), write two questions for the row and role instead of squeezing both
+  into one. Never more than two, and never split one practice into two questions.
+- **Asked once for all the org's AI systems, never once per AI system.** Write it proportionate to criticality: frame it with
   `criticality_frame` ("for your highest-criticality AI systems, ...") so the answer shows whether practice is
-  stronger where the stakes are higher. Leave the frame out only where the row is not about systems the org runs
-  (AI used without approval, others' agents or scrapers reaching in).
+  stronger where the stakes are higher. Leave the frame out where the row is not about systems the org runs
+  (AI used without approval, others' agents or scrapers reaching in); for the areas in `criticality_frame_optional`
+  it is optional (vendor AI usually sits inside another use, where criticality is asked).
 - **Similar rows share one question.** If two or more rows of the same subcategory would get what is really the same
   question, write it once and list all their `row_id`s in `rows`. Do not write near-copies that differ only in the
   area's name. A shared question must not name an area: the questionnaire shows the client a note listing which of
   their areas it covers, and a client may have only one of them, so the text must read correctly for each area alone.
-  A question for a single row may name its area. Do not share when the rows' `why` really check different things.
+  A question for a single row may name its area. Share only when the rows check the same single practice; the shared
+  question asks that practice and does not add up each row's extra details. Do not share when the rows' `why` really
+  check different things.
 - **Roles.** A question lists the roles it is asked of, from the `roles_allowed` of every row it covers. Write one
   question for consumer and producer together unless good practice really differs (for example, a producer controls
   the model's training, a consumer only what it accepts from a vendor); then write one per role. Add `none` only for
@@ -58,12 +74,15 @@ Every row must be asked, for each role in its area's `roles_allowed`, by **exact
   releasing a model, telling recipients its limits, withdrawing a release; `built_on_existing_model`: choosing,
   checking or monitoring the base model). A flagged question is asked of no one else, so the row's producer role is
   then covered only for producers with the flag. Never flag a consumer-only question.
-- **Folded subcategories.** A row with `folded` is the only place those outcomes are asked: its question must ask
-  them too, and `playbook_refs` cites an action of each.
+- **Folded subcategories.** A row with `folded` is the only place those outcomes are asked: its question (one of
+  them, if the row is split) must ask them too, and `playbook_refs` cites an action of each.
 
 ## Foundation bank
 Foundation subcategories are asked once for the organisation, not per AI area. Write between
-`questions_per_subcategory.min` and `.max` questions per subcategory.
+`questions_per_subcategory.min` and `.max` questions per subcategory. You may add `producer_only_extra` more, asked
+of producers only (`roles: ["producer"]`), only where producers' practice really differs and no question already
+asks it (for example GOVERN 1.2: standards for data quality and training of their own models). Use as few questions
+as cover the outcome.
 - **Every subcategory must have at least one question for `consumer` and at least one for `producer`** without a
   producer flag (both kinds of org are scored on every subcategory). One question may carry both roles; do that
   whenever the question would read the same.
@@ -75,14 +94,20 @@ Foundation subcategories are asked once for the organisation, not per AI area. W
   announcements). "Where kept" plus "how people know" count as one subject here; do not split them, and never ask
   whether the policy exists. What the policy says and whether it is followed are separate questions (practice,
   ownership, evidence).
+- **Every org with the question's roles can answer it.** Foundation questions are about AI in the organisation in
+  general. Practice that only some orgs have, because it depends on how they use AI (vendors' AI in their products,
+  a model they host, AI in internal decisions, agents), is asked by the area questions, which reach only clients with
+  that area; do not ask it here. Third parties stay general (every org using AI relies on some: a model provider, a
+  data source, a cloud); questions only about a base model carry the producer flag.
 - **`none`**: add it only to questions about the AI policy (what AI use is allowed) and about finding AI used without
   approval (shadow AI). Those questions usually also carry `consumer` and `producer`.
 - **Producer flags** as in the area bank: only when the question applies only to producers with that flag (e.g. third-
   party risk of a base model, GOVERN 6.1, with `built_on_existing_model`).
-- **The AI system inventory** (GOVERN 1.6) is the one question asked per AI system: it asks the client to list each AI
-  system with the AI areas it uses (name them from `ai_areas`) and its criticality (worst realistic outcome if it gets
-  things wrong: financial loss under USD 100k / USD 100k to 500k / over USD 500k; reputational damage none / local /
-  public or regulatory; possible harm to people yes or no).
+- **The AI system inventory** (`ai_system_inventory.subcategory`) is the one question asked per AI system. The client
+  answers it in its own sheet (`ai_system_inventory.sheet`), a table with a column per AI area and drop-downs for the
+  criticality bands, so the question only points to it and does not list the areas or bands: "In the 'AI systems'
+  sheet, list each AI system your organisation uses or builds, with what it involves and the worst realistic outcome
+  if it gets things wrong."
 - Foundation questions carry `cis_refs: []` (no safeguards are given for them).
 
 ## Revision turn

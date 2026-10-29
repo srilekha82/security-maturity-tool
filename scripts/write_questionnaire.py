@@ -9,7 +9,9 @@ questionnaire, one sheet per framework:
   ai             ai_questions_assessed_<bank>.json (one or two files: foundation, areas) -> the same questionnaire.xlsx,
                  sheet "AI RMF Questionnaire", with an Area column ("Whole organisation" for a foundation question, the
                  client's AI area, or "This question covers: ..." for a question shared by several areas) and a
-                 per-question evidence prompt.
+                 per-question evidence prompt. When the questions include the AI system inventory
+                 (data/ai/question_rules.json ai_system_inventory), it also writes the sheet the client answers it in:
+                 one row per AI system, a Yes column per AI area (client labels) and criticality drop-downs.
 
 Either mode opens questionnaire.xlsx if it exists and replaces only its own sheet; the other sheet is never touched, so
 the two can be written (or re-written) in any order. The CSF sheet is always first.
@@ -22,9 +24,11 @@ from pathlib import Path
 import openpyxl
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.datavalidation import DataValidation
 
 sys.path.insert(0, str(Path(__file__).parent))
 from options import AI_FUNCTION_ORDER, AI_QUESTION_BANKS, CSF_FUNCTION_ORDER  # noqa: E402
+from paths import AI_AREA_LABELS, AI_AREAS, AI_QUESTION_RULES  # noqa: E402
 import audit  # noqa: E402
 
 FRAMEWORKS = {
@@ -56,6 +60,40 @@ def row_values(framework: str, entry: dict, q_num: int, q: dict) -> list:
     return [function, sid, q_num] + rest + [confidence, evidence, "", ""]
 
 
+def replace_sheet(wb, name: str):
+    if name in wb.sheetnames:  # re-run: replace that sheet, keep the others
+        del wb[name]
+    return wb.create_sheet(name)
+
+
+def style_header(cell):
+    cell.fill = PatternFill("solid", fgColor="1A56DB")
+    cell.font = Font(bold=True, color="FFFFFF")
+    cell.alignment = Alignment(wrap_text=True, vertical="top")
+
+
+def write_inventory(wb, inv: dict) -> None:
+    """The AI system inventory as a table: instructions, then a header row, then blank rows with drop-downs."""
+    labels = json.loads(AI_AREA_LABELS.read_text())["labels"]
+    areas = [labels[a["id"]] for a in json.loads(AI_AREAS.read_text())["ai_areas"]]
+    ws = replace_sheet(wb, inv["sheet"])
+    headers = [inv["system_column"]] + areas + list(inv["criticality"])
+    ws.cell(row=1, column=1, value=inv["instructions"]).font = Font(bold=True)
+    ws.merge_cells(start_row=1, start_column=1, end_row=1, end_column=len(headers))
+    first, last = 3, 2 + inv["rows"]
+    for col, h in enumerate(headers, 1):
+        style_header(ws.cell(row=2, column=col, value=h))
+        ws.column_dimensions[get_column_letter(col)].width = 40 if col == 1 else 18
+    lists = [["Yes"]] * len(areas) + list(inv["criticality"].values())
+    for col, options in enumerate(lists, 2):
+        dv = DataValidation(type="list", formula1='"' + ",".join(options) + '"', allow_blank=True)
+        letter = get_column_letter(col)
+        dv.add(f"{letter}{first}:{letter}{last}")
+        ws.add_data_validation(dv)
+    ws.row_dimensions[2].height = 90
+    ws.freeze_panes = "B3"
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("paths", nargs="+", help="question file(s), then the output xlsx")
@@ -75,21 +113,14 @@ def main():
     sheet_name = args.sheet or spec["sheet"]
     if outpath.is_file():
         wb = openpyxl.load_workbook(outpath)
-        if sheet_name in wb.sheetnames:  # re-run: replace that sheet, keep the others
-            del wb[sheet_name]
-        ws = wb.create_sheet(sheet_name)
+        ws = replace_sheet(wb, sheet_name)
     else:
         wb = openpyxl.Workbook()
         ws = wb.active
         ws.title = sheet_name
 
-    header_fill = PatternFill("solid", fgColor="1A56DB")
-    header_font = Font(bold=True, color="FFFFFF")
     for col, h in enumerate(spec["headers"], 1):
-        cell = ws.cell(row=1, column=col, value=h)
-        cell.fill = header_fill
-        cell.font = header_font
-        cell.alignment = Alignment(wrap_text=True)
+        style_header(ws.cell(row=1, column=col, value=h))
 
     bank_order = {b: i for i, b in enumerate(AI_QUESTION_BANKS)}
     sorted_entries = sorted(
@@ -109,6 +140,9 @@ def main():
     ws.freeze_panes = "A2"
     ws.auto_filter.ref = ws.dimensions
 
+    inv = json.loads(AI_QUESTION_RULES.read_text())["ai_system_inventory"] if args.framework == "ai" else None
+    if inv and any(e.get("subcategory_id") == inv["subcategory"] for e in questions):
+        write_inventory(wb, inv)
     if args.framework == "csf":
         wb.move_sheet(ws, offset=-wb.index(ws))  # CSF sheet first, whichever was written first
     wb.save(outpath)

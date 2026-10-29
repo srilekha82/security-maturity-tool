@@ -1,0 +1,173 @@
+{
+  "recorded_at": "2026-10-29T15:37:30.689638+00:00",
+  "step": "record_ai_bank_questions",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5; re-pilot 2026-10-29",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_question_generator.md",
+      "sha": "635d6f8f8e4ceda7"
+    },
+    {
+      "path": "prompts/ai_rmf_question_evaluator.md",
+      "sha": "a0659ae67dc3bd61"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/pilota2_record.json",
+    "sha": "0e04f72c43b0588e"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_areas.json",
+    "sha": "5fc0d7169973c74e"
+  },
+  "output_snapshot": {
+    "MAP 1.4": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how is the business value of using AI output in each internal workflow defined? Who owns that definition?",
+          "rows": [
+            "internal_process|MAP 1.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.4 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is the business value of your customer-facing AI defined? Who owns that definition?",
+          "rows": [
+            "customer_facing|MAP 1.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.4 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For the AI features inside vendor products you use, how do you decide what business purpose they serve and which of your data they may work on? Who owns that decision?",
+          "rows": [
+            "vendor_ai|MAP 1.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.4 — suggested action 1"
+          ],
+          "cis_refs": []
+        }
+      ],
+      "reason": "Q3: Chains two things to answer (business purpose and which data they may work on); the data part is not supported by the cited action about business value."
+    },
+    "MAP 3.2": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how do you estimate the cost of wrong AI output in internal decisions, for example from past use and feedback? Where is this recorded?",
+          "rows": [
+            "internal_process|MAP 3.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.2 — suggested action 6",
+            "MAP 5.1 — suggested action 3"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the costs to customers and to the business of wrong, harmful or leaked answers reaching customers examined and documented? Who reviews this?",
+          "rows": [
+            "customer_facing|MAP 3.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.2 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you work out the cost of wrong, manipulated or biased AI answers and who could be harmed by acting on them? Where is this recorded?",
+          "rows": [
+            "output|MAP 3.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.2 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the costs of a hosting compromise, outage or cost abuse (stolen compute, runaway spend, downtime) examined and compared with your risk tolerance? Who owns this?",
+          "rows": [
+            "hosting|MAP 3.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.2 — suggested action 6"
+          ],
+          "cis_refs": []
+        }
+      ],
+      "reason": "Q1: Row is shared with folded MAP 5.1 (likelihood and magnitude, benefits as well as costs, identifying high-impact decisions) but the question asks only for the cost of wrong output."
+    },
+    "MANAGE 3.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For the pre-trained base models you build on, how are they tracked and monitored, for example for published vulnerabilities? Who owns this?",
+          "rows": [
+            "model_building|MANAGE 3.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [
+            "built_on_existing_model"
+          ],
+          "playbook_refs": [
+            "MANAGE 3.2 — suggested action 1",
+            "MANAGE 3.2 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-16.2",
+            "LLM-2.1"
+          ]
+        }
+      ]
+    }
+  }
+}

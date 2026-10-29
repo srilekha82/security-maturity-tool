@@ -23,10 +23,12 @@ Record modes (agent output; every one needs --model, optional --session, --promp
                            cis_refs, roles (none / consumer / producer), producer_flags (data/ai/question_rules.json);
                            area bank also rows (mapping row ids "<area>|<subcategory>" it covers).
                            Rejected unless (area bank) the subcategory has rows in data/ai/mapping.json, each row is
-                           asked exactly once for each role its area allows (area_roles), a question's roles are allowed
+                           asked once or twice (row_questions max) for each role its area allows (area_roles), a
+                           question's roles are allowed
                            by every row it covers, its cis_refs are safeguards of those rows, and a row with folded
                            subcategories has its question cite a suggested action of each; (foundation) the subcategory
-                           is foundation, it has question_rules.json foundation_questions min to max questions, at least
+                           is foundation, it has question_rules.json foundation_questions min to max questions (plus
+                           producer_only_extra asked of producers only), at least
                            one consumer and one producer question without producer flags, and no cis_refs. Both: real
                            suggested action numbers, distinct question texts, a question with producer flags has roles
                            ["producer"] only. Whether a question is practice-revealing is the evaluator's job.
@@ -95,6 +97,8 @@ BANK_DESCRIPTION = {
 }
 MIN_QUESTION_CHARS = 30
 PLAYBOOK_REF = re.compile(r"^((?:GOVERN|MAP|MEASURE|MANAGE) \d+\.\d+) [—–-] suggested action (\d+)$")
+REASON_PART = re.compile(r"(?:^|; )Q(\d+): ")    # assemble joins failures as "Q<n>: reason; Q<m>: reason"
+WHOLE = "Whole subcategory: "                      # how a question_number 0 failure shows on every line of the sheet
 NOTE_MIN_CHARS = 30
 
 
@@ -118,7 +122,7 @@ def question_context(inp: dict) -> dict:
                 "area": area_id, "impact": r["impact"], "sig": [r["why"], r["cis_refs"], r.get("folded", [])]}
     return {"rows": rows, "foundation": foundation_subcategories(load_json(AI_MAPPING_RULES, "mapping_rules.json"), inp),
             "roles": list(qrules["roles"]), "flags": list(qrules["producer_flags"]),
-            "foundation_count": qrules["foundation_questions"]}
+            "foundation_count": qrules["foundation_questions"], "row_max": qrules["row_questions"]["max"]}
 
 
 def rows_sha(rows: dict) -> str:
@@ -191,8 +195,8 @@ def check_question(tag: str, sid: str, q, bank: str, inp: dict, ctx: dict) -> li
 
 
 def validate_questions(data, bank: str, inp: dict, ctx: dict) -> list[str]:
-    """The whole file, per subcategory: status, the questions, and coverage (area bank: every row asked exactly once
-    per role its area allows, folded outcomes cited; foundation: the count, a consumer and a producer question)."""
+    """The whole file, per subcategory: status, the questions, and coverage (area bank: every row asked once, or up to
+    row_questions max times, per role its area allows, folded outcomes cited; foundation: the count, a consumer and a producer question)."""
     if not isinstance(data, dict) or not data:
         return ["the file must be a non-empty JSON object keyed by subcategory id"]
     errors = []
@@ -225,16 +229,20 @@ def validate_questions(data, bank: str, inp: dict, ctx: dict) -> list[str]:
             for rid, row in ctx["rows"][sid].items():
                 for role in row["roles"]:
                     n = sum(1 for q in qs if rid in q["rows"] and role in q["roles"])
-                    if n != 1:
-                        errors.append(f"{sid}: row {rid} is asked {n} times for role {role} (exactly once)")
+                    if not 1 <= n <= ctx["row_max"]:
+                        errors.append(f"{sid}: row {rid} is asked {n} times for role {role} (1 to {ctx['row_max']})")
                 for f in row["folded"]:
-                    if any(rid in q["rows"] and not any(str(r).startswith(f + " ") for r in q["playbook_refs"])
-                           for q in qs):
-                        errors.append(f"{sid}: row {rid} folds {f}; its question must cite a suggested action of {f}")
+                    if not any(rid in q["rows"] and any(str(r).startswith(f + " ") for r in q["playbook_refs"])
+                               for q in qs):
+                        errors.append(f"{sid}: row {rid} folds {f}; one of its questions must cite a suggested action "
+                                      f"of {f}")
         else:
-            lo, hi = ctx["foundation_count"]["min"], ctx["foundation_count"]["max"]
-            if not lo <= len(qs) <= hi:
-                errors.append(f"{sid}: {len(qs)} questions; a foundation subcategory has {lo} to {hi}")
+            fc = ctx["foundation_count"]
+            lo, hi, extra = fc["min"], fc["max"], fc["producer_only_extra"]
+            shared = sum(1 for q in qs if q["roles"] != ["producer"])
+            if not lo <= len(qs) <= hi + extra or shared > hi:
+                errors.append(f"{sid}: {len(qs)} questions ({shared} not producer-only); a foundation subcategory has "
+                              f"{lo} to {hi}, plus up to {extra} asked of producers only")
             for role in ("consumer", "producer"):
                 if not any(role in q["roles"] and not q["producer_flags"] for q in qs):
                     errors.append(f"{sid}: no {role} question without producer flags (every {role} is scored on it)")
@@ -251,6 +259,47 @@ def human_decided(data, args) -> list[str]:
             "person agreed to regenerate it" for sid in data if bank.get(sid, {}).get("decided_by") == "human"]
 
 
+def split_reason(reason: str) -> dict[int, str]:
+    """{question number: reason} from a stored review_reason (0 = the whole subcategory); {} if it has no Q<n> parts."""
+    cuts = list(REASON_PART.finditer(reason or ""))
+    parts: dict[int, str] = {}
+    for m, nxt in zip(cuts, cuts[1:] + [None]):
+        text = reason[m.end():nxt.start() if nxt else None].strip()
+        parts[int(m.group(1))] = "; ".join(filter(None, [parts.get(int(m.group(1))), text]))
+    return parts
+
+
+def join_reason(parts: dict[int, str]) -> str:
+    return "; ".join(f"Q{n}: {t}" for n, t in sorted(parts.items()))[:500]
+
+
+def line_review(entry: dict, n: int) -> tuple[str, str]:
+    """(status, reason) of question n's sheet line: only its own failure and any whole-subcategory one. A reason
+    without Q<n> parts (written by hand) flags every line."""
+    if entry["status"] == "pass":
+        return "pass", ""
+    reason = entry.get("review_reason", "")
+    parts = split_reason(reason)
+    if not parts:
+        return "needs_human_review", reason
+    own = "\n".join(filter(None, [parts.get(n), WHOLE + parts[0] if 0 in parts else ""]))
+    return ("needs_human_review" if own else "pass"), own
+
+
+def reason_from_lines(lines: list[dict]) -> dict[int, str]:
+    """The inverse of line_review over a subcategory's lines as they are now (renumbered by position)."""
+    parts: dict[int, str] = {}
+    for n, ln in enumerate(lines, 1):
+        if ln["status"] != "needs_human_review":
+            continue
+        own, _, whole = str(ln.get("review_reason") or "").partition(WHOLE)
+        if whole.strip():
+            parts[0] = whole.strip()
+        if own.strip() or not whole.strip():
+            parts[n] = own.strip() or "flagged in the review sheet"
+    return parts
+
+
 def question_sheet_rows(bank: str, doc: dict, inp: dict) -> list[dict]:
     """One review-sheet line per question of the bank (sheet_io.py export area_questions / foundation_questions)."""
     names = {a["id"]: a["name"] for a in load_json(AI_AREAS, "ai_areas.json")["ai_areas"]}
@@ -258,18 +307,20 @@ def question_sheet_rows(bank: str, doc: dict, inp: dict) -> list[dict]:
     for sid, entry in doc["subcategories"].items():
         for n, q in enumerate(entry["questions"], 1):
             areas = [r.split("|")[0] for r in q.get("rows", [])]
+            status, reason = line_review(entry, n)
             lines.append({
                 "subcategory": sid, "outcome": inp["subs"][sid]["outcome"], "q": str(n), "areas": areas,
                 "area_names": "; ".join(names.get(a, a) for a in areas), "roles": q["roles"],
                 "producer_flags": q["producer_flags"], "question_text": q["question_text"],
-                "playbook_refs": q["playbook_refs"], "cis_refs": q["cis_refs"], "status": entry["status"],
-                "review_reason": entry.get("review_reason", ""), "decided_by": entry.get("decided_by", "agent")})
+                "playbook_refs": q["playbook_refs"], "cis_refs": q["cis_refs"], "status": status,
+                "review_reason": reason, "decided_by": entry.get("decided_by", "agent")})
     return lines
 
 
 def questions_from_sheet(bank: str, lines: list[dict], doc: dict, inp: dict) -> tuple[dict, list[str], int]:
     """(new bank, problems, subcategories changed) from the review sheet. The whole bank is checked with
-    validate_questions; a subcategory whose questions or status differ from the bank is stored as decided_by human.
+    validate_questions; a subcategory whose questions, status or flagged questions differ from the bank is stored as
+    decided_by human. Each line carries its own status; the subcategory is needs_human_review while any line is.
     Subcategories come from generation: the sheet may not add one or drop one."""
     by_sub: dict[str, list[dict]] = {}
     problems = []
@@ -294,11 +345,12 @@ def questions_from_sheet(bank: str, lines: list[dict], doc: dict, inp: dict) -> 
             if bank == "areas":
                 q["rows"] = [row_id(a, sid) for a in ln["areas"]]
             qs.append(q)
-        status = "needs_human_review" if any(ln["status"] == "needs_human_review" for ln in sub_lines) else "pass"
+        parts = reason_from_lines(sub_lines)
+        status = "needs_human_review" if parts else "pass"
         data[sid] = {"status": status, "turns": old["turns"], "questions": qs,
-                     **({"reason": old.get("review_reason") or "flagged in the review sheet"}
-                        if status == "needs_human_review" else {})}
-        if qs != old["questions"] or status != old["status"]:
+                     **({"reason": join_reason(parts)} if parts else {})}
+        old_parts = split_reason(old.get("review_reason", "")) if old["status"] != "pass" else {}
+        if qs != old["questions"] or status != old["status"] or (old_parts and parts != old_parts):
             changed.append(sid)
     problems = validate_questions(data, bank, inp, question_context(inp))
     if problems:
@@ -309,6 +361,8 @@ def questions_from_sheet(bank: str, lines: list[dict], doc: dict, inp: dict) -> 
         e.update({"status": data[sid]["status"], "questions": data[sid]["questions"], "decided_by": "human"})
         if data[sid]["status"] == "pass":
             e.pop("review_reason", None)
+        else:
+            e["review_reason"] = data[sid]["reason"]
     passed = sum(1 for e in new["subcategories"].values() if e["status"] == "pass")
     new["summary"] = {"subcategories": len(new["subcategories"]), "passed": passed,
                       "needs_human_review": len(new["subcategories"]) - passed,
