@@ -1,0 +1,12 @@
+{
+  "accepted_on": "2026-10-29",
+  "note": "2026-10-29: user accepted the question pilot after four rounds (GOVERN 1.2, 1.6, 6.1; MAP 1.4, MAP 3.2, MEASURE 2.7, MEASURE 2.8, MANAGE 3.2); evaluator Opus from now on",
+  "recorded": {
+    "foundation": 3,
+    "areas": 5
+  },
+  "prompts": {
+    "prompts/ai_rmf_question_generator.md": "25bab5f22ab9f3e2",
+    "prompts/ai_rmf_question_evaluator.md": "cf7c1fc84adb564b"
+  }
+}
