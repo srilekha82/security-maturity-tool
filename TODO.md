@@ -135,6 +135,8 @@ used for; not invisible_usage, whose need is MAP 3.1; not Output, a noun; not co
 **Step 3 done 2026-10-28: mapping accepted** (14 areas, 208 rows, every MAP/MEASURE/MANAGE subcategory reached by an area or the foundation; `data/ai/bank_build/mapping_accepted.json`). MEASURE 2.9 mapped on Output (answers presented with enough context to judge trust). Next: TODO step 4.
 2026-10-28: the user reviewed part of the sheet in chat; Claude filled the rest as suggestions the user agreed to;
 MEASURE 2.9 mapped on Output; imported (74 lines decided by a person) and accepted.
+2026-10-29 review decisions (invisible_usage frame optional; MAP 1.4 internal_process and customer_facing shared;
+MEASURE 2.8 Q10 and Q12 framed; MEASURE 2.7 Q5 cites suggested action 2).
 
 ## Then
 - `/build-csf-bank all` (only `finance` exists today).

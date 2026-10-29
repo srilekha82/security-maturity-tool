@@ -213,7 +213,7 @@ mapping rows changed is shown incomplete by the freshness check).
   (`question_rules.json` `row_questions`, decided 2026-10-29 after the pilot squeezed such rows into one chained
   question). A question asks the core of the row's why: one practice, details only as "for example", no purpose
   clauses, at most one short follow-up. Proportionate to criticality ("for your highest-criticality AI systems,
-  ..."), optional for code generation and vendor AI (`criticality_frame_optional`), never once per AI system. A row with folded
+  ..."), optional for code generation, vendor AI, model building, model, test/tuning/evaluation data and invisible AI usage (`criticality_frame_optional`), never once per AI system. A row with folded
   subcategories also asks their outcomes. One question per role only where good practice differs (a producer
   controls training, a consumer only what it accepts); a flag only when the whole row applies only to producers with
   it.
