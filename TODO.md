@@ -7,8 +7,11 @@ removed. `/ai-questionnaire` has no AI RMF bank until step 6. The audit trail (`
 `judgement_log/`) is kept.
 
 ## Start here next session
-**Next: step 6, pilot the question banks (`/build-ai-bank`, Step 5: pilot set proposed there, Sonnet).** Step 5
-(severity) can wait: the pilot does not need it. The step 4 decisions are in the design note, section 7.
+**Next: accept the question pilot, then the full bank run (`/build-ai-bank`, Step 5, full).** The pilot ran four
+rounds on 2026-10-29 (GOVERN 1.2, 1.6, 6.1; MAP 1.4, MAP 3.2, MEASURE 2.7, MEASURE 2.8, MANAGE 3.2); all recorded, none
+left for review, most decided by the user in the review sheets. Generator Sonnet, evaluator Opus from now on (the
+pilot's evaluations were Sonnet). The user says when the pilot is good (`ai_pilot.py accept`). Step 5 (severity) can
+wait. The step 4 decisions are in the design note, section 7.
 
 Where things stand:
 - `data/ai/mapping.json` is accepted (`data/ai/bank_build/mapping_accepted.json`): 14 AI areas, 208 rows (41

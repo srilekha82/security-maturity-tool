@@ -102,7 +102,8 @@ Two banks, built the same way: **foundation** (GOVERN and the 12 foundation subc
 none, consumer, producer) and **areas** (one item per subcategory with every AI area's mapping row on it; each row is
 asked once per role its area allows, or twice when its check holds two practices, and rows that would get the same
 question share one). Use Sonnet
-(`model: "sonnet"`) for the generator and the evaluator.
+(`model: "sonnet"`) for the generator and Opus (`model: "opus"`) for the evaluator (decided 2026-10-29: two Sonnet
+evaluators agreed on style but each missed different wrong citations and duplicates).
 
 Ask the user: **pilot** (a few subcategories the user agrees to, then stop for review) or **full** (all subcategories
 not yet recorded, one AI RMF function per batch).
@@ -127,7 +128,7 @@ Work files go under `data/ai/bank_build/work/` (create it; delete the files once
 2. **Generator** (a fresh subagent via the Agent tool, Sonnet): tell it to follow
    `prompts/ai_rmf_question_generator.md` with the batch file as input and to write its output to `work/<tag>_gen1.json`.
    Pass paths, not content.
-3. **Evaluator** (another fresh subagent, Sonnet): tell it to follow `prompts/ai_rmf_question_evaluator.md` with the
+3. **Evaluator** (another fresh subagent, Opus): tell it to follow `prompts/ai_rmf_question_evaluator.md` with the
    batch file and `work/<tag>_gen1.json`, and to write its verdicts (every check of every question, and a `complete`
    verdict per subcategory) to `work/<tag>_eval1.json`. It must not see the generator's prompt.
 4. If `eval1` fails anything: a fresh generator subagent revises only those subcategories (inputs: the batch file,
