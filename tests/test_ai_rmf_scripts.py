@@ -704,6 +704,9 @@ class FreshnessGate(unittest.TestCase):
         CF.mapping_status = lambda: (self.mapping_ok, "accepted (test)" if self.mapping_ok else "missing (test)")
         self.addCleanup(setattr, CF, "mapping_status", real_mapping_status)
         CF.AI_AREAS, CF.AI_AREAS_XLSX = self.tmp / "ai_areas.json", self.tmp / "ai_areas.xlsx"
+        real_sheets = CF.AI_QUESTIONS_XLSX
+        CF.AI_QUESTIONS_XLSX = {b: (self.tmp / f"questions_{b}.xlsx", n) for b, (_, n) in real_sheets.items()}
+        self.addCleanup(setattr, CF, "AI_QUESTIONS_XLSX", real_sheets)
         CF.AI_BANKS.mkdir()
 
     def sha(self, name):
@@ -768,6 +771,18 @@ class FreshnessGate(unittest.TestCase):
         stages = {s: (ok, text) for s, ok, text in CF.ai_stages()}
         self.assertFalse(stages["ai areas"][0])
         self.assertIn("sheet_io.py import ai_areas", stages["ai areas"][1])
+
+    def test_a_review_sheet_edited_but_not_imported(self):
+        self.build_everything()
+        sheet = CF.AI_QUESTIONS_XLSX["areas"][0]
+        sheet.write_text("edited")
+        stages = {s: (ok, text) for s, ok, text in CF.ai_stages()}
+        self.assertFalse(stages["bank areas"][0])
+        self.assertIn("sheet_io.py import area_questions", stages["bank areas"][1])
+        doc = json.loads((CF.AI_BANKS / "question_bank_ai_rmf_areas.json").read_text())
+        doc["source_sha"] = self.audit.sha(sheet)                         # imported
+        (CF.AI_BANKS / "question_bank_ai_rmf_areas.json").write_text(json.dumps(doc))
+        self.assertTrue(self.states()["bank areas"])
 
     def test_pilot_stage(self):
         self.build_everything()

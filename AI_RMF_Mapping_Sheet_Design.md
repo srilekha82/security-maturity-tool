@@ -230,7 +230,13 @@ mapping rows changed is shown incomplete by the freshness check).
 - **Scoring** (several areas on one subcategory) is decided in Stage 2; every question keeps its subcategory and rows.
 - **Open:** the per-row gap rule (a row whose CIS safeguards map to CSF subcategories the client was assessed on asks
   only the AI-specific part) needs the CIS -> CSF mapping as a committed id file; until then every AI question is
-  `full_discovery`. A review sheet for the questions (`sheet_io.py`) is still to build.
+  `full_discovery`.
+- **Review sheets** (`sheet_io.py export / import area_questions`, `foundation_questions` ->
+  `data/ai/authoring/questions_<areas|foundation>.xlsx`): one line per question (areas covered, asked of, producer
+  flag, question, Playbook actions, safeguards, status). Lines may be edited, added or deleted; subcategories come from
+  generation. Import checks the whole bank with the recording validator and stores changed subcategories as
+  `decided_by: human`; agent output is refused for them unless `--replace-human`. The freshness check shows a sheet
+  edited but not imported.
 
 ## Code review findings from the same review (not fixed yet)
 1. `parse_soa.py`: numeric control ids collapse (5.10 -> 5.1, 8.10 -> 8.1) and `compute_scope.py` then overwrites one

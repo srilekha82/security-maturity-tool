@@ -135,15 +135,20 @@ Work files go under `data/ai/bank_build/work/` (create it; delete the files once
    ```
    If `questions` lists problems (a row not asked, or asked twice, for a role; a role the area does not allow; a
    safeguard not of the row; a fold not cited; a foundation subcategory without a consumer or producer question), send
-   them back to the generator and repeat; nothing is stored until it passes.
+   them back to the generator and repeat; nothing is stored until it passes. A subcategory the user decided in the
+   review sheet is refused: leave it out of the batch, or add `--replace-human` only if the user agreed.
+6. Refresh the review sheet of that bank: `.venv/bin/python ./scripts/sheet_io.py export area_questions` (or
+   `foundation_questions`); it refuses if the sheet has edits not yet imported: ask the user to import them first.
 
 ### After the pilot: stop
 Do not continue to a full run on your own. Report to the user: how many subcategories passed on turn 1 and turn 2, how
 many need human review, and token use per batch if you can see it. Show 2 or 3 PASSING questions as well as the
 failures (include a shared question and its rows), so passes get reviewed too. Run the evaluator once on a file with 3
 deliberately weak, checkbox-style questions added to a copy of one subcategory (never recorded) and report whether it
-caught them. The user tunes the generator and evaluator prompts from this, then runs `/build-ai-bank` again for the
-full run.
+caught them. Point the user to the review sheets (`data/ai/authoring/questions_areas.xlsx`,
+`questions_foundation.xlsx`); the user cannot easily edit spreadsheets, so take their decisions in chat, apply them to
+the sheet and run `sheet_io.py import area_questions` / `foundation_questions`. The user tunes the generator and
+evaluator prompts from this, then runs `/build-ai-bank` again for the full run.
 
 When the user says the pilot is good, record it:
 ```bash

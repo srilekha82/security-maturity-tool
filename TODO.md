@@ -2,14 +2,13 @@
 
 State: the AI RMF model was redesigned (2026-10-16 to 2026-10-22): AI areas (how AI is used and what it is made of) ->
 attack areas -> AI RMF function -> subcategory. `AI_RMF_Mapping_Sheet_Design.md` is the starting point for every
-session. **The mapping is accepted (2026-10-28).** **Step 4 (question tooling) is built except the review sheet
-(2026-10-29)**; the old model (question categories, rungs, usage contexts, modifiers, producer and consumer banks) is
+session. **The mapping is accepted (2026-10-28).** **Step 4 (question tooling) is built (2026-10-29)**; the old model (question categories, rungs, usage contexts, modifiers, producer and consumer banks) is
 removed. `/ai-questionnaire` has no AI RMF bank until step 6. The audit trail (`data/ai/bank_build/audit.jsonl`,
 `judgement_log/`) is kept.
 
 ## Start here next session
-**Next: finish step 4 with the question review sheet (`sheet_io.py export/import questions`), then step 6 (pilot the
-banks).** The step 4 decisions are in the design note, section 7.
+**Next: step 6, pilot the question banks (`/build-ai-bank`, Step 5: pilot set proposed there, Sonnet).** Step 5
+(severity) can wait: the pilot does not need it. The step 4 decisions are in the design note, section 7.
 
 Where things stand:
 - `data/ai/mapping.json` is accepted (`data/ai/bank_build/mapping_accepted.json`): 14 AI areas, 208 rows (41
@@ -26,7 +25,8 @@ Where things stand:
   `build_ai_questions.py` (a filter on role, producer flags and AI areas, "This question covers: ..." note, evidence by
   impact); questionnaire AI sheet with an Area column; intake without the old fields; `scope_rules.json` and
   `evidence_prompts.json` rewritten; `question_categories.json` removed; commands, README, DESIGN_RULES and the
-  pipeline design updated.
+  pipeline design updated; review sheets `sheet_io.py export / import area_questions`, `foundation_questions` (a
+  person's edits are stored as `decided_by: human` and protected from later agent output unless `--replace-human`).
 - Any change is a delta: a change to an area's own row in `ai_areas.xlsx` or to the sources needs that area
   re-drafted; a change to the rules or to another area needs only `record_ai_bank.py revalidate` (no agent). A change
   in the review sheet is imported and the mapping accepted again. A changed mapping row makes its subcategory's area
@@ -34,9 +34,6 @@ Where things stand:
 - The user cannot easily edit spreadsheets: they decide in chat, Claude applies it to the sheet and imports.
 
 Open for step 4 and after:
-- **Question review sheet** in `sheet_io.py`: an Area questions tab (subcategory, rows covered, roles, flags,
-  question, status) and one Foundation sheet (subcategory, question, roles, flag, status); import as `decided_by:
-  human` like the mapping.
 - **Per-row gap rule:** a row whose CIS safeguards map to CSF subcategories the client was assessed on asks only the
   AI-specific part. Needs the CIS -> CSF mapping as a committed id file (the xlsx is not in the codespace). Until then
   every AI question is `full_discovery` and `build_ai_questions.py` prints a note when the client has a CSF
@@ -70,12 +67,11 @@ reports the mapping directly.
    2026-10-26: evaluator findings `row` / `missing` / `note`, folds count as reached. 2026-10-27: a change is a delta
    (`revalidate`). 2026-10-28: editable "Folded into this row" column (clear it to unfold; a row's folds must be
    cleared before it can be removed).
-4. Question generation from the mapping rows. Built 2026-10-29 except the review sheet (see "Start here" and design
-   note section 7): two banks (foundation, areas) of every possible question tagged with roles and producer flags;
+4. ~~Question generation from the mapping rows.~~ Built 2026-10-29 (see "Start here" and design note section 7): two banks (foundation, areas) of every possible question tagged with roles and producer flags;
    batch per subcategory with every area's row so similar rows share a question; recording checks coverage;
    selection is a filter. The old model (`legacy_profile`, rungs, usage contexts, modifiers, topics,
-   `question_categories.json`, `AI_APPLICABILITY`, producer and consumer banks) is removed. Left: the review sheet; the
-   per-row gap rule (needs the CIS -> CSF ids).
+   `question_categories.json`, `AI_APPLICABILITY`, producer and consumer banks) is removed. Review sheets built.
+   Left: the per-row gap rule (needs the CIS -> CSF ids).
 5. Severity: the standard criticality question (USD under 100k / 100k-500k / over 500k; reputation; safety) and the
    priority rules (domain floor for healthcare and manufacturing / OT, process criticality, data classification) for
    the Stage 2 writer. The criticality question becomes the AI system inventory (GOVERN 1.6): each system with its AI

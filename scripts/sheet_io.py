@@ -4,13 +4,19 @@ Usage: .venv/bin/python ./scripts/sheet_io.py import <sheet> [--xlsx PATH] [--js
 
 Converts a spreadsheet a person edits into the JSON scripts and agents read, and back. One script for every such sheet:
 the columns, required cells and allowed values of each <sheet> live in data/common/sheet_specs.json (today: ai_areas,
-mapping). Scripts never read the spreadsheet; they read the JSON.
+mapping, area_questions, foundation_questions). Scripts never read the spreadsheet; they read the JSON.
 
   ai_areas  the spreadsheet is the decision (data/ai/authoring/ai_areas.xlsx -> data/ai/ai_areas.json).
   mapping   data/ai/mapping.json is the decision; export writes it for review as one line per AI area x MAP, MEASURE or
             MANAGE subcategory (mapped or not, with the Playbook outcome and safeguard titles) plus a Coverage sheet;
             import checks every area with record_ai_bank.py's mapping validator and stores changed lines as
             decided_by human.
+  area_questions, foundation_questions
+            the question banks (data/ai/banks/question_bank_ai_rmf_<areas|foundation>.json) are the decision; export
+            writes one line per question (areas covered, who it is asked of, producer flag, the question, Playbook
+            actions, safeguards, status); import checks the whole bank with record_ai_bank.py's questions validator
+            and stores changed subcategories as decided_by human. Lines may be edited, added (blank Q#) or deleted;
+            subcategories come from generation and cannot be added or dropped here.
 
   import   XLSX -> JSON. Checks the WHOLE sheet (headers, required cells, allowed values, id format, duplicate ids);
            if anything is wrong it lists the problems, exits 1 and writes nothing. Otherwise writes the JSON with the
@@ -160,6 +166,8 @@ def import_sheet(spec: dict, xlsx: Path, json_path: Path, log: Path) -> str:
         ev.reject(problems, xlsx.name, [xlsx], status="rejected")
     if spec.get("shape") == "mapping":
         return import_mapping(spec, xlsx, json_path, ev, rows)
+    if spec.get("shape") == "questions":
+        return import_questions(spec, xlsx, json_path, ev, rows)
     keep = [c["key"] for c in json_columns(spec)]
     doc = {"description": spec["json_description"], "source": _rel(xlsx), "source_sha": audit.sha(xlsx),
            "generated_by": f"scripts/sheet_io.py import {spec['name']}",
@@ -191,6 +199,23 @@ def import_mapping(spec: dict, xlsx: Path, json_path: Path, ev, rows: list[dict]
     json_path.write_text(json.dumps(doc, indent=2, ensure_ascii=False))
     line = (f"{len(rows)} lines from {xlsx.name}, {changed} changed (decided_by human) -> {_rel(json_path)}; "
             f"{len(R.mapping_coverage(doc, inp, m['rules'])[1])} subcategories not reached yet")
+    print(f"[sheet_io] {line}")
+    ev.finish(inputs=[xlsx], outputs=[json_path], detail=line)
+    return line
+
+
+def import_questions(spec: dict, xlsx: Path, json_path: Path, ev, rows: list[dict]) -> str:
+    if not json_path.is_file():
+        ev.fail(f"[sheet_io] ERROR: {json_path} not found; record questions first (/build-ai-bank, Step 5)")
+    import record_ai_bank as R
+    inp = R.load_inputs()
+    doc, problems, changed = R.questions_from_sheet(spec["bank"], rows, json.loads(json_path.read_text()), inp)
+    if problems:
+        ev.reject(problems, xlsx.name, [xlsx], status="rejected")
+    doc["source_sha"] = audit.sha(xlsx)
+    json_path.write_text(json.dumps(doc, indent=2, ensure_ascii=False))
+    line = (f"{len(rows)} questions from {xlsx.name}, {changed} subcategories changed (decided_by human) -> "
+            f"{_rel(json_path)}; {doc['summary']['needs_human_review']} subcategories need human review")
     print(f"[sheet_io] {line}")
     ev.finish(inputs=[xlsx], outputs=[json_path], detail=line)
     return line
@@ -273,6 +298,10 @@ def export_sheet(spec: dict, xlsx: Path, json_path: Path, log: Path, force: bool
         R, inp, m = mapping_context()
         rows, coverage = R.mapping_sheet_rows(doc, inp, m)
         write_xlsx(spec, rows, xlsx, {"Coverage": coverage})
+    elif spec.get("shape") == "questions":
+        import record_ai_bank as R
+        rows = R.question_sheet_rows(spec["bank"], doc, R.load_inputs())
+        write_xlsx(spec, rows, xlsx)
     else:
         rows = doc[spec["list_key"]]
         write_xlsx(spec, rows, xlsx)

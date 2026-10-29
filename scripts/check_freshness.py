@@ -33,7 +33,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from options import AI_QUESTION_BANKS, CERT_FILES, DOMAINS, load_intake  # noqa: E402
 from paths import (AI_BANKS, AI_CIS_CSF_XLSX, AI_CORE,  # noqa: E402
                    AI_PARSE_CONFIG, AI_PILOT, AI_SAFEGUARDS, AI_SOURCE, AI_AREAS, AI_AREAS_XLSX, CSF_IMPACT_NOTES,
-                   DATA_AUDIT, METADATA, bank_path)
+                   AI_QUESTIONS_AREAS_XLSX, AI_QUESTIONS_FOUNDATION_XLSX, DATA_AUDIT, METADATA, bank_path)
 import audit  # noqa: E402
 from sheet_io import sheet_status  # noqa: E402
 from extract_cset_candidates import DEFAULT_CSET_PATH, git, sql_changed  # noqa: E402
@@ -41,6 +41,10 @@ from ai_pilot import mapping_status, pilot_status  # noqa: E402
 
 def load(path: Path):
     return json.loads(path.read_text()) if path.is_file() else None
+
+
+AI_QUESTIONS_XLSX = {"areas": (AI_QUESTIONS_AREAS_XLSX, "area_questions"),           # review sheet, sheet_io name
+                     "foundation": (AI_QUESTIONS_FOUNDATION_XLSX, "foundation_questions")}
 
 
 def bank_completeness(bank: str, doc: dict) -> tuple[bool, str]:
@@ -76,6 +80,9 @@ def ai_stages() -> list[tuple[str, bool, str]]:
                                   and doc["guide_sha256_16"] == guides)
         if ok and stages[0][1]:
             ok, text = bank_completeness(bank, doc)
+            sheet, name = AI_QUESTIONS_XLSX[bank]
+            if ok and sheet.is_file() and audit.sha(sheet) != doc.get("source_sha"):
+                ok, text = False, f"review sheet edited but not imported (sheet_io.py import {name})"
         stages.append((stage, ok, text))
     stages.append(verdict("notes", notes, notes and notes.get("sources_sha256_16") == {
         "cis_csf": cis_csf, "MCP": guides["MCP"], "AGENT": guides["AGENT"]}))

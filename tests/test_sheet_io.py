@@ -313,3 +313,151 @@ class MappingSheet(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class QuestionSheets(unittest.TestCase):
+    """The question review sheets: a bank -> one line per question -> back, checked like agent output."""
+
+    def setUp(self):
+        import record_ai_bank as R
+        from paths import AI_MAPPING
+        self.R = R
+        real = R.AI_MAPPING
+        R.AI_MAPPING = AI_MAPPING                   # the accepted mapping, read only (other tests redirect it)
+        self.addCleanup(setattr, R, "AI_MAPPING", real)
+        self.tmp = Path(tempfile.mkdtemp())
+        self.inp = R.load_inputs()
+        rows = R.question_context(self.inp)["rows"]["MEASURE 2.8"]
+        groups = {}
+        for rid, r in rows.items():
+            groups.setdefault(tuple(r["roles"]), []).append(rid)
+        q = lambda n, **o: {"question_text": f"For your highest-criticality AI systems, how are AI actions logged ({n}), "  # noqa: E731
+                                             "and who reviews the logs?",
+                            "playbook_refs": ["MEASURE 2.8 — suggested action 1"], "cis_refs": [],
+                            "roles": ["consumer", "producer"], "producer_flags": [], **o}
+        areas = {"subcategories": {"MEASURE 2.8": {
+            "status": "needs_human_review", "turns": 2, "review_reason": "Q1: vague", "rows_sha": "s",
+            "rows": {rid: {"area": r["area"], "impact": r["impact"]} for rid, r in rows.items()},
+            "questions": [q(n, rows=rids, roles=list(roles)) for n, (roles, rids) in enumerate(groups.items(), 1)]}},
+            "summary": {}}
+        foundation = {"subcategories": {"GOVERN 1.2": {"status": "pass", "turns": 1, "questions": [
+            q("policy", roles=["none", "consumer", "producer"], playbook_refs=["GOVERN 1.2 — suggested action 1"])]}},
+            "summary": {}}
+        self.files = {}
+        for bank, doc in (("areas", areas), ("foundation", foundation)):
+            spec = S.load_spec({"areas": "area_questions", "foundation": "foundation_questions"}[bank])
+            xlsx, js = self.tmp / f"{bank}.xlsx", self.tmp / f"{bank}.json"
+            js.write_text(json.dumps(doc))
+            S.export_sheet(spec, xlsx, js, self.tmp / "audit.jsonl", force=True)
+            self.files[bank] = (spec, xlsx, js)
+
+    def bank(self, bank):
+        return json.loads(self.files[bank][2].read_text())["subcategories"]
+
+    def do_import(self, bank):
+        spec, xlsx, js = self.files[bank]
+        try:
+            S.import_sheet(spec, xlsx, js, self.tmp / "audit.jsonl")
+            return 0
+        except SystemExit as e:
+            return e.code
+
+    def sheet(self, bank):
+        spec, xlsx, _ = self.files[bank]
+        wb = openpyxl.load_workbook(xlsx)
+        ws = wb[spec["sheet"]]
+        return wb, ws, [c.value for c in ws[1]]
+
+    def edit(self, bank, line, **cells):
+        """Set cells (by header) on data line `line` (1 = first question)."""
+        wb, ws, heads = self.sheet(bank)
+        for header, value in cells.items():
+            ws.cell(row=line + 1, column=heads.index(header) + 1, value=value)
+        wb.save(self.files[bank][1])
+
+    def test_export_has_a_line_per_question_and_the_round_trip_changes_nothing(self):
+        before = self.bank("areas")
+        _, ws, heads = self.sheet("areas")
+        self.assertEqual(ws.max_row - 1, len(before["MEASURE 2.8"]["questions"]))
+        self.assertIn("Areas covered", heads)
+        self.assertEqual(self.do_import("areas"), 0)
+        self.assertEqual(self.bank("areas"), before)
+        self.assertNotIn("decided_by", self.bank("areas")["MEASURE 2.8"])
+
+    def test_an_edit_is_a_human_decision_and_pass_clears_the_flag(self):
+        self.edit("areas", 1, **{"Question": "For your highest-criticality AI systems, how is each AI action traced "
+                                             "to the request behind it?"})
+        self.assertEqual(self.do_import("areas"), 0)
+        e = self.bank("areas")["MEASURE 2.8"]
+        self.assertEqual((e["decided_by"], e["status"]), ("human", "needs_human_review"))
+        _, ws, heads = self.sheet("areas")
+        for line in range(1, ws.max_row):
+            self.edit("areas", line, Status="pass")
+        self.assertEqual(self.do_import("areas"), 0)
+        e = self.bank("areas")["MEASURE 2.8"]
+        self.assertEqual(e["status"], "pass")
+        self.assertNotIn("review_reason", e)
+        self.assertIn("traced", e["questions"][0]["question_text"])
+
+    def test_a_shared_question_can_be_split_by_adding_a_line(self):
+        _, ws, heads = self.sheet("areas")
+        line = next(n for n in range(1, ws.max_row)
+                    if len(str(ws.cell(row=n + 1, column=heads.index("Areas covered") + 1).value).split(",")) > 1)
+        areas = [a.strip() for a in ws.cell(row=line + 1, column=heads.index("Areas covered") + 1).value.split(",")]
+        self.edit("areas", line, **{"Areas covered": ", ".join(areas[1:])})
+        wb, ws, heads = self.sheet("areas")
+        new = [ws.cell(row=line + 1, column=i + 1).value for i in range(len(heads))]
+        new[heads.index("Q#")], new[heads.index("Areas covered")] = None, areas[0]
+        new[heads.index("Question")] = f"For your highest-criticality AI systems, how is {areas[0]} logged?"
+        ws.append(new)
+        wb.save(self.files["areas"][1])
+        self.assertEqual(self.do_import("areas"), 0)
+        qs = self.bank("areas")["MEASURE 2.8"]["questions"]
+        self.assertEqual(qs[-1]["rows"], [f"{areas[0]}|MEASURE 2.8"])
+
+    def test_bad_edits_are_rejected_and_nothing_is_written(self):
+        _, ws, heads = self.sheet("areas")
+        col = lambda h, n: ws.cell(row=n + 1, column=heads.index(h) + 1).value   # noqa: E731
+        model_line = next(n for n in range(1, ws.max_row) if "model" in str(col("Areas covered", n)).split(", "))
+        cases = {
+            "role the area does not allow": (model_line, {"Asked of": "consumer, producer"}),
+            "an area dropped, so its row is not asked": (1, {"Areas covered": str(col("Areas covered", 1)).split(", ")[0]
+                                                             if "," in str(col("Areas covered", 1)) else "agent, agent"}),
+            "an area with no row on the subcategory": (1, {"Areas covered": "code_generation, agent"}),
+            "no such suggested action": (1, {"Playbook actions": "MEASURE 2.8 — suggested action 99"}),
+            "a subcategory not in the bank": (1, {"Subcategory": "MEASURE 2.7"}),
+            "unknown role": (1, {"Asked of": "vendor"}),
+        }
+        for name, (line, cells) in cases.items():
+            before = self.files["areas"][2].read_text()
+            self.edit("areas", line, **cells)
+            self.assertEqual(self.do_import("areas"), 1, name)
+            self.assertEqual(self.files["areas"][2].read_text(), before, name)
+            self.setUp()
+
+    def test_deleting_every_line_of_a_subcategory_is_rejected(self):
+        wb, ws, _ = self.sheet("foundation")
+        ws.delete_rows(2, ws.max_row)
+        ws.cell(row=2, column=1, value=None)
+        wb.save(self.files["foundation"][1])
+        self.assertEqual(self.do_import("foundation"), 1)
+
+    def test_foundation_needs_a_consumer_and_a_producer_question(self):
+        self.edit("foundation", 1, **{"Asked of": "none, consumer"})
+        self.assertEqual(self.do_import("foundation"), 1)
+        self.edit("foundation", 1, **{"Asked of": "none, consumer, producer", "Producer flag": None})
+        self.assertEqual(self.do_import("foundation"), 0)
+
+    def test_a_human_decision_is_not_overwritten_by_agent_output(self):
+        import argparse
+        self.edit("foundation", 1, **{"Question": "Where is your AI policy kept, and how do staff learn of changes?"})
+        self.assertEqual(self.do_import("foundation"), 0)
+        real = self.R.AI_BANKS
+        self.R.AI_BANKS = self.tmp / "banks"
+        self.addCleanup(setattr, self.R, "AI_BANKS", real)
+        self.R.AI_BANKS.mkdir()
+        shutil.copy(self.files["foundation"][2], self.R.AI_BANKS / "question_bank_ai_rmf_foundation.json")
+        data = {"GOVERN 1.2": {"status": "pass", "turns": 1, "questions": []}}
+        args = argparse.Namespace(bank="foundation", replace_human=False)
+        self.assertTrue(self.R.human_decided(data, args))
+        self.assertEqual(self.R.human_decided(data, argparse.Namespace(bank="foundation", replace_human=True)), [])

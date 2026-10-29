@@ -30,6 +30,8 @@ Record modes (agent output; every one needs --model, optional --session, --promp
                            one consumer and one producer question without producer flags, and no cis_refs. Both: real
                            suggested action numbers, distinct question texts, a question with producer flags has roles
                            ["producer"] only. Whether a question is practice-revealing is the evaluator's job.
+                           A subcategory a person decided in the review sheet (decided_by human) is not overwritten
+                           unless --replace-human.
   notes <file>             {"PR.AA-05": {"exposure": "...", "use": {"base_rag": "...", "mcp_agentic": "..."}}}
                            exposure (layer 1) is required for a new entry; `use` (layer 2) may be added later
                            -> data/csf/ai_impact_notes.json
@@ -237,6 +239,81 @@ def validate_questions(data, bank: str, inp: dict, ctx: dict) -> list[str]:
                 if not any(role in q["roles"] and not q["producer_flags"] for q in qs):
                     errors.append(f"{sid}: no {role} question without producer flags (every {role} is scored on it)")
     return errors
+
+
+def human_decided(data, args) -> list[str]:
+    """A subcategory a person decided in the review sheet is not overwritten by agent output unless --replace-human."""
+    path = AI_BANKS / f"question_bank_ai_rmf_{args.bank}.json"
+    if not isinstance(data, dict) or not path.is_file() or getattr(args, "replace_human", False):
+        return []
+    bank = load_json(path, path.name)["subcategories"]
+    return [f"{sid}: decided by a person in the review sheet; leave it out of the batch, or pass --replace-human if the "
+            "person agreed to regenerate it" for sid in data if bank.get(sid, {}).get("decided_by") == "human"]
+
+
+def question_sheet_rows(bank: str, doc: dict, inp: dict) -> list[dict]:
+    """One review-sheet line per question of the bank (sheet_io.py export area_questions / foundation_questions)."""
+    names = {a["id"]: a["name"] for a in load_json(AI_AREAS, "ai_areas.json")["ai_areas"]}
+    lines = []
+    for sid, entry in doc["subcategories"].items():
+        for n, q in enumerate(entry["questions"], 1):
+            areas = [r.split("|")[0] for r in q.get("rows", [])]
+            lines.append({
+                "subcategory": sid, "outcome": inp["subs"][sid]["outcome"], "q": str(n), "areas": areas,
+                "area_names": "; ".join(names.get(a, a) for a in areas), "roles": q["roles"],
+                "producer_flags": q["producer_flags"], "question_text": q["question_text"],
+                "playbook_refs": q["playbook_refs"], "cis_refs": q["cis_refs"], "status": entry["status"],
+                "review_reason": entry.get("review_reason", ""), "decided_by": entry.get("decided_by", "agent")})
+    return lines
+
+
+def questions_from_sheet(bank: str, lines: list[dict], doc: dict, inp: dict) -> tuple[dict, list[str], int]:
+    """(new bank, problems, subcategories changed) from the review sheet. The whole bank is checked with
+    validate_questions; a subcategory whose questions or status differ from the bank is stored as decided_by human.
+    Subcategories come from generation: the sheet may not add one or drop one."""
+    by_sub: dict[str, list[dict]] = {}
+    problems = []
+    for n, ln in enumerate(lines, 2):
+        if ln["subcategory"] not in doc["subcategories"]:
+            problems.append(f"row {n}: {ln['subcategory']} is not in the {bank} bank (new subcategories come from "
+                            "/build-ai-bank)")
+            continue
+        by_sub.setdefault(ln["subcategory"], []).append(ln)
+    dropped = [sid for sid in doc["subcategories"] if sid not in by_sub]
+    if dropped:
+        problems.append(f"every subcategory keeps at least one question; no lines left for {', '.join(dropped)}")
+    if problems:
+        return doc, problems, 0
+    data, changed = {}, []
+    for sid, sub_lines in by_sub.items():
+        old = doc["subcategories"][sid]
+        qs = []
+        for ln in sub_lines:
+            q = {"question_text": ln["question_text"], "playbook_refs": ln["playbook_refs"], "cis_refs": ln["cis_refs"],
+                 "roles": ln["roles"], "producer_flags": ln["producer_flags"]}
+            if bank == "areas":
+                q["rows"] = [row_id(a, sid) for a in ln["areas"]]
+            qs.append(q)
+        status = "needs_human_review" if any(ln["status"] == "needs_human_review" for ln in sub_lines) else "pass"
+        data[sid] = {"status": status, "turns": old["turns"], "questions": qs,
+                     **({"reason": old.get("review_reason") or "flagged in the review sheet"}
+                        if status == "needs_human_review" else {})}
+        if qs != old["questions"] or status != old["status"]:
+            changed.append(sid)
+    problems = validate_questions(data, bank, inp, question_context(inp))
+    if problems:
+        return doc, problems, 0
+    new = json.loads(json.dumps(doc))
+    for sid in changed:
+        e = new["subcategories"][sid]
+        e.update({"status": data[sid]["status"], "questions": data[sid]["questions"], "decided_by": "human"})
+        if data[sid]["status"] == "pass":
+            e.pop("review_reason", None)
+    passed = sum(1 for e in new["subcategories"].values() if e["status"] == "pass")
+    new["summary"] = {"subcategories": len(new["subcategories"]), "passed": passed,
+                      "needs_human_review": len(new["subcategories"]) - passed,
+                      "questions": sum(len(e["questions"]) for e in new["subcategories"].values())}
+    return new, [], len(changed)
 
 
 def validate_notes(data) -> list[str]:
@@ -746,7 +823,8 @@ def record(mode: str, args) -> None:
         extra = {"review_file": args.review, "review": review}
         log_name = lambda d: f"mapping_{d.get('area', 'unknown')}" if isinstance(d, dict) else "mapping"  # noqa: E731
     else:
-        validate = {"questions": lambda d: validate_questions(d, args.bank, inp, question_context(inp)),
+        validate = {"questions": lambda d: (validate_questions(d, args.bank, inp, question_context(inp))
+                                            + human_decided(d, args)),
                     "notes": validate_notes}[mode]
         store_fn, extra = (lambda d: store(mode, d, args, inp)), None
         log_name = f"{mode}_{args.bank}" if mode == "questions" else mode
@@ -772,6 +850,8 @@ def main():
         p = sub.add_parser(m)
         if m == "questions":
             p.add_argument("bank", choices=AI_QUESTION_BANKS)
+            p.add_argument("--replace-human", action="store_true",
+                           help="overwrite subcategories a person decided in the review sheet (only when they agreed)")
         p.add_argument("file")
         if m == "mapping":
             p.add_argument("--review", help="the evaluator's last list of failures (rows stored as needs_human_review)")
