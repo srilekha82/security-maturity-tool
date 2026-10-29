@@ -1,8 +1,8 @@
 {
-  "accepted_on": "2026-10-28",
-  "note": "Reviewed by the user 2026-10-28 (sheet edits plus Claude's suggestions the user agreed to; MEASURE 2.9 on Output)",
+  "accepted_on": "2026-10-29",
+  "note": "2026-10-29: user approved editing the vendor_ai MAP 1.4 why to match their question decision (business purpose only, no data part)",
   "areas": 14,
   "rows": 208,
   "unreached": [],
-  "mapping_sha": "764692404a98f18f"
+  "mapping_sha": "586d8d5d4ef05116"
 }

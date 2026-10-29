@@ -257,22 +257,54 @@ class Recording(unittest.TestCase):
         def w(name, obj):
             (self.tmp / name).write_text(json.dumps(obj))
             return self.tmp / name
-        gen1 = w("g1.json", {"A": {"questions": cands(3)}, "B": {"questions": cands(4)}, "C": {"questions": cands(3)}})
-        eval1 = w("e1.json", [{"subcategory_id": "B", "question_number": 2, "check": 1, "reason": "yes/no"},
-                              {"subcategory_id": "C", "question_number": 1, "check": 4, "reason": "vague"}])
-        gen2 = w("g2.json", {"B": {"questions": cands(4)}, "C": {"questions": cands(3)}})
-        eval2 = w("e2.json", [{"subcategory_id": "C", "question_number": 1, "check": 4, "reason": "still vague"}])
+        def verdicts(gen, fails):
+            """A verdict for every question and subcategory of gen; fails = {(sid, n): {check: reason}}."""
+            out = []
+            for sid, v in gen.items():
+                for n in range(len(v["questions"]) + 1):
+                    keys = ["complete"] if n == 0 else [str(c) for c in range(1, 10)]
+                    f = fails.get((sid, n), {})
+                    out.append({"subcategory_id": sid, "question_number": n, "reasons": f,
+                                "checks": {k: "fail" if k in f else "pass" for k in keys},
+                                **({"starts_with": v["questions"][n - 1]["question_text"]} if n else {})})
+            return out
+        g1 = {"A": {"questions": cands(3)}, "B": {"questions": cands(4)}, "C": {"questions": cands(3)}}
+        g2 = {"B": {"questions": cands(4)}, "C": {"questions": [self.question("X", 9)] + cands(3)[1:]}}
+        gen1, gen2 = w("g1.json", g1), w("g2.json", g2)
+        eval1 = w("e1.json", verdicts(g1, {("B", 2): {"1": "yes/no"}, ("C", 1): {"4": "vague"}}))
+        eval2 = w("e2.json", verdicts(g2, {("C", 1): {"4": "still vague"}, ("C", 0): {"complete": "row not asked"}}))
         out = self.tmp / "assembled.json"
         R.assemble(gen1, eval1, gen2, eval2, out)
         r = json.loads(out.read_text())
         self.assertEqual((r["A"]["status"], r["A"]["turns"]), ("pass", 1))
         self.assertEqual((r["B"]["status"], r["B"]["turns"]), ("pass", 2))
         self.assertEqual((r["C"]["status"], r["C"]["turns"]), ("needs_human_review", 2))
-        self.assertIn("still vague", r["C"]["reason"])
-        R.assemble(gen1, w("e0.json", []), None, None, out)   # nothing failed on turn 1: all pass
+        self.assertEqual(r["C"]["reason"], "Q0: row not asked; Q1: check 4: still vague")
+        R.assemble(gen1, w("e0.json", verdicts(g1, {})), None, None, out)   # nothing failed on turn 1: all pass
         self.assertTrue(all(v["status"] == "pass" and v["turns"] == 1 for v in json.loads(out.read_text()).values()))
+        bad = {
+            "unknown subcategory": verdicts(g1, {}) + [{"subcategory_id": "Z", "question_number": 1, "checks": {},
+                                                        "reasons": {}}],
+            "a question without a verdict": verdicts(g1, {})[1:],
+            "a check missing": [dict(v, checks={k: c for k, c in v["checks"].items() if k != "9"})
+                                if v["question_number"] == 1 else v for v in verdicts(g1, {})],
+            "a fail without a reason": verdicts(g1, {("A", 1): {"3": ""}}),
+            "the old failures-only format": [{"subcategory_id": "A", "question_number": 1, "check": 3, "reason": "x"}],
+            "a verdict on the wrong question": [dict(v, starts_with="Where is your AI policy kept")
+                                                if (v["subcategory_id"], v["question_number"]) == ("A", 2) else v
+                                                for v in verdicts(g1, {})],
+            "a quote that fits several questions": [dict(v, starts_with="For your highest-criticality AI systems")
+                                                    if (v["subcategory_id"], v["question_number"]) == ("A", 2) else v
+                                                    for v in verdicts(g1, {})],
+        }
+        for name, v in bad.items():
+            with self.assertRaises(SystemExit, msg=name):
+                R.assemble(gen1, w("bad.json", v), None, None, out)
+        # turn 2 may not fail a question that is unchanged and passed turn 1, except on checks 6 and 7
         with self.assertRaises(SystemExit):
-            R.assemble(gen1, w("e9.json", [{"subcategory_id": "Z", "question_number": 1, "reason": "x"}]), None, None, out)
+            R.assemble(gen1, eval1, gen2, w("e3.json", verdicts(g2, {("C", 2): {"3": "chained after all"}})), out)
+        R.assemble(gen1, eval1, gen2, w("e4.json", verdicts(g2, {("C", 2): {"7": "duplicates the new Q1"}})), out)
+        self.assertEqual(json.loads(out.read_text())["C"]["status"], "needs_human_review")
 
 
 import build_ai_questions as BQ  # noqa: E402

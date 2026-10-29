@@ -1,0 +1,196 @@
+{
+  "recorded_at": "2026-10-29T16:10:04.741926+00:00",
+  "step": "record_ai_bank_questions",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-sonnet-5-5; pilot round 4 2026-10-29 (verdict format)",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_question_generator.md",
+      "sha": "25bab5f22ab9f3e2"
+    },
+    {
+      "path": "prompts/ai_rmf_question_evaluator.md",
+      "sha": "cf7c1fc84adb564b"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/pilota4_record.json",
+    "sha": "f3a53f22118ca4ac"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_areas.json",
+    "sha": "fcceaf01980b083b"
+  },
+  "output_snapshot": {
+    "MEASURE 2.7": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How is the AI coding assistant tested for AI-specific weaknesses, for example suggesting packages that do not exist or are malicious, or being steered by poisoned context? Where are the results recorded?",
+          "rows": [
+            "code_generation|MEASURE 2.7"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-16.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the answers tested against prompt injection and other attempts to steer the AI, for example through user input or retrieved content? Where are the results recorded?",
+          "rows": [
+            "customer_facing|MEASURE 2.7",
+            "output|MEASURE 2.7"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 2",
+            "MEASURE 2.7 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-18.2",
+            "LLM-16.13",
+            "LLM-16.3"
+          ]
+        },
+        {
+          "question_text": "How do you test how your systems hold up when other people's AI agents, scrapers or MCP clients act on users' behalf at machine speed, for example through sign-in checks, rate limits or filtering? How often is this tested?",
+          "rows": [
+            "invisible_usage|MEASURE 2.7"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 5"
+          ],
+          "cis_refs": [
+            "LLM-13.3",
+            "MCP-13.10",
+            "AGENT-13.10"
+          ]
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how are the data sets used to build and evaluate the model protected against poisoning and tampering, for example changes made to hide failures? Who reviews changes to them?",
+          "rows": [
+            "test_tuning_data|MEASURE 2.7"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-3.1",
+            "LLM-3.3",
+            "LLM-6.8"
+          ]
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how is the model tested against theft, extraction through the API and tampering with versions? Where are the results documented?",
+          "rows": [
+            "model|MEASURE 2.7"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 10"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is the data the AI retrieves tested so that users only see what they are entitled to, for example by trying to pull out content they should not reach? Where are the results recorded?",
+          "rows": [
+            "source_data|MEASURE 2.7"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-3.3",
+            "LLM-3.12"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the tools and MCP servers the AI can call tested for security, for example prompt injection driving tool calls or permission abuse? Where are the results recorded?",
+          "rows": [
+            "mcp_tools|MEASURE 2.7"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 2"
+          ],
+          "cis_refs": [
+            "MCP-16.13"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are your AI agents red-teamed, for example with manipulated input that triggers actions? Where are the results documented?",
+          "rows": [
+            "agent|MEASURE 2.7"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 2",
+            "MEASURE 2.7 — suggested action 3"
+          ],
+          "cis_refs": [
+            "AGENT-16.13",
+            "AGENT-18.1",
+            "AGENT-18.5"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the servers and exposed endpoints where you host a model tested for security and resilience, for example through vulnerability scans or adversarial exercises? Who acts on the findings?",
+          "rows": [
+            "hosting|MEASURE 2.7"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-7.5",
+            "LLM-7.6"
+          ]
+        }
+      ]
+    }
+  }
+}

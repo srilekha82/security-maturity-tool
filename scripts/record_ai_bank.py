@@ -7,9 +7,12 @@ writes a write-once record to data/ai/bank_build/judgement_log/ plus an audit li
 
 Script-only mode (reshapes agent output for the `questions` record; decides nothing):
   assemble --gen1 F --eval1 F [--gen2 F --eval2 F] --out F
-                                             merge generator output with the evaluator's failures into the file
+                                             merge generator output with the evaluator's verdicts into the file
                                              `questions` records: revision (gen2) replaces the subcategories it
-                                             covers; a subcategory still failing after turn 2 is needs_human_review
+                                             covers; a subcategory still failing after turn 2 is needs_human_review.
+                                             An evaluator file must hold a verdict on checks 1-9 for every question
+                                             and a `complete` verdict per subcategory; a turn 2 file may fail a
+                                             question that is unchanged and passed turn 1 only on checks 6 and 7.
 
 Preparing the agents' input is prepare_ai_bank.py; the pilot gate is ai_pilot.py; freshness of the stages is reported by
 check_freshness.py --ai-bank.
@@ -99,6 +102,7 @@ MIN_QUESTION_CHARS = 30
 PLAYBOOK_REF = re.compile(r"^((?:GOVERN|MAP|MEASURE|MANAGE) \d+\.\d+) [—–-] suggested action (\d+)$")
 REASON_PART = re.compile(r"(?:^|; )Q(\d+): ")    # assemble joins failures as "Q<n>: reason; Q<m>: reason"
 WHOLE = "Whole subcategory: "                      # how a question_number 0 failure shows on every line of the sheet
+STALE = "the mapping rows changed since these questions were written: check them against the rows, then set pass"
 NOTE_MIN_CHARS = 30
 
 
@@ -128,6 +132,12 @@ def question_context(inp: dict) -> dict:
 def rows_sha(rows: dict) -> str:
     """Hash of a subcategory's mapping rows as the questions were written for them (a changed row makes them stale)."""
     return hashlib.sha256(json.dumps(rows, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:16]
+
+
+def rows_record(ctx: dict, sid: str) -> dict:
+    """What an area bank entry stores about the rows its questions were written for."""
+    return {"rows_sha": rows_sha({r: v["sig"] for r, v in ctx["rows"][sid].items()}),
+            "rows": {r: {"area": v["area"], "impact": v["impact"]} for r, v in ctx["rows"][sid].items()}}
 
 
 def bank_freshness(bank: str, doc: dict, inp: dict) -> tuple[bool, str]:
@@ -273,6 +283,15 @@ def join_reason(parts: dict[int, str]) -> str:
     return "; ".join(f"Q{n}: {t}" for n, t in sorted(parts.items()))[:500]
 
 
+def review_view(bank: str, entry: dict, sid: str, ctx: dict) -> dict:
+    """The entry as the review sheet shows it: an area entry whose mapping rows changed since its questions were written
+    is flagged for the whole subcategory (STALE) until a person sets it pass."""
+    if bank != "areas" or sid not in ctx["rows"] or entry.get("rows_sha") == rows_record(ctx, sid)["rows_sha"]:
+        return entry
+    parts = split_reason(entry.get("review_reason", "")) if entry["status"] != "pass" else {}
+    return dict(entry, status="needs_human_review", review_reason=join_reason({**parts, 0: STALE}))
+
+
 def line_review(entry: dict, n: int) -> tuple[str, str]:
     """(status, reason) of question n's sheet line: only its own failure and any whole-subcategory one. A reason
     without Q<n> parts (written by hand) flags every line."""
@@ -303,8 +322,10 @@ def reason_from_lines(lines: list[dict]) -> dict[int, str]:
 def question_sheet_rows(bank: str, doc: dict, inp: dict) -> list[dict]:
     """One review-sheet line per question of the bank (sheet_io.py export area_questions / foundation_questions)."""
     names = {a["id"]: a["name"] for a in load_json(AI_AREAS, "ai_areas.json")["ai_areas"]}
+    ctx = question_context(inp)
     lines = []
     for sid, entry in doc["subcategories"].items():
+        entry = review_view(bank, entry, sid, ctx)
         for n, q in enumerate(entry["questions"], 1):
             areas = [r.split("|")[0] for r in q.get("rows", [])]
             status, reason = line_review(entry, n)
@@ -320,7 +341,9 @@ def question_sheet_rows(bank: str, doc: dict, inp: dict) -> list[dict]:
 def questions_from_sheet(bank: str, lines: list[dict], doc: dict, inp: dict) -> tuple[dict, list[str], int]:
     """(new bank, problems, subcategories changed) from the review sheet. The whole bank is checked with
     validate_questions; a subcategory whose questions, status or flagged questions differ from the bank is stored as
-    decided_by human. Each line carries its own status; the subcategory is needs_human_review while any line is.
+    decided_by human. Each line carries its own status; the subcategory is needs_human_review while any line is. An area
+    subcategory whose mapping rows changed (review_view) is stored against the rows as they are now once every line is
+    set pass.
     Subcategories come from generation: the sheet may not add one or drop one."""
     by_sub: dict[str, list[dict]] = {}
     problems = []
@@ -335,9 +358,10 @@ def questions_from_sheet(bank: str, lines: list[dict], doc: dict, inp: dict) -> 
         problems.append(f"every subcategory keeps at least one question; no lines left for {', '.join(dropped)}")
     if problems:
         return doc, problems, 0
+    ctx = question_context(inp)
     data, changed = {}, []
     for sid, sub_lines in by_sub.items():
-        old = doc["subcategories"][sid]
+        old = review_view(bank, doc["subcategories"][sid], sid, ctx)
         qs = []
         for ln in sub_lines:
             q = {"question_text": ln["question_text"], "playbook_refs": ln["playbook_refs"], "cis_refs": ln["cis_refs"],
@@ -352,7 +376,7 @@ def questions_from_sheet(bank: str, lines: list[dict], doc: dict, inp: dict) -> 
         old_parts = split_reason(old.get("review_reason", "")) if old["status"] != "pass" else {}
         if qs != old["questions"] or status != old["status"] or (old_parts and parts != old_parts):
             changed.append(sid)
-    problems = validate_questions(data, bank, inp, question_context(inp))
+    problems = validate_questions(data, bank, inp, ctx)
     if problems:
         return doc, problems, 0
     new = json.loads(json.dumps(doc))
@@ -361,6 +385,8 @@ def questions_from_sheet(bank: str, lines: list[dict], doc: dict, inp: dict) -> 
         e.update({"status": data[sid]["status"], "questions": data[sid]["questions"], "decided_by": "human"})
         if data[sid]["status"] == "pass":
             e.pop("review_reason", None)
+            if bank == "areas":
+                e.update(rows_record(ctx, sid))
         else:
             e["review_reason"] = data[sid]["reason"]
     passed = sum(1 for e in new["subcategories"].values() if e["status"] == "pass")
@@ -786,29 +812,83 @@ def mapping_from_sheet(lines: list[dict], doc: dict, inp: dict, m: dict) -> tupl
     return new_doc, problems, changed
 
 
+def words_match(quote, text: str) -> bool:
+    """True if quote is the start of text (at least three words, ignoring case and punctuation)."""
+    norm = lambda s: re.findall(r"[a-z0-9]+", str(s).lower())   # noqa: E731
+    q = norm(quote or "")
+    return len(q) >= 3 and norm(text)[:len(q)] == q
+
+
+QUESTION_CHECKS = [str(n) for n in range(1, 10)]   # prompts/ai_rmf_question_evaluator.md, checks 1-9
+TURN_TWO_RECHECKS = {"6", "7"}   # an unchanged question that passed turn 1 may newly fail only these (a rewrite clashes)
+
+
+def verdict_failures(gen: dict, verdicts, name: str) -> dict[tuple[str, int], list[tuple[str, str]]]:
+    """{(subcategory, question number): [(check, reason), ...]} of the failures in an evaluator verdict file, which must
+    hold a verdict on every check for every question of `gen`, quoting the start of that question and of no other
+    (`starts_with`), and a
+    `complete` verdict per subcategory (number 0)."""
+    if not isinstance(verdicts, list):
+        sys.exit(f"[record_ai_bank] ERROR: {name} must be a JSON list of verdicts")
+    want = {(sid, n) for sid, v in gen.items() for n in range(len(v["questions"]) + 1)}
+    got, problems = {}, []
+    for v in verdicts:
+        key = (v.get("subcategory_id"), v.get("question_number")) if isinstance(v, dict) else None
+        if key not in want or key in got:
+            problems.append(f"unexpected or repeated verdict {key}")
+            continue
+        keys = ["complete"] if key[1] == 0 else QUESTION_CHECKS
+        checks, reasons = v.get("checks"), v.get("reasons") or {}
+        starts = [n for n, q in enumerate(gen[key[0]]["questions"], 1)
+                  if words_match(v.get("starts_with"), q["question_text"])]
+        if key[1] and starts != [key[1]]:
+            problems.append(f"{key}: starts_with {v.get('starts_with')!r} must be the start of question {key[1]} and of no "
+                            f"other (matches {starts})")
+            continue
+        if not isinstance(checks, dict) or sorted(checks) != sorted(keys) or \
+                not set(checks.values()) <= {"pass", "fail", "n/a"}:
+            problems.append(f"{key}: checks must be exactly {keys}, each pass, fail or n/a")
+            continue
+        fails = [c for c in keys if checks[c] == "fail"]
+        if not all(str(reasons.get(c, "")).strip() for c in fails):
+            problems.append(f"{key}: every failed check needs a reason")
+            continue
+        got[key] = [(c, str(reasons[c]).strip()) for c in fails]
+    problems += [f"no verdict for {k}" for k in sorted(want - set(got), key=str)]
+    if problems:
+        sys.exit(f"[record_ai_bank] ERROR: {name}:\n  - " + "\n  - ".join(problems))
+    return {k: f for k, f in got.items() if f}
+
+
 def assemble(gen1: Path, eval1: Path, gen2: Path | None, eval2: Path | None, out: Path) -> str:
-    """The file `questions` records, from generator output and evaluator failures. No judgement: a subcategory
-    passes iff the last evaluation lists no failure for it."""
-    g1, f1 = load_json(gen1, "generator output"), load_json(eval1, "evaluator failures")
-    for name, v in (("generator output", g1), ("evaluator failures", f1)):
-        if (name == "generator output") != isinstance(v, dict):
-            sys.exit(f"[record_ai_bank] ERROR: {name} has the wrong JSON type")
+    """The file `questions` records, from generator output and evaluator verdicts. No judgement: a subcategory
+    passes iff the last evaluation fails nothing in it."""
+    g1 = load_json(gen1, "generator output")
+    if not isinstance(g1, dict):
+        sys.exit("[record_ai_bank] ERROR: generator output has the wrong JSON type")
     if bool(gen2) != bool(eval2):
         sys.exit("[record_ai_bank] ERROR: --gen2 and --eval2 go together")
+    f1 = verdict_failures(g1, load_json(eval1, "evaluator verdicts"), "turn 1 verdicts")
     final, last_fail, turns = {sid: v["questions"] for sid, v in g1.items()}, f1, {sid: 1 for sid in g1}
     if gen2:
-        g2, f2 = load_json(gen2, "revision output"), load_json(eval2, "second evaluation")
+        g2 = load_json(gen2, "revision output")
+        if not isinstance(g2, dict) or set(g2) - set(final):
+            sys.exit("[record_ai_bank] ERROR: revision output must be an object of turn 1 subcategories")
+        f2 = verdict_failures(g2, load_json(eval2, "second evaluation"), "turn 2 verdicts")
+        flipped = [f"{sid} Q{n} check {c}" for (sid, n), fails in f2.items() if n
+                   and g2[sid]["questions"][n - 1] in g1[sid]["questions"]
+                   and (sid, g1[sid]["questions"].index(g2[sid]["questions"][n - 1]) + 1) not in f1
+                   for c, _ in fails if c not in TURN_TWO_RECHECKS]
+        if flipped:
+            sys.exit("[record_ai_bank] ERROR: turn 2 verdicts fail questions that are unchanged and passed turn 1 (only "
+                     f"checks {sorted(TURN_TWO_RECHECKS)} may change): {', '.join(flipped)}")
         for sid, v in g2.items():
-            if sid not in final:
-                sys.exit(f"[record_ai_bank] ERROR: revision covers {sid}, which turn 1 did not")
             final[sid], turns[sid] = v["questions"], 2
-        last_fail = [f for f in f1 if f["subcategory_id"] not in g2] + f2
+        last_fail = {k: f for k, f in f1.items() if k[0] not in g2} | f2
     failing: dict[str, list[str]] = {}
-    for f in last_fail:
-        if f.get("subcategory_id") not in final:
-            sys.exit(f"[record_ai_bank] ERROR: failure for unknown subcategory {f.get('subcategory_id')!r}")
-        failing.setdefault(f["subcategory_id"], []).append(
-            f"Q{f.get('question_number')}: {str(f.get('reason', '')).strip()}")
+    for (sid, n), fails in sorted(last_fail.items(), key=lambda kv: (kv[0][0], kv[0][1])):
+        failing.setdefault(sid, []).append(
+            f"Q{n}: " + "; ".join(r if c == "complete" else f"check {c}: {r}" for c, r in fails))
     result = {}
     for sid in final:
         entry = {"status": "needs_human_review" if sid in failing else "pass", "turns": turns[sid], "questions": final[sid]}
@@ -832,9 +912,7 @@ def store(mode: str, data: dict, args, inp: dict) -> tuple[Path, str]:
             bank["subcategories"][sid] = {
                 "status": entry["status"], "turns": entry["turns"],
                 **({"review_reason": entry["reason"]} if entry.get("reason") else {}),
-                **({"rows_sha": rows_sha({r: v["sig"] for r, v in ctx["rows"][sid].items()}),
-                    "rows": {r: {"area": v["area"], "impact": v["impact"]} for r, v in ctx["rows"][sid].items()}}
-                   if args.bank == "areas" else {}),
+                **(rows_record(ctx, sid) if args.bank == "areas" else {}),
                 "questions": entry["questions"]}
         bank["subcategories"] = {sid: bank["subcategories"][sid] for sid in inp["subs"] if sid in bank["subcategories"]}
         bank.update({"description": BANK_DESCRIPTION[args.bank], "built_on": today,

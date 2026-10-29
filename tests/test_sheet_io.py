@@ -327,7 +327,8 @@ class QuestionSheets(unittest.TestCase):
         self.addCleanup(setattr, R, "AI_MAPPING", real)
         self.tmp = Path(tempfile.mkdtemp())
         self.inp = R.load_inputs()
-        rows = R.question_context(self.inp)["rows"]["MEASURE 2.8"]
+        ctx = R.question_context(self.inp)
+        rows = ctx["rows"]["MEASURE 2.8"]
         groups = {}
         for rid, r in rows.items():
             groups.setdefault(tuple(r["roles"]), []).append(rid)
@@ -336,8 +337,7 @@ class QuestionSheets(unittest.TestCase):
                             "playbook_refs": ["MEASURE 2.8 — suggested action 1"], "cis_refs": [],
                             "roles": ["consumer", "producer"], "producer_flags": [], **o}
         areas = {"subcategories": {"MEASURE 2.8": {
-            "status": "needs_human_review", "turns": 2, "review_reason": "Q1: vague", "rows_sha": "s",
-            "rows": {rid: {"area": r["area"], "impact": r["impact"]} for rid, r in rows.items()},
+            "status": "needs_human_review", "turns": 2, "review_reason": "Q1: vague", **R.rows_record(ctx, "MEASURE 2.8"),
             "questions": [q(n, rows=rids, roles=list(roles)) for n, (roles, rids) in enumerate(groups.items(), 1)]}},
             "summary": {}}
         foundation = {"subcategories": {"GOVERN 1.2": {"status": "pass", "turns": 1, "questions": [
@@ -419,6 +419,27 @@ class QuestionSheets(unittest.TestCase):
         e = self.bank("areas")["MEASURE 2.8"]
         self.assertEqual((e["status"], e["review_reason"], e["decided_by"]),
                          ("needs_human_review", "Q0: nothing asks retention; Q3: wrong action", "human"))
+
+    def test_changed_mapping_rows_flag_the_subcategory_until_it_is_set_pass(self):
+        js = self.files["areas"][2]
+        doc = json.loads(js.read_text())
+        e = doc["subcategories"]["MEASURE 2.8"]
+        e.update({"status": "pass", "rows_sha": "written-for-old-rows"})
+        e.pop("review_reason")
+        js.write_text(json.dumps(doc))
+        S.export_sheet(self.files["areas"][0], self.files["areas"][1], js, self.tmp / "audit.jsonl", force=True)
+        _, ws, heads = self.sheet("areas")
+        col = heads.index("Evaluator's reason") + 1
+        self.assertTrue(all("mapping rows changed" in ws.cell(row=r, column=col).value for r in range(2, ws.max_row + 1)))
+        self.assertEqual(self.do_import("areas"), 0)                     # left flagged: nothing changes
+        self.assertEqual(self.bank("areas")["MEASURE 2.8"]["rows_sha"], "written-for-old-rows")
+        for line in range(1, ws.max_row):
+            self.edit("areas", line, Status="pass")
+        self.assertEqual(self.do_import("areas"), 0)                     # a person checked them: stored for the rows now
+        e = self.bank("areas")["MEASURE 2.8"]
+        ctx = self.R.question_context(self.inp)
+        self.assertEqual((e["status"], e["decided_by"], e["rows_sha"]),
+                         ("pass", "human", self.R.rows_record(ctx, "MEASURE 2.8")["rows_sha"]))
 
     def test_a_shared_question_can_be_split_by_adding_a_line(self):
         _, ws, heads = self.sheet("areas")

@@ -82,6 +82,11 @@ After the pilot areas (the user names them; for the 2026-10-26 re-run: `mcp_tool
 evaluator failed, the missing rows and notes, the subcategories still unreached, and token use if you can see it, and point them to the review
 sheet. The user reviews before any other area is drafted.
 
+A changed mapping row makes the area questions written for it stale (Step 6 lists them). The review sheet flags
+such a subcategory on every line ("the mapping rows changed ..."); the user either has it regenerated (Step 5,
+`--ids`) or, if the questions still fit, sets its lines pass and imports, which stores them for the rows as they are
+now.
+
 After a change to `data/ai/mapping_rules.json` or to another AI area's row, do not re-draft: run
 `.venv/bin/python ./scripts/record_ai_bank.py revalidate` (script only). Re-draft only the areas it names (their own
 row or the sources changed), and send the user any rule problems it lists to fix in the sheet.
@@ -123,12 +128,15 @@ Work files go under `data/ai/bank_build/work/` (create it; delete the files once
    `prompts/ai_rmf_question_generator.md` with the batch file as input and to write its output to `work/<tag>_gen1.json`.
    Pass paths, not content.
 3. **Evaluator** (another fresh subagent, Sonnet): tell it to follow `prompts/ai_rmf_question_evaluator.md` with the
-   batch file and `work/<tag>_gen1.json`, and to write the failures to `work/<tag>_eval1.json`. It must not see the
-   generator's prompt.
-4. If `eval1` lists failures: a fresh generator subagent revises only those subcategories (inputs: the batch file,
+   batch file and `work/<tag>_gen1.json`, and to write its verdicts (every check of every question, and a `complete`
+   verdict per subcategory) to `work/<tag>_eval1.json`. It must not see the generator's prompt.
+4. If `eval1` fails anything: a fresh generator subagent revises only those subcategories (inputs: the batch file,
    `gen1`, `eval1`; output `work/<tag>_gen2.json` with the COMPLETE question list of each failing subcategory), then a
-   fresh evaluator checks `gen2` into `work/<tag>_eval2.json`. Two turns at most.
-5. Assemble and record (the script marks a subcategory `needs_human_review` if it still fails after turn 2):
+   fresh evaluator checks `gen2` into `work/<tag>_eval2.json`, given also `gen1` and `eval1` (round 2: unchanged
+   questions that passed keep their verdicts, except checks 6 and 7). Two turns at most.
+5. Assemble and record (the script marks a subcategory `needs_human_review` if it still fails after turn 2; it rejects
+   an evaluator file without a verdict on every check of every question, or a round 2 file that fails an unchanged
+   question that passed round 1 on a check other than 6 and 7: send it back to the evaluator):
    ```bash
    .venv/bin/python ./scripts/record_ai_bank.py assemble --gen1 work/... --eval1 work/... [--gen2 ... --eval2 ...] --out data/ai/bank_build/work/<tag>_record.json
    .venv/bin/python ./scripts/record_ai_bank.py questions <foundation|areas> data/ai/bank_build/work/<tag>_record.json \

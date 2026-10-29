@@ -4,7 +4,7 @@
     "MAP 1.4": {
       "status": "pass",
       "turns": 2,
-      "rows_sha": "41b66b191eb6894d",
+      "rows_sha": "ea6048b052e7450f",
       "rows": {
         "internal_process|MAP 1.4": {
           "area": "internal_process",
@@ -187,9 +187,8 @@
       "decided_by": "human"
     },
     "MEASURE 2.7": {
-      "status": "needs_human_review",
+      "status": "pass",
       "turns": 2,
-      "review_reason": "Q4: Tests AI answers against prompt injection, the same practice (and same cis_refs LLM-18.2) as question 2 on customer_facing; the public-user abuse test already covers steering of answers, so the two split one practice.",
       "rows_sha": "d8289da76441dda1",
       "rows": {
         "code_generation|MEASURE 2.7": {
@@ -261,7 +260,7 @@
       },
       "questions": [
         {
-          "question_text": "How is your AI coding assistant tested for AI-specific weaknesses, for example suggesting invented or malicious packages? Where are the results recorded?",
+          "question_text": "How is the AI coding assistant tested for AI-specific weaknesses, for example suggesting packages that do not exist or are malicious, or being steered by poisoned context? Where are the results recorded?",
           "rows": [
             "code_generation|MEASURE 2.7"
           ],
@@ -278,48 +277,9 @@
           ]
         },
         {
-          "question_text": "For your highest-criticality AI systems facing the public, how is abuse by public users tested, for example prompt injection? How are results documented and acted on?",
+          "question_text": "For your highest-criticality AI systems, how are the answers tested against prompt injection and other attempts to steer the AI, for example through user input or retrieved content? Where are the results recorded?",
           "rows": [
-            "customer_facing|MEASURE 2.7"
-          ],
-          "roles": [
-            "consumer",
-            "producer"
-          ],
-          "producer_flags": [],
-          "playbook_refs": [
-            "MEASURE 2.7 — suggested action 2",
-            "MEASURE 2.7 — suggested action 3"
-          ],
-          "cis_refs": [
-            "LLM-18.2",
-            "LLM-16.13"
-          ]
-        },
-        {
-          "question_text": "How do you test and measure how your systems hold up to other people's AI agents, scrapers and MCP clients acting at machine speed, for example through authentication and throttling? Where are the results recorded?",
-          "rows": [
-            "invisible_usage|MEASURE 2.7"
-          ],
-          "roles": [
-            "none",
-            "consumer",
-            "producer"
-          ],
-          "producer_flags": [],
-          "playbook_refs": [
-            "MEASURE 2.7 — suggested action 1",
-            "MEASURE 2.7 — suggested action 5"
-          ],
-          "cis_refs": [
-            "LLM-13.3",
-            "MCP-13.10",
-            "AGENT-13.10"
-          ]
-        },
-        {
-          "question_text": "For your highest-criticality AI systems, how are the AI's answers tested against attacker steering, for example prompt injection through user input or retrieved content? Where are the results documented?",
-          "rows": [
+            "customer_facing|MEASURE 2.7",
             "output|MEASURE 2.7"
           ],
           "roles": [
@@ -332,12 +292,33 @@
             "MEASURE 2.7 — suggested action 3"
           ],
           "cis_refs": [
-            "LLM-16.3",
-            "LLM-18.2"
+            "LLM-18.2",
+            "LLM-16.13",
+            "LLM-16.3"
           ]
         },
         {
-          "question_text": "For the models behind your most critical AI systems, how are training, tuning and evaluation data and the test harness checked and protected against poisoning and tampering, for example changes that hide failures? Who reviews changes to them?",
+          "question_text": "How do you test how your systems hold up when other people's AI agents, scrapers or MCP clients act on users' behalf at machine speed, for example through sign-in checks, rate limits or filtering? How often is this tested?",
+          "rows": [
+            "invisible_usage|MEASURE 2.7"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 5"
+          ],
+          "cis_refs": [
+            "LLM-13.3",
+            "MCP-13.10",
+            "AGENT-13.10"
+          ]
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how are the data sets used to build and evaluate the model protected against poisoning and tampering, for example changes made to hide failures? Who reviews changes to them?",
           "rows": [
             "test_tuning_data|MEASURE 2.7"
           ],
@@ -364,13 +345,12 @@
           ],
           "producer_flags": [],
           "playbook_refs": [
-            "MEASURE 2.7 — suggested action 3",
             "MEASURE 2.7 — suggested action 10"
           ],
           "cis_refs": []
         },
         {
-          "question_text": "For your highest-criticality AI systems, how is the AI's retrieval from your data stores tested, for example that users only see what they are entitled to and that content cannot be poisoned or copied out? Where are the results recorded?",
+          "question_text": "For your highest-criticality AI systems, how is the data the AI retrieves tested so that users only see what they are entitled to, for example by trying to pull out content they should not reach? Where are the results recorded?",
           "rows": [
             "source_data|MEASURE 2.7"
           ],
@@ -388,7 +368,7 @@
           ]
         },
         {
-          "question_text": "For your highest-criticality AI systems, how are the tools and MCP servers the AI can call tested for security, for example prompt injection driving tool calls or a changed server? Where are the results recorded?",
+          "question_text": "For your highest-criticality AI systems, how are the tools and MCP servers the AI can call tested for security, for example prompt injection driving tool calls or permission abuse? Where are the results recorded?",
           "rows": [
             "mcp_tools|MEASURE 2.7"
           ],
@@ -398,15 +378,14 @@
           ],
           "producer_flags": [],
           "playbook_refs": [
-            "MEASURE 2.7 — suggested action 2",
-            "MEASURE 2.7 — suggested action 3"
+            "MEASURE 2.7 — suggested action 2"
           ],
           "cis_refs": [
             "MCP-16.13"
           ]
         },
         {
-          "question_text": "For your highest-criticality AI agents, how is security tested with adversarial or red-team exercises, for example manipulated input that triggers actions? How are the results documented and acted on?",
+          "question_text": "For your highest-criticality AI systems, how are your AI agents red-teamed, for example with manipulated input that triggers actions? Where are the results documented?",
           "rows": [
             "agent|MEASURE 2.7"
           ],
@@ -422,12 +401,11 @@
           "cis_refs": [
             "AGENT-16.13",
             "AGENT-18.1",
-            "AGENT-18.5",
-            "AGENT-18.2"
+            "AGENT-18.5"
           ]
         },
         {
-          "question_text": "For your highest-criticality AI systems that you host, how are the hosting environment and exposed AI endpoints tested for security and resilience, for example through vulnerability scans? Who follows up on the findings?",
+          "question_text": "For your highest-criticality AI systems, how are the servers and exposed endpoints where you host a model tested for security and resilience, for example through vulnerability scans or adversarial exercises? Who acts on the findings?",
           "rows": [
             "hosting|MEASURE 2.7"
           ],
@@ -437,13 +415,11 @@
           ],
           "producer_flags": [],
           "playbook_refs": [
-            "MEASURE 2.7 — suggested action 1",
             "MEASURE 2.7 — suggested action 2"
           ],
           "cis_refs": [
             "LLM-7.5",
-            "LLM-7.6",
-            "LLM-13.3"
+            "LLM-7.6"
           ]
         }
       ]
@@ -829,9 +805,9 @@
   },
   "summary": {
     "subcategories": 5,
-    "passed": 4,
-    "needs_human_review": 1,
-    "questions": 31
+    "passed": 5,
+    "needs_human_review": 0,
+    "questions": 30
   },
-  "source_sha": "39fc82663a0eb925"
+  "source_sha": "343acfa88dc1a813"
 }

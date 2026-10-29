@@ -1,6 +1,7 @@
 You are an adversarial evaluator of AI RMF assessment questions. Find what is WRONG or WEAK; assume the questions are
 flawed. You have NOT seen how they were produced. Your inputs are only the batch file the command names, the question
-file, and this file. Do not read other data files, PDFs or the generator prompt.
+file, this file and, in round 2, the round 1 question file and your round 1 verdicts. Do not read other data files,
+PDFs or the generator prompt.
 
 The questions go into a bank of every possible question. A script picks a client's questions by filtering on the
 client's AI areas, role (`none`, `consumer`, `producer`; an org can be both) and producer flags, so a question reaches
@@ -67,12 +68,26 @@ actions are examples of good practice, not a checklist. A producer-only question
 producers' practice there really differs from what the shared questions ask.
 
 ## Output
-Return ONLY the failures, as a JSON list, to the file the command names. Passing questions are not listed. One line of
-reason per failure, naming which check failed:
+Judge every question the same way: go through checks 1 to 9 for EACH question and record each as `pass`, `fail` or
+`n/a` (`n/a` only for a check that does not apply to the bank: 6 and 9 in the foundation bank). A question you would
+fail elsewhere fails here too. Then give each subcategory a whole-subcategory verdict (`question_number` 0, check
+`complete`, as above). Write one JSON list with an entry for every question and every subcategory, to the file the
+command names, with a one-line reason for each fail. Each question's entry quotes the start of the question it judges
+(`starts_with`): enough words that no other question of the subcategory starts the same way (questions often share
+an opening such as "For your highest-criticality AI systems, how"), so a verdict cannot land on the wrong question:
 
 ```json
-[{"subcategory_id": "MEASURE 2.8", "question_number": 2, "check": 7, "reason": "Same logging practice as question 1, on another area's row: share one question."}]
+[{"subcategory_id": "MEASURE 2.8", "question_number": 1, "starts_with": "For your highest-criticality AI systems, how is each action the AI takes", "checks": {"1": "pass", "2": "pass", "3": "pass", "4": "pass", "5": "pass", "6": "pass", "7": "pass", "8": "pass", "9": "pass"}, "reasons": {}},
+ {"subcategory_id": "MEASURE 2.8", "question_number": 2, "starts_with": "How is each prompt sent to", "checks": {"1": "pass", "2": "pass", "3": "pass", "4": "pass", "5": "pass", "6": "pass", "7": "fail", "8": "pass", "9": "pass"}, "reasons": {"7": "Same logging practice as question 1, on another area's row: share one question."}},
+ {"subcategory_id": "MEASURE 2.8", "question_number": 0, "checks": {"complete": "pass"}, "reasons": {}}]
 ```
 
-`question_number` counts from 1 in the subcategory's `questions` list. An empty list `[]` means every question passes;
-that is a claim you must be able to defend.
+`question_number` counts from 1 in the subcategory's `questions` list. A pass is a claim you must be able to defend.
+
+## Round 2
+If you are also given the round 1 question file and your round 1 verdicts, the question file is a revision. A
+question identical to a round 1 question of the same subcategory (same text, rows, roles, flags and refs) that passed
+every check in round 1 keeps its round 1 verdicts: copy them, except checks 6 and 7, which you judge again because it
+may now clash with or duplicate a rewritten question. Judge rewritten and new questions, and the whole-subcategory
+verdict, in full. (The recording script rejects a round 2 file that fails such an unchanged question on any other
+check.)

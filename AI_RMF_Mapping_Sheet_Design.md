@@ -231,6 +231,11 @@ mapping rows changed is shown incomplete by the freshness check).
   scored on all 72). `none` only for the AI policy and shadow-AI discovery. A policy is asked as practice: where it is
   kept and how the people it applies to come to know it and its changes, never whether it exists. GOVERN 1.6 is the
   AI system inventory, the one per-system question (areas and criticality per system, section 4).
+- **Evaluator consistency** (decided 2026-10-29, after the pilot showed unchanged questions passing one round and
+  failing the next): the evaluator writes a verdict on every check of every question, not only failures, and round 2
+  gets round 1's questions and verdicts; an unchanged question that passed keeps its pass except checks 6 and 7
+  (clash or duplicate with a rewrite). `record_ai_bank.py assemble` rejects a file that breaks either. When the user
+  overrides the evaluator because of what a mapping row says, the row's why is edited to match, so later runs agree.
 - **Recording** (`record_ai_bank.py questions`) checks coverage mechanically (rows, roles, flags, safeguards of the
   covered rows, folds cited, foundation count and roles); the evaluator judges quality, sharing and audience. Each
   area entry stores the hash of the rows it was written for and each row's area and impact (for the covers note and

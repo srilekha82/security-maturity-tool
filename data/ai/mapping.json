@@ -697,7 +697,7 @@
           "impact": [
             "data"
           ],
-          "why": "Vendor ai uses data it is exposed to for helping with internal processes.",
+          "why": "The business purpose each vendor AI feature serves in internal processes is decided and owned.",
           "status": "pass",
           "decided_by": "human"
         },
@@ -3169,5 +3169,5 @@
     }
   },
   "description": "AI RMF mapping: per AI area, rows of AI RMF function -> subcategory, CIS safeguards that prove it, impact. Drafted and evaluated by agents (prompts/ai_rmf_mapping_*.md), recorded by record_ai_bank.py mapping, reviewed by a person. Model: AI_RMF_Mapping_Sheet_Design.md.",
-  "source_sha": "b924152853a6a9d4"
+  "source_sha": "f2b810bea08c9c5b"
 }
