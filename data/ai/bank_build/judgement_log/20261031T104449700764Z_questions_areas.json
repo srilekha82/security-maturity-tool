@@ -1,0 +1,439 @@
+{
+  "recorded_at": "2026-10-31T10:44:49.700122+00:00",
+  "step": "record_ai_bank_questions",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-opus-5-5; full run 2026-10-31",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_question_generator.md",
+      "sha": "25bab5f22ab9f3e2"
+    },
+    {
+      "path": "prompts/ai_rmf_question_evaluator.md",
+      "sha": "cf7c1fc84adb564b"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/ae2_record_all.json",
+    "sha": "800b818aa4166b29"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_areas.json",
+    "sha": "08d3a6f6c6b2af28"
+  },
+  "output_snapshot": {
+    "MEASURE 2.9": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how are answers presented with enough context, for example the basis, a confidence level or known limits, for people to judge how far to trust them before acting? Who decides what context is shown?",
+          "rows": [
+            "output|MEASURE 2.9"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.9 — suggested action 1"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 2.10": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For the code assistants your developers use, how do you monitor the prompts for sensitive data, for example personal data, secrets or credentials? Who follows up what is found?",
+          "rows": [
+            "code_generation|MEASURE 2.10"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 6"
+          ],
+          "cis_refs": [
+            "LLM-3.13",
+            "LLM-3.14"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, that answer customers, how do you monitor answers for leaks of personal or confidential data? Who reviews what is found?",
+          "rows": [
+            "customer_facing|MEASURE 2.10"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 6"
+          ],
+          "cis_refs": [
+            "LLM-3.13"
+          ]
+        },
+        {
+          "question_text": "How do you check whether personal, regulated or confidential data is being sent to AI tools nobody approved, for example through data loss prevention on AI traffic? Who follows up what is found?",
+          "rows": [
+            "invisible_usage|MEASURE 2.10"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 6"
+          ],
+          "cis_refs": [
+            "LLM-3.13",
+            "LLM-3.14"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you monitor the prompts and files sent to the AI for personal or sensitive data, with an alert when it appears or leaves the organisation? Who responds to the alerts?",
+          "rows": [
+            "input|MEASURE 2.10"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 6"
+          ],
+          "cis_refs": [
+            "LLM-3.13",
+            "LLM-3.14"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you monitor what staff and systems send to the AI in production, for example volumes, file types or unexpected input, and compare it with what was tested before launch? Who is alerted when it differs?",
+          "rows": [
+            "input|MEASURE 2.10"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 5",
+            "MEASURE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-8.11"
+          ]
+        },
+        {
+          "question_text": "For the data used to train and tune your models, how are personal and sensitive data found and then minimised or removed, for example in feedback or logs reused for tuning? Where is that use documented?",
+          "rows": [
+            "test_tuning_data|MEASURE 2.10"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-3.7",
+            "LLM-3.1"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, that retrieve from a data store, how do you check whether personal and sensitive data in that store could be exposed through the AI, for example by classifying what it holds? Who owns that check?",
+          "rows": [
+            "source_data|MEASURE 2.10"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-3.7",
+            "LLM-3.13"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, that call tools or MCP servers, how is the privacy risk examined of personal data flowing to those servers and outside services, for example what leaves and to whom? Who reviews it?",
+          "rows": [
+            "mcp_tools|MEASURE 2.10"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 2"
+          ],
+          "cis_refs": [
+            "MCP-8.7",
+            "MCP-15.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, that act as agents, how is the privacy risk examined of personal data the agent keeps in memory across sessions or moves between systems by its actions? Who owns that review?",
+          "rows": [
+            "agent|MEASURE 2.10"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 2"
+          ],
+          "cis_refs": []
+        }
+      ],
+      "reason": "Q1: check 7: The rewrite makes secrets and credentials mere examples, so it now reads as the input question (monitor prompts for sensitive data, who follows up) apart from the area: restore the secrets-in-code-prompts focus or share one question."
+    },
+    "MEASURE 2.11": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how are answers tested for bias, comparing how people or groups are treated? Where are the results documented?",
+          "rows": [
+            "output|MEASURE 2.11"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.11 — suggested action 1",
+            "MEASURE 2.11 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 2.12": {
+      "status": "pass",
+      "turns": 1,
+      "questions": [
+        {
+          "question_text": "For the models behind your most critical AI systems, how is the environmental impact of training and tuning runs assessed, for example energy use or emissions? Where is it recorded?",
+          "rows": [
+            "model_building|MEASURE 2.12"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.12 — suggested action 2",
+            "MEASURE 2.12 — suggested action 6"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 2.13": {
+      "status": "pass",
+      "turns": 1,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how often are the accuracy, consistency and bias tests of answers reviewed to see whether they actually catch bad answers? Who does the review?",
+          "rows": [
+            "output|MEASURE 2.13"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.13 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How often are the evaluation set and test harness for your models reviewed to confirm they still catch real failures, for example that they are refreshed and have not leaked into training? Who does the review?",
+          "rows": [
+            "test_tuning_data|MEASURE 2.13"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.13 — suggested action 1"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 3.3": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, used in internal processes, how can staff report problems with the AI's output or challenge a decision made on it? Who analyses the reports?",
+          "rows": [
+            "internal_process|MEASURE 3.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 3.3 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-17.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, that customers use, how can customers report problems or appeal an outcome? Who counts and analyses these reports?",
+          "rows": [
+            "customer_facing|MEASURE 3.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 3.3 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How can recipients of a model you have released report problems with it? Who turns those reports into changes in building and tuning?",
+          "rows": [
+            "model_building|MEASURE 3.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [
+            "given_to_others"
+          ],
+          "playbook_refs": [
+            "MEASURE 3.3 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, that act as agents, how can staff and others report agent misbehaviour or unexpected actions? Who uses those reports when evaluating the agent?",
+          "rows": [
+            "agent|MEASURE 3.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 3.3 — suggested action 4"
+          ],
+          "cis_refs": [
+            "AGENT-17.3"
+          ]
+        }
+      ]
+    },
+    "MEASURE 4.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, used in internal processes, how do you measure whether staff rely on the AI's output too much or too little, for example from staff feedback and how often they override it? Who reviews the results?",
+          "rows": [
+            "internal_process|MEASURE 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 4.2 — suggested action 1",
+            "MEASURE 4.2 — suggested action 5"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is feedback from the people who use them, positive and negative, used to judge whether the AI performs as intended, for example alongside how often its output is overridden? Who reviews it?",
+          "rows": [
+            "customer_facing|MEASURE 4.2",
+            "agent|MEASURE 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 4.2 — suggested action 1",
+            "MEASURE 4.2 — suggested action 5"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do domain experts and users confirm that answers are valid, reliable and consistent in real use? How often is this done?",
+          "rows": [
+            "output|MEASURE 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 4.2 — suggested action 3",
+            "MEASURE 4.2 — suggested action 6"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 4.3": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how do you track answer quality against a set baseline to identify improvements or declines over time? Where are the results documented?",
+          "rows": [
+            "output|MEASURE 4.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 4.3 — suggested action 1",
+            "MEASURE 4.3 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ]
+    }
+  }
+}

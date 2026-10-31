@@ -1,0 +1,747 @@
+{
+  "recorded_at": "2026-10-31T10:44:28.026202+00:00",
+  "step": "record_ai_bank_questions",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-opus-5-5; full run 2026-10-31",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_question_generator.md",
+      "sha": "25bab5f22ab9f3e2"
+    },
+    {
+      "path": "prompts/ai_rmf_question_evaluator.md",
+      "sha": "cf7c1fc84adb564b"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/an1_record_all.json",
+    "sha": "958245b25849d79b"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_areas.json",
+    "sha": "6e36968edc077353"
+  },
+  "output_snapshot": {
+    "MANAGE 1.1": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For the vendor AI features that run on your data, how do you decide that a feature is worth its data risk and should stay enabled, for example when the vendor changes it without notice? Who owns that decision?",
+          "rows": [
+            "vendor_ai|MANAGE 1.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 1.1 — suggested action 1",
+            "MANAGE 1.1 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-15.6"
+          ]
+        },
+        {
+          "question_text": "Before you release a model version you built or tuned, how is the decision made on whether it meets its intended purpose and should go ahead? Who signs it off?",
+          "rows": [
+            "model_building|MANAGE 1.1"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 1.1 — suggested action 2",
+            "MANAGE 1.1 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-16.8"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you decide from test results whether the AI's answers are good enough for the intended purpose to keep using it? Who makes that call?",
+          "rows": [
+            "output|MANAGE 1.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 1.1 — suggested action 2",
+            "MANAGE 1.1 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI agents, how do you decide from test and monitoring results whether an agent still achieves its purpose and should keep its current autonomy? Who decides?",
+          "rows": [
+            "agent|MANAGE 1.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 1.1 — suggested action 3",
+            "MANAGE 1.1 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MANAGE 2.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems used in internal decisions, what controls, for example business rules, a second approval or limits on AI output, keep it from driving a high-impact decision unchecked? Who confirms they are applied?",
+          "rows": [
+            "internal_process|MANAGE 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do business rules or output guardrails limit what the AI can say or do in a given context, for example filters, throttling or stopping an answer from triggering a payment? Who checks they keep working?",
+          "rows": [
+            "customer_facing|MANAGE 2.2",
+            "output|MANAGE 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 3",
+            "MANAGE 2.2 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-13.10",
+            "LLM-16.11"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is sensitive data kept out of what is sent to the model, for example by removing or blocking it? Who checks that this works?",
+          "rows": [
+            "input|MANAGE 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-3.1",
+            "LLM-3.13"
+          ]
+        },
+        {
+          "question_text": "For the data you use to train, tune and test your models, how are controls such as quality checks, minimisation, retention and deletion on request applied in practice? Who owns them?",
+          "rows": [
+            "test_tuning_data|MANAGE 2.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-3.1",
+            "LLM-3.4",
+            "LLM-3.5"
+          ]
+        },
+        {
+          "question_text": "How is access to your model weights, fine-tuned versions and system prompts restricted and protected, for example by encryption and protected backups? Who reviews who has access?",
+          "rows": [
+            "model|MANAGE 2.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-6.1",
+            "LLM-6.8",
+            "LLM-3.11",
+            "LLM-11.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that retrieve from your own data, how is the retrieved content kept current and accurate, and who retires outdated material?",
+          "rows": [
+            "source_data|MANAGE 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-3.4",
+            "LLM-3.5"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you keep what the tools and MCP servers the AI calls can do within bounds, for example permissions narrower than the user's, short-lived credentials or rate limits? Who checks these still work?",
+          "rows": [
+            "mcp_tools|MANAGE 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 3"
+          ],
+          "cis_refs": [
+            "MCP-5.2",
+            "MCP-6.7",
+            "MCP-6.8"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI agents, how are limits on what an agent can do applied, for example least-privilege identities, approval for irreversible steps and caps on rate and cost? Who reviews them?",
+          "rows": [
+            "agent|MANAGE 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 3"
+          ],
+          "cis_refs": [
+            "AGENT-6.8",
+            "AGENT-6.1",
+            "AGENT-2.7"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that you host yourself, how is access to the serving endpoint protected, for example authenticated gateways, network isolation and throttling? Who reviews the setup?",
+          "rows": [
+            "hosting|MANAGE 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-12.3",
+            "LLM-12.2"
+          ]
+        }
+      ]
+    },
+    "MANAGE 2.3": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems used in internal decisions, how do you respond to and recover from a decision found to rest on wrong or misused AI output? Who leads the response?",
+          "rows": [
+            "internal_process|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.3"
+          ]
+        },
+        {
+          "question_text": "When a secret leaks into a prompt, or an invented or malicious dependency reaches your code base through an AI coding tool, how do you respond and recover? Who leads the response?",
+          "rows": [
+            "code_generation|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality customer-facing AI systems, how do you respond to and recover from a problem a customer reports or a newly found risk? Who owns the response?",
+          "rows": [
+            "customer_facing|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2",
+            "MANAGE 2.3 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-17.4"
+          ]
+        },
+        {
+          "question_text": "When a new risk appears in a vendor's AI feature, such as a changed data practice or a vendor-side leak, how do you respond and recover? Who leads the response?",
+          "rows": [
+            "vendor_ai|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.9"
+          ]
+        },
+        {
+          "question_text": "When a problem is found in a model you have released, how do you respond and recover, including rebuilding and restoring it? Who leads the response?",
+          "rows": [
+            "model_building|MANAGE 2.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2",
+            "MANAGE 2.3 — suggested action 5"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.8"
+          ]
+        },
+        {
+          "question_text": "If data leaves through an AI tool nobody approved, or an outside agent misuses access to your systems, how do you respond and recover? Who do staff report it to?",
+          "rows": [
+            "invisible_usage|MANAGE 2.3"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.3",
+            "LLM-17.4",
+            "LLM-14.6"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, when sensitive data is found to have been sent to a model or provider, how do you respond, contain and recover? Who leads the response?",
+          "rows": [
+            "input|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you respond to and recover from a newly found problem with its answers, such as an injection route, a bias or a drift? Who leads the response?",
+          "rows": [
+            "output|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2",
+            "MANAGE 2.3 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-17.4"
+          ]
+        },
+        {
+          "question_text": "When poisoned or tampered training, tuning or evaluation data is found, how do you respond and restore a clean, verified copy of the data and the test cases? Who leads the response?",
+          "rows": [
+            "test_tuning_data|MANAGE 2.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-11.1",
+            "LLM-11.5"
+          ]
+        },
+        {
+          "question_text": "When your model or its configuration is found stolen, leaked or tampered with, how do you respond and recover? Who leads the response?",
+          "rows": [
+            "model|MANAGE 2.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that retrieve from your own data, when content is found poisoned or leaked, how is the store put right and back in service, for example by re-indexing and an access review? Who runs that?",
+          "rows": [
+            "source_data|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.4"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, when a tool or MCP server incident happens, such as a misused credential, an injected call or a compromised server, how do you respond and recover? Who leads the response?",
+          "rows": [
+            "mcp_tools|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "MCP-17.4",
+            "MCP-17.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI agents, how do you respond to an agent incident, including reversing the changes the agent made? Who leads the response?",
+          "rows": [
+            "agent|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2",
+            "MANAGE 2.3 — suggested action 5"
+          ],
+          "cis_refs": [
+            "AGENT-17.4",
+            "AGENT-17.5"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that you host yourself, how do you respond to and recover hosting from compromise, outage or abuse, including restoring from backups? Who leads the response?",
+          "rows": [
+            "hosting|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2",
+            "MANAGE 2.3 — suggested action 5"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-11.1"
+          ]
+        }
+      ]
+    },
+    "MANAGE 2.4": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how can the AI be bypassed or switched off, for example at a defined threshold, when its output proves inconsistent with intended use? Who can do that?",
+          "rows": [
+            "internal_process|MANAGE 2.4",
+            "customer_facing|MANAGE 2.4",
+            "output|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 2",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-17.9"
+          ]
+        },
+        {
+          "question_text": "If an AI coding assistant leaks secrets or keeps suggesting invented or malicious packages, how can it be switched off or its access revoked quickly? Who decides?",
+          "rows": [
+            "code_generation|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 2",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-17.9",
+            "LLM-17.4"
+          ]
+        },
+        {
+          "question_text": "How can you switch off a vendor's AI feature, or revoke the vendor's access to your data, when it behaves outside intended use or its terms change? Who can do that?",
+          "rows": [
+            "vendor_ai|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-15.7",
+            "LLM-17.9"
+          ]
+        },
+        {
+          "question_text": "When a model release you gave to others performs against its intended use, how can it be withdrawn or superseded and recipients told? Who is responsible?",
+          "rows": [
+            "model_building|MANAGE 2.4"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [
+            "given_to_others"
+          ],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 8"
+          ],
+          "cis_refs": [
+            "LLM-17.9"
+          ]
+        },
+        {
+          "question_text": "If you find staff using an AI tool nobody approved, or an outside agent or MCP client reaching your systems, how can you block it and revoke the access it holds? Who can do that?",
+          "rows": [
+            "invisible_usage|MANAGE 2.4"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-2.3",
+            "LLM-6.2",
+            "MCP-1.2",
+            "AGENT-1.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how can sending input to a model or provider be stopped quickly when sensitive data is found leaving? Who decides?",
+          "rows": [
+            "input|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 2",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-17.9"
+          ]
+        },
+        {
+          "question_text": "When a model version is found tampered with or leaked, how is it withdrawn from use, for example rolled back to a trusted version with access to it revoked? Who does that?",
+          "rows": [
+            "model|MANAGE 2.4"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 8"
+          ],
+          "cis_refs": [
+            "LLM-11.1",
+            "LLM-6.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that retrieve from your own data, how can a source or the whole store be disconnected from retrieval quickly when found poisoned or over-exposed? Who decides?",
+          "rows": [
+            "source_data|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-17.9"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how can a tool, credential or MCP server the AI uses be switched off or revoked quickly when it misbehaves? Who owns that?",
+          "rows": [
+            "mcp_tools|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "MCP-6.2",
+            "MCP-5.3",
+            "MCP-1.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI agents, how can an agent be stopped, bypassed or its access revoked quickly when it acts outside its intended use? Who may do that?",
+          "rows": [
+            "agent|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "AGENT-6.2",
+            "AGENT-17.9"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that you host yourself, how can a hosted endpoint be disabled or isolated, or its keys revoked, when compromise or cost abuse is detected? Who may do that?",
+          "rows": [
+            "hosting|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-17.9"
+          ]
+        }
+      ]
+    }
+  }
+}

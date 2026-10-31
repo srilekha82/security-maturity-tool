@@ -1,0 +1,442 @@
+{
+  "recorded_at": "2026-10-31T10:44:24.399591+00:00",
+  "step": "record_ai_bank_questions",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-opus-5-5; full run 2026-10-31",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_question_generator.md",
+      "sha": "25bab5f22ab9f3e2"
+    },
+    {
+      "path": "prompts/ai_rmf_question_evaluator.md",
+      "sha": "cf7c1fc84adb564b"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/fo_record_all.json",
+    "sha": "538874f31be1d422"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_foundation.json",
+    "sha": "4a904e655dbfdd75"
+  },
+  "output_snapshot": {
+    "MAP 1.3": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How does your organisation record what each AI system it uses or builds is for, in light of its mission and goals? Who owns that record?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.3 — suggested action 5"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "When the purpose of an AI system is reviewed, how are the organisation's stated principles and the values of the people affected taken into account, and where is the outcome recorded?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.3 — suggested action 2",
+            "MAP 1.3 — suggested action 3"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MAP 1.5": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How does your organisation decide how much risk it will accept from AI, for example by type of harm and by level of impact? Where are these limits recorded?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.5 — suggested action 2",
+            "MAP 1.5 — suggested action 3"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "What happens when an AI system goes beyond the risk your organisation is willing to accept, or is used for a purpose it was not approved for? Can you give a recent example and the record of the decision?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.5 — suggested action 4",
+            "MAP 1.5 — suggested action 6"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MAP 3.4": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How does your organisation decide what skills and training people need before they operate AI systems? Where are the training records kept?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.4 — suggested action 2",
+            "MAP 3.4 — suggested action 3",
+            "MAP 3.4 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do you tell the people who use your AI systems what the systems can and cannot do, and what is out of bounds? Where do they find this information?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.4 — suggested action 1",
+            "MAP 3.4 — suggested action 3",
+            "MAP 3.4 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 1.1": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How does your organisation choose which AI risks to measure first? Where are the chosen measures recorded?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 1.1 — suggested action 1",
+            "MEASURE 1.1 — suggested action 2",
+            "MEASURE 1.1 — suggested action 8"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How are AI risks you decided not to measure, or cannot yet measure, recorded, and who accepted that decision?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 1.1 — suggested action 12"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "What happens when an AI system performs beyond the acceptable limits you have set for it, for example on error rates? Where is the decision recorded?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 1.1 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 1.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How often does your organisation check whether its AI measures and controls still work? Who does it?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 1.2 — suggested action 2",
+            "MEASURE 1.2 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "When errors, incidents or harm from AI are reported, how are they recorded and used to change the measures or controls? Can you show a recent example?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 1.2 — suggested action 3",
+            "MEASURE 1.2 — suggested action 4",
+            "MEASURE 1.2 — suggested action 7"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 3.1": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How does your organisation track AI risks that appear after an AI system is in use, including ones nobody expected? Where is this recorded?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 3.1 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How is feedback from users and affected people about AI compared with your own measures of how the AI performs? Where is the comparison recorded?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 3.1 — suggested action 5"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 3.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For AI risks that are hard to measure, how does your organisation keep track of them anyway, for example through user feedback, a way to challenge AI outputs, or testing by outsiders? Who is responsible?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 3.2 — suggested action 1",
+            "MEASURE 3.2 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How does the organisation weigh AI risks that cannot be measured when deciding to approve, change or stop an AI system? Where is that decision recorded?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 3.2 — suggested action 8",
+            "MEASURE 3.2 — suggested action 12"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 4.1": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How does your organisation collect feedback from the people who use AI systems about how well the AI works in their daily tasks? Where is it recorded?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 4.1 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How does feedback from the people who use your AI systems lead to changes in how you measure AI risk? Can you show a recent change that came from it?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 4.1 — suggested action 10",
+            "MEASURE 4.1 — suggested action 11"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MANAGE 1.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How does your organisation decide which AI risks get treated first and with the most oversight? Who makes these decisions?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 1.2 — suggested action 1",
+            "MANAGE 1.2 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How often are priorities and risk limits for AI reviewed, and what triggers an earlier review? Can you show the last one?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 1.2 — suggested action 3"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MANAGE 1.3": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For the AI risks you rate as high priority, how does your organisation decide the response (reduce, transfer, avoid or accept)? Who owns each plan?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 1.3 — suggested action 2",
+            "MANAGE 1.3 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "Where are AI risk responses and system documentation kept, and who can access them?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 1.3 — suggested action 5"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MANAGE 1.4": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How does your organisation document the risks that remain after its AI risk controls are in place? Who accepts them?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 1.4 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do you tell the people who rely on your AI systems (customers, staff, or those who receive them from you) about remaining risks, known limits and safe-use requirements? Where is this communicated?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 1.4 — suggested action 2",
+            "MANAGE 1.4 — suggested action 3"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MANAGE 2.1": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "When your organisation plans to use AI, how does it check that it has the staff, skills and budget to manage the risks? Who decides?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.1 — suggested action 1",
+            "MANAGE 2.1 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "Before choosing an AI system, how do you consider a non-AI or manual alternative, and where is that decision recorded?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.1 — suggested action 3"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do you use past AI failures and negative impacts to avoid repeating them? Can you show a recent example?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.1 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "Where your own team lacks the expertise to manage AI risks, how do you bring in outside expertise? Can you show a recent example?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.1 — suggested action 12"
+          ],
+          "cis_refs": []
+        }
+      ]
+    }
+  }
+}

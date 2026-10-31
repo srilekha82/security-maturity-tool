@@ -1,6 +1,113 @@
 {
   "bank": "areas",
   "subcategories": {
+    "MAP 1.1": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "c55833e037493cb1",
+      "rows": {
+        "customer_facing|MAP 1.1": {
+          "area": "customer_facing",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "vendor_ai|MAP 1.1": {
+          "area": "vendor_ai",
+          "impact": [
+            "data"
+          ]
+        },
+        "output|MAP 1.1": {
+          "area": "output",
+          "impact": [
+            "process"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems that customers use, how is their intended purpose recorded, for example the types of customers and the settings and laws they operate in? Who owns that record?",
+          "rows": [
+            "customer_facing|MAP 1.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.1 — suggested action 4",
+            "MAP 1.1 — suggested action 9"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do you identify which products from your vendors use AI on your organisation's data, for example what data each feature processes and what it is used for? Where is this recorded?",
+          "rows": [
+            "vendor_ai|MAP 1.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.1 — suggested action 4",
+            "MAP 1.1 — suggested action 8"
+          ],
+          "cis_refs": [
+            "LLM-3.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is a correct answer defined for what the AI is meant to do? Who owns that definition?",
+          "rows": [
+            "output|MAP 1.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.1 — suggested action 4",
+            "MAP 1.1 — suggested action 8"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MAP 1.2": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "394c24574e342a89",
+      "rows": {
+        "model_building|MAP 1.2": {
+          "area": "model_building",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For the models behind your most critical AI systems, how do you make sure the people who build and tune the model bring a range of backgrounds, skills, domain and user experience (for example demographic diversity) to spot bias and misuse? Where is who took part recorded?",
+          "rows": [
+            "model_building|MAP 1.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.2 — suggested action 1"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
     "MAP 1.4": {
       "status": "pass",
       "turns": 2,
@@ -59,6 +166,480 @@
         }
       ],
       "decided_by": "human"
+    },
+    "MAP 1.6": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "546ab4e0291cd108",
+      "rows": {
+        "model_building|MAP 1.6": {
+          "area": "model_building",
+          "impact": [
+            "assets"
+          ]
+        },
+        "source_data|MAP 1.6": {
+          "area": "source_data",
+          "impact": [
+            "data",
+            "access"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "How are requirements for the model you build (for example privacy, security and trustworthiness) gathered from the people who will receive it and put into build and tuning decisions? Where are they recorded?",
+          "rows": [
+            "model_building|MAP 1.6"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.6 — suggested action 1",
+            "MAP 1.6 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-16.1"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the AI's retrieval permissions based on requirements for who may see which content? Who owns those requirements?",
+          "rows": [
+            "source_data|MAP 1.6"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.6 — suggested action 1",
+            "MAP 1.6 — suggested action 6"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MAP 2.1": {
+      "status": "pass",
+      "turns": 1,
+      "rows_sha": "9e497b9c924d7689",
+      "rows": {
+        "model_building|MAP 2.1": {
+          "area": "model_building",
+          "impact": [
+            "assets"
+          ]
+        },
+        "agent|MAP 2.1": {
+          "area": "agent",
+          "impact": [
+            "process",
+            "access"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "How are the task your model is built or tuned for, and the method used (from scratch or tuning an existing model), defined and documented? Who approves them?",
+          "rows": [
+            "model_building|MAP 2.1"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.1 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the tasks each agent performs, and the tools and systems it uses to do them, defined and documented? Who owns that record?",
+          "rows": [
+            "agent|MAP 2.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.1 — suggested action 1"
+          ],
+          "cis_refs": [
+            "AGENT-1.1",
+            "AGENT-2.1"
+          ]
+        }
+      ]
+    },
+    "MAP 2.2": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "2cdbca5a7d6a92f8",
+      "rows": {
+        "internal_process|MAP 2.2": {
+          "area": "internal_process",
+          "impact": [
+            "process"
+          ]
+        },
+        "customer_facing|MAP 2.2": {
+          "area": "customer_facing",
+          "impact": [
+            "people"
+          ]
+        },
+        "vendor_ai|MAP 2.2": {
+          "area": "vendor_ai",
+          "impact": [
+            "data"
+          ]
+        },
+        "model_building|MAP 2.2": {
+          "area": "model_building",
+          "impact": [
+            "assets"
+          ]
+        },
+        "output|MAP 2.2": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "source_data|MAP 2.2": {
+          "area": "source_data",
+          "impact": [
+            "data"
+          ]
+        },
+        "mcp_tools|MAP 2.2": {
+          "area": "mcp_tools",
+          "impact": [
+            "access",
+            "data"
+          ]
+        },
+        "agent|MAP 2.2": {
+          "area": "agent",
+          "impact": [
+            "process",
+            "access"
+          ]
+        },
+        "hosting|MAP 2.2": {
+          "area": "hosting",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how are the known limits of the AI's output, and the situations it should not be used in, documented and made known to the people who rely on or oversee it? Where do they find this?",
+          "rows": [
+            "internal_process|MAP 2.2",
+            "output|MAP 2.2",
+            "agent|MAP 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.2 — suggested action 1",
+            "MAP 2.2 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-14.1"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality customer-facing AI systems, how are customers told what the AI cannot do and that its answers may be wrong? Where is this shown to them?",
+          "rows": [
+            "customer_facing|MAP 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.2 — suggested action 1",
+            "MAP 2.2 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For the vendor AI features you use, how is what stands behind each one documented, for example the model provider, sub-processors and the limits the vendor states? Who keeps this up to date?",
+          "rows": [
+            "vendor_ai|MAP 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.2 — suggested action 1",
+            "MAP 2.2 — suggested action 5"
+          ],
+          "cis_refs": [
+            "LLM-15.1"
+          ]
+        },
+        {
+          "question_text": "How are the limits of the model you build, and the settings outside its intended use, documented? Who maintains that documentation?",
+          "rows": [
+            "model_building|MAP 2.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.2 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "When you release a model to others, how are the recipients told its limits and the settings outside its intended use? Where is this communicated to them?",
+          "rows": [
+            "model_building|MAP 2.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [
+            "given_to_others"
+          ],
+          "playbook_refs": [
+            "MAP 2.2 — suggested action 1",
+            "MAP 2.2 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the topics and content that the data the AI retrieves from does not cover documented and told to users? Where do users see this?",
+          "rows": [
+            "source_data|MAP 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.2 — suggested action 1",
+            "MAP 2.2 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the outside servers, networks and endpoints the AI connects to, and the data that flows to them, documented? Who keeps this current?",
+          "rows": [
+            "mcp_tools|MAP 2.2",
+            "hosting|MAP 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.2 — suggested action 5",
+            "MAP 2.2 — suggested action 6"
+          ],
+          "cis_refs": [
+            "MCP-12.4",
+            "MCP-15.1",
+            "LLM-12.4"
+          ]
+        }
+      ]
+    },
+    "MAP 2.3": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "fefebfc02bf23757",
+      "rows": {
+        "test_tuning_data|MAP 2.3": {
+          "area": "test_tuning_data",
+          "impact": [
+            "data",
+            "assets"
+          ]
+        },
+        "source_data|MAP 2.3": {
+          "area": "source_data",
+          "impact": [
+            "data"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "How are the training, tuning, evaluation and test sets for your model collected and selected (for example availability, representativeness and suitability), and where is this documented?",
+          "rows": [
+            "test_tuning_data|MAP 2.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.3 — suggested action 4",
+            "MAP 2.3 — suggested action 8"
+          ],
+          "cis_refs": [
+            "LLM-3.2"
+          ]
+        },
+        {
+          "question_text": "How do you keep the test cases you measure your model with separate from the data it was trained on? Who checks this?",
+          "rows": [
+            "test_tuning_data|MAP 2.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.3 — suggested action 5",
+            "MAP 2.3 — suggested action 12"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is the content collected into the data the AI retrieves from chosen and checked for suitability, quality and trustworthiness of source? Where is this documented?",
+          "rows": [
+            "source_data|MAP 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.3 — suggested action 4",
+            "MAP 2.3 — suggested action 8"
+          ],
+          "cis_refs": [
+            "LLM-3.1"
+          ]
+        }
+      ]
+    },
+    "MAP 3.1": {
+      "status": "pass",
+      "turns": 1,
+      "rows_sha": "bc909ba4236a7cb0",
+      "rows": {
+        "internal_process|MAP 3.1": {
+          "area": "internal_process",
+          "impact": [
+            "process"
+          ]
+        },
+        "customer_facing|MAP 3.1": {
+          "area": "customer_facing",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "model_building|MAP 3.1": {
+          "area": "model_building",
+          "impact": [
+            "assets"
+          ]
+        },
+        "invisible_usage|MAP 3.1": {
+          "area": "invisible_usage",
+          "impact": [
+            "data"
+          ]
+        },
+        "agent|MAP 3.1": {
+          "area": "agent",
+          "impact": [
+            "process"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how is the benefit of the AI examined with the people who use it, for example by comparing results with a person doing the same task? Who owns that assessment?",
+          "rows": [
+            "internal_process|MAP 3.1",
+            "agent|MAP 3.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.1 — suggested action 1",
+            "MAP 3.1 — suggested action 5"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that face customers, how do you find out what benefit customers get from the AI and what they value in it? Where is that recorded?",
+          "rows": [
+            "customer_facing|MAP 3.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.1 — suggested action 1",
+            "MAP 3.1 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "Before your organisation builds or tunes its own model, how are the benefits of doing so, compared with using an existing model, examined and documented? Who signs that off?",
+          "rows": [
+            "model_building|MAP 3.1"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.1 — suggested action 1",
+            "MAP 3.1 — suggested action 5"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How does your organisation find out why staff use AI tools nobody approved, and check whether an approved alternative meets that need? Who follows this up?",
+          "rows": [
+            "invisible_usage|MAP 3.1"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.1 — suggested action 1",
+            "MAP 3.1 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ]
     },
     "MAP 3.2": {
       "status": "pass",
@@ -171,6 +752,1781 @@
         }
       ],
       "decided_by": "human"
+    },
+    "MAP 3.3": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "75f8297fc65759b3",
+      "rows": {
+        "internal_process|MAP 3.3": {
+          "area": "internal_process",
+          "impact": [
+            "process"
+          ]
+        },
+        "code_generation|MAP 3.3": {
+          "area": "code_generation",
+          "impact": [
+            "assets"
+          ]
+        },
+        "customer_facing|MAP 3.3": {
+          "area": "customer_facing",
+          "impact": [
+            "process"
+          ]
+        },
+        "vendor_ai|MAP 3.3": {
+          "area": "vendor_ai",
+          "impact": [
+            "data"
+          ]
+        },
+        "model_building|MAP 3.3": {
+          "area": "model_building",
+          "impact": [
+            "assets"
+          ]
+        },
+        "output|MAP 3.3": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "mcp_tools|MAP 3.3": {
+          "area": "mcp_tools",
+          "impact": [
+            "access",
+            "data"
+          ]
+        },
+        "agent|MAP 3.3": {
+          "area": "agent",
+          "impact": [
+            "access",
+            "process"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how is it decided and documented which internal decisions and workflows the AI output may drive, and which are out of bounds? Who approves changes to that scope?",
+          "rows": [
+            "internal_process|MAP 3.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.3 — suggested action 1",
+            "MAP 3.3 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How is it decided and documented where AI code generation is allowed and where it is not, for example authentication, cryptography or regulated code? Who enforces that?",
+          "rows": [
+            "code_generation|MAP 3.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.3 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that face customers, how is the scope of what the AI may answer or do narrowed and documented, taking public misuse into account? Who reviews that scope?",
+          "rows": [
+            "customer_facing|MAP 3.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.3 — suggested action 1",
+            "MAP 3.3 — suggested action 5"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How is each vendor AI feature your organisation uses limited to the systems, data classes and uses it may touch? Where is that recorded?",
+          "rows": [
+            "vendor_ai|MAP 3.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.3 — suggested action 1",
+            "MAP 3.3 — suggested action 7"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems that you give to others, how is the scope each release is meant for, for example users, products or regions, specified and documented? Who approves a release outside it?",
+          "rows": [
+            "model_building|MAP 3.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [
+            "given_to_others"
+          ],
+          "playbook_refs": [
+            "MAP 3.3 — suggested action 1",
+            "MAP 3.3 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is the AI kept to the uses and contexts where its answers have been shown to be trustworthy? Who decides when that scope may widen?",
+          "rows": [
+            "output|MAP 3.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.3 — suggested action 1",
+            "MAP 3.3 — suggested action 5"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is the scope of each tool the AI can call set against what the use case needs, for example what it may read, write and do and which credentials it uses? Who approves that scope?",
+          "rows": [
+            "mcp_tools|MAP 3.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.3 — suggested action 1"
+          ],
+          "cis_refs": [
+            "MCP-6.8",
+            "MCP-5.5"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is what each agent may do on its own specified, for example which systems, actions and data it may use and which actions are never left to it? Where is that recorded?",
+          "rows": [
+            "agent|MAP 3.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.3 — suggested action 1",
+            "MAP 3.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "AGENT-6.8"
+          ]
+        }
+      ]
+    },
+    "MAP 3.5": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "review_reason": "Q6: check 3: 'those tool actions' depends on the previous question; on its own the answerer must guess which actions need confirmation.",
+      "rows_sha": "07506b2f1ad6614c",
+      "rows": {
+        "internal_process|MAP 3.5": {
+          "area": "internal_process",
+          "impact": [
+            "process"
+          ]
+        },
+        "code_generation|MAP 3.5": {
+          "area": "code_generation",
+          "impact": [
+            "assets"
+          ]
+        },
+        "customer_facing|MAP 3.5": {
+          "area": "customer_facing",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "mcp_tools|MAP 3.5": {
+          "area": "mcp_tools",
+          "impact": [
+            "access",
+            "process"
+          ]
+        },
+        "agent|MAP 3.5": {
+          "area": "agent",
+          "impact": [
+            "process",
+            "access"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how do the defined oversight steps tell staff when to check, challenge or override AI output before it drives a decision? Who is trained on them?",
+          "rows": [
+            "internal_process|MAP 3.5"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.5 — suggested action 1",
+            "MAP 3.5 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-14.1"
+          ]
+        },
+        {
+          "question_text": "What human review must AI-generated code pass before it is merged or reaches production? Where is it recorded that the review took place?",
+          "rows": [
+            "code_generation|MAP 3.5"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.5 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-16.1",
+            "LLM-16.8"
+          ]
+        },
+        {
+          "question_text": "How are the people who review AI-generated code told where the AI is likely to be wrong or insecure and what it should not be relied on for? Where is that documented?",
+          "rows": [
+            "code_generation|MAP 3.5"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.5 — suggested action 3",
+            "MAP 2.2 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that face customers, how are the oversight steps that catch high-impact answers before or after they reach customers defined, assessed and documented? Who carries them out?",
+          "rows": [
+            "customer_facing|MAP 3.5"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.5 — suggested action 1",
+            "MAP 3.5 — suggested action 5"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you decide which tool actions, for example writes, deletes, payments or external sends, need a person to confirm them before they run? Where is that list kept?",
+          "rows": [
+            "mcp_tools|MAP 3.5"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.5 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is the person's confirmation enforced before those tool actions run, so the AI cannot skip it? Who confirms?",
+          "rows": [
+            "mcp_tools|MAP 3.5"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.5 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is it defined which agent steps need a person's approval or review? Who does that review?",
+          "rows": [
+            "agent|MAP 3.5"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.5 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the people who approve or review agent actions trained for that role? How often is the oversight itself tested?",
+          "rows": [
+            "agent|MAP 3.5"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 3.5 — suggested action 3",
+            "MAP 3.5 — suggested action 5"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MAP 4.1": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "review_reason": "Q6: check 2: Cited action 1 supports reviewing third parties' terms, but identifying outside agents connecting in is not supported by any cited action and no cis_refs back it.; check 3: Chains two practices ('identify the outside AI agents ... and review what their operators' terms say') plus a 'who' follow-up.; Q9: check 2: Actions 1 and 3 cover reviewing and inventorying third-party material; reviewing the licence the org releases its own model under is not supported by them.; check 4: The bas",
+      "rows_sha": "b8b2c848f27bf078",
+      "rows": {
+        "code_generation|MAP 4.1": {
+          "area": "code_generation",
+          "impact": [
+            "assets"
+          ]
+        },
+        "vendor_ai|MAP 4.1": {
+          "area": "vendor_ai",
+          "impact": [
+            "data"
+          ]
+        },
+        "model_building|MAP 4.1": {
+          "area": "model_building",
+          "impact": [
+            "assets"
+          ]
+        },
+        "invisible_usage|MAP 4.1": {
+          "area": "invisible_usage",
+          "impact": [
+            "data",
+            "access"
+          ]
+        },
+        "input|MAP 4.1": {
+          "area": "input",
+          "impact": [
+            "data"
+          ]
+        },
+        "test_tuning_data|MAP 4.1": {
+          "area": "test_tuning_data",
+          "impact": [
+            "data"
+          ]
+        },
+        "model|MAP 4.1": {
+          "area": "model",
+          "impact": [
+            "assets"
+          ]
+        },
+        "source_data|MAP 4.1": {
+          "area": "source_data",
+          "impact": [
+            "data"
+          ]
+        },
+        "mcp_tools|MAP 4.1": {
+          "area": "mcp_tools",
+          "impact": [
+            "access",
+            "process"
+          ]
+        },
+        "hosting|MAP 4.1": {
+          "area": "hosting",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "How are the packages and libraries that AI suggests for your code recorded and checked for made-up ones? Where is that record kept?",
+          "rows": [
+            "code_generation|MAP 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.1 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-16.4",
+            "LLM-2.1"
+          ]
+        },
+        {
+          "question_text": "Before and during use, how are the risks of each vendor's AI assessed and documented, for example its model provider, whether it keeps or trains on your data, and its terms of service? Who owns that assessment?",
+          "rows": [
+            "vendor_ai|MAP 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.1 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-15.1",
+            "LLM-15.4"
+          ]
+        },
+        {
+          "question_text": "How do you evaluate and document the security and resilience of each vendor's AI, for example separation of your data from other customers' and what you do if the feature is unavailable? How often is this redone?",
+          "rows": [
+            "vendor_ai|MAP 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.7 — suggested action 9",
+            "MAP 4.1 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-15.5"
+          ]
+        },
+        {
+          "question_text": "Before your organisation uses a base model or other component to build or tune its own model, how is it assessed for legal, licence and IP risk? Where is the result recorded?",
+          "rows": [
+            "model_building|MAP 4.1"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.1 — suggested action 1",
+            "MAP 4.1 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-16.4",
+            "LLM-2.1"
+          ]
+        },
+        {
+          "question_text": "How does your organisation find and list the AI tools, features, experiments and local models that staff use without approval, and what data they receive? Who keeps that list current?",
+          "rows": [
+            "invisible_usage|MAP 4.1"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.1 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-1.2",
+            "LLM-1.3",
+            "LLM-1.5",
+            "LLM-3.2"
+          ]
+        },
+        {
+          "question_text": "How do you identify the outside AI agents that connect to your systems and review what their operators' terms or documentation say about them? Who owns that review?",
+          "rows": [
+            "invisible_usage|MAP 4.1"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.1 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you review what the terms of each outside provider that receives your prompts and files say about keeping or reusing them? Where is that review recorded?",
+          "rows": [
+            "input|MAP 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.1 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-3.2"
+          ]
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how are the sources of third-party and licensed data used for training, tuning and testing identified, together with the rights to use them and any licence risk? Where is that recorded?",
+          "rows": [
+            "test_tuning_data|MAP 4.1"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.1 — suggested action 1",
+            "MAP 4.1 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-3.2"
+          ]
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how are the licences and IP terms attached to the model and its versions, for example the base model's licence and the one you release it under, reviewed for infringement risk? Who reviews this?",
+          "rows": [
+            "model|MAP 4.1"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.1 — suggested action 1",
+            "MAP 4.1 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-2.1"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you check that you have the right to use the third-party or external content that feeds the data the AI retrieves? Where is that recorded?",
+          "rows": [
+            "source_data|MAP 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.1 — suggested action 1",
+            "MAP 4.1 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-3.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you keep a list of the tools and MCP servers the AI can call, for example who runs each one? Who keeps it current?",
+          "rows": [
+            "mcp_tools|MAP 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.1 — suggested action 3"
+          ],
+          "cis_refs": [
+            "MCP-1.1",
+            "MCP-2.1",
+            "MCP-15.1"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems you host, how are the servers, GPUs, registries and serving software you rely on inventoried and their risks mapped? Who keeps the inventory current?",
+          "rows": [
+            "hosting|MAP 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.1 — suggested action 3",
+            "MAP 4.1 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-1.1",
+            "LLM-2.1"
+          ]
+        }
+      ]
+    },
+    "MAP 4.2": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "def84e64a35f8cf5",
+      "rows": {
+        "code_generation|MAP 4.2": {
+          "area": "code_generation",
+          "impact": [
+            "assets"
+          ]
+        },
+        "vendor_ai|MAP 4.2": {
+          "area": "vendor_ai",
+          "impact": [
+            "data"
+          ]
+        },
+        "model_building|MAP 4.2": {
+          "area": "model_building",
+          "impact": [
+            "assets"
+          ]
+        },
+        "invisible_usage|MAP 4.2": {
+          "area": "invisible_usage",
+          "impact": [
+            "data",
+            "access"
+          ]
+        },
+        "test_tuning_data|MAP 4.2": {
+          "area": "test_tuning_data",
+          "impact": [
+            "data"
+          ]
+        },
+        "source_data|MAP 4.2": {
+          "area": "source_data",
+          "impact": [
+            "data",
+            "access"
+          ]
+        },
+        "mcp_tools|MAP 4.2": {
+          "area": "mcp_tools",
+          "impact": [
+            "access",
+            "process"
+          ]
+        },
+        "agent|MAP 4.2": {
+          "area": "agent",
+          "impact": [
+            "process",
+            "access"
+          ]
+        },
+        "hosting|MAP 4.2": {
+          "area": "hosting",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "How do you check that packages an AI suggests exist and come from approved sources before anyone uses them, for example for made-up names or known vulnerabilities? Who is responsible for that check?",
+          "rows": [
+            "code_generation|MAP 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.2 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-16.4",
+            "LLM-16.5"
+          ]
+        },
+        {
+          "question_text": "How are the controls for each vendor AI feature decided and documented, for example turning off training on your data, switching off history retention, and limiting which data classes may go to it? Who checks they are still set?",
+          "rows": [
+            "vendor_ai|MAP 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.2 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-15.4"
+          ]
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how is it decided which base models and components may be used for building? Where is the approved list kept?",
+          "rows": [
+            "model_building|MAP 4.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.2 — suggested action 2",
+            "MAP 4.2 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-2.1",
+            "LLM-2.3"
+          ]
+        },
+        {
+          "question_text": "How does your organisation decide which AI services, browser extensions and software staff may use, for example through safelists or DNS and extension limits? Who maintains those controls?",
+          "rows": [
+            "invisible_usage|MAP 4.2"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.2 — suggested action 2",
+            "MAP 4.2 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-2.5",
+            "LLM-9.2",
+            "LLM-9.4"
+          ]
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how are third-party datasets and feedback or logs reused for tuning reviewed for bias, privacy and poisoning risk before they enter a training, tuning or test set? Who approves them?",
+          "rows": [
+            "test_tuning_data|MAP 4.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.2 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-3.1"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is it controlled that the AI only retrieves and shows content the person asking is allowed to see, for example based on how the content is classified? Who approves those rules?",
+          "rows": [
+            "source_data|MAP 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.2 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-3.3",
+            "LLM-3.7"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is each tool or MCP server approved before use and held to allowed versions? Where are these controls documented?",
+          "rows": [
+            "mcp_tools|MAP 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.2 — suggested action 2",
+            "MAP 4.2 — suggested action 4"
+          ],
+          "cis_refs": [
+            "MCP-6.1",
+            "MCP-2.5"
+          ]
+        },
+        {
+          "question_text": "For the AI agents behind your highest-criticality AI systems, how are the components they are built on (models, orchestration frameworks, libraries, executors) inventoried and held to approved versions? Who owns that inventory?",
+          "rows": [
+            "agent|MAP 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.2 — suggested action 2",
+            "MAP 4.1 — suggested action 3"
+          ],
+          "cis_refs": [
+            "AGENT-2.1",
+            "AGENT-2.5",
+            "AGENT-2.6"
+          ]
+        },
+        {
+          "question_text": "For the AI agents behind your highest-criticality AI systems, how are the licence, IP and supply-chain risks of the models, frameworks and libraries they are built on reviewed and documented? Who reviews them?",
+          "rows": [
+            "agent|MAP 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.2 — suggested action 3",
+            "MAP 4.1 — suggested action 1",
+            "MAP 4.1 — suggested action 2"
+          ],
+          "cis_refs": [
+            "AGENT-16.4",
+            "AGENT-16.5"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems you host, how is third-party hosting material (base images, serving software, models and packages pulled from registries) reviewed for vulnerabilities and approved before use? Who approves it?",
+          "rows": [
+            "hosting|MAP 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 4.2 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-2.5",
+            "LLM-2.6"
+          ]
+        }
+      ]
+    },
+    "MAP 5.1": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "cdeb21f2cc76581b",
+      "rows": {
+        "invisible_usage|MAP 5.1": {
+          "area": "invisible_usage",
+          "impact": [
+            "data"
+          ]
+        },
+        "input|MAP 5.1": {
+          "area": "input",
+          "impact": [
+            "data"
+          ]
+        },
+        "output|MAP 5.1": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "mcp_tools|MAP 5.1": {
+          "area": "mcp_tools",
+          "impact": [
+            "access",
+            "process",
+            "data"
+          ]
+        },
+        "agent|MAP 5.1": {
+          "area": "agent",
+          "impact": [
+            "process",
+            "data",
+            "access"
+          ]
+        },
+        "hosting|MAP 5.1": {
+          "area": "hosting",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For the unapproved AI use and outside agents you have found, how do you judge how likely and how serious the harm is, for example what data was involved and how sensitive it is? Who decides what is dealt with first?",
+          "rows": [
+            "invisible_usage|MAP 5.1"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 5.1 — suggested action 1",
+            "MAP 5.1 — suggested action 3"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you judge how likely and how serious the exposure of data through prompts and files is, based on what staff and systems actually send? Who owns that assessment?",
+          "rows": [
+            "input|MAP 5.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 5.1 — suggested action 1",
+            "MAP 5.1 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-3.7",
+            "LLM-3.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the likelihood and size of harm from wrong or manipulated answers assessed, for example through red teaming for prompt injection? Who reviews the results?",
+          "rows": [
+            "output|MAP 5.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 5.1 — suggested action 3",
+            "MAP 5.1 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-16.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the likelihood and size of harm from the AI's actions on your systems assessed, for example injected instructions, over-broad permissions or irreversible changes? Who owns that assessment?",
+          "rows": [
+            "mcp_tools|MAP 5.1",
+            "agent|MAP 5.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 5.1 — suggested action 3"
+          ],
+          "cis_refs": [
+            "MCP-16.14",
+            "AGENT-16.14"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems you host, how are the likelihood and size of harm from cost abuse or compromise of your model serving endpoints and GPUs assessed, drawing on past incidents? Who uses the result to set priorities?",
+          "rows": [
+            "hosting|MAP 5.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 5.1 — suggested action 1",
+            "MAP 5.1 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-17.8"
+          ]
+        }
+      ]
+    },
+    "MAP 5.2": {
+      "status": "pass",
+      "turns": 1,
+      "rows_sha": "5a0a18fe839f5bbe",
+      "rows": {
+        "customer_facing|MAP 5.2": {
+          "area": "customer_facing",
+          "impact": [
+            "people"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems that face customers, how do customers report harmful, wrong or unwelcome answers, and who reviews that feedback and acts on it?",
+          "rows": [
+            "customer_facing|MAP 5.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 5.2 — suggested action 3",
+            "MAP 5.2 — suggested action 6"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 1.3": {
+      "status": "pass",
+      "turns": 1,
+      "rows_sha": "d41a7b0eb86e85f6",
+      "rows": {
+        "output|MEASURE 1.3": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, who tests the accuracy, consistency and bias of the AI's answers or reviews those tests, besides the people who built or run the system (for example independent assessors, domain experts or affected users)? Where is their review recorded?",
+          "rows": [
+            "output|MEASURE 1.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 1.3 — suggested action 2",
+            "MEASURE 1.3 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 2.1": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "b5a2b9266593b176",
+      "rows": {
+        "output|MEASURE 2.1": {
+          "area": "output",
+          "impact": [
+            "process"
+          ]
+        },
+        "test_tuning_data|MEASURE 2.1": {
+          "area": "test_tuning_data",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how are the test sets, metrics and tools used to test the AI's answers for accuracy, consistency and bias documented? Where is this kept?",
+          "rows": [
+            "output|MEASURE 2.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.1 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you record the reasoning behind the tests, for example why the test data was chosen and what the tests are meant to measure? Who reviews this?",
+          "rows": [
+            "output|MEASURE 2.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.3 — suggested action 4",
+            "MAP 2.3 — suggested action 3"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how are the evaluation and test sets, metrics and test tools versioned? Where is this recorded?",
+          "rows": [
+            "test_tuning_data|MEASURE 2.1"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.1 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-3.2",
+            "LLM-11.2"
+          ]
+        }
+      ]
+    },
+    "MEASURE 2.2": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "3054d63127627450",
+      "rows": {
+        "output|MEASURE 2.2": {
+          "area": "output",
+          "impact": [
+            "people"
+          ]
+        },
+        "test_tuning_data|MEASURE 2.2": {
+          "area": "test_tuning_data",
+          "impact": [
+            "data"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how do you find and analyse gaps between the people and situations in your accuracy and bias test cases and those actually affected? Who reviews the findings?",
+          "rows": [
+            "output|MEASURE 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.2 — suggested action 2",
+            "MEASURE 2.2 — suggested action 3"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "When your evaluation sets are drawn from people (for example human-subject data or user feedback), how do you make sure consent and protection requirements are met? Who approves their use?",
+          "rows": [
+            "test_tuning_data|MEASURE 2.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.2 — suggested action 1",
+            "MEASURE 2.2 — suggested action 14"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 2.3": {
+      "status": "pass",
+      "turns": 1,
+      "rows_sha": "38ddec6cf78f075c",
+      "rows": {
+        "customer_facing|MEASURE 2.3": {
+          "area": "customer_facing",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "output|MEASURE 2.3": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "agent|MEASURE 2.3": {
+          "area": "agent",
+          "impact": [
+            "process"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how is performance measured under conditions like real use (real prompts, messy or unexpected input), not only ideal ones? Where are the results kept?",
+          "rows": [
+            "customer_facing|MEASURE 2.3",
+            "output|MEASURE 2.3",
+            "agent|MEASURE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.3 — suggested action 3",
+            "MEASURE 2.3 — suggested action 6"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 2.4": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "review_reason": "Q4: check 2: LLM-13.1 is about bringing the org's own SaaS model provider logs into the SIEM, not detecting outside agents or AI clients reaching the org's systems.",
+      "rows_sha": "ea932d8ce2daef2a",
+      "rows": {
+        "customer_facing|MEASURE 2.4": {
+          "area": "customer_facing",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "vendor_ai|MEASURE 2.4": {
+          "area": "vendor_ai",
+          "impact": [
+            "data"
+          ]
+        },
+        "invisible_usage|MEASURE 2.4": {
+          "area": "invisible_usage",
+          "impact": [
+            "data",
+            "access"
+          ]
+        },
+        "output|MEASURE 2.4": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "model|MEASURE 2.4": {
+          "area": "model",
+          "impact": [
+            "assets"
+          ]
+        },
+        "source_data|MEASURE 2.4": {
+          "area": "source_data",
+          "impact": [
+            "data"
+          ]
+        },
+        "mcp_tools|MEASURE 2.4": {
+          "area": "mcp_tools",
+          "impact": [
+            "access",
+            "process"
+          ]
+        },
+        "agent|MEASURE 2.4": {
+          "area": "agent",
+          "impact": [
+            "process",
+            "access"
+          ]
+        },
+        "hosting|MEASURE 2.4": {
+          "area": "hosting",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how is the AI's behaviour with the public monitored in production, for example for abuse patterns or unusual answers? Who gets the alerts?",
+          "rows": [
+            "customer_facing|MEASURE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.4 — suggested action 3",
+            "MEASURE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-8.11"
+          ]
+        },
+        {
+          "question_text": "After a vendor's AI feature has been approved, how do you notice unannounced changes to its features or underlying model while it is in use? Who follows up?",
+          "rows": [
+            "vendor_ai|MEASURE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.4 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-15.6",
+            "LLM-8.12"
+          ]
+        },
+        {
+          "question_text": "How do you watch for new AI tools or features that staff use without approval, for example through network, DNS or provider telemetry? Who gets the alerts?",
+          "rows": [
+            "invisible_usage|MEASURE 2.4"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.4 — suggested action 3",
+            "MEASURE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-8.6",
+            "LLM-8.12",
+            "LLM-1.5"
+          ]
+        },
+        {
+          "question_text": "How do you watch for other people's AI agents or AI clients reaching your systems, for example through unusual sign-ins, API calls or traffic patterns? Who gets the alerts?",
+          "rows": [
+            "invisible_usage|MEASURE 2.4"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.4 — suggested action 3",
+            "MEASURE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-13.1"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is the quality of the AI's answers monitored in production so that drift, anomalies and rising error rates are noticed? Who gets the alerts?",
+          "rows": [
+            "output|MEASURE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.4 — suggested action 1",
+            "MEASURE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-8.11"
+          ]
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how is API usage monitored in production for signs of model extraction or copying, for example rapid, repetitive queries? Who reviews what is flagged?",
+          "rows": [
+            "model|MEASURE 2.4"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.4 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-8.11"
+          ]
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how do you notice an unexpected change to a deployed model version? Who reviews what is flagged?",
+          "rows": [
+            "model|MEASURE 2.4"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.4 — suggested action 3"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is the content of the data the AI retrieves from monitored in production, for example for unexpected changes or poisoned material? Who is told when something is found?",
+          "rows": [
+            "source_data|MEASURE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.4 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-8.11"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is the AI's use of tools and MCP servers monitored in production for unexpected calls, new capabilities on a known server and unusual volume? Who gets the alerts?",
+          "rows": [
+            "mcp_tools|MEASURE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.4 — suggested action 3",
+            "MEASURE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "MCP-8.11",
+            "MCP-8.9"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is agent behaviour in production monitored for unexpected action chains, tool use and drift from what was approved? Who reviews what is flagged?",
+          "rows": [
+            "agent|MEASURE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.4 — suggested action 3",
+            "MEASURE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "AGENT-8.11",
+            "AGENT-17.9"
+          ]
+        },
+        {
+          "question_text": "For the servers and endpoints that host your most critical AI models, how do you monitor for tampering with model files or serving configuration? Who gets the alerts?",
+          "rows": [
+            "hosting|MEASURE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.4 — suggested action 3",
+            "MEASURE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-13.2"
+          ]
+        }
+      ]
+    },
+    "MEASURE 2.5": {
+      "status": "pass",
+      "turns": 1,
+      "rows_sha": "3f814b5dfdd5e15f",
+      "rows": {
+        "output|MEASURE 2.5": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "agent|MEASURE 2.5": {
+          "area": "agent",
+          "impact": [
+            "process"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how is the AI shown to give accurate and consistent answers before it goes live, and where are the conditions beyond which its answers cannot be trusted documented?",
+          "rows": [
+            "output|MEASURE 2.5"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.5 — suggested action 1",
+            "MEASURE 2.5 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI agents, how is the agent shown to complete its tasks within its autonomy limits under realistic conditions? Where is it documented what the agent must not do on its own?",
+          "rows": [
+            "agent|MEASURE 2.5"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.5 — suggested action 1",
+            "MEASURE 2.5 — suggested action 2"
+          ],
+          "cis_refs": [
+            "AGENT-16.13"
+          ]
+        }
+      ]
+    },
+    "MEASURE 2.6": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "a954c101bdadf58c",
+      "rows": {
+        "internal_process|MEASURE 2.6": {
+          "area": "internal_process",
+          "impact": [
+            "process"
+          ]
+        },
+        "customer_facing|MEASURE 2.6": {
+          "area": "customer_facing",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "output|MEASURE 2.6": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "source_data|MEASURE 2.6": {
+          "area": "source_data",
+          "impact": [
+            "data",
+            "access"
+          ]
+        },
+        "mcp_tools|MEASURE 2.6": {
+          "area": "mcp_tools",
+          "impact": [
+            "access",
+            "process"
+          ]
+        },
+        "agent|MEASURE 2.6": {
+          "area": "agent",
+          "impact": [
+            "process"
+          ]
+        },
+        "hosting|MEASURE 2.6": {
+          "area": "hosting",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For the AI used in your highest-criticality internal processes, how is it shown that the workflow fails safely, with a manual fallback or hand-off to a person, when the AI's output is wrong, unavailable or beyond its limits? How often is this tested?",
+          "rows": [
+            "internal_process|MEASURE 2.6"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.6 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is it tested that the AI declines, flags or hands over to a person when it is outside its knowledge limits, rather than giving a confident wrong answer? Where are the results recorded?",
+          "rows": [
+            "customer_facing|MEASURE 2.6",
+            "output|MEASURE 2.6"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.6 — suggested action 3",
+            "MEASURE 2.6 — suggested action 6"
+          ],
+          "cis_refs": [
+            "LLM-16.13"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality customer-facing AI, how is it tested that the AI stays within bounds when the public tries to abuse it, for example with hostile or manipulative prompts? Where are the results recorded?",
+          "rows": [
+            "customer_facing|MEASURE 2.6"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.6 — suggested action 3",
+            "MEASURE 2.6 — suggested action 6"
+          ],
+          "cis_refs": [
+            "LLM-16.13"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is it tested that retrieval refuses to return restricted content when permission or classification checks fail or the data store misbehaves? Where are the results recorded?",
+          "rows": [
+            "source_data|MEASURE 2.6"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.6 — suggested action 3",
+            "MEASURE 2.6 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is it tested that the AI stops safely when a tool or MCP server errors, times out or returns something unexpected, instead of retrying or leaving partial changes? Where are the results recorded?",
+          "rows": [
+            "mcp_tools|MEASURE 2.6"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.6 — suggested action 3",
+            "MEASURE 2.6 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI agents, how are agents tested under stress and unexpected conditions to show that loops and runaway action chains are stopped? Where are the results recorded?",
+          "rows": [
+            "agent|MEASURE 2.6"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.6 — suggested action 3",
+            "MEASURE 2.6 — suggested action 5"
+          ],
+          "cis_refs": [
+            "AGENT-16.10",
+            "AGENT-17.9",
+            "AGENT-16.13"
+          ]
+        },
+        {
+          "question_text": "For the servers hosting your most critical AI models, how is it tested that the service recovers after a failure, with the model and its configuration restored and verified? How often is this done?",
+          "rows": [
+            "hosting|MEASURE 2.6"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.6 — suggested action 3",
+            "MEASURE 2.6 — suggested action 10"
+          ],
+          "cis_refs": [
+            "LLM-11.5"
+          ]
+        }
+      ]
     },
     "MEASURE 2.7": {
       "status": "pass",
@@ -746,6 +3102,1679 @@
       ],
       "decided_by": "human"
     },
+    "MEASURE 2.9": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "076745b5b8bb46b9",
+      "rows": {
+        "output|MEASURE 2.9": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how are answers presented with enough context, for example the basis, a confidence level or known limits, for people to judge how far to trust them before acting? Who decides what context is shown?",
+          "rows": [
+            "output|MEASURE 2.9"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.9 — suggested action 1"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 2.10": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "review_reason": "Q1: check 7: The rewrite makes secrets and credentials mere examples, so it now reads as the input question (monitor prompts for sensitive data, who follows up) apart from the area: restore the secrets-in-code-prompts focus or share one question.",
+      "rows_sha": "5086847c723b965d",
+      "rows": {
+        "code_generation|MEASURE 2.10": {
+          "area": "code_generation",
+          "impact": [
+            "data"
+          ]
+        },
+        "customer_facing|MEASURE 2.10": {
+          "area": "customer_facing",
+          "impact": [
+            "data"
+          ]
+        },
+        "invisible_usage|MEASURE 2.10": {
+          "area": "invisible_usage",
+          "impact": [
+            "data"
+          ]
+        },
+        "input|MEASURE 2.10": {
+          "area": "input",
+          "impact": [
+            "data"
+          ]
+        },
+        "test_tuning_data|MEASURE 2.10": {
+          "area": "test_tuning_data",
+          "impact": [
+            "data"
+          ]
+        },
+        "source_data|MEASURE 2.10": {
+          "area": "source_data",
+          "impact": [
+            "data"
+          ]
+        },
+        "mcp_tools|MEASURE 2.10": {
+          "area": "mcp_tools",
+          "impact": [
+            "data"
+          ]
+        },
+        "agent|MEASURE 2.10": {
+          "area": "agent",
+          "impact": [
+            "data"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For the code assistants your developers use, how do you monitor the prompts for sensitive data, for example personal data, secrets or credentials? Who follows up what is found?",
+          "rows": [
+            "code_generation|MEASURE 2.10"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 6"
+          ],
+          "cis_refs": [
+            "LLM-3.13",
+            "LLM-3.14"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, that answer customers, how do you monitor answers for leaks of personal or confidential data? Who reviews what is found?",
+          "rows": [
+            "customer_facing|MEASURE 2.10"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 6"
+          ],
+          "cis_refs": [
+            "LLM-3.13"
+          ]
+        },
+        {
+          "question_text": "How do you check whether personal, regulated or confidential data is being sent to AI tools nobody approved, for example through data loss prevention on AI traffic? Who follows up what is found?",
+          "rows": [
+            "invisible_usage|MEASURE 2.10"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 6"
+          ],
+          "cis_refs": [
+            "LLM-3.13",
+            "LLM-3.14"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you monitor the prompts and files sent to the AI for personal or sensitive data, with an alert when it appears or leaves the organisation? Who responds to the alerts?",
+          "rows": [
+            "input|MEASURE 2.10"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 6"
+          ],
+          "cis_refs": [
+            "LLM-3.13",
+            "LLM-3.14"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you monitor what staff and systems send to the AI in production, for example volumes, file types or unexpected input, and compare it with what was tested before launch? Who is alerted when it differs?",
+          "rows": [
+            "input|MEASURE 2.10"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 5",
+            "MEASURE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-8.11"
+          ]
+        },
+        {
+          "question_text": "For the data used to train and tune your models, how are personal and sensitive data found and then minimised or removed, for example in feedback or logs reused for tuning? Where is that use documented?",
+          "rows": [
+            "test_tuning_data|MEASURE 2.10"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-3.7",
+            "LLM-3.1"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, that retrieve from a data store, how do you check whether personal and sensitive data in that store could be exposed through the AI, for example by classifying what it holds? Who owns that check?",
+          "rows": [
+            "source_data|MEASURE 2.10"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-3.7",
+            "LLM-3.13"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, that call tools or MCP servers, how is the privacy risk examined of personal data flowing to those servers and outside services, for example what leaves and to whom? Who reviews it?",
+          "rows": [
+            "mcp_tools|MEASURE 2.10"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 2"
+          ],
+          "cis_refs": [
+            "MCP-8.7",
+            "MCP-15.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, that act as agents, how is the privacy risk examined of personal data the agent keeps in memory across sessions or moves between systems by its actions? Who owns that review?",
+          "rows": [
+            "agent|MEASURE 2.10"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.10 — suggested action 2"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 2.11": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "f27025b314993257",
+      "rows": {
+        "output|MEASURE 2.11": {
+          "area": "output",
+          "impact": [
+            "people"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how are answers tested for bias, comparing how people or groups are treated? Where are the results documented?",
+          "rows": [
+            "output|MEASURE 2.11"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.11 — suggested action 1",
+            "MEASURE 2.11 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 2.12": {
+      "status": "pass",
+      "turns": 1,
+      "rows_sha": "34c29e90c9b366c3",
+      "rows": {
+        "model_building|MEASURE 2.12": {
+          "area": "model_building",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For the models behind your most critical AI systems, how is the environmental impact of training and tuning runs assessed, for example energy use or emissions? Where is it recorded?",
+          "rows": [
+            "model_building|MEASURE 2.12"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.12 — suggested action 2",
+            "MEASURE 2.12 — suggested action 6"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 2.13": {
+      "status": "pass",
+      "turns": 1,
+      "rows_sha": "2643cc4b65d1f3aa",
+      "rows": {
+        "output|MEASURE 2.13": {
+          "area": "output",
+          "impact": [
+            "process"
+          ]
+        },
+        "test_tuning_data|MEASURE 2.13": {
+          "area": "test_tuning_data",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how often are the accuracy, consistency and bias tests of answers reviewed to see whether they actually catch bad answers? Who does the review?",
+          "rows": [
+            "output|MEASURE 2.13"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.13 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How often are the evaluation set and test harness for your models reviewed to confirm they still catch real failures, for example that they are refreshed and have not leaked into training? Who does the review?",
+          "rows": [
+            "test_tuning_data|MEASURE 2.13"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 2.13 — suggested action 1"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 3.3": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "b7cc361c4afde4c2",
+      "rows": {
+        "internal_process|MEASURE 3.3": {
+          "area": "internal_process",
+          "impact": [
+            "process"
+          ]
+        },
+        "customer_facing|MEASURE 3.3": {
+          "area": "customer_facing",
+          "impact": [
+            "people"
+          ]
+        },
+        "model_building|MEASURE 3.3": {
+          "area": "model_building",
+          "impact": [
+            "assets"
+          ]
+        },
+        "agent|MEASURE 3.3": {
+          "area": "agent",
+          "impact": [
+            "process"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, used in internal processes, how can staff report problems with the AI's output or challenge a decision made on it? Who analyses the reports?",
+          "rows": [
+            "internal_process|MEASURE 3.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 3.3 — suggested action 1"
+          ],
+          "cis_refs": [
+            "LLM-17.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, that customers use, how can customers report problems or appeal an outcome? Who counts and analyses these reports?",
+          "rows": [
+            "customer_facing|MEASURE 3.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 3.3 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How can recipients of a model you have released report problems with it? Who turns those reports into changes in building and tuning?",
+          "rows": [
+            "model_building|MEASURE 3.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [
+            "given_to_others"
+          ],
+          "playbook_refs": [
+            "MEASURE 3.3 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, that act as agents, how can staff and others report agent misbehaviour or unexpected actions? Who uses those reports when evaluating the agent?",
+          "rows": [
+            "agent|MEASURE 3.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 3.3 — suggested action 4"
+          ],
+          "cis_refs": [
+            "AGENT-17.3"
+          ]
+        }
+      ]
+    },
+    "MEASURE 4.2": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "ccb6fbd7022f82f4",
+      "rows": {
+        "internal_process|MEASURE 4.2": {
+          "area": "internal_process",
+          "impact": [
+            "process"
+          ]
+        },
+        "customer_facing|MEASURE 4.2": {
+          "area": "customer_facing",
+          "impact": [
+            "process"
+          ]
+        },
+        "output|MEASURE 4.2": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "agent|MEASURE 4.2": {
+          "area": "agent",
+          "impact": [
+            "process"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, used in internal processes, how do you measure whether staff rely on the AI's output too much or too little, for example from staff feedback and how often they override it? Who reviews the results?",
+          "rows": [
+            "internal_process|MEASURE 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 4.2 — suggested action 1",
+            "MEASURE 4.2 — suggested action 5"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is feedback from the people who use them, positive and negative, used to judge whether the AI performs as intended, for example alongside how often its output is overridden? Who reviews it?",
+          "rows": [
+            "customer_facing|MEASURE 4.2",
+            "agent|MEASURE 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 4.2 — suggested action 1",
+            "MEASURE 4.2 — suggested action 5"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do domain experts and users confirm that answers are valid, reliable and consistent in real use? How often is this done?",
+          "rows": [
+            "output|MEASURE 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 4.2 — suggested action 3",
+            "MEASURE 4.2 — suggested action 6"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MEASURE 4.3": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "eda0cf6d7d165cbc",
+      "rows": {
+        "output|MEASURE 4.3": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how do you track answer quality against a set baseline to identify improvements or declines over time? Where are the results documented?",
+          "rows": [
+            "output|MEASURE 4.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MEASURE 4.3 — suggested action 1",
+            "MEASURE 4.3 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MANAGE 1.1": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "d7059dd188e1ff4a",
+      "rows": {
+        "vendor_ai|MANAGE 1.1": {
+          "area": "vendor_ai",
+          "impact": [
+            "data"
+          ]
+        },
+        "model_building|MANAGE 1.1": {
+          "area": "model_building",
+          "impact": [
+            "assets"
+          ]
+        },
+        "output|MANAGE 1.1": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "agent|MANAGE 1.1": {
+          "area": "agent",
+          "impact": [
+            "process",
+            "access"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For the vendor AI features that run on your data, how do you decide that a feature is worth its data risk and should stay enabled, for example when the vendor changes it without notice? Who owns that decision?",
+          "rows": [
+            "vendor_ai|MANAGE 1.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 1.1 — suggested action 1",
+            "MANAGE 1.1 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-15.6"
+          ]
+        },
+        {
+          "question_text": "Before you release a model version you built or tuned, how is the decision made on whether it meets its intended purpose and should go ahead? Who signs it off?",
+          "rows": [
+            "model_building|MANAGE 1.1"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 1.1 — suggested action 2",
+            "MANAGE 1.1 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-16.8"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you decide from test results whether the AI's answers are good enough for the intended purpose to keep using it? Who makes that call?",
+          "rows": [
+            "output|MANAGE 1.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 1.1 — suggested action 2",
+            "MANAGE 1.1 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI agents, how do you decide from test and monitoring results whether an agent still achieves its purpose and should keep its current autonomy? Who decides?",
+          "rows": [
+            "agent|MANAGE 1.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 1.1 — suggested action 3",
+            "MANAGE 1.1 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MANAGE 2.2": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "93de24174b210bba",
+      "rows": {
+        "internal_process|MANAGE 2.2": {
+          "area": "internal_process",
+          "impact": [
+            "process",
+            "data"
+          ]
+        },
+        "customer_facing|MANAGE 2.2": {
+          "area": "customer_facing",
+          "impact": [
+            "process",
+            "data"
+          ]
+        },
+        "input|MANAGE 2.2": {
+          "area": "input",
+          "impact": [
+            "data"
+          ]
+        },
+        "output|MANAGE 2.2": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "test_tuning_data|MANAGE 2.2": {
+          "area": "test_tuning_data",
+          "impact": [
+            "data"
+          ]
+        },
+        "model|MANAGE 2.2": {
+          "area": "model",
+          "impact": [
+            "assets"
+          ]
+        },
+        "source_data|MANAGE 2.2": {
+          "area": "source_data",
+          "impact": [
+            "data"
+          ]
+        },
+        "mcp_tools|MANAGE 2.2": {
+          "area": "mcp_tools",
+          "impact": [
+            "access",
+            "process"
+          ]
+        },
+        "agent|MANAGE 2.2": {
+          "area": "agent",
+          "impact": [
+            "access",
+            "process",
+            "data"
+          ]
+        },
+        "hosting|MANAGE 2.2": {
+          "area": "hosting",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems used in internal decisions, what controls, for example business rules, a second approval or limits on AI output, keep it from driving a high-impact decision unchecked? Who confirms they are applied?",
+          "rows": [
+            "internal_process|MANAGE 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do business rules or output guardrails limit what the AI can say or do in a given context, for example filters, throttling or stopping an answer from triggering a payment? Who checks they keep working?",
+          "rows": [
+            "customer_facing|MANAGE 2.2",
+            "output|MANAGE 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 3",
+            "MANAGE 2.2 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-13.10",
+            "LLM-16.11"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is sensitive data kept out of what is sent to the model, for example by removing or blocking it? Who checks that this works?",
+          "rows": [
+            "input|MANAGE 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-3.1",
+            "LLM-3.13"
+          ]
+        },
+        {
+          "question_text": "For the data you use to train, tune and test your models, how are controls such as quality checks, minimisation, retention and deletion on request applied in practice? Who owns them?",
+          "rows": [
+            "test_tuning_data|MANAGE 2.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-3.1",
+            "LLM-3.4",
+            "LLM-3.5"
+          ]
+        },
+        {
+          "question_text": "How is access to your model weights, fine-tuned versions and system prompts restricted and protected, for example by encryption and protected backups? Who reviews who has access?",
+          "rows": [
+            "model|MANAGE 2.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-6.1",
+            "LLM-6.8",
+            "LLM-3.11",
+            "LLM-11.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that retrieve from your own data, how is the retrieved content kept current and accurate, and who retires outdated material?",
+          "rows": [
+            "source_data|MANAGE 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-3.4",
+            "LLM-3.5"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you keep what the tools and MCP servers the AI calls can do within bounds, for example permissions narrower than the user's, short-lived credentials or rate limits? Who checks these still work?",
+          "rows": [
+            "mcp_tools|MANAGE 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 3"
+          ],
+          "cis_refs": [
+            "MCP-5.2",
+            "MCP-6.7",
+            "MCP-6.8"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI agents, how are limits on what an agent can do applied, for example least-privilege identities, approval for irreversible steps and caps on rate and cost? Who reviews them?",
+          "rows": [
+            "agent|MANAGE 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 3"
+          ],
+          "cis_refs": [
+            "AGENT-6.8",
+            "AGENT-6.1",
+            "AGENT-2.7"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that you host yourself, how is access to the serving endpoint protected, for example authenticated gateways, network isolation and throttling? Who reviews the setup?",
+          "rows": [
+            "hosting|MANAGE 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.2 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-12.3",
+            "LLM-12.2"
+          ]
+        }
+      ]
+    },
+    "MANAGE 2.3": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "ebb379dbbacca3c2",
+      "rows": {
+        "internal_process|MANAGE 2.3": {
+          "area": "internal_process",
+          "impact": [
+            "process"
+          ]
+        },
+        "code_generation|MANAGE 2.3": {
+          "area": "code_generation",
+          "impact": [
+            "assets",
+            "data"
+          ]
+        },
+        "customer_facing|MANAGE 2.3": {
+          "area": "customer_facing",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "vendor_ai|MANAGE 2.3": {
+          "area": "vendor_ai",
+          "impact": [
+            "data"
+          ]
+        },
+        "model_building|MANAGE 2.3": {
+          "area": "model_building",
+          "impact": [
+            "assets"
+          ]
+        },
+        "invisible_usage|MANAGE 2.3": {
+          "area": "invisible_usage",
+          "impact": [
+            "data",
+            "access"
+          ]
+        },
+        "input|MANAGE 2.3": {
+          "area": "input",
+          "impact": [
+            "data"
+          ]
+        },
+        "output|MANAGE 2.3": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "test_tuning_data|MANAGE 2.3": {
+          "area": "test_tuning_data",
+          "impact": [
+            "data",
+            "assets"
+          ]
+        },
+        "model|MANAGE 2.3": {
+          "area": "model",
+          "impact": [
+            "assets"
+          ]
+        },
+        "source_data|MANAGE 2.3": {
+          "area": "source_data",
+          "impact": [
+            "data",
+            "access"
+          ]
+        },
+        "mcp_tools|MANAGE 2.3": {
+          "area": "mcp_tools",
+          "impact": [
+            "access",
+            "process",
+            "data"
+          ]
+        },
+        "agent|MANAGE 2.3": {
+          "area": "agent",
+          "impact": [
+            "process",
+            "access",
+            "data"
+          ]
+        },
+        "hosting|MANAGE 2.3": {
+          "area": "hosting",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems used in internal decisions, how do you respond to and recover from a decision found to rest on wrong or misused AI output? Who leads the response?",
+          "rows": [
+            "internal_process|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.3"
+          ]
+        },
+        {
+          "question_text": "When a secret leaks into a prompt, or an invented or malicious dependency reaches your code base through an AI coding tool, how do you respond and recover? Who leads the response?",
+          "rows": [
+            "code_generation|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality customer-facing AI systems, how do you respond to and recover from a problem a customer reports or a newly found risk? Who owns the response?",
+          "rows": [
+            "customer_facing|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2",
+            "MANAGE 2.3 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-17.4"
+          ]
+        },
+        {
+          "question_text": "When a new risk appears in a vendor's AI feature, such as a changed data practice or a vendor-side leak, how do you respond and recover? Who leads the response?",
+          "rows": [
+            "vendor_ai|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.9"
+          ]
+        },
+        {
+          "question_text": "When a problem is found in a model you have released, how do you respond and recover, including rebuilding and restoring it? Who leads the response?",
+          "rows": [
+            "model_building|MANAGE 2.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2",
+            "MANAGE 2.3 — suggested action 5"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.8"
+          ]
+        },
+        {
+          "question_text": "If data leaves through an AI tool nobody approved, or an outside agent misuses access to your systems, how do you respond and recover? Who do staff report it to?",
+          "rows": [
+            "invisible_usage|MANAGE 2.3"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.3",
+            "LLM-17.4",
+            "LLM-14.6"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, when sensitive data is found to have been sent to a model or provider, how do you respond, contain and recover? Who leads the response?",
+          "rows": [
+            "input|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how do you respond to and recover from a newly found problem with its answers, such as an injection route, a bias or a drift? Who leads the response?",
+          "rows": [
+            "output|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2",
+            "MANAGE 2.3 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-17.4"
+          ]
+        },
+        {
+          "question_text": "When poisoned or tampered training, tuning or evaluation data is found, how do you respond and restore a clean, verified copy of the data and the test cases? Who leads the response?",
+          "rows": [
+            "test_tuning_data|MANAGE 2.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-11.1",
+            "LLM-11.5"
+          ]
+        },
+        {
+          "question_text": "When your model or its configuration is found stolen, leaked or tampered with, how do you respond and recover? Who leads the response?",
+          "rows": [
+            "model|MANAGE 2.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-17.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that retrieve from your own data, when content is found poisoned or leaked, how is the store put right and back in service, for example by re-indexing and an access review? Who runs that?",
+          "rows": [
+            "source_data|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.4"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, when a tool or MCP server incident happens, such as a misused credential, an injected call or a compromised server, how do you respond and recover? Who leads the response?",
+          "rows": [
+            "mcp_tools|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "MCP-17.4",
+            "MCP-17.3"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI agents, how do you respond to an agent incident, including reversing the changes the agent made? Who leads the response?",
+          "rows": [
+            "agent|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2",
+            "MANAGE 2.3 — suggested action 5"
+          ],
+          "cis_refs": [
+            "AGENT-17.4",
+            "AGENT-17.5"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that you host yourself, how do you respond to and recover hosting from compromise, outage or abuse, including restoring from backups? Who leads the response?",
+          "rows": [
+            "hosting|MANAGE 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.3 — suggested action 2",
+            "MANAGE 2.3 — suggested action 5"
+          ],
+          "cis_refs": [
+            "LLM-17.4",
+            "LLM-11.1"
+          ]
+        }
+      ]
+    },
+    "MANAGE 2.4": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "2c8a2ac1f423740d",
+      "rows": {
+        "internal_process|MANAGE 2.4": {
+          "area": "internal_process",
+          "impact": [
+            "process"
+          ]
+        },
+        "code_generation|MANAGE 2.4": {
+          "area": "code_generation",
+          "impact": [
+            "assets",
+            "data"
+          ]
+        },
+        "customer_facing|MANAGE 2.4": {
+          "area": "customer_facing",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "vendor_ai|MANAGE 2.4": {
+          "area": "vendor_ai",
+          "impact": [
+            "data"
+          ]
+        },
+        "model_building|MANAGE 2.4": {
+          "area": "model_building",
+          "impact": [
+            "assets"
+          ]
+        },
+        "invisible_usage|MANAGE 2.4": {
+          "area": "invisible_usage",
+          "impact": [
+            "data",
+            "access"
+          ]
+        },
+        "input|MANAGE 2.4": {
+          "area": "input",
+          "impact": [
+            "data"
+          ]
+        },
+        "output|MANAGE 2.4": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "model|MANAGE 2.4": {
+          "area": "model",
+          "impact": [
+            "assets"
+          ]
+        },
+        "source_data|MANAGE 2.4": {
+          "area": "source_data",
+          "impact": [
+            "data",
+            "access"
+          ]
+        },
+        "mcp_tools|MANAGE 2.4": {
+          "area": "mcp_tools",
+          "impact": [
+            "access",
+            "process"
+          ]
+        },
+        "agent|MANAGE 2.4": {
+          "area": "agent",
+          "impact": [
+            "access",
+            "process"
+          ]
+        },
+        "hosting|MANAGE 2.4": {
+          "area": "hosting",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how can the AI be bypassed or switched off, for example at a defined threshold, when its output proves inconsistent with intended use? Who can do that?",
+          "rows": [
+            "internal_process|MANAGE 2.4",
+            "customer_facing|MANAGE 2.4",
+            "output|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 2",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-17.9"
+          ]
+        },
+        {
+          "question_text": "If an AI coding assistant leaks secrets or keeps suggesting invented or malicious packages, how can it be switched off or its access revoked quickly? Who decides?",
+          "rows": [
+            "code_generation|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 2",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-17.9",
+            "LLM-17.4"
+          ]
+        },
+        {
+          "question_text": "How can you switch off a vendor's AI feature, or revoke the vendor's access to your data, when it behaves outside intended use or its terms change? Who can do that?",
+          "rows": [
+            "vendor_ai|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-15.7",
+            "LLM-17.9"
+          ]
+        },
+        {
+          "question_text": "When a model release you gave to others performs against its intended use, how can it be withdrawn or superseded and recipients told? Who is responsible?",
+          "rows": [
+            "model_building|MANAGE 2.4"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [
+            "given_to_others"
+          ],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 8"
+          ],
+          "cis_refs": [
+            "LLM-17.9"
+          ]
+        },
+        {
+          "question_text": "If you find staff using an AI tool nobody approved, or an outside agent or MCP client reaching your systems, how can you block it and revoke the access it holds? Who can do that?",
+          "rows": [
+            "invisible_usage|MANAGE 2.4"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-2.3",
+            "LLM-6.2",
+            "MCP-1.2",
+            "AGENT-1.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how can sending input to a model or provider be stopped quickly when sensitive data is found leaving? Who decides?",
+          "rows": [
+            "input|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 2",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-17.9"
+          ]
+        },
+        {
+          "question_text": "When a model version is found tampered with or leaked, how is it withdrawn from use, for example rolled back to a trusted version with access to it revoked? Who does that?",
+          "rows": [
+            "model|MANAGE 2.4"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 8"
+          ],
+          "cis_refs": [
+            "LLM-11.1",
+            "LLM-6.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that retrieve from your own data, how can a source or the whole store be disconnected from retrieval quickly when found poisoned or over-exposed? Who decides?",
+          "rows": [
+            "source_data|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-17.9"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how can a tool, credential or MCP server the AI uses be switched off or revoked quickly when it misbehaves? Who owns that?",
+          "rows": [
+            "mcp_tools|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "MCP-6.2",
+            "MCP-5.3",
+            "MCP-1.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI agents, how can an agent be stopped, bypassed or its access revoked quickly when it acts outside its intended use? Who may do that?",
+          "rows": [
+            "agent|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "AGENT-6.2",
+            "AGENT-17.9"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems that you host yourself, how can a hosted endpoint be disabled or isolated, or its keys revoked, when compromise or cost abuse is detected? Who may do that?",
+          "rows": [
+            "hosting|MANAGE 2.4"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 2.4 — suggested action 1",
+            "MANAGE 2.4 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-17.9"
+          ]
+        }
+      ]
+    },
+    "MANAGE 3.1": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "b5cf3866d17e8f89",
+      "rows": {
+        "vendor_ai|MANAGE 3.1": {
+          "area": "vendor_ai",
+          "impact": [
+            "data"
+          ]
+        },
+        "source_data|MANAGE 3.1": {
+          "area": "source_data",
+          "impact": [
+            "data"
+          ]
+        },
+        "mcp_tools|MANAGE 3.1": {
+          "area": "mcp_tools",
+          "impact": [
+            "access",
+            "data"
+          ]
+        },
+        "hosting|MANAGE 3.1": {
+          "area": "hosting",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "How do you keep track of changes to the AI features your vendors run on your data, for example a new AI feature, a change of model provider or new terms, and check that the agreed data controls still apply? Who owns this?",
+          "rows": [
+            "vendor_ai|MANAGE 3.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 3.1 — suggested action 9"
+          ],
+          "cis_refs": [
+            "LLM-15.6"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is third-party and external content that feeds the data the AI retrieves monitored over time for new risks, not only checked when it is first added? Who owns this?",
+          "rows": [
+            "source_data|MANAGE 3.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 3.1 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are outside MCP servers and tool suppliers monitored for changes and risks, for example new versions or changed permissions? Where are the risk controls applied to them recorded?",
+          "rows": [
+            "mcp_tools|MANAGE 3.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 3.1 — suggested action 3",
+            "MANAGE 3.1 — suggested action 9"
+          ],
+          "cis_refs": [
+            "MCP-15.6"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the risks from third-party hosting infrastructure, for example cloud, GPU and model registry providers, monitored? Who reviews what is found?",
+          "rows": [
+            "hosting|MANAGE 3.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 3.1 — suggested action 9"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
     "MANAGE 3.2": {
       "status": "pass",
       "turns": 2,
@@ -780,10 +4809,455 @@
           ]
         }
       ]
+    },
+    "MANAGE 4.1": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "review_reason": "Q4: check 2: Action 8 is about responding to and documenting detected negative impacts, not approving new tools, permissions or configuration changes; only the removal part is supported (action 9).",
+      "rows_sha": "6477979b21b8bcd6",
+      "rows": {
+        "customer_facing|MANAGE 4.1": {
+          "area": "customer_facing",
+          "impact": [
+            "process"
+          ]
+        },
+        "output|MANAGE 4.1": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "source_data|MANAGE 4.1": {
+          "area": "source_data",
+          "impact": [
+            "data"
+          ]
+        },
+        "mcp_tools|MANAGE 4.1": {
+          "area": "mcp_tools",
+          "impact": [
+            "access",
+            "process"
+          ]
+        },
+        "agent|MANAGE 4.1": {
+          "area": "agent",
+          "impact": [
+            "process",
+            "access"
+          ]
+        },
+        "hosting|MANAGE 4.1": {
+          "area": "hosting",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality customer-facing AI applications, how is customer input, including appeals and requests for a human to override the AI, captured and acted on after go-live? Who reviews it?",
+          "rows": [
+            "customer_facing|MANAGE 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.1 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are answers re-tested after go-live for accuracy, bias and security, for example through red teaming? How often is this done?",
+          "rows": [
+            "output|MANAGE 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.1 — suggested action 2",
+            "MANAGE 4.1 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how does a deletion or correction request reach the data the AI retrieves and its index? Where is this recorded?",
+          "rows": [
+            "source_data|MANAGE 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.1 — suggested action 5"
+          ],
+          "cis_refs": [
+            "LLM-3.5"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is a change to what the AI can do, for example a new tool, a new permission, a changed configuration or the removal of something no longer needed, approved and made after go-live? Who approves it?",
+          "rows": [
+            "mcp_tools|MANAGE 4.1",
+            "agent|MANAGE 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.1 — suggested action 8",
+            "MANAGE 4.1 — suggested action 9"
+          ],
+          "cis_refs": [
+            "MCP-15.7",
+            "AGENT-16.1"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is the model's behaviour re-checked after an update to the hosting stack, for example servers, GPU drivers or serving software? Who approves the rollout?",
+          "rows": [
+            "hosting|MANAGE 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.1 — suggested action 2",
+            "MANAGE 4.1 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-7.2"
+          ]
+        }
+      ]
+    },
+    "MANAGE 4.2": {
+      "status": "pass",
+      "turns": 2,
+      "rows_sha": "f84626b15264f1ca",
+      "rows": {
+        "customer_facing|MANAGE 4.2": {
+          "area": "customer_facing",
+          "impact": [
+            "people"
+          ]
+        },
+        "model_building|MANAGE 4.2": {
+          "area": "model_building",
+          "impact": [
+            "assets"
+          ]
+        },
+        "output|MANAGE 4.2": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality customer-facing AI applications, how is customer feedback turned into measurable improvements in each update? Who decides which feedback is acted on?",
+          "rows": [
+            "customer_facing|MANAGE 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.2 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how are changes to how the model is built or tuned, and new versions, reviewed and approved before release? Who approves them?",
+          "rows": [
+            "model_building|MANAGE 4.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.2 — suggested action 2",
+            "MANAGE 4.2 — suggested action 5"
+          ],
+          "cis_refs": [
+            "LLM-4.1"
+          ]
+        },
+        {
+          "question_text": "Before you release a new version of your model to others, how are the people who receive it engaged, for example to collect their feedback or tell them what changed?",
+          "rows": [
+            "model_building|MANAGE 4.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [
+            "given_to_others"
+          ],
+          "playbook_refs": [
+            "MANAGE 4.2 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, when answers are found to be wrong, biased or inconsistent, how is each fix, for example a change to prompts, data, the model or rules, re-tested to show a measurable improvement? Who signs it off?",
+          "rows": [
+            "output|MANAGE 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.2 — suggested action 1",
+            "MANAGE 4.2 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-18.3"
+          ]
+        }
+      ]
+    },
+    "MANAGE 4.3": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "review_reason": "Q0: The hosting row's why (hosting incidents tracked, communicated, reviewed) is not really asked: both shared questions ask only about wrong AI results and unexpected actions.; Q1: check 4: Covers the hosting row but asks only about wrong or manipulated AI results and actions; the hosting row's subject (incidents in the hosting environment: compromise, outage, cost abuse) is not asked.; check 6: Shares the hosting row with rows whose why check AI output and action incidents; for a client whose ",
+      "rows_sha": "b0675d0793f841d4",
+      "rows": {
+        "internal_process|MANAGE 4.3": {
+          "area": "internal_process",
+          "impact": [
+            "process"
+          ]
+        },
+        "code_generation|MANAGE 4.3": {
+          "area": "code_generation",
+          "impact": [
+            "assets",
+            "data"
+          ]
+        },
+        "customer_facing|MANAGE 4.3": {
+          "area": "customer_facing",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "vendor_ai|MANAGE 4.3": {
+          "area": "vendor_ai",
+          "impact": [
+            "data"
+          ]
+        },
+        "model_building|MANAGE 4.3": {
+          "area": "model_building",
+          "impact": [
+            "assets"
+          ]
+        },
+        "invisible_usage|MANAGE 4.3": {
+          "area": "invisible_usage",
+          "impact": [
+            "data",
+            "access"
+          ]
+        },
+        "input|MANAGE 4.3": {
+          "area": "input",
+          "impact": [
+            "data"
+          ]
+        },
+        "output|MANAGE 4.3": {
+          "area": "output",
+          "impact": [
+            "process",
+            "people"
+          ]
+        },
+        "mcp_tools|MANAGE 4.3": {
+          "area": "mcp_tools",
+          "impact": [
+            "access",
+            "process",
+            "data"
+          ]
+        },
+        "agent|MANAGE 4.3": {
+          "area": "agent",
+          "impact": [
+            "process",
+            "data"
+          ]
+        },
+        "hosting|MANAGE 4.3": {
+          "area": "hosting",
+          "impact": [
+            "assets"
+          ]
+        }
+      },
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how is a wrong, biased or manipulated AI result, or an unexpected action by the AI, recorded as an error or incident, for example a wrong decision made on AI output or a leaked prompt? Who reviews it to find the cause?",
+          "rows": [
+            "internal_process|MANAGE 4.3",
+            "code_generation|MANAGE 4.3",
+            "customer_facing|MANAGE 4.3",
+            "output|MANAGE 4.3",
+            "mcp_tools|MANAGE 4.3",
+            "agent|MANAGE 4.3",
+            "hosting|MANAGE 4.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.3",
+            "LLM-17.8",
+            "MCP-17.8",
+            "AGENT-17.3",
+            "AGENT-17.8"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, when the AI gives a wrong or harmful result or takes an unexpected action, how are the people affected told? Who decides what is communicated?",
+          "rows": [
+            "internal_process|MANAGE 4.3",
+            "code_generation|MANAGE 4.3",
+            "customer_facing|MANAGE 4.3",
+            "output|MANAGE 4.3",
+            "mcp_tools|MANAGE 4.3",
+            "agent|MANAGE 4.3",
+            "hosting|MANAGE 4.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.3 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How does a problem with a vendor's AI feature, for example a wrong result or an exposure of your data, get from the vendor to your organisation and into your incident records? Who on your side follows it up?",
+          "rows": [
+            "vendor_ai|MANAGE 4.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.3 — suggested action 1",
+            "MANAGE 4.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.2",
+            "LLM-17.3"
+          ]
+        },
+        {
+          "question_text": "When an error or incident is found in a model you have released, how are the people who received it told? Who decides what is communicated?",
+          "rows": [
+            "model_building|MANAGE 4.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [
+            "given_to_others"
+          ],
+          "playbook_refs": [
+            "MANAGE 4.3 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how do you keep a record of changes to the model or its setup and the reason for each change? Where is it kept?",
+          "rows": [
+            "model_building|MANAGE 4.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.3 — suggested action 3",
+            "MANAGE 4.3 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How are incidents and near-misses from AI use nobody approved, or from other people's agents reaching your systems, recorded and communicated to those affected? Who reviews them afterwards?",
+          "rows": [
+            "invisible_usage|MANAGE 4.3"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.3 — suggested action 1",
+            "MANAGE 4.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.3",
+            "LLM-17.8"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, when sensitive data sent to the AI is found to have been exposed, how are the affected people, providers and regulators told? Who decides who must be told?",
+          "rows": [
+            "input|MANAGE 4.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.3 — suggested action 1"
+          ],
+          "cis_refs": []
+        }
+      ]
     }
   },
   "description": "AI RMF area questions: every question that could be asked per mapping row (AI area x subcategory, data/ai/mapping.json), keyed by subcategory. A question lists the rows it covers (one question may stand for several areas' rows), the roles it is asked of and any producer flags; build_ai_questions.py picks a client's questions by filtering on their AI areas, role and producer flags. rows_sha is the hash of the subcategory's mapping rows the questions were written for; rows gives each row's area and impact (for the covers note and the evidence prompt). Recorded by record_ai_bank.py questions.",
-  "built_on": "2026-10-29",
+  "built_on": "2026-10-31",
   "playbook_sha256_16": "65d6101d80650287",
   "guide_sha256_16": {
     "LLM": "fae3d032d78cd956",
@@ -791,10 +5265,10 @@
     "AGENT": "824ab8a2e829a11a"
   },
   "summary": {
-    "subcategories": 5,
-    "passed": 5,
-    "needs_human_review": 0,
-    "questions": 29
+    "subcategories": 41,
+    "passed": 35,
+    "needs_human_review": 6,
+    "questions": 202
   },
-  "source_sha": "c93d6cee6ebd11e9"
+  "source_sha": "858c0447c4abcca8"
 }

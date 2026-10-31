@@ -1,0 +1,368 @@
+{
+  "recorded_at": "2026-10-31T10:43:24.288381+00:00",
+  "step": "record_ai_bank_questions",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-opus-5-5; full run 2026-10-31",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_question_generator.md",
+      "sha": "25bab5f22ab9f3e2"
+    },
+    {
+      "path": "prompts/ai_rmf_question_evaluator.md",
+      "sha": "cf7c1fc84adb564b"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/fg1_record_all.json",
+    "sha": "4de9163235acc4d8"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_foundation.json",
+    "sha": "7a7c494a300d8b5b"
+  },
+  "output_snapshot": {
+    "GOVERN 1.1": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "Where are the legal and regulatory requirements that apply to your use or building of AI kept, and how do the people they apply to learn of them and of changes (for example onboarding, training, announcements)?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.1 — suggested action 1",
+            "GOVERN 1.1 — suggested action 3"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How does your organisation keep track of new or changing laws and regulations that affect its AI? Who decides what must change in how AI is used or built?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.1 — suggested action 1",
+            "GOVERN 1.1 — suggested action 2"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "GOVERN 1.3": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How do you decide how much risk assessment and oversight an AI system needs before it is used, for example using a risk rating of its possible impact and likelihood? Who makes that decision?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.3 — suggested action 1",
+            "GOVERN 1.3 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How are your AI systems placed on one common risk scale? How often is that rating revisited as the system or its use changes?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.3 — suggested action 3",
+            "GOVERN 1.3 — suggested action 5"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "GOVERN 1.4": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "What information do you record about each AI system, for example its purpose, limits, known risks and test results? Where are these records kept?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.4 — suggested action 1",
+            "GOVERN 1.4 — suggested action 16"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How often do you check whether your AI risk management process is working? Who is responsible for acting on what the check finds?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.4 — suggested action 17",
+            "GOVERN 1.4 — suggested action 18"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do you decide what to tell customers, regulators or the public about your use of AI and its risks, and who approves what is shared?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.4 — suggested action 19"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "Where are your AI risk management policies and procedures kept, and how do the people they apply to come to know them and their changes (for example onboarding, training, announcements)?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.4 — suggested action 1",
+            "GOVERN 1.4 — suggested action 15"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "GOVERN 1.5": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How are your AI systems monitored after they go live for performance, bias and security problems? What record shows the latest results?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.5 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "Where is your procedure for handling AI incidents kept, and how do the people involved come to know it and its changes (for example training, drills, announcements)?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.5 — suggested action 3"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "Which roles or teams are responsible for monitoring your AI and responding to AI incidents, and where is that assignment written down?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.5 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How often do you review the results of your AI monitoring and incidents to decide whether your AI risk management needs to change? Who carries out the review?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.5 — suggested action 2",
+            "GOVERN 1.5 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "GOVERN 1.7": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "When an AI system is retired or replaced, how do you carry it out safely, for example moving to the replacement and checking what depends on it? Who signs it off?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.7 — suggested action 1",
+            "GOVERN 1.7 — suggested action 7",
+            "GOVERN 1.7 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "What happens to the models, data and records of a retired AI system, and for how long are they kept?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.7 — suggested action 8",
+            "GOVERN 1.7 — suggested action 10"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "Where is your procedure for retiring AI systems kept, and how do the people it applies to come to know it and its changes (for example onboarding, training, announcements)?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 1.7 — suggested action 1"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "GOVERN 2.1": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "Who is responsible for AI risk in your organisation, from senior management to the teams that buy, build, test and run AI, and where are these responsibilities written down? How do people learn who to go to?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 2.1 — suggested action 1",
+            "GOVERN 2.1 — suggested action 3"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do the people involved in AI risk talk to each other and raise concerns, for example regular meetings or an escalation route? What record shows it happening?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 2.1 — suggested action 14"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do you keep the people who check or approve an AI system independent of the people who built or bought it? Where are conflicts of interest declared or recorded?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 2.1 — suggested action 15",
+            "GOVERN 2.1 — suggested action 16"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "GOVERN 2.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "What AI risk training do your staff and partners get, for example on laws, AI policies and possible harms? How does it differ for technical and oversight roles?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 2.2 — suggested action 1",
+            "GOVERN 2.2 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do staff acknowledge their AI responsibilities and learn of significant changes to AI systems or policies?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 2.2 — suggested action 8",
+            "GOVERN 2.2 — suggested action 9"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "Who do staff and partners escalate AI risk concerns to, and how do they know that route?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 2.2 — suggested action 10"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "GOVERN 2.3": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How does executive leadership decide how much AI risk the organisation will accept? Where is that decision recorded?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 2.3 — suggested action 2",
+            "GOVERN 2.3 — suggested action 5"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How often does leadership or a board committee review AI risks and approve decisions on high-risk AI use? What record, such as minutes or a report, shows this?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 2.3 — suggested action 3",
+            "GOVERN 2.3 — suggested action 7"
+          ],
+          "cis_refs": []
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,364 @@
+{
+  "recorded_at": "2026-10-31T10:43:24.527032+00:00",
+  "step": "record_ai_bank_questions",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-opus-5-5; full run 2026-10-31",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_question_generator.md",
+      "sha": "25bab5f22ab9f3e2"
+    },
+    {
+      "path": "prompts/ai_rmf_question_evaluator.md",
+      "sha": "cf7c1fc84adb564b"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/am1_record_all.json",
+    "sha": "2d6f308b89646420"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_areas.json",
+    "sha": "9dea8872256dc69a"
+  },
+  "output_snapshot": {
+    "MAP 1.1": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems that customers use, how is their intended purpose recorded, for example the types of customers and the settings and laws they operate in? Who owns that record?",
+          "rows": [
+            "customer_facing|MAP 1.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.1 — suggested action 4",
+            "MAP 1.1 — suggested action 9"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do you identify which products from your vendors use AI on your organisation's data, for example what data each feature processes and what it is used for? Where is this recorded?",
+          "rows": [
+            "vendor_ai|MAP 1.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.1 — suggested action 4",
+            "MAP 1.1 — suggested action 8"
+          ],
+          "cis_refs": [
+            "LLM-3.2"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is a correct answer defined for what the AI is meant to do? Who owns that definition?",
+          "rows": [
+            "output|MAP 1.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.1 — suggested action 4",
+            "MAP 1.1 — suggested action 8"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MAP 1.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For the models behind your most critical AI systems, how do you make sure the people who build and tune the model bring a range of backgrounds, skills, domain and user experience (for example demographic diversity) to spot bias and misuse? Where is who took part recorded?",
+          "rows": [
+            "model_building|MAP 1.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.2 — suggested action 1"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MAP 1.6": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How are requirements for the model you build (for example privacy, security and trustworthiness) gathered from the people who will receive it and put into build and tuning decisions? Where are they recorded?",
+          "rows": [
+            "model_building|MAP 1.6"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.6 — suggested action 1",
+            "MAP 1.6 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-16.1"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the AI's retrieval permissions based on requirements for who may see which content? Who owns those requirements?",
+          "rows": [
+            "source_data|MAP 1.6"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 1.6 — suggested action 1",
+            "MAP 1.6 — suggested action 6"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MAP 2.1": {
+      "status": "pass",
+      "turns": 1,
+      "questions": [
+        {
+          "question_text": "How are the task your model is built or tuned for, and the method used (from scratch or tuning an existing model), defined and documented? Who approves them?",
+          "rows": [
+            "model_building|MAP 2.1"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.1 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the tasks each agent performs, and the tools and systems it uses to do them, defined and documented? Who owns that record?",
+          "rows": [
+            "agent|MAP 2.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.1 — suggested action 1"
+          ],
+          "cis_refs": [
+            "AGENT-1.1",
+            "AGENT-2.1"
+          ]
+        }
+      ]
+    },
+    "MAP 2.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how are the known limits of the AI's output, and the situations it should not be used in, documented and made known to the people who rely on or oversee it? Where do they find this?",
+          "rows": [
+            "internal_process|MAP 2.2",
+            "output|MAP 2.2",
+            "agent|MAP 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.2 — suggested action 1",
+            "MAP 2.2 — suggested action 4"
+          ],
+          "cis_refs": [
+            "LLM-14.1"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality customer-facing AI systems, how are customers told what the AI cannot do and that its answers may be wrong? Where is this shown to them?",
+          "rows": [
+            "customer_facing|MAP 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.2 — suggested action 1",
+            "MAP 2.2 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For the vendor AI features you use, how is what stands behind each one documented, for example the model provider, sub-processors and the limits the vendor states? Who keeps this up to date?",
+          "rows": [
+            "vendor_ai|MAP 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.2 — suggested action 1",
+            "MAP 2.2 — suggested action 5"
+          ],
+          "cis_refs": [
+            "LLM-15.1"
+          ]
+        },
+        {
+          "question_text": "How are the limits of the model you build, and the settings outside its intended use, documented? Who maintains that documentation?",
+          "rows": [
+            "model_building|MAP 2.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.2 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "When you release a model to others, how are the recipients told its limits and the settings outside its intended use? Where is this communicated to them?",
+          "rows": [
+            "model_building|MAP 2.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [
+            "given_to_others"
+          ],
+          "playbook_refs": [
+            "MAP 2.2 — suggested action 1",
+            "MAP 2.2 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the topics and content that the data the AI retrieves from does not cover documented and told to users? Where do users see this?",
+          "rows": [
+            "source_data|MAP 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.2 — suggested action 1",
+            "MAP 2.2 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the outside servers, networks and endpoints the AI connects to, and the data that flows to them, documented? Who keeps this current?",
+          "rows": [
+            "mcp_tools|MAP 2.2",
+            "hosting|MAP 2.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.2 — suggested action 5",
+            "MAP 2.2 — suggested action 6"
+          ],
+          "cis_refs": [
+            "MCP-12.4",
+            "MCP-15.1",
+            "LLM-12.4"
+          ]
+        }
+      ]
+    },
+    "MAP 2.3": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How are the training, tuning, evaluation and test sets for your model collected and selected (for example availability, representativeness and suitability), and where is this documented?",
+          "rows": [
+            "test_tuning_data|MAP 2.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.3 — suggested action 4",
+            "MAP 2.3 — suggested action 8"
+          ],
+          "cis_refs": [
+            "LLM-3.2"
+          ]
+        },
+        {
+          "question_text": "How do you keep the test cases you measure your model with separate from the data it was trained on? Who checks this?",
+          "rows": [
+            "test_tuning_data|MAP 2.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.3 — suggested action 5",
+            "MAP 2.3 — suggested action 12"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is the content collected into the data the AI retrieves from chosen and checked for suitability, quality and trustworthiness of source? Where is this documented?",
+          "rows": [
+            "source_data|MAP 2.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MAP 2.3 — suggested action 4",
+            "MAP 2.3 — suggested action 8"
+          ],
+          "cis_refs": [
+            "LLM-3.1"
+          ]
+        }
+      ]
+    }
+  }
+}

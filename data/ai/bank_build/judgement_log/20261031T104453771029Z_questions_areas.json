@@ -1,0 +1,403 @@
+{
+  "recorded_at": "2026-10-31T10:44:53.770523+00:00",
+  "step": "record_ai_bank_questions",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-opus-5-5; full run 2026-10-31",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_question_generator.md",
+      "sha": "25bab5f22ab9f3e2"
+    },
+    {
+      "path": "prompts/ai_rmf_question_evaluator.md",
+      "sha": "cf7c1fc84adb564b"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/an2_record_all.json",
+    "sha": "cd8bba506068e057"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_areas.json",
+    "sha": "c05606a34f924b5f"
+  },
+  "output_snapshot": {
+    "MANAGE 3.1": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How do you keep track of changes to the AI features your vendors run on your data, for example a new AI feature, a change of model provider or new terms, and check that the agreed data controls still apply? Who owns this?",
+          "rows": [
+            "vendor_ai|MANAGE 3.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 3.1 — suggested action 9"
+          ],
+          "cis_refs": [
+            "LLM-15.6"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is third-party and external content that feeds the data the AI retrieves monitored over time for new risks, not only checked when it is first added? Who owns this?",
+          "rows": [
+            "source_data|MANAGE 3.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 3.1 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are outside MCP servers and tool suppliers monitored for changes and risks, for example new versions or changed permissions? Where are the risk controls applied to them recorded?",
+          "rows": [
+            "mcp_tools|MANAGE 3.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 3.1 — suggested action 3",
+            "MANAGE 3.1 — suggested action 9"
+          ],
+          "cis_refs": [
+            "MCP-15.6"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are the risks from third-party hosting infrastructure, for example cloud, GPU and model registry providers, monitored? Who reviews what is found?",
+          "rows": [
+            "hosting|MANAGE 3.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 3.1 — suggested action 9"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "MANAGE 4.1": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality customer-facing AI applications, how is customer input, including appeals and requests for a human to override the AI, captured and acted on after go-live? Who reviews it?",
+          "rows": [
+            "customer_facing|MANAGE 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.1 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how are answers re-tested after go-live for accuracy, bias and security, for example through red teaming? How often is this done?",
+          "rows": [
+            "output|MANAGE 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.1 — suggested action 2",
+            "MANAGE 4.1 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how does a deletion or correction request reach the data the AI retrieves and its index? Where is this recorded?",
+          "rows": [
+            "source_data|MANAGE 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.1 — suggested action 5"
+          ],
+          "cis_refs": [
+            "LLM-3.5"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is a change to what the AI can do, for example a new tool, a new permission, a changed configuration or the removal of something no longer needed, approved and made after go-live? Who approves it?",
+          "rows": [
+            "mcp_tools|MANAGE 4.1",
+            "agent|MANAGE 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.1 — suggested action 8",
+            "MANAGE 4.1 — suggested action 9"
+          ],
+          "cis_refs": [
+            "MCP-15.7",
+            "AGENT-16.1"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, how is the model's behaviour re-checked after an update to the hosting stack, for example servers, GPU drivers or serving software? Who approves the rollout?",
+          "rows": [
+            "hosting|MANAGE 4.1"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.1 — suggested action 2",
+            "MANAGE 4.1 — suggested action 3"
+          ],
+          "cis_refs": [
+            "LLM-7.2"
+          ]
+        }
+      ],
+      "reason": "Q4: check 2: Action 8 is about responding to and documenting detected negative impacts, not approving new tools, permissions or configuration changes; only the removal part is supported (action 9)."
+    },
+    "MANAGE 4.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality customer-facing AI applications, how is customer feedback turned into measurable improvements in each update? Who decides which feedback is acted on?",
+          "rows": [
+            "customer_facing|MANAGE 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.2 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how are changes to how the model is built or tuned, and new versions, reviewed and approved before release? Who approves them?",
+          "rows": [
+            "model_building|MANAGE 4.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.2 — suggested action 2",
+            "MANAGE 4.2 — suggested action 5"
+          ],
+          "cis_refs": [
+            "LLM-4.1"
+          ]
+        },
+        {
+          "question_text": "Before you release a new version of your model to others, how are the people who receive it engaged, for example to collect their feedback or tell them what changed?",
+          "rows": [
+            "model_building|MANAGE 4.2"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [
+            "given_to_others"
+          ],
+          "playbook_refs": [
+            "MANAGE 4.2 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, when answers are found to be wrong, biased or inconsistent, how is each fix, for example a change to prompts, data, the model or rules, re-tested to show a measurable improvement? Who signs it off?",
+          "rows": [
+            "output|MANAGE 4.2"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.2 — suggested action 1",
+            "MANAGE 4.2 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-18.3"
+          ]
+        }
+      ]
+    },
+    "MANAGE 4.3": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "For your highest-criticality AI systems, how is a wrong, biased or manipulated AI result, or an unexpected action by the AI, recorded as an error or incident, for example a wrong decision made on AI output or a leaked prompt? Who reviews it to find the cause?",
+          "rows": [
+            "internal_process|MANAGE 4.3",
+            "code_generation|MANAGE 4.3",
+            "customer_facing|MANAGE 4.3",
+            "output|MANAGE 4.3",
+            "mcp_tools|MANAGE 4.3",
+            "agent|MANAGE 4.3",
+            "hosting|MANAGE 4.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.3",
+            "LLM-17.8",
+            "MCP-17.8",
+            "AGENT-17.3",
+            "AGENT-17.8"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, when the AI gives a wrong or harmful result or takes an unexpected action, how are the people affected told? Who decides what is communicated?",
+          "rows": [
+            "internal_process|MANAGE 4.3",
+            "code_generation|MANAGE 4.3",
+            "customer_facing|MANAGE 4.3",
+            "output|MANAGE 4.3",
+            "mcp_tools|MANAGE 4.3",
+            "agent|MANAGE 4.3",
+            "hosting|MANAGE 4.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.3 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How does a problem with a vendor's AI feature, for example a wrong result or an exposure of your data, get from the vendor to your organisation and into your incident records? Who on your side follows it up?",
+          "rows": [
+            "vendor_ai|MANAGE 4.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.3 — suggested action 1",
+            "MANAGE 4.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.2",
+            "LLM-17.3"
+          ]
+        },
+        {
+          "question_text": "When an error or incident is found in a model you have released, how are the people who received it told? Who decides what is communicated?",
+          "rows": [
+            "model_building|MANAGE 4.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [
+            "given_to_others"
+          ],
+          "playbook_refs": [
+            "MANAGE 4.3 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For the models behind your most critical AI systems, how do you keep a record of changes to the model or its setup and the reason for each change? Where is it kept?",
+          "rows": [
+            "model_building|MANAGE 4.3"
+          ],
+          "roles": [
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.3 — suggested action 3",
+            "MANAGE 4.3 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How are incidents and near-misses from AI use nobody approved, or from other people's agents reaching your systems, recorded and communicated to those affected? Who reviews them afterwards?",
+          "rows": [
+            "invisible_usage|MANAGE 4.3"
+          ],
+          "roles": [
+            "none",
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.3 — suggested action 1",
+            "MANAGE 4.3 — suggested action 2"
+          ],
+          "cis_refs": [
+            "LLM-17.3",
+            "LLM-17.8"
+          ]
+        },
+        {
+          "question_text": "For your highest-criticality AI systems, when sensitive data sent to the AI is found to have been exposed, how are the affected people, providers and regulators told? Who decides who must be told?",
+          "rows": [
+            "input|MANAGE 4.3"
+          ],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "MANAGE 4.3 — suggested action 1"
+          ],
+          "cis_refs": []
+        }
+      ],
+      "reason": "Q0: The hosting row's why (hosting incidents tracked, communicated, reviewed) is not really asked: both shared questions ask only about wrong AI results and unexpected actions.; Q1: check 4: Covers the hosting row but asks only about wrong or manipulated AI results and actions; the hosting row's subject (incidents in the hosting environment: compromise, outage, cost abuse) is not asked.; check 6: Shares the hosting row with rows whose why check AI output and action incidents; for a client whose "
+    }
+  }
+}

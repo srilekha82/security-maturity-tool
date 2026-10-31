@@ -1,0 +1,339 @@
+{
+  "recorded_at": "2026-10-31T10:43:24.397214+00:00",
+  "step": "record_ai_bank_questions",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-opus-5-5; full run 2026-10-31",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_question_generator.md",
+      "sha": "25bab5f22ab9f3e2"
+    },
+    {
+      "path": "prompts/ai_rmf_question_evaluator.md",
+      "sha": "cf7c1fc84adb564b"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/fg2_record_all.json",
+    "sha": "930ef2cc2f7d0543"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_foundation.json",
+    "sha": "88c0ff1657780622"
+  },
+  "output_snapshot": {
+    "GOVERN 3.1": {
+      "status": "pass",
+      "turns": 1,
+      "questions": [
+        {
+          "question_text": "How do you make sure the people who decide on AI risks bring different disciplines and backgrounds, for example legal, security, business and technical staff? Where is who took part recorded?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 3.1 — suggested action 1",
+            "GOVERN 3.1 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "When your organisation lacks expertise on AI risk, how do you bring in outside help? Who decides when it is needed?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 3.1 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "GOVERN 3.2": {
+      "status": "pass",
+      "turns": 1,
+      "questions": [
+        {
+          "question_text": "Where are the roles and responsibilities of the people who use, oversee or monitor your AI systems written down, and how do those people come to know them and any changes?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 3.2 — suggested action 1",
+            "GOVERN 3.2 — suggested action 5"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do you train and check the skills of the people who operate or oversee your AI systems? Who owns this?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 3.2 — suggested action 3",
+            "GOVERN 3.2 — suggested action 4"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How are problems in the way people work with AI, such as over-reliance on its answers or confusing screens, captured and tracked? Where are they recorded?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 3.2 — suggested action 2",
+            "GOVERN 3.2 — suggested action 8"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "GOVERN 4.1": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "At what point in an AI project do legal, compliance and risk staff get involved, and what shows they were (for example a sign-off or review record)?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 4.1 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How are decisions to build or deploy AI challenged before they go ahead, for example by an independent review, audit or red-teaming? Who carries out the challenge?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 4.1 — suggested action 2",
+            "GOVERN 4.1 — suggested action 3"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How can staff raise a concern about an AI system without fear of reprisal? Where are concerns recorded?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 4.1 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "GOVERN 4.2": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How do you assess the potential harm of an AI system before it is used and again when it changes? Who carries out the assessment?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 4.2 — suggested action 1",
+            "GOVERN 4.2 — suggested action 3"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "Where are the results of these assessments recorded, and how are they used in your wider view of AI risk?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 4.2 — suggested action 2",
+            "GOVERN 4.2 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ],
+      "reason": "Q0: The outcome's second half, communicating the impacts more broadly beyond the team, is no longer asked by any question (question 2 now only asks internal use)."
+    },
+    "GOVERN 4.3": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How are your AI systems tested before and during use? Where are the results kept?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 4.3 — suggested action 1"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "Where are the steps for reporting and handling an AI incident kept, and how do staff come to know them and any changes?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 4.3 — suggested action 3",
+            "GOVERN 4.3 — suggested action 5"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do you share what you learn about the limits of your AI systems and about incidents, inside the organisation and with outside parties where needed? Who decides what is shared?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 4.3 — suggested action 2",
+            "GOVERN 4.3 — suggested action 4"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "GOVERN 5.1": {
+      "status": "needs_human_review",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How do you collect feedback about your AI from people outside the team that runs it, such as users, customers or people affected by it? Where is it recorded?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 5.1 — suggested action 1",
+            "GOVERN 5.1 — suggested action 6"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How is that outside feedback reviewed and prioritised, and who decides what is changed as a result?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 5.1 — suggested action 7"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How do you tell customers, partners and the public the principles that guide your use of AI? Where are they published?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 5.1 — suggested action 8"
+          ],
+          "cis_refs": []
+        }
+      ],
+      "reason": "Q3: check 4: Publishing AI principles informs outsiders of the org's values; it does not test collecting, considering, prioritising or integrating external feedback, which is this outcome."
+    },
+    "GOVERN 5.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "Who is given the chance to give feedback on how an AI system is designed or set up (for example the people who build, run, use or oversee it), and how is that feedback gathered?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 5.2 — suggested action 3"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "When feedback on an AI system is received, how is it weighed and accepted or rejected before anything changes? Who decides?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 5.2 — suggested action 3"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "How does feedback from the people who use or are affected by an AI system lead to changes in how it is designed or run? Can you give a recent example?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 5.2 — suggested action 3"
+          ],
+          "cis_refs": []
+        }
+      ]
+    },
+    "GOVERN 6.2": {
+      "status": "pass",
+      "turns": 2,
+      "questions": [
+        {
+          "question_text": "How does your incident response plan cover a failure or incident in a third-party AI service or data source you rely on? Who owns that part of the plan?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 6.2 — suggested action 2"
+          ],
+          "cis_refs": []
+        },
+        {
+          "question_text": "For the third-party AI services you cannot do without, what backup exists (for example another provider or a manual process)? Who decided it was enough?",
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": [],
+          "playbook_refs": [
+            "GOVERN 6.2 — suggested action 1"
+          ],
+          "cis_refs": []
+        }
+      ]
+    }
+  }
+}
