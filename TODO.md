@@ -8,7 +8,16 @@ removed. **Both AI RMF question banks and the CSF AI impact notes are built (202
 `judgement_log/`) is kept.
 
 ## Start here next session
-**Next: the 8 subcategories that need human review, then `/generate-questions` end to end on a test client.**
+**Next, in order:**
+1. Impact notes: decide whether `exposure` becomes optional (skipped where the mapped safeguards only describe AI in
+   use, so nothing real can be said to an org with no AI); then review the 19 flagged notes in
+   `data/ai/authoring/impact_notes.xlsx` (Status = needs_human_review).
+2. The 8 flagged question subcategories (below).
+3. Optional: skim the ~280 passing questions in the two question review sheets.
+4. `/generate-questions` end to end on a test client in `finance` (the only CSF bank built; another sector would build
+   its bank on the fly). First real look at the client labels and the "AI systems" sheet.
+5. `/build-csf-bank all`.
+6. Later: step 5 (severity), Stage 2 (maturity XLS and answer session), the parked items below.
 - Pilot accepted 2026-10-29 (four rounds; GOVERN 1.2, 1.6, 6.1; MAP 1.4, MAP 3.2, MEASURE 2.7, MEASURE 2.8, MANAGE 3.2).
 - Full run 2026-10-29 to 2026-10-31 (Sonnet generator, Opus evaluator, 9 batches, two rounds each; interrupted once by
   the usage limit and resumed from the work files): foundation 31 subcategories, 84 questions; areas 41, 202 questions.
@@ -18,7 +27,15 @@ removed. **Both AI RMF question banks and the CSF AI impact notes are built (202
   the previous question), MAP 4.1 Q6 and Q9 (two asks, citations), MEASURE 2.4 Q4 (LLM-13.1 does not fit outside
   agents), MEASURE 2.10 Q1 (lost its secrets-in-code focus, repeats the Input question), MANAGE 4.1 Q4 (action 8 only
   fits removal), MANAGE 4.3 (the Hosting row's incidents are not asked).
-- CSF AI impact notes recorded 2026-10-31: 48 exposure notes, 25 with a use layer (`data/csf/ai_impact_notes.json`).
+- CSF AI impact notes (`data/csf/ai_impact_notes.json`), 2026-10-31: 48 subcategories (58 have no CIS mapping, no
+  note). Now checked like the questions: Opus evaluator (`prompts/ai_impact_notes_evaluator.md`,
+  `record_ai_bank.py notes-review`), writer revision turn, round 2 judges only rewritten notes; review sheet
+  `sheet_io.py export|import impact_notes`. Round 1 flagged 34 (exposure notes assuming the org runs AI, missing use
+  layers); after the revision 45 have a use layer and 19 are still flagged (mostly exposure notes the safeguard text
+  does not support for orgs without AI).
+- Every writer is checked (DESIGN_RULES rule 7, 2026-10-31): the questionnaire reviewers' rewrites now go to an Opus
+  checker (`prompts/assessor_rewrite_checker.md`, `/assess-questionnaire` step 3); `record_judgements.py log --check`
+  flags rewrites it does not confirm LOW (`data/common/assessor_check.json`). Not yet run on a real engagement.
 - Step 5 (severity) can wait. The step 4 decisions are in the design note, section 7.
 
 Where things stand:
@@ -151,8 +168,9 @@ MEASURE 2.8 Q10 and Q12 framed; MEASURE 2.7 Q5 cites suggested action 2).
 
 ## Then
 - `/build-csf-bank all` (only `finance` exists today).
-- Run `/generate-questions` end to end on a test client. The restructured commands have not been run as a whole in a live
-  session yet.
+- Run `/generate-questions` end to end on a test client (finance). The restructured commands, including the rewrite
+  checker, have not been run as a whole in a live session yet.
+- Optional: a "Client sees" column in the area question review sheet (the client label next to each question).
 
 ## Parked, no rush
 - `validate_questions.py`: move the mechanical assessor checks (truncated text, duplicates, blank evidence, GV must be
