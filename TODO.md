@@ -1,17 +1,25 @@
-# TODO (last updated 2026-10-29)
+# TODO (last updated 2026-10-31)
 
 State: the AI RMF model was redesigned (2026-10-16 to 2026-10-22): AI areas (how AI is used and what it is made of) ->
 attack areas -> AI RMF function -> subcategory. `AI_RMF_Mapping_Sheet_Design.md` is the starting point for every
 session. **The mapping is accepted (2026-10-28).** **Step 4 (question tooling) is built (2026-10-29)**; the old model (question categories, rungs, usage contexts, modifiers, producer and consumer banks) is
-removed. `/ai-questionnaire` has no AI RMF bank until step 6. The audit trail (`data/ai/bank_build/audit.jsonl`,
+removed. **Both AI RMF question banks and the CSF AI impact notes are built (2026-10-31)**: every
+`check_freshness.py --ai-bank` stage is current. The audit trail (`data/ai/bank_build/audit.jsonl`,
 `judgement_log/`) is kept.
 
 ## Start here next session
-**Next: accept the question pilot, then the full bank run (`/build-ai-bank`, Step 5, full).** The pilot ran four
-rounds on 2026-10-29 (GOVERN 1.2, 1.6, 6.1; MAP 1.4, MAP 3.2, MEASURE 2.7, MEASURE 2.8, MANAGE 3.2); all recorded, none
-left for review, most decided by the user in the review sheets. Generator Sonnet, evaluator Opus from now on (the
-pilot's evaluations were Sonnet). The user says when the pilot is good (`ai_pilot.py accept`). Step 5 (severity) can
-wait. The step 4 decisions are in the design note, section 7.
+**Next: the 8 subcategories that need human review, then `/generate-questions` end to end on a test client.**
+- Pilot accepted 2026-10-29 (four rounds; GOVERN 1.2, 1.6, 6.1; MAP 1.4, MAP 3.2, MEASURE 2.7, MEASURE 2.8, MANAGE 3.2).
+- Full run 2026-10-29 to 2026-10-31 (Sonnet generator, Opus evaluator, 9 batches, two rounds each; interrupted once by
+  the usage limit and resumed from the work files): foundation 31 subcategories, 84 questions; areas 41, 202 questions.
+- Needs human review (review sheets `data/ai/authoring/questions_<foundation|areas>.xlsx`, Status =
+  needs_human_review; the user decides in chat, Claude applies and imports): GOVERN 4.2 (sharing impacts beyond the
+  team not asked), GOVERN 5.1 Q3 (publishing principles is not taking in outside feedback), MAP 3.5 Q6 (depends on
+  the previous question), MAP 4.1 Q6 and Q9 (two asks, citations), MEASURE 2.4 Q4 (LLM-13.1 does not fit outside
+  agents), MEASURE 2.10 Q1 (lost its secrets-in-code focus, repeats the Input question), MANAGE 4.1 Q4 (action 8 only
+  fits removal), MANAGE 4.3 (the Hosting row's incidents are not asked).
+- CSF AI impact notes recorded 2026-10-31: 48 exposure notes, 25 with a use layer (`data/csf/ai_impact_notes.json`).
+- Step 5 (severity) can wait. The step 4 decisions are in the design note, section 7.
 
 Where things stand:
 - `data/ai/mapping.json` is accepted (`data/ai/bank_build/mapping_accepted.json`): 14 AI areas, 208 rows (41
