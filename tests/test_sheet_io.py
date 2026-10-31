@@ -365,6 +365,17 @@ class NotesSheet(unittest.TestCase):
         self.edit(pr, **{"Exposure (every org)": "too short"})
         self.assertEqual(self.do_import(), 1)
 
+    def test_exposure_is_optional_and_clearing_every_note_drops_the_subcategory(self):
+        pr = 1 + list(self.doc["notes"]).index("PR.AA-05")
+        self.edit(pr, Status="pass", **{"Exposure (every org)": ""})
+        self.assertEqual(self.do_import(), 0)
+        self.assertEqual(set(self.notes()["PR.AA-05"]), {"use", "status", "decided_by"})
+        S.export_sheet(self.spec, self.xlsx, self.js, self.tmp / "audit.jsonl", force=True)
+        de = 1 + list(self.doc["notes"]).index("DE.CM-01")
+        self.edit(de, **{"Exposure (every org)": ""})
+        self.assertEqual(self.do_import(), 0)
+        self.assertNotIn("DE.CM-01", self.notes())
+
 
 if __name__ == "__main__":
     unittest.main()

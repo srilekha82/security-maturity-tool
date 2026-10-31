@@ -9,10 +9,13 @@ removed. **Both AI RMF question banks and the CSF AI impact notes are built (202
 
 ## Start here next session
 **Next, in order:**
-1. Impact notes: decide whether `exposure` becomes optional (skipped where the mapped safeguards only describe AI in
-   use, so nothing real can be said to an org with no AI); then review the 19 flagged notes in
-   `data/ai/authoring/impact_notes.xlsx` (Status = needs_human_review).
-2. The 8 flagged question subcategories (below).
+1. ~~Impact notes~~ done 2026-10-31: `exposure` is optional (written only where the safeguard text supports something
+   real for an org with no AI); the 19 flagged notes lost their exposure note, ID.IM-02's model note points to Output,
+   PR.PS-03 and RC.CO-04 lost their use layer too and have no note. 46 notes, all pass (29 exposure, 43 use layers).
+2. ~~The 8 flagged question subcategories~~ done 2026-10-31 (the user agreed to Claude's suggestions): GOVERN 4.2
+   asks sharing impacts beyond the team; GOVERN 5.1 dropped the published-principles question; MAP 3.5, MAP 4.1 (two),
+   MEASURE 2.10 reworded; MEASURE 2.4 dropped LLM-13.1; MANAGE 4.1 cites action 9 only; MANAGE 4.3 has its own
+   hosting question. Both banks pass (foundation 84 questions, areas 203).
 3. Optional: skim the ~280 passing questions in the two question review sheets.
 4. `/generate-questions` end to end on a test client in `finance` (the only CSF bank built; another sector would build
    its bank on the fly). First real look at the client labels and the "AI systems" sheet.
@@ -21,8 +24,8 @@ removed. **Both AI RMF question banks and the CSF AI impact notes are built (202
 - Pilot accepted 2026-10-29 (four rounds; GOVERN 1.2, 1.6, 6.1; MAP 1.4, MAP 3.2, MEASURE 2.7, MEASURE 2.8, MANAGE 3.2).
 - Full run 2026-10-29 to 2026-10-31 (Sonnet generator, Opus evaluator, 9 batches, two rounds each; interrupted once by
   the usage limit and resumed from the work files): foundation 31 subcategories, 84 questions; areas 41, 202 questions.
-- Needs human review (review sheets `data/ai/authoring/questions_<foundation|areas>.xlsx`, Status =
-  needs_human_review; the user decides in chat, Claude applies and imports): GOVERN 4.2 (sharing impacts beyond the
+- Was flagged, decided 2026-10-31 (see 2. above; review sheets `data/ai/authoring/questions_<foundation|areas>.xlsx`;
+  the user decides in chat, Claude applies and imports): GOVERN 4.2 (sharing impacts beyond the
   team not asked), GOVERN 5.1 Q3 (publishing principles is not taking in outside feedback), MAP 3.5 Q6 (depends on
   the previous question), MAP 4.1 Q6 and Q9 (two asks, citations), MEASURE 2.4 Q4 (LLM-13.1 does not fit outside
   agents), MEASURE 2.10 Q1 (lost its secrets-in-code focus, repeats the Input question), MANAGE 4.1 Q4 (action 8 only

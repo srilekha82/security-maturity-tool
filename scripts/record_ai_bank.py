@@ -38,8 +38,9 @@ Record modes (agent output; every one needs --model, optional --session, --promp
                            A subcategory a person decided in the review sheet (decided_by human) is not overwritten
                            unless --replace-human.
   notes <file>             {"PR.AA-05": {"exposure": "...", "use": {"base_rag": "...", "mcp_agentic": "..."}}}
-                           exposure (layer 1) is required for a new entry; `use` (layer 2) may be added later,
-                           or removed with "use": null;
+                           exposure (layer 1) is optional (only where the safeguard text supports something real
+                           for an org with no AI; decided 2026-10-31) and removed with "exposure": null; `use`
+                           (layer 2) is added or removed with "use": null; an entry left with neither is dropped;
                            a subcategory a person decided in the review sheet is refused. A rewritten note loses
                            its review status (to be reviewed again).
                            -> data/csf/ai_impact_notes.json
@@ -422,8 +423,9 @@ def validate_notes_review(data) -> list[str]:
         sid = f["subcategory_id"]
         if sid not in notes:
             errors.append(f"finding {n}: {sid} has no recorded notes")
-        elif f["note"] not in NOTE_KEYS + ("use",) or (f["note"] in NOTE_KEYS[1:] and "use" not in notes[sid]):
-            errors.append(f"finding {n}: note must be exposure, use, or base_rag / mcp_agentic of a use layer {sid} has")
+        elif f["note"] not in NOTE_KEYS + ("use",) or (f["note"] in NOTE_KEYS[1:] and "use" not in notes[sid]) or \
+                (f["note"] == "exposure" and "exposure" not in notes[sid]):
+            errors.append(f"finding {n}: note must be use, or exposure / base_rag / mcp_agentic that {sid} has")
         elif notes[sid].get("decided_by") == "human":
             errors.append(f"finding {n}: {sid} was decided by a person in the review sheet")
         elif "status" in notes[sid]:
@@ -436,7 +438,7 @@ def validate_notes_review(data) -> list[str]:
 def notes_sheet_rows(doc: dict) -> list[dict]:
     """One review-sheet line per CSF subcategory with notes (sheet_io.py export impact_notes)."""
     outcome = {s["subcategory_id"]: s["subcategory_text"] for s in load_json(CSF_CORE, "csf2_core.json")["subcategories"]}
-    return [{"subcategory": sid, "outcome": outcome.get(sid, ""), "exposure": v["exposure"],
+    return [{"subcategory": sid, "outcome": outcome.get(sid, ""), "exposure": v.get("exposure", ""),
              "base_rag": v.get("use", {}).get("base_rag", ""), "mcp_agentic": v.get("use", {}).get("mcp_agentic", ""),
              "status": v.get("status", "pass"), "review_reason": v.get("review_reason", ""),
              "decided_by": v.get("decided_by", "agent")} for sid, v in doc["notes"].items()]
@@ -444,8 +446,9 @@ def notes_sheet_rows(doc: dict) -> list[dict]:
 
 def notes_from_sheet(lines: list[dict], doc: dict) -> tuple[dict, list[str], int]:
     """(new notes doc, problems, subcategories changed) from the review sheet. Notes come from the writer: the sheet may
-    change them, clear or fill a use layer (both use notes or neither), and set Status, but not add or drop a
-    subcategory. A changed subcategory is stored as decided_by human."""
+    change them, clear the exposure note, clear or fill a use layer (both use notes or neither), and set Status, but
+    not add a subcategory; clearing every note of a line drops its subcategory (no note). A changed subcategory is
+    stored as decided_by human."""
     notes, problems, seen, changed = doc["notes"], [], set(), []
     new = json.loads(json.dumps(doc))
     for n, ln in enumerate(lines, 2):
@@ -455,10 +458,15 @@ def notes_from_sheet(lines: list[dict], doc: dict) -> tuple[dict, list[str], int
                             "/build-ai-bank, Step 7)")
             continue
         seen.add(sid)
-        entry = {"exposure": str(ln["exposure"] or "").strip()}
+        exposure = str(ln["exposure"] or "").strip()
+        entry = {"exposure": exposure} if exposure else {}
         use = {k: str(ln[k] or "").strip() for k in NOTE_KEYS[1:]}
         if any(use.values()):
             entry["use"] = use
+        if not entry:   # every note cleared: the subcategory has no note
+            new["notes"].pop(sid, None)
+            changed.append(sid)
+            continue
         bad = validate_notes({sid: entry}, from_sheet=True)
         if not all(use.values()) and any(use.values()):
             bad.append(f"{sid}: give both use notes (model / RAG and tools / agents) or neither")
@@ -469,6 +477,7 @@ def notes_from_sheet(lines: list[dict], doc: dict) -> tuple[dict, list[str], int
             continue
         e = new["notes"][sid]
         e.pop("use", None)
+        e.pop("exposure", None)
         e.update(entry, status=ln["status"], decided_by="human")
         if ln["status"] == "pass":
             e.pop("review_reason", None)
@@ -506,11 +515,9 @@ def validate_notes(data, from_sheet: bool = False) -> list[str]:
                 v != {k: existing[sid].get(k) for k in v}:
             errors.append(f"{sid}: decided by a person in the review sheet (sheet_io.py import impact_notes); not "
                           "overwritten")
-        if "exposure" in v:
+        if v.get("exposure") is not None:   # exposure: null removes it (nothing real to say to an org with no AI)
             if not isinstance(v["exposure"], str) or len(v["exposure"].strip()) < NOTE_MIN_CHARS:
                 errors.append(f"{sid}: exposure must be a note of at least {NOTE_MIN_CHARS} characters")
-        elif sid not in existing:
-            errors.append(f"{sid}: a new entry needs an exposure note (layer 1) first")
         if "use" in v and v["use"] is not None:   # use: null removes the use layer (a revision that finds none needed)
             u = v["use"]
             if not isinstance(u, dict) or set(u) != {"base_rag", "mcp_agentic"} or any(
@@ -1036,13 +1043,16 @@ def store(mode: str, data: dict, args, inp: dict) -> tuple[Path, str]:
         for sid, v in data.items():
             e = store_doc["notes"].setdefault(sid, {})
             e.update(v)
-            if e.get("use", "") is None:
-                del e["use"]
+            for k in ("exposure", "use"):   # null removes a note
+                if k in e and e[k] is None:
+                    del e[k]
             for k in ("status", "review_reason", "decided_by"):   # rewritten by an agent: to be reviewed again
                 e.pop(k, None)
-        store_doc["notes"] = dict(sorted(store_doc["notes"].items()))
+        store_doc["notes"] = dict(sorted((sid, e) for sid, e in store_doc["notes"].items()
+                                         if "exposure" in e or "use" in e))   # an entry with no note is dropped
         store_doc.update({
-            "description": ("AI-world notes per CSF 2.0 subcategory. `exposure` is shown to every org; `use` only when AI is "
+            "description": ("AI-world notes per CSF 2.0 subcategory. `exposure` (where there is something real to say to an "
+                            "org with no AI) is shown to every org; `use` only when AI is "
                             "in use (mcp_agentic when the client's AI areas include MCP / tools or agents, else base_rag). "
                             "Written by an agent from the CIS MCP and agents companion guides joined to CSF via the official "
                             "CIS v8.1 -> CSF 2.0 mapping, then reviewed. The Stage 2 XLS writer selects from the intake (AI in "

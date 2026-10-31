@@ -579,37 +579,49 @@
       ]
     },
     "GOVERN 4.2": {
-      "status": "needs_human_review",
+      "status": "pass",
       "turns": 2,
-      "review_reason": "Q0: The outcome's second half, communicating the impacts more broadly beyond the team, is no longer asked by any question (question 2 now only asks internal use).",
       "questions": [
         {
           "question_text": "How do you assess the potential harm of an AI system before it is used and again when it changes? Who carries out the assessment?",
-          "roles": [
-            "consumer",
-            "producer"
-          ],
-          "producer_flags": [],
           "playbook_refs": [
             "GOVERN 4.2 — suggested action 1",
             "GOVERN 4.2 — suggested action 3"
           ],
-          "cis_refs": []
-        },
-        {
-          "question_text": "Where are the results of these assessments recorded, and how are they used in your wider view of AI risk?",
+          "cis_refs": [],
           "roles": [
             "consumer",
             "producer"
           ],
-          "producer_flags": [],
+          "producer_flags": []
+        },
+        {
+          "question_text": "Where are the results of these assessments recorded, and how are they used in your wider view of AI risk?",
           "playbook_refs": [
             "GOVERN 4.2 — suggested action 2",
             "GOVERN 4.2 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": []
+        },
+        {
+          "question_text": "How are the impacts you have assessed for your AI systems shared beyond the team, for example with leadership, affected users or customers? Who decides what is shared?",
+          "playbook_refs": [
+            "GOVERN 4.2 — suggested action 4"
+          ],
+          "cis_refs": [],
+          "roles": [
+            "consumer",
+            "producer"
+          ],
+          "producer_flags": []
         }
-      ]
+      ],
+      "decided_by": "human"
     },
     "GOVERN 4.3": {
       "status": "pass",
@@ -656,48 +668,36 @@
       ]
     },
     "GOVERN 5.1": {
-      "status": "needs_human_review",
+      "status": "pass",
       "turns": 2,
-      "review_reason": "Q3: check 4: Publishing AI principles informs outsiders of the org's values; it does not test collecting, considering, prioritising or integrating external feedback, which is this outcome.",
       "questions": [
         {
           "question_text": "How do you collect feedback about your AI from people outside the team that runs it, such as users, customers or people affected by it? Where is it recorded?",
-          "roles": [
-            "consumer",
-            "producer"
-          ],
-          "producer_flags": [],
           "playbook_refs": [
             "GOVERN 5.1 — suggested action 1",
             "GOVERN 5.1 — suggested action 6"
           ],
-          "cis_refs": []
-        },
-        {
-          "question_text": "How is that outside feedback reviewed and prioritised, and who decides what is changed as a result?",
+          "cis_refs": [],
           "roles": [
             "consumer",
             "producer"
           ],
-          "producer_flags": [],
+          "producer_flags": []
+        },
+        {
+          "question_text": "How is outside feedback about your AI reviewed and prioritised, and who decides what is changed as a result?",
           "playbook_refs": [
             "GOVERN 5.1 — suggested action 7"
           ],
-          "cis_refs": []
-        },
-        {
-          "question_text": "How do you tell customers, partners and the public the principles that guide your use of AI? Where are they published?",
+          "cis_refs": [],
           "roles": [
             "consumer",
             "producer"
           ],
-          "producer_flags": [],
-          "playbook_refs": [
-            "GOVERN 5.1 — suggested action 8"
-          ],
-          "cis_refs": []
+          "producer_flags": []
         }
-      ]
+      ],
+      "decided_by": "human"
     },
     "GOVERN 5.2": {
       "status": "pass",
@@ -1269,9 +1269,9 @@
   },
   "summary": {
     "subcategories": 31,
-    "passed": 29,
-    "needs_human_review": 2,
+    "passed": 31,
+    "needs_human_review": 0,
     "questions": 84
   },
-  "source_sha": "6c413d5d145abcdc"
+  "source_sha": "0ae3df66be60229b"
 }

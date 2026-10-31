@@ -195,7 +195,8 @@ It joins the CIS → CSF 2.0 mapping to the MCP and agents guide safeguards and 
 `data/ai/bank_build/impact_pending.json` (about 48 CSF subcategories; the unmapped ones are listed, not guessed). Read
 `prompts/ai_impact_notes_writer.md` and that file. Run the two layers in order, each as a patch file, each recorded:
 
-1. Layer 1 (exposure): write `data/ai/bank_build/notes_layer1.json`, then
+1. Layer 1 (exposure, only where the safeguard text supports something real for an org with no AI): write
+   `data/ai/bank_build/notes_layer1.json`, then
    `.venv/bin/python ./scripts/record_ai_bank.py notes data/ai/bank_build/notes_layer1.json --model <model id>`
 2. Layer 2 (use): write `data/ai/bank_build/notes_layer2.json` for the subset where use changes the reading, then
    the same command with that file.

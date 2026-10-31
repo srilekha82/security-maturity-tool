@@ -192,12 +192,19 @@ class Recording(unittest.TestCase):
     def test_notes(self):
         long = "x" * 40
         self.assertEqual(self.run_mode("notes", {"NOT.AA-99": {"exposure": long}}), 1)
-        self.assertEqual(self.run_mode("notes", {"PR.AA-05": {"use": {"base_rag": long, "mcp_agentic": long}}}), 1)  # no exposure yet
+        self.assertEqual(self.run_mode("notes", {"DE.CM-01": {"use": {"base_rag": long, "mcp_agentic": long}}}), 0)
+        self.assertNotIn("exposure", json.loads(R.CSF_IMPACT_NOTES.read_text())["notes"]["DE.CM-01"])  # exposure optional
         self.assertEqual(self.run_mode("notes", {"PR.AA-05": {"exposure": long}}), 0)
         self.assertEqual(self.run_mode("notes", {"PR.AA-05": {"use": {"base_rag": long, "mcp_agentic": long}}}), 0)
         self.assertEqual(self.run_mode("notes", {"PR.AA-05": {"use": {"base_rag": long}}}), 1)
         n = json.loads(R.CSF_IMPACT_NOTES.read_text())["notes"]["PR.AA-05"]
         self.assertEqual(set(n), {"exposure", "use"})
+        self.assertEqual(self.run_mode("notes", {"PR.AA-05": {"exposure": None}}), 0)      # exposure: null removes it
+        self.assertEqual(set(json.loads(R.CSF_IMPACT_NOTES.read_text())["notes"]["PR.AA-05"]), {"use"})
+        self.assertEqual(self.run_mode("notes", {"PR.AA-05": {"use": None}}), 0)          # no note left: dropped
+        self.assertNotIn("PR.AA-05", json.loads(R.CSF_IMPACT_NOTES.read_text())["notes"])
+        self.assertEqual(self.run_mode("notes-review", [{"subcategory_id": "DE.CM-01", "note": "exposure",
+                                                         "reason": "x"}]), 1)   # it has no exposure note
 
     def test_notes_review(self):
         long = "x" * 40

@@ -5,14 +5,16 @@ assume the notes are flawed. You have NOT seen how they were written. Your input
 
 `impact_pending.json` has `items`, one per CSF subcategory, with the CSF outcome (`subcategory_text`) and the
 AI-specific text of the mapped CIS MCP and agents companion-guide safeguards (`safeguards`: id, title, ai_text). Each
-note entry has `exposure` (shown to every org, including orgs that use no AI) and may have `use` with `base_rag` (orgs
+note entry may have `exposure` (shown to every org, including orgs that use no AI; optional, written only where the
+safeguard text supports something real for such an org, so a missing exposure note is never a finding) and may have `use` with `base_rag` (orgs
 that use a model or RAG without tools or agents) and `mcp_agentic` (orgs with tools, MCP or agents).
 
 ## Flag a note if ANY of these is true
 1. **Unsupported.** It claims something the subcategory's safeguard text does not support (an invented risk, number or
    practice).
 2. **Restates the outcome.** It says what the CSF outcome already says, not what is different with AI (machine speed,
-   delegated credentials, automated reconnaissance, what data reaches a model, AI tools as identities).
+   delegated credentials, automated reconnaissance, what data reaches a model, AI tools as identities). For an
+   `exposure` note, the fix is usually to remove it: say so in the reason.
 3. **Wrong audience.** An `exposure` note assumes the org uses AI; a `base_rag` note is about tools or agents; an
    `mcp_agentic` note says nothing specific to tools, MCP or agents.
 4. **Vague or padded.** It is generic advice that would fit any subcategory, uses marketing words, names a vendor, or
