@@ -786,6 +786,8 @@ class FreshnessGate(unittest.TestCase):
         real_sheets = CF.AI_QUESTIONS_XLSX
         CF.AI_QUESTIONS_XLSX = {b: (self.tmp / f"questions_{b}.xlsx", n) for b, (_, n) in real_sheets.items()}
         self.addCleanup(setattr, CF, "AI_QUESTIONS_XLSX", real_sheets)
+        self.addCleanup(setattr, CF, "AI_IMPACT_NOTES_XLSX", CF.AI_IMPACT_NOTES_XLSX)
+        CF.AI_IMPACT_NOTES_XLSX = self.tmp / "impact_notes.xlsx"
         CF.AI_BANKS.mkdir()
 
     def sha(self, name):
