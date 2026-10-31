@@ -1,0 +1,173 @@
+{
+  "recorded_at": "2026-10-31T10:49:37.535032+00:00",
+  "step": "record_ai_bank_notes",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": null,
+  "prompts": [
+    {
+      "path": "prompts/ai_impact_notes_writer.md",
+      "sha": "dade0b2363c54058"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/notes_layer2.json",
+    "sha": "dca829a6a2a76e5f"
+  },
+  "store": {
+    "path": "data/csf/ai_impact_notes.json",
+    "sha": "e9c932e26db58693"
+  },
+  "output_snapshot": {
+    "DE.AE-02": {
+      "use": {
+        "base_rag": "Logs from a model or retrieval setup should show what data was retrieved and sent to the model, so analysis can tell leakage from normal use. See AI RMF: Input and AI RMF: Output.",
+        "mcp_agentic": "Review agent and tool logs for identity misuse, privilege elevation and tools called in unapproved sequences, which standard error-based reviews miss. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "GV.RR-04": {
+      "use": {
+        "base_rag": "Staff leaving can leave behind data access granted to AI systems or knowledge sources they set up, so include these in offboarding. See AI RMF: Internal process.",
+        "mcp_agentic": "Give agents and tools their own identities with ephemeral credentials, and revoke them and purge entitlements when an agent is retired or its scope changes. See AI RMF: Agent."
+      }
+    },
+    "GV.SC-01": {
+      "use": {
+        "base_rag": "Provider policy should limit what data reaches an external model and block sensitive or regulated data from providers lacking safeguards. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Policy should require third-party MCP servers to meet requirements such as code signing, scope minimization and accurate capability declarations. See AI RMF: MCP / tools."
+      }
+    },
+    "GV.SC-04": {
+      "use": {
+        "base_rag": "Include model and embedding providers in the supplier list, ranked by the sensitivity of data they process. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Include hosted agent offerings, tool backends, memory systems and third-party MCP servers, classified by the data they reach. See AI RMF: MCP / tools."
+      }
+    },
+    "GV.SC-05": {
+      "use": {
+        "base_rag": "Contracts with model providers should cover data isolation, retention limits and incident response SLAs for the data sent to them. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Contracts with MCP server providers should require signed code, recorded OAuth scopes and capability declarations, and vulnerability disclosure. See AI RMF: MCP / tools."
+      }
+    },
+    "GV.SC-10": {
+      "use": {
+        "base_rag": "At exit, ask for verifiable destruction of embeddings, tuned model weights and logs, not only raw source data. See AI RMF: Vendor AI.",
+        "mcp_agentic": "At exit, remove allowlist entries, revoke OAuth authorizations and tokens, end data flows and revoke federated identities for the provider's tools. See AI RMF: MCP / tools."
+      }
+    },
+    "ID.AM-02": {
+      "use": {
+        "base_rag": "List the models, RAG components and their dependencies that are in use, including those adopted by teams on their own. See AI RMF: Invisible AI usage.",
+        "mcp_agentic": "Include agent stacks, authorized tools, orchestration frameworks and MCP clients and servers in the software inventory. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "ID.AM-03": {
+      "use": {
+        "base_rag": "Map how documents move into a retrieval store and model context, and who may retrieve them. See AI RMF: Source data and AI RMF: Input.",
+        "mcp_agentic": "Map data flows from tool calls through back-end systems into model context, and note which tools can reach sensitive data. See AI RMF: MCP / tools."
+      }
+    },
+    "ID.AM-05": {
+      "use": {
+        "base_rag": "Classify the data that can be placed in a model's context or retrieval store, since it can be returned to users who ask. See AI RMF: Source data.",
+        "mcp_agentic": "Classify tool responses, memory entries and session artifacts, and decide what data may appear in tool parameters and outputs. See AI RMF: MCP / tools."
+      }
+    },
+    "ID.AM-07": {
+      "use": {
+        "base_rag": "Inventory the knowledge sources and vector stores that feed a model, with their sensitivity and retention. See AI RMF: Source data.",
+        "mcp_agentic": "Inventory agent memory, caches and every data source reachable by tools, with the backend system for each. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "ID.AM-08": {
+      "use": {
+        "base_rag": "Plan disposal of vector stores and retrieval caches when a use case ends, since residual data can remain. See AI RMF: Source data.",
+        "mcp_agentic": "Dispose of agent memory, server caches, stored tokens and session mappings on decommissioning and on failure paths. See AI RMF: Agent."
+      }
+    },
+    "PR.AA-01": {
+      "use": {
+        "base_rag": "A model or RAG setup that reads company data should use its own service identity, not a person's login. See AI RMF: Hosting.",
+        "mcp_agentic": "Manage each agent and tool identity through the central identity provider, with ephemeral or managed credentials and no shared accounts. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "PR.AA-05": {
+      "use": {
+        "base_rag": "Retrieval must respect the asking user's permissions, otherwise the model can return data the user could not open. See AI RMF: Source data.",
+        "mcp_agentic": "Give each AI tool its own scoped credentials, never inherit a user's full rights, and require human approval for write or irreversible actions. See AI RMF: MCP / tools."
+      }
+    },
+    "PR.AT-01": {
+      "use": {
+        "base_rag": "Staff should know what must not be pasted into AI tools and that outputs may be wrong or leak data. See AI RMF: Internal process.",
+        "mcp_agentic": "Staff should know when an agent needs human approval and the risks of autonomous chains of actions. See AI RMF: Agent."
+      }
+    },
+    "PR.DS-01": {
+      "use": {
+        "base_rag": "Encrypt vector stores, prompt and response logs and caches, which can hold copies of sensitive data. See AI RMF: Source data and AI RMF: Hosting.",
+        "mcp_agentic": "Encrypt agent memory and keep credentials in isolated storage, since stores hold sensitive reasoning and tokens. See AI RMF: Agent."
+      }
+    },
+    "PR.DS-02": {
+      "use": {
+        "base_rag": "Protect traffic between your systems and an external model or hosted retrieval service, since sensitive data travels in it. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Encrypt tool channels and agent-to-agent messages, require TLS 1.2 or later for HTTP-based MCP and validate certificates. See AI RMF: MCP / tools."
+      }
+    },
+    "PR.DS-11": {
+      "use": {
+        "base_rag": "Back up vector stores and retrieval corpora with their indexing metadata, and protect the backups like the source data. See AI RMF: Source data.",
+        "mcp_agentic": "Back up agent memory, tool definitions and authorization policies, and make sure agents cannot write to or alter backups. See AI RMF: Agent."
+      }
+    },
+    "PR.IR-01": {
+      "use": {
+        "base_rag": "Keep retrieval and model services in private, authenticated networks, separated by data sensitivity. See AI RMF: Hosting.",
+        "mcp_agentic": "Separate agents serving different trust zones and isolate third-party tool servers from your own so data cannot cross boundaries. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "PR.PS-01": {
+      "use": {
+        "base_rag": "Version the settings of a model setup, such as prompts and retrieval configuration, so changes can be traced. See AI RMF: Model.",
+        "mcp_agentic": "Version agent prompts, tool lists and parameters, and restrict tool file access and process privileges. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "PR.PS-03": {
+      "use": {
+        "base_rag": "Look for unapproved AI tools in use, since staff may adopt them without telling IT. See AI RMF: Invisible AI usage.",
+        "mcp_agentic": "Detect and quarantine shadow agents and unapproved MCP servers, and treat new tools on a known server as unauthorized. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "PR.PS-04": {
+      "use": {
+        "base_rag": "Log which sources were retrieved and what was sent to and returned by the model, without storing secrets. See AI RMF: Input and AI RMF: Output.",
+        "mcp_agentic": "Log tool calls, data accesses, authorization decisions and attempted policy violations for each agent. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "PR.PS-05": {
+      "use": {
+        "base_rag": "Control which AI applications and plug-ins staff can install or connect to company data. See AI RMF: Invisible AI usage.",
+        "mcp_agentic": "Allow only approved agent components and tool servers, with versions and integrity checks, from approved registries. See AI RMF: MCP / tools."
+      }
+    },
+    "PR.PS-06": {
+      "use": {
+        "base_rag": "Treat model-generated code as untrusted and review it like any other contribution. See AI RMF: Code generation.",
+        "mcp_agentic": "Run agent pipelines through dependency scanning, hardening and secret stripping, and threat-model tools and prompts. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "RS.AN-03": {
+      "use": {
+        "base_rag": "Keep prompts, retrieved sources and outputs so you can tell whether data leaked through the model. See AI RMF: Input and AI RMF: Output.",
+        "mcp_agentic": "Reconstruct tool outputs, memory state, retrieval content and policy decisions that led to the incident. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "RS.MA-01": {
+      "use": {
+        "base_rag": "Playbooks should say how to stop a model feature, cut its data feeds and contact the provider when it leaks or misbehaves. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Playbooks should include token revocation, tool disabling, server isolation and agent shutdown that can run at machine speed. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    }
+  }
+}

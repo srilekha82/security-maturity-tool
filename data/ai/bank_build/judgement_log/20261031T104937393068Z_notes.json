@@ -1,0 +1,167 @@
+{
+  "recorded_at": "2026-10-31T10:49:37.392561+00:00",
+  "step": "record_ai_bank_notes",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": null,
+  "prompts": [
+    {
+      "path": "prompts/ai_impact_notes_writer.md",
+      "sha": "dade0b2363c54058"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/notes_layer1.json",
+    "sha": "8cf5f4665db29ed4"
+  },
+  "store": {
+    "path": "data/csf/ai_impact_notes.json",
+    "sha": "37097d0dfa4d9628"
+  },
+  "output_snapshot": {
+    "DE.AE-02": {
+      "exposure": "External agents act with machine speed and may succeed technically while breaking intent, so adverse events can look like normal successful requests. Log analysis needs to look at identity use and unusual sequences of actions, not only error rates."
+    },
+    "DE.CM-01": {
+      "exposure": "Automated agents and AI-enabled attackers leave footprints spread across application logs and network traffic. Isolated alerts are often not enough, so network telemetry and audit logs need to be correlated to spot anomalous behavior."
+    },
+    "DE.CM-03": {
+      "exposure": "Signature-based tools can miss threats from AI agents, which can generate code dynamically. Monitoring user and technology activity needs to include behavior, such as unexpected runtime actions, even if the org runs no AI itself."
+    },
+    "DE.CM-06": {
+      "exposure": "Providers you rely on may start using AI agents, MCP servers or models that touch your data without a change to your contract. Monitor supplier behavior for unexpected or excessive usage patterns and for changes in capabilities or authorization behavior."
+    },
+    "DE.CM-09": {
+      "exposure": "Agents and tools can ingest documents, code and web content automatically, so malicious content can reach your systems through automated retrieval and storage. Malicious tool servers can also run arbitrary code with a user's privileges on endpoints."
+    },
+    "GV.RR-01": {
+      "exposure": "Leaders are accountable for risks from autonomous agents that can act at machine speed, even where the org deploys none. Awareness efforts should cover agent autonomy, tool-driven chains of actions and when human review is needed."
+    },
+    "GV.RR-02": {
+      "exposure": "Roles for approving, enabling and disabling AI-related tools or agent access should be assigned even if the org uses no AI, because outside agents may still show up. Responsibilities for emergency disable and anomaly detection need an owner."
+    },
+    "GV.RR-04": {
+      "exposure": "People who join, move or leave may have connected agents or tools to company systems, with delegated access that outlives them. Joiner, mover and leaver steps need to cover agent identities and their credentials, so access is revoked and entitlements removed."
+    },
+    "GV.SC-01": {
+      "exposure": "Suppliers can adopt agents and AI services that handle your data, so supply chain policy should set requirements even if you use no AI. These include limiting provider access to the data needed and preventing sensitive data from reaching providers without safeguards."
+    },
+    "GV.SC-02": {
+      "exposure": "Suppliers may use AI models, agents or MCP servers to serve you, and roles and expectations should state who is responsible for what. This includes data isolation, retention limits and how incidents are reported."
+    },
+    "GV.SC-04": {
+      "exposure": "Your suppliers may now include model providers, embedding services, tool backends and hosted MCP servers, even when you did not choose them directly. Knowing which suppliers touch your data and how sensitive that access is has become harder."
+    },
+    "GV.SC-05": {
+      "exposure": "Contracts increasingly need terms for suppliers' AI use: data isolation, strict retention limits, incident response SLAs, signed code and recorded authorization scopes. Without them, you cannot rely on a supplier's agents or tools to handle your data safely."
+    },
+    "GV.SC-06": {
+      "exposure": "Due diligence on a new supplier should ask how they use AI agents and MCP servers, including runtime isolation, logging practices, accuracy of declared capabilities and authorization compliance. Standard questionnaires may not cover these points."
+    },
+    "GV.SC-07": {
+      "exposure": "A supplier's risk can change quickly when they add tools, change capabilities or alter authorization behavior, even without a new contract. Ongoing monitoring should look for unexpected or excessive usage patterns and for relevant advisories."
+    },
+    "GV.SC-08": {
+      "exposure": "Suppliers that use AI agents or models need to be part of incident planning, because an agent incident at a supplier can move at machine speed. Agree on incident response SLAs and contacts in advance."
+    },
+    "GV.SC-09": {
+      "exposure": "Supply chain practices need to track supplier changes that arrive with AI, such as new versions, capability changes and changed authorization behavior. Monitoring over the whole relationship should include how suppliers' agents and tools interact with your data."
+    },
+    "GV.SC-10": {
+      "exposure": "When a relationship ends, AI-related leftovers can remain: authorizations, tokens, federated identities and data flows. Derived items such as embeddings, tuned model weights and session logs may also persist, so exit steps should cover them."
+    },
+    "ID.AM-01": {
+      "exposure": "Unmanaged agent runtimes and MCP components can appear on endpoints or in cloud environments without any formal rollout. An asset inventory that does not look for them will miss assets that can bypass normal controls."
+    },
+    "ID.AM-02": {
+      "exposure": "Agent frameworks, MCP clients and servers, and tool libraries can be installed by individuals without any central decision. Software inventory should be able to record such components and their versions, so unknown ones stand out."
+    },
+    "ID.AM-03": {
+      "exposure": "Agents and MCP tools create new data flows from back-end systems into retrieval stores and model context, and these can run outside documented paths. Data flow diagrams should show where such content originates and who or what may access it."
+    },
+    "ID.AM-04": {
+      "exposure": "Your services may rely on providers that use model providers, embedding services, tool backends and hosted agents behind the scenes. The inventory of supplier services should track their source, status and declared capabilities."
+    },
+    "ID.AM-05": {
+      "exposure": "Data reachable by tools and agents, including tool responses, memory entries and session artifacts, needs a classification so that proportionate controls apply. Without it, automated access may reach sensitive data with no way to decide what is allowed."
+    },
+    "ID.AM-07": {
+      "exposure": "Data inventories should now include places where automated agents can reach or keep data, such as memory stores, vector databases, caches and tool-reachable sources. Record where this data sits, how sensitive it is and how long it is retained."
+    },
+    "ID.AM-08": {
+      "exposure": "Life cycle management should cover the leftovers of agents and MCP servers: caches, session data, stored tokens, memory stores and vector databases. Residual data can stay behind after decommissioning unless disposal is planned."
+    },
+    "ID.IM-02": {
+      "exposure": "Exercises and tests should cover vulnerabilities in MCP and agent components, such as origin validation bypass or token theft in internet-accessible servers. Fixes should be prioritized by exploitability, privileges and impact, and agree remediation times with suppliers."
+    },
+    "ID.RA-01": {
+      "exposure": "Agent frameworks, tool adapters, MCP servers, OAuth libraries and memory systems are new sources of vulnerabilities, and attackers can scan for them automatically. Vulnerability sources and advisories for these components need to be tracked."
+    },
+    "ID.RA-08": {
+      "exposure": "Disclosures about MCP and agent components can affect you even if you do not run AI yourself, for example via suppliers or software you depend on. Handling should prioritize by exploitability, privileges and exposure, with remediation timelines."
+    },
+    "PR.AA-01": {
+      "exposure": "Agents and tools can authenticate with service accounts, API keys or delegated credentials that sit outside normal user lifecycles. The identity inventory and central management need to cover them, preferably through the enterprise identity provider."
+    },
+    "PR.AA-05": {
+      "exposure": "Agents can call APIs or sign in on behalf of users at machine speed, so permissions sized for humans may be too broad. Roles, scopes and actual tool usage need regular review, with unused or excessive permissions revoked."
+    },
+    "PR.AT-01": {
+      "exposure": "All staff can be targeted by or work alongside autonomous agents, even where the org uses no AI. Awareness should cover agent autonomy, recursive loops, tool-driven chains of actions and when human review is needed."
+    },
+    "PR.AT-02": {
+      "exposure": "Specialists such as administrators, approvers and incident responders need training on agent and MCP risks in their own role. This includes registry management, emergency disable and rollback, provenance checks, runtime hardening and anomaly detection."
+    },
+    "PR.DS-01": {
+      "exposure": "Agent memory, vector stores, caches and session logs can hold sensitive reasoning, credentials and tokens, and an attacker or supplier-side agent can reach them like other stores. Data at rest in these places needs encryption and isolated storage."
+    },
+    "PR.DS-02": {
+      "exposure": "Tool calls and agent-to-agent messages move data across channels that may be new to the org. Where MCP or agent traffic exists, require TLS 1.2 or later, validate certificates and reject weak ciphers and downgrade attempts."
+    },
+    "PR.DS-11": {
+      "exposure": "Backups should include configurations, authorization policies, tool definitions, memory stores and retrieval corpora where these exist. Backups must also be protected so that agents themselves cannot write to or modify them, and restores tested."
+    },
+    "PR.IR-01": {
+      "exposure": "Agent runtimes and MCP servers connect to sensitive components such as vector databases and model services. They need segmentation, private authenticated connectivity, and separation of third-party servers from your own so that one trust zone cannot reach another."
+    },
+    "PR.PS-01": {
+      "exposure": "Agent and MCP setups have their own settings: prompts, tool lists, file access roots, process privileges and reverse proxy and DNS settings. Baselines should be versioned, hardened and traceable to a specific configuration."
+    },
+    "PR.PS-02": {
+      "exposure": "Outdated agent frameworks, memory libraries, deprecated plug-ins and unsupported MCP components can be exploited automatically. Remove unsupported software and unapproved tool wrappers or executors, especially ones that crept in through environment drift."
+    },
+    "PR.PS-03": {
+      "exposure": "Shadow agents and unapproved MCP servers can run on unmanaged endpoints or cloud workloads and bypass data controls. Treat new tools or capabilities added to a known server as unauthorized assets that need quick action."
+    },
+    "PR.PS-04": {
+      "exposure": "Logs need to record MCP and agent activity such as tool calls, data accesses, authorization decisions, token events and attempted policy violations. Without them, activity by an external agent acting on a user's behalf cannot be reconstructed."
+    },
+    "PR.PS-05": {
+      "exposure": "Unauthorized MCP servers, tool wrappers and agent components can be installed by individuals and run with their privileges. Use deny-by-default allowlists with integrity checks and install only from approved registries or repositories."
+    },
+    "PR.PS-06": {
+      "exposure": "If you build software that agents or MCP clients may call, its handlers, authorization flows and pipelines need secure development practice. This means threat modeling, dependency scanning, environment hardening and secret stripping before deployment."
+    },
+    "RC.CO-04": {
+      "exposure": "Recovery messages after an agent or MCP incident may involve external parties such as model or tool providers, server maintainers and gateway operators. Keep their contact details ready so coordination and approved public messaging are quick."
+    },
+    "RC.RP-03": {
+      "exposure": "Restoration assets now include agent memory, retrieval pipelines, tool-generated artifacts and MCP configurations. Verify their integrity before use, including checking that restored agents behave correctly and that backed-up data is semantically sound."
+    },
+    "RS.AN-03": {
+      "exposure": "Root cause analysis for incidents involving agents needs a chain of events that includes tool calls and parameters, resource access, capability changes, authorization decisions and, where available, tool outputs and memory state. Without such records, it is hard to tell what happened."
+    },
+    "RS.CO-02": {
+      "exposure": "Notification lists need to include external parties that can matter in an agent or MCP incident, such as model or tool providers, authorization server operators, gateway operators and library maintainers. Keep this contact information current."
+    },
+    "RS.CO-03": {
+      "exposure": "Information sharing in an agent incident goes to both internal teams and external providers such as model and tool vendors. Having contacts agreed in advance allows rapid coordination."
+    },
+    "RS.MA-01": {
+      "exposure": "Traditional playbooks may not match the speed and autonomy of agents. Plans need agent-specific scenarios and containment steps such as token revocation, tool disabling, server isolation and human confirmation enforcement."
+    },
+    "RS.MA-05": {
+      "exposure": "Criteria for starting recovery should include agent and MCP signals such as data exfiltration through tools, privilege escalation, authorization server compromise, API rate limit breaches and cost spikes. Defined thresholds allow automated detection and response."
+    }
+  }
+}
