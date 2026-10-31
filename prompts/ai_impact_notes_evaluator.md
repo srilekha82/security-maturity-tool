@@ -23,7 +23,9 @@ that use a model or RAG without tools or agents) and `mcp_agentic` (orgs with to
    Invisible AI usage, Input, Output, Test, tuning and evaluation data, Model, Source data, MCP / tools, Agent,
    Hosting).
 
-Flag when unsure. Skip entries whose `decided_by` is `human`: a person decided them.
+Flag when unsure. Judge only entries with no `status` (new, or rewritten since the last review). Skip entries that
+have a `status` (already reviewed: they keep their verdict) and entries whose `decided_by` is `human` (a person
+decided them). The recording script rejects a file that flags either.
 
 ## Output
 Write ONLY the flagged notes, as a JSON list, to the file the command names, one line of reason each, naming the
@@ -35,4 +37,5 @@ check:
 ```
 
 `note` is `exposure`, `base_rag`, `mcp_agentic`, or `use` (the use layer as a whole: present or missing). An empty list
-`[]` means every note passes; that is a claim you must be able to defend.
+`[]` means every note you judged passes; that is a claim you must be able to defend. Judge every entry you check the
+same way: a note you would flag elsewhere is flagged here too.

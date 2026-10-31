@@ -158,6 +158,41 @@ class RecordLog(unittest.TestCase):
         self.assertEqual(json.loads((run / "assessed.json").read_text())[0]["assessor_note"], "Reworded.")
         self.assertEqual(len(list((run / "judgement_log").glob("*_assessor.json"))), 1)
 
+    def test_the_checker_flags_rewrites_it_does_not_confirm(self):
+        import record_judgements as RJ
+        run = Path(tempfile.mkdtemp())
+        mk = lambda sid: {"subcategory_id": sid, "function": "GV", "outcome": "o", "question_type": "full_discovery",  # noqa: E731
+                          "questions": [{"question_text": f"How is {sid} done?"}], "evidence_prompt": "",
+                          "scope_reason": "", "confidence_flag": "", "assessor_note": None}
+        a, b = mk("GV.RM-01"), mk("GV.RM-02")
+        (run / "draft.json").write_text(json.dumps([a, b]))
+        pa = dict(a, assessor_note="Reworded A.", questions=[{"question_text": "Who owns A and how is it reviewed?"}])
+        pb = dict(b, assessor_note="Reworded B.", questions=[{"question_text": "Do you have B?"}])
+        (run / "patch.json").write_text(json.dumps([pa, pb]))
+        w = lambda name, obj: (run / name).write_text(json.dumps(obj))  # noqa: E731
+        argv = lambda *extra: [str(run), "--step", "assessor", "--base", "draft.json", "--patch", "patch.json",  # noqa: E731
+                               "--output", "assessed.json", "--model", "test", "--check", "check.json", *extra]
+        for bad in ([{"subcategory_id": "GV.RM-01", "verdict": "pass", "reason": ""}],             # one verdict missing
+                    [{"subcategory_id": "GV.RM-01", "verdict": "pass", "reason": ""},
+                     {"subcategory_id": "GV.RM-02", "verdict": "fail", "reason": ""}]):            # a fail without reason
+            w("check.json", bad)
+            with self.assertRaises(SystemExit):
+                RJ.log_run_step(argv())
+        check1 = [{"subcategory_id": "GV.RM-01", "verdict": "pass", "reason": ""},
+                  {"subcategory_id": "GV.RM-02", "verdict": "fail", "reason": "Check 2: yes / no."}]
+        w("check.json", check1)
+        RJ.log_run_step(argv())
+        out = {e["subcategory_id"]: e for e in json.loads((run / "assessed.json").read_text())}
+        self.assertEqual(out["GV.RM-01"]["confidence_flag"], "")
+        self.assertTrue(out["GV.RM-02"]["confidence_flag"].startswith("LOW"))
+        self.assertEqual(out["GV.RM-02"]["assessor_note"], "Reworded B. | Checker: Check 2: yes / no.")
+        # round 2: an unchanged entry that passed round 1 must still pass
+        w("patch1.json", [pa, pb]), w("check1.json", check1)
+        w("check.json", [{"subcategory_id": "GV.RM-01", "verdict": "fail", "reason": "Check 3: now chained."},
+                         {"subcategory_id": "GV.RM-02", "verdict": "fail", "reason": "Check 2: still yes / no."}])
+        with self.assertRaises(SystemExit):
+            RJ.log_run_step(argv("--prev-patch", "patch1.json", "--prev-check", "check1.json"))
+
 
 class Metadata(unittest.TestCase):
     def test_a_refresh_updates_only_the_files_parsed(self):

@@ -1,0 +1,261 @@
+{
+  "recorded_at": "2026-10-31T11:07:29.914720+00:00",
+  "step": "record_ai_bank_notes",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "notes revision turn 2026-10-31",
+  "prompts": [
+    {
+      "path": "prompts/ai_impact_notes_writer.md",
+      "sha": "7eaae33e03d97630"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/notes_revision.json",
+    "sha": "22e9c49ac85a80dc"
+  },
+  "store": {
+    "path": "data/csf/ai_impact_notes.json",
+    "sha": "a244fcf283919abc"
+  },
+  "output_snapshot": {
+    "DE.AE-02": {
+      "exposure": "Automated activity from outside, including AI-enabled attackers, can arrive at machine speed and look like routine successful requests. Analysis of adverse events should look at how identities are used and at unusual sequences of actions, not only at errors.",
+      "use": {
+        "base_rag": "Logs of a model or retrieval setup should show what data was retrieved and sent to the model, so analysis can tell leakage from normal use. See AI RMF: Input and AI RMF: Output.",
+        "mcp_agentic": "Review agent and MCP logs for identity misuse, privilege elevation, tools called in unapproved sequences and actions that succeed but break intent; error-based reviews miss these. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "DE.CM-01": {
+      "exposure": "Automated agents and AI-enabled attackers leave footprints spread across application logs and network traffic. Isolated alerts are often not enough, so network telemetry and audit logs need to be correlated to spot anomalous behavior.",
+      "use": {
+        "base_rag": "Send logs from the model or retrieval service into the same central monitoring as network telemetry, so unusual calls to or from it can be correlated. See AI RMF: Hosting.",
+        "mcp_agentic": "Centralize MCP events (tool invocations, capability changes, OAuth events, session life cycle) and agent telemetry, and correlate them with network traffic to detect compromised agents. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "DE.CM-03": {
+      "exposure": "Signature-based tools can miss threats from AI agents, which can generate code dynamically or use legitimate system tools. Monitoring user and technology activity needs to include behavior, such as unexpected shell commands, even if the org runs no AI itself.",
+      "use": {
+        "base_rag": "Scan code produced by a model for malicious patterns before it is run or merged. See AI RMF: Code generation.",
+        "mcp_agentic": "Apply behavioral monitoring to agent runtimes, flagging unexpected shell commands, lateral movement attempts and obfuscated scripts, and scan generated code before execution. See AI RMF: Agent."
+      }
+    },
+    "DE.CM-06": {
+      "exposure": "Providers you rely on may start using AI agents, MCP servers or models that touch your data without a change to your contract. Monitor supplier behavior for changes in capabilities or authorization behavior and for relevant advisories.",
+      "use": {
+        "base_rag": "Check what data your own systems send to model providers and review those providers' controls and certifications periodically. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Monitor your agents' model calls, tool requests, retrieval pipelines and file handling with providers for unexpected or excessive usage, and track provider release notes for new tools or authorization changes. See AI RMF: Vendor AI and AI RMF: MCP / tools."
+      }
+    },
+    "DE.CM-09": {
+      "exposure": "Automated tools, including those run by attackers, can deliver malicious documents, code or web content at scale. Monitoring of computing hardware, software and runtime environments should look for unexpected file access, outbound connections and credential reads.",
+      "use": {
+        "base_rag": "Scan documents before they enter a retrieval store or model context, since the model will process whatever it is given. See AI RMF: Source data and AI RMF: Input.",
+        "mcp_agentic": "Scan MCP server executables, dependencies and container images before deployment, monitor server processes for unexpected file access or credential reads, and strip active content from files agents retrieve. See AI RMF: MCP / tools and AI RMF: Agent."
+      }
+    },
+    "GV.RR-01": {
+      "exposure": "Leadership remains accountable when AI-enabled attackers and outside agents can probe the org at greater scale. Leaders should be able to say who owns the response to such activity and how the org keeps learning from it.",
+      "use": {
+        "base_rag": "Leadership should set who is accountable for AI use in the org and make sure staff know the rules for what may be shared with AI tools. See AI RMF: Internal process.",
+        "mcp_agentic": "Leadership should fund role-based training for people who approve and run MCP servers and agents, and set when human review or override is required. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "GV.RR-02": {
+      "exposure": "Roles and authorities for handling cybersecurity risk should be clear enough to cover new kinds of outside automated activity, such as agents calling your services. Someone needs the authority to block or disable access quickly when it is abused.",
+      "use": {
+        "base_rag": "Assign an owner for each AI use case, including what data it may use and who can switch it off. See AI RMF: Internal process.",
+        "mcp_agentic": "Name who may approve third-party MCP servers, write to the server registry and run emergency disable and rollback; require role-specific training before granting those privileges. See AI RMF: MCP / tools and AI RMF: Agent."
+      }
+    },
+    "GV.SC-05": {
+      "exposure": "Suppliers may begin using AI agents or tools on your data. Contracts should set data handling and retention terms, breach notification and rapid revocation of access, so a supplier's change in technology does not weaken your protections.",
+      "use": {
+        "base_rag": "Contracts with model providers should cover data isolation, retention limits and incident response SLAs for the data sent to them. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Contracts with MCP server providers should require signed code, recorded OAuth scopes and capability declarations, vulnerability disclosure, log access and notification of capability changes. See AI RMF: MCP / tools."
+      }
+    },
+    "GV.SC-06": {
+      "exposure": "Due diligence on a new supplier should ask whether and how they use AI agents or tools on customer data. Standard questionnaires may not cover this.",
+      "use": {
+        "base_rag": "Before adopting a model provider, assess where your data goes and how it is isolated and retained. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Assess MCP server providers for accurate capability declarations, OAuth compliance, logging and vulnerability management, and agent service providers for runtime isolation and safety filters applied after audio or image conversion. See AI RMF: MCP / tools and AI RMF: Vendor AI."
+      }
+    },
+    "GV.SC-07": {
+      "exposure": "A supplier's risk can change quickly when they add AI features, change capabilities or alter authorization behavior, even without a new contract. Ongoing monitoring should look for such changes and for relevant advisories.",
+      "use": {
+        "base_rag": "Reassess a model provider's risk when it releases new features or changes how it handles your data. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Monitor your agents' model calls, tool requests and retrieval pipelines with providers for unexpected usage, and review MCP provider release notes for new tools, resources or prompts. See AI RMF: Vendor AI and AI RMF: MCP / tools."
+      }
+    },
+    "GV.SC-09": {
+      "exposure": "Suppliers can add AI features to products you already use. Supply chain monitoring over the life cycle should notice version changes, new capabilities and changed authorization behavior in what they provide.",
+      "use": {
+        "base_rag": "Track model and retrieval providers as part of supply chain reviews and reevaluate risk when they change features. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Fold monitoring of agent interactions with third-party services and of MCP provider changes into supply chain risk reporting. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "ID.AM-01": {
+      "exposure": "Unapproved software that acts on its own can show up on endpoints or in cloud environments without a formal rollout. A hardware and asset inventory that cannot find unmanaged systems will miss assets that bypass normal controls.",
+      "use": {
+        "base_rag": "Include hosts and services that run or call models in the asset inventory, with a named owner. See AI RMF: Hosting.",
+        "mcp_agentic": "Inventory MCP hosts, clients, servers, gateways and agent platforms with an owner, approved connectivity paths, authorized tools and a risk tier (read-only, write, irreversible). See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "ID.AM-03": {
+      "exposure": "Outside agents and automated clients can reach your services over network paths and APIs at machine speed. Data flow diagrams should show which external parties and automated clients can reach which systems.",
+      "use": {
+        "base_rag": "Map how documents move into a retrieval store and model context, and who may retrieve them. See AI RMF: Source data and AI RMF: Input.",
+        "mcp_agentic": "Map data flows from tool calls and retrievals through back-end systems into model context, note which tools can reach sensitive data, and record transfers outside the org. See AI RMF: MCP / tools."
+      }
+    },
+    "ID.AM-04": {
+      "exposure": "Your services may rely on providers that use AI components, such as model or hosted tool services, behind the scenes. The inventory of supplier services should record what they provide and what capabilities they declare.",
+      "use": {
+        "base_rag": "List external model providers and embedding services your org uses, with approval date and owner. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Inventory third-party MCP servers (source, registry status, transport, declared capabilities, assessment results) and the model providers, tool backends, memory systems and hosted agents your agents use. See AI RMF: Vendor AI and AI RMF: MCP / tools."
+      }
+    },
+    "ID.AM-05": {
+      "exposure": "Automated access, including by outside agents, can reach any data it is permitted to reach. Without a classification, you cannot decide which assets deserve tighter controls.",
+      "use": {
+        "base_rag": "Classify the data that can be placed in a model's context or retrieval store, since it can be returned to users who ask. See AI RMF: Source data.",
+        "mcp_agentic": "Classify tool responses, memory entries and session artifacts, and decide what data may appear in tool parameters and outputs by classification level. See AI RMF: MCP / tools."
+      }
+    },
+    "ID.AM-07": {
+      "exposure": "Data inventories should record where sensitive data sits and how it is retained, since outside automated access can reach any store that is exposed. Gaps in the inventory become gaps in what you can protect.",
+      "use": {
+        "base_rag": "Inventory the knowledge sources and vector stores that feed a model, with their sensitivity and retention. See AI RMF: Source data.",
+        "mcp_agentic": "Inventory agent memory, caches and every data source reachable by tools, including context caches, task state and persisted tool outputs, with the backend system for each. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "ID.AM-08": {
+      "exposure": "Life cycle management should make sure decommissioned systems leave no usable credentials, tokens or data behind, since automated attackers look for leftover access.",
+      "use": {
+        "base_rag": "Plan disposal of vector stores and retrieval caches when a use case ends, since residual data can remain. See AI RMF: Source data.",
+        "mcp_agentic": "Record decommission planning for each MCP component and agent, and dispose of agent memory, server caches, stored tokens and session mappings on retirement and on failure paths. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "ID.IM-02": {
+      "exposure": "Security tests and exercises should include AI-enabled attackers, who can probe at machine speed. Findings should be prioritized by exploitability, the privileges involved and the impact.",
+      "use": {
+        "base_rag": "Include model-facing features in vulnerability testing and fix them by the sensitivity of the data they reach. See AI RMF: Test, tuning and evaluation data.",
+        "mcp_agentic": "Set remediation times for MCP vulnerabilities such as origin validation bypass or token theft, rank agent vulnerabilities by agent privileges and data sensitivity, and disable vulnerable tools until fixed. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "ID.RA-01": {
+      "exposure": "Vulnerabilities in assets are found and exploited faster when attackers use automation and AI. Sources of vulnerability information should be tracked and acted on promptly for all assets.",
+      "use": {
+        "base_rag": "Track advisories for the libraries and services behind your model or retrieval setup. See AI RMF: Hosting.",
+        "mcp_agentic": "Track vulnerability sources for agent frameworks, tool adapters, memory systems, MCP servers, OAuth libraries, SDKs and gateway plugins, using vendor advisories, package feeds and CVE databases. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "PR.AT-01": {
+      "exposure": "All staff can be targeted by AI-enabled attackers, for example with convincing, automated messages. General awareness training should reflect that.",
+      "use": {
+        "base_rag": "Staff should know what must not be pasted into AI tools and that outputs may be wrong or leak data. See AI RMF: Internal process.",
+        "mcp_agentic": "Staff should know when an agent needs human approval and the risks of autonomous task execution, recursive loops and tool-driven chains of actions. See AI RMF: Agent."
+      }
+    },
+    "PR.AT-02": {
+      "exposure": "Specialists such as administrators and incident responders need current knowledge of how AI-enabled attackers work in their own area, including automated reconnaissance and machine-speed attacks.",
+      "use": {
+        "base_rag": "Train the people who run model features on data safety and on what may be sent to the model. See AI RMF: Internal process.",
+        "mcp_agentic": "Train MCP administrators on registry management, emergency disable, rollback and provenance checks, and administrators and security teams on runtime isolation, credential boundaries and reading agent telemetry. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "PR.DS-01": {
+      "exposure": "Automated attackers and outside agents look for stored data they can reach, including credentials and tokens left in configuration files or logs. Data at rest needs encryption, and secrets belong in a secrets manager.",
+      "use": {
+        "base_rag": "Encrypt vector stores, prompt and response logs and caches, which can hold copies of sensitive data. See AI RMF: Source data and AI RMF: Hosting.",
+        "mcp_agentic": "Encrypt agent memory, server caches and stored OAuth tokens, keep credentials in isolated secret storage injected at runtime, and keep secrets out of prompts, code and logs. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "PR.DS-02": {
+      "exposure": "Automated clients and agents increasingly connect to your services over the network. Protect data in transit with current TLS, certificate validation and rejection of weak ciphers or downgrade attempts on every exposed interface.",
+      "use": {
+        "base_rag": "Protect traffic between your systems and an external model or hosted retrieval service, since sensitive data travels in it. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Encrypt tool channels and agent-to-agent messages, require mutual TLS between gateway and server for high-risk deployments, and make server back-end calls use TLS too. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "PR.IR-01": {
+      "exposure": "Outside agents and AI-enabled attackers can scan and try every reachable network path. Networks should be segmented and protected from unauthorized logical access, with filtering at the boundary.",
+      "use": {
+        "base_rag": "Keep retrieval and model services in private, authenticated networks, separated by data sensitivity. See AI RMF: Hosting.",
+        "mcp_agentic": "Place agent runtimes, MCP servers and gateways in dedicated segments, isolate third-party servers from your own, and use private authenticated connections to memory and model services. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "PR.PS-01": {
+      "exposure": "Configuration baselines matter more when attackers can probe for weak settings at machine speed. Exposed interfaces, such as APIs and reverse proxies, should run on hardened, versioned baselines.",
+      "use": {
+        "base_rag": "Version the settings of a model setup, such as prompts and retrieval configuration, so changes can be traced. See AI RMF: Model.",
+        "mcp_agentic": "Version agent prompts, tool lists and parameters, restrict MCP file access to declared roots and process privileges, and harden proxies, load balancers and DNS that carry MCP traffic. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "PR.PS-02": {
+      "exposure": "Unsupported software with known flaws is an easy target for automated scanning and attack. Software should be updated, replaced or removed according to risk.",
+      "use": {
+        "base_rag": "Keep model libraries and serving components on supported versions. See AI RMF: Hosting.",
+        "mcp_agentic": "Set a supported baseline of MCP spec and SDK versions and block production use outside it without a documented exception; remove unsupported agent frameworks and plug-ins and unapproved MCP servers or tool wrappers. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "PR.PS-03": {
+      "exposure": "Hardware that is out of support or unmanaged can be found and exploited by automated scanning. Hardware should be maintained, replaced and removed according to risk.",
+      "use": {
+        "base_rag": "Look for unapproved AI tools in use, since staff may adopt them without telling IT. See AI RMF: Invisible AI usage.",
+        "mcp_agentic": "Detect and quarantine shadow agent runtimes and unauthorized MCP servers, and treat new tools on a known server as unauthorized assets until re-approved. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "PR.PS-06": {
+      "exposure": "If you build software that outside agents or automated clients may call, it needs secure development practice, since it will be used at machine speed. This means threat modeling, secure handling of authorization, dependency scanning and testing before release.",
+      "use": {
+        "base_rag": "Where staff use AI to write code, run it through the same review and testing as any other change. See AI RMF: Code generation.",
+        "mcp_agentic": "Threat-model MCP tools, resources and prompts, secure JSON-RPC handlers and OAuth, and run agent pipelines through dependency scanning, hardening and secret stripping with controlled releases. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "RC.CO-04": {
+      "exposure": "Recovery messages after an incident involving outside automated activity may need coordination with external parties. Keep contact details for relevant providers and maintainers ready.",
+      "use": {
+        "base_rag": "Keep contacts for your model and retrieval providers so you can coordinate recovery. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Keep contacts for MCP server maintainers, authorization server operators, LLM providers, gateway operators, specification maintainers and library maintainers. See AI RMF: Vendor AI and AI RMF: MCP / tools."
+      }
+    },
+    "RC.RP-03": {
+      "exposure": "Before restoring after an incident involving automated attackers, verify that backups and restored assets were not tampered with and that they work as expected.",
+      "use": {
+        "base_rag": "Test restoration of retrieval stores and confirm that restoring does not bring back poisoned or incorrect content. See AI RMF: Source data.",
+        "mcp_agentic": "Test that restored agents behave correctly, that restored memory and vector stores do not reintroduce poisoned content, and that restored MCP servers negotiate capabilities matching the approved baseline. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "RS.CO-02": {
+      "exposure": "Notification lists should cover external parties who may help or must be told during an incident involving automated or AI-enabled attacks, such as service providers. Keep this contact information current.",
+      "use": {
+        "base_rag": "Include model and retrieval providers in your incident notification lists. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Include authorization server operators, gateway operators, MCP library maintainers and model or tool vendors in the incident notification list. See AI RMF: Vendor AI and AI RMF: MCP / tools."
+      }
+    },
+    "RS.CO-03": {
+      "exposure": "During an incident involving AI-enabled attackers, information may need to reach external providers as well as internal teams. Sharing with providers works better when the channels are set up before an incident.",
+      "use": {
+        "base_rag": "Agree with model and retrieval providers how incident information will be shared. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Share agent incident information with internal teams and with model and tool vendors using the contacts kept for agent incidents. See AI RMF: Agent and AI RMF: Vendor AI."
+      }
+    },
+    "RS.MA-01": {
+      "exposure": "Traditional playbooks may not match the speed of AI-enabled attackers and automated agents. Plans should allow containment steps that can run quickly, such as token revocation and blocking access at the gateway.",
+      "use": {
+        "base_rag": "Playbooks should say how to stop a model feature, cut its data feeds and contact the provider when it leaks or misbehaves. See AI RMF: Vendor AI.",
+        "mcp_agentic": "Playbooks should cover prompt injection, tool poisoning, data exfiltration and recursive loops, with token revocation, tool disabling, server isolation and human confirmation, and purging poisoned embeddings. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    },
+    "RS.MA-05": {
+      "exposure": "Criteria for starting recovery should include signals of fast automated attack, such as data exfiltration, privilege escalation and compromise of an authorization server. Defined thresholds allow quicker detection and response.",
+      "use": {
+        "base_rag": "Define thresholds for unusual volume or content in calls to a model service that trigger response. See AI RMF: Output.",
+        "mcp_agentic": "Define escalation thresholds for MCP events (exfiltration through tools, confused-deputy escalation, authorization server compromise, session hijacking) and for agent behavior such as API rate limits and cost spikes. See AI RMF: Agent and AI RMF: MCP / tools."
+      }
+    }
+  }
+}

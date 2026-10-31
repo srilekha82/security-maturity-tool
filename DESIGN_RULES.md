@@ -23,9 +23,12 @@ not needed to run the flows (`CLAUDE.md` covers that). `README.md` explains the 
    certifications, question types) in `data/common/intake_options.json`. Changing a rule means editing JSON. Keep each
    constant in one place only: scripts import shared facts from `scripts/options.py` (which reads those files) and
    paths from `scripts/paths.py`; a script never defines its own copy of a domain list, function order or bank name.
-7. **Evaluators run in a fresh context** (a subagent) with only the files they need, and return only the failing ids with
-   a one-line reason. Fail when unsure. This includes the questionnaire assessors (`/assess-questionnaire` starts one
-   subagent per draft); an assessor is never the same conversation that generated the draft.
+7. **Every agent that writes is checked by another, in a fresh context** (a subagent with only the files it needs):
+   questions, notes, mapping rows, and the questionnaire reviewers' rewrites (`prompts/assessor_rewrite_checker.md`).
+   The same loop everywhere: a verdict on every item, fail when unsure; one revision turn on the failures; round 2
+   judges only what changed (an unchanged item keeps its pass, and the recording script enforces it); two turns at
+   most; what still fails goes to a person (a review sheet, or a LOW flag in the questionnaire), whose decisions are
+   never overwritten. An assessor is never the same conversation that generated the draft. (Decided 2026-10-31.)
 8. **Few scripts, small files, one job each.** Reuse by importing a shared helper when the logic is the same; do not
    copy it, and do not merge scripts that do different jobs. Add a script only for a genuinely new deterministic job, and
    do not split one job across scripts unless a step can pause for an agent. Add a command only for a repeated step.

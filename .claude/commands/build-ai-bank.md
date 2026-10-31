@@ -204,9 +204,14 @@ Fix-and-rerun on problems. A note a person decided in the review sheet is refuse
 
 3. Review (a fresh subagent, Opus, `model: "opus"`; it must not see the writer's prompt): follow
    `prompts/ai_impact_notes_evaluator.md` with `impact_pending.json` and `data/csf/ai_impact_notes.json`, writing the
-   flagged notes to `data/ai/bank_build/notes_review.json`, then
-   `.venv/bin/python ./scripts/record_ai_bank.py notes-review data/ai/bank_build/notes_review.json --model <model id>`
-   (every note not decided by a person gets status pass or needs_human_review).
+   flagged notes to `data/ai/bank_build/notes_review1.json`, then
+   `.venv/bin/python ./scripts/record_ai_bank.py notes-review data/ai/bank_build/notes_review1.json --model <model id>`
+   (every note not yet reviewed and not decided by a person gets status pass or needs_human_review).
+   If notes were flagged: a fresh writer (Sonnet) follows the writer prompt's "Revision turn" with
+   `impact_pending.json` and the notes file, writes `data/ai/bank_build/notes_revision.json` (every flagged
+   subcategory, complete), recorded with `record_ai_bank.py notes` (a rewritten note loses its status); then a fresh
+   evaluator reviews again into `notes_review2.json`, recorded with `notes-review`: it judges only the rewritten notes,
+   the others keep their verdict. Two turns at most; what still fails goes to the user in the review sheet.
 4. Refresh the review sheet: `.venv/bin/python ./scripts/sheet_io.py export impact_notes`
    (`data/ai/authoring/impact_notes.xlsx`; the user decides flagged notes in chat, Claude applies them and runs
    `sheet_io.py import impact_notes`).

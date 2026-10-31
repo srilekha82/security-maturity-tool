@@ -217,8 +217,15 @@ class Recording(unittest.TestCase):
                                                          "reason": "Check 5: use layer missing."}]), 0)
         self.assertEqual((notes()["PR.AA-05"]["status"], notes()["DE.CM-01"]["status"]), ("needs_human_review", "pass"))
         self.assertEqual(notes()["PR.AA-05"]["review_reason"], "use: Check 5: use layer missing.")
-        self.assertEqual(self.run_mode("notes", {"PR.AA-05": {"exposure": long + " rewritten"}}), 0)
+        self.assertEqual(self.run_mode("notes-review", [{"subcategory_id": "DE.CM-01", "note": "exposure",
+                                                         "reason": "x"}]), 1)   # reviewed and unchanged: keeps its pass
+        self.assertEqual(self.run_mode("notes", {"PR.AA-05": {"exposure": long + " rewritten",
+                                                              "use": {"base_rag": long, "mcp_agentic": long}}}), 0)
         self.assertNotIn("status", notes()["PR.AA-05"])                 # rewritten: to be reviewed again
+        self.assertEqual(self.run_mode("notes-review", []), 0)          # round 2 judges only the rewritten note
+        self.assertEqual((notes()["PR.AA-05"]["status"], notes()["DE.CM-01"]["status"]), ("pass", "pass"))
+        self.assertEqual(self.run_mode("notes", {"PR.AA-05": {"exposure": long, "use": None}}), 0)
+        self.assertNotIn("use", notes()["PR.AA-05"])                    # use: null removes the use layer
         doc = json.loads(R.CSF_IMPACT_NOTES.read_text())
         doc["notes"]["DE.CM-01"]["decided_by"] = "human"
         R.CSF_IMPACT_NOTES.write_text(json.dumps(doc))

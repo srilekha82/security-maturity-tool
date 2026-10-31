@@ -32,7 +32,18 @@ Example of both layers for PR.AA-05: exposure = agents can call APIs or sign in 
 permissions sized for humans may be too broad; use (mcp_agentic) = give each AI tool its own scoped credentials, never
 inherit a user's full rights, require approval for write or irreversible actions.
 
+## Revision turn
+If you are given the notes file (`data/csf/ai_impact_notes.json`), rewrite every subcategory whose `status` is
+`needs_human_review` and whose `decided_by` is not `human`, using its `review_reason` (which note was flagged and why).
+Write one patch with the complete corrected entry of each of those subcategories and nothing else: `exposure`, and
+`use` with both notes, or `"use": null` to remove a use layer the reviewer found unneeded. Keep what was right; move
+anything about the org's own AI out of `exposure` into `use`. Every subcategory you were asked to revise must be in the
+patch (a rewritten note is reviewed again).
+
 ## Rules
 - Plain language, no marketing words, no invented statistics. Never mention a vendor.
+- `exposure` is shown to every org, including orgs that use no AI: it never assumes the org runs a model, tools or
+  agents. What the org's own AI changes goes in `use`.
 - Ids must exist in `items`. A script (`record_ai_bank.py notes`) rejects the whole file on an unknown id, a note
-  under 30 characters, a `use` object missing a key, or a use note for a subcategory with no exposure note.
+  under 30 characters, a `use` object missing a key, a use note for a subcategory with no exposure note, or a
+  subcategory a person decided in the review sheet.

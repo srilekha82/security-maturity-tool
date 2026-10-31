@@ -38,14 +38,16 @@ Record modes (agent output; every one needs --model, optional --session, --promp
                            A subcategory a person decided in the review sheet (decided_by human) is not overwritten
                            unless --replace-human.
   notes <file>             {"PR.AA-05": {"exposure": "...", "use": {"base_rag": "...", "mcp_agentic": "..."}}}
-                           exposure (layer 1) is required for a new entry; `use` (layer 2) may be added later;
+                           exposure (layer 1) is required for a new entry; `use` (layer 2) may be added later,
+                           or removed with "use": null;
                            a subcategory a person decided in the review sheet is refused. A rewritten note loses
                            its review status (to be reviewed again).
                            -> data/csf/ai_impact_notes.json
   notes-review <file>      the notes evaluator's findings: [{"subcategory_id": "PR.AA-05", "note": "exposure" |
-                           "base_rag" | "mcp_agentic" | "use", "reason": "..."}] ([] = all pass); every recorded
-                           subcategory not decided by a person gets status pass or needs_human_review (with the
-                           reasons). -> data/csf/ai_impact_notes.json
+                           "base_rag" | "mcp_agentic" | "use", "reason": "..."}] ([] = all pass), on notes not yet
+                           reviewed (no status: new or rewritten); each of those, unless decided by a person, gets
+                           status pass or needs_human_review (with the reasons). Reviewed notes keep their verdict.
+                           -> data/csf/ai_impact_notes.json
   mapping <file> [--review F]  one AI area's mapping (the drafter's file, after the evaluator's turn):
                            {"area": "mcp_tools",
                             "rows": [{"function": "MEASURE", "subcategory": "MEASURE 2.8", "cis_refs": ["MCP-8.2"],
@@ -407,7 +409,8 @@ NOTE_KEYS = ("exposure", "base_rag", "mcp_agentic")   # the notes of one CSF sub
 
 def validate_notes_review(data) -> list[str]:
     """The notes evaluator's findings: [{subcategory_id, note (exposure, base_rag, mcp_agentic or use), reason}], on
-    stored notes a person has not decided ([] = every note passes)."""
+    stored notes not yet reviewed (no status: new, or rewritten by the writer) and not decided by a person ([] = every
+    unreviewed note passes). A note already reviewed keeps its verdict, as an unchanged question keeps its pass."""
     if not isinstance(data, list):
         return ["the file must be a JSON list of findings ([] if every note passes)"]
     notes = load_json(CSF_IMPACT_NOTES, "ai_impact_notes.json")["notes"] if CSF_IMPACT_NOTES.is_file() else {}
@@ -423,6 +426,8 @@ def validate_notes_review(data) -> list[str]:
             errors.append(f"finding {n}: note must be exposure, use, or base_rag / mcp_agentic of a use layer {sid} has")
         elif notes[sid].get("decided_by") == "human":
             errors.append(f"finding {n}: {sid} was decided by a person in the review sheet")
+        elif "status" in notes[sid]:
+            errors.append(f"finding {n}: {sid} was already reviewed and has not been rewritten since")
         if not str(f.get("reason", "")).strip():
             errors.append(f"finding {n}: reason is empty")
     return errors
@@ -506,7 +511,7 @@ def validate_notes(data, from_sheet: bool = False) -> list[str]:
                 errors.append(f"{sid}: exposure must be a note of at least {NOTE_MIN_CHARS} characters")
         elif sid not in existing:
             errors.append(f"{sid}: a new entry needs an exposure note (layer 1) first")
-        if "use" in v:
+        if "use" in v and v["use"] is not None:   # use: null removes the use layer (a revision that finds none needed)
             u = v["use"]
             if not isinstance(u, dict) or set(u) != {"base_rag", "mcp_agentic"} or any(
                     not isinstance(t, str) or len(t.strip()) < NOTE_MIN_CHARS for t in u.values()):
@@ -1016,20 +1021,23 @@ def store(mode: str, data: dict, args, inp: dict) -> tuple[Path, str]:
         for f in data:
             flagged.setdefault(f["subcategory_id"], []).append(f"{f['note']}: {str(f['reason']).strip()}")
         for sid, v in store_doc["notes"].items():
-            if v.get("decided_by") == "human":
+            if v.get("decided_by") == "human" or "status" in v:
                 continue
             v["status"] = "needs_human_review" if sid in flagged else "pass"
             v.pop("review_reason", None)
             if sid in flagged:
                 v["review_reason"] = "; ".join(flagged[sid])[:500]
         CSF_IMPACT_NOTES.write_text(json.dumps(store_doc, indent=2, ensure_ascii=False))
-        return CSF_IMPACT_NOTES, (f"notes reviewed: {len(flagged)} of {len(store_doc['notes'])} subcategories need human "
-                                  "review")
+        review = sum(1 for v in store_doc["notes"].values() if v.get("status") == "needs_human_review")
+        return CSF_IMPACT_NOTES, (f"notes reviewed: {len(flagged)} newly flagged; {review} of "
+                                  f"{len(store_doc['notes'])} subcategories need human review")
     if mode == "notes":
         store_doc = load_json(CSF_IMPACT_NOTES, "ai_impact_notes.json") if CSF_IMPACT_NOTES.is_file() else {"notes": {}}
         for sid, v in data.items():
             e = store_doc["notes"].setdefault(sid, {})
             e.update(v)
+            if e.get("use", "") is None:
+                del e["use"]
             for k in ("status", "review_reason", "decided_by"):   # rewritten by an agent: to be reviewed again
                 e.pop(k, None)
         store_doc["notes"] = dict(sorted(store_doc["notes"].items()))

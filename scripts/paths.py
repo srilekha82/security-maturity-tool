@@ -50,6 +50,7 @@ AI_BANK_AREAS = AI_BANKS / "question_bank_ai_rmf_areas.json"             # area 
 AI_QUESTIONS_FOUNDATION_XLSX = AI_AUTHORING / "questions_foundation.xlsx"   # the foundation bank for review (sheet_io.py)
 AI_IMPACT_NOTES_XLSX = AI_AUTHORING / "impact_notes.xlsx"                # the CSF AI impact notes for review
 AI_QUESTIONS_AREAS_XLSX = AI_AUTHORING / "questions_areas.xlsx"             # the area bank for review (sheet_io.py)
+ASSESSOR_CHECK = COMMON / "assessor_check.json"   # how unconfirmed reviewer rewrites are flagged (record_judgements --check)
 SHEET_SPECS = COMMON / "sheet_specs.json"   # columns and allowed values of every spreadsheet sheet_io.py converts
 
 # Which folder each crosswalk file lives in (also used to resolve metadata.json keys)

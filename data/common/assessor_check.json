@@ -1,0 +1,5 @@
+{
+  "description": "How record_judgements.py log --check stores the rewrite checker's verdicts on an assessor patch (/assess-questionnaire): an entry the reviewer rewrote that the checker still fails after the revision turn keeps the rewrite, gets this confidence flag, and the checker's reason appended to its assessor_note, so the consultant sees it in the questionnaire's Confidence column before sending. Decided 2026-10-31: every agent that writes questions or notes is checked by a fresh evaluator.",
+  "flag": "LOW — reviewer rewrite not confirmed by the checker; verify before sending",
+  "note_prefix": "Checker: "
+}

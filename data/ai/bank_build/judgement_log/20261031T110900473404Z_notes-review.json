@@ -1,0 +1,133 @@
+{
+  "recorded_at": "2026-10-31T11:09:00.472977+00:00",
+  "step": "record_ai_bank_notes-review",
+  "decided_by": "agent",
+  "model": "claude-opus-5-5",
+  "session": "notes review round 2",
+  "prompts": [
+    {
+      "path": "prompts/ai_impact_notes_evaluator.md",
+      "sha": "58eb9fa7a8fdbad8"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/notes_review2.json",
+    "sha": "7d3b587b033d1a9c"
+  },
+  "store": {
+    "path": "data/csf/ai_impact_notes.json",
+    "sha": "f9a5ccddf0cdeec0"
+  },
+  "output_snapshot": [
+    {
+      "subcategory_id": "DE.CM-09",
+      "note": "exposure",
+      "reason": "Check 1/2: the safeguards describe agents ingesting malicious content and MCP server processes, not attackers delivering content at scale; the monitoring list (file access, outbound connections, credential reads) is generic endpoint monitoring that restates the outcome."
+    },
+    {
+      "subcategory_id": "GV.RR-01",
+      "note": "exposure",
+      "reason": "Check 1/2: the safeguards are about training on agent autonomy and MCP roles; 'attackers probe at greater scale, leaders own the response' is unsupported and restates leadership accountability."
+    },
+    {
+      "subcategory_id": "ID.AM-03",
+      "note": "exposure",
+      "reason": "Check 2: 'machine speed' has no bearing on data flow diagrams; listing which external parties reach which systems restates the outcome, while the safeguards are about flows into model context."
+    },
+    {
+      "subcategory_id": "ID.AM-05",
+      "note": "exposure",
+      "reason": "Check 2: 'automated access can reach any permitted data, so classify' is generic and restates why classification exists; nothing different with AI."
+    },
+    {
+      "subcategory_id": "ID.AM-07",
+      "note": "exposure",
+      "reason": "Check 2: restates the data inventory outcome; 'outside automated access' adds nothing specific."
+    },
+    {
+      "subcategory_id": "ID.IM-02",
+      "note": "exposure",
+      "reason": "Check 4/2: 'include AI-enabled attackers' in tests is vague (what would the test do?), and prioritizing by exploitability, privileges and impact is generic remediation practice."
+    },
+    {
+      "subcategory_id": "ID.IM-02",
+      "note": "base_rag",
+      "reason": "Check 5: points to AI RMF: Test, tuning and evaluation data, which is about datasets, not security testing of model-facing features."
+    },
+    {
+      "subcategory_id": "ID.RA-01",
+      "note": "exposure",
+      "reason": "Check 2: 'attackers exploit faster with AI, track vulnerability sources promptly for all assets' restates the outcome."
+    },
+    {
+      "subcategory_id": "PR.AT-02",
+      "note": "exposure",
+      "reason": "Check 4: buzzwords (automated reconnaissance, machine-speed attacks) with no concrete skill or task; would fit any specialist training subcategory."
+    },
+    {
+      "subcategory_id": "PR.DS-02",
+      "note": "exposure",
+      "reason": "Check 2: TLS, certificate validation and rejecting weak ciphers on exposed interfaces is the data-in-transit outcome; AI changes nothing here."
+    },
+    {
+      "subcategory_id": "PR.IR-01",
+      "note": "exposure",
+      "reason": "Check 2: segmentation and boundary filtering restates the outcome; 'agents can try every path' is generic scanning."
+    },
+    {
+      "subcategory_id": "PR.PS-01",
+      "note": "exposure",
+      "reason": "Check 2: hardened, versioned baselines for exposed interfaces restates configuration management; 'machine speed' is tacked on."
+    },
+    {
+      "subcategory_id": "PR.PS-02",
+      "note": "exposure",
+      "reason": "Check 2: 'update, replace or remove software according to risk' is the outcome verbatim, with only automated scanning added."
+    },
+    {
+      "subcategory_id": "PR.PS-03",
+      "note": "exposure",
+      "reason": "Check 2: 'maintain, replace and remove hardware according to risk' is the outcome verbatim, with only automated scanning added."
+    },
+    {
+      "subcategory_id": "PR.PS-03",
+      "note": "base_rag",
+      "reason": "Check 1/3: finding unapproved AI tools staff adopt is a software or usage issue, not hardware maintenance; it does not fit this outcome."
+    },
+    {
+      "subcategory_id": "PR.PS-06",
+      "note": "exposure",
+      "reason": "Check 2: threat modeling, authorization handling, dependency scanning and pre-release testing is a generic SDLC list that restates the outcome; 'machine speed' is the only AI angle."
+    },
+    {
+      "subcategory_id": "RC.CO-04",
+      "note": "exposure",
+      "reason": "Check 2/4: the outcome is approved public recovery messaging; 'outside automated activity' adds nothing, and keeping contact details is not about public updates."
+    },
+    {
+      "subcategory_id": "RC.CO-04",
+      "note": "use",
+      "reason": "Check 5: AI use does not change how public recovery updates are approved and shared; both use notes are about provider contact lists (RS.CO-02 territory), so the use layer looks wrong."
+    },
+    {
+      "subcategory_id": "RC.RP-03",
+      "note": "exposure",
+      "reason": "Check 2: 'verify backups were not tampered with and work' is the outcome itself; 'automated attackers' adds nothing."
+    },
+    {
+      "subcategory_id": "RS.CO-02",
+      "note": "exposure",
+      "reason": "Check 2: keeping notification lists of external parties current restates the outcome; the AI-enabled attack framing changes nothing."
+    },
+    {
+      "subcategory_id": "RS.CO-03",
+      "note": "exposure",
+      "reason": "Check 2: setting up sharing channels with providers before an incident restates the outcome; nothing specific to AI."
+    },
+    {
+      "subcategory_id": "RS.MA-05",
+      "note": "exposure",
+      "reason": "Check 2: exfiltration and privilege escalation are generic recovery triggers; 'fast automated attack' is a label, not a difference, and the thresholds in the safeguards are about MCP and agent events."
+    }
+  ]
+}
