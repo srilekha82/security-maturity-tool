@@ -1,0 +1,570 @@
+{
+  "recorded_at": "2026-10-31T17:06:47.550716+00:00",
+  "step": "record_ai_bank_evidence",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_evidence_writer.md",
+      "sha": "b52251ad784d602b"
+    },
+    {
+      "path": "prompts/ai_rmf_evidence_evaluator.md",
+      "sha": "0ec2bf14b1319526"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/evidence_areas_MAP.json",
+    "sha": "9874038c7f80dd07"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_areas.json",
+    "sha": "a5f9c33a6fa23c7f"
+  },
+  "output_snapshot": {
+    "MAP 1.1": {
+      "1": "The intended-purpose record for each customer-facing AI system (customer types, settings, applicable laws), its named owner, and the date of its last review.",
+      "2": "The register of vendor products with AI features, showing per feature the data processed and its use, plus the most recent addition found and how it was found.",
+      "3": "The written definition of a correct answer for each highest-criticality AI system (acceptance criteria or reference examples), its owner, and when it was last updated."
+    },
+    "MAP 1.2": {
+      "1": "The roster or meeting record for the latest model build or tuning review, showing participants' roles, domains and user-experience backgrounds, and any bias or misuse concern they raised."
+    },
+    "MAP 1.4": {
+      "1": "The business-value statement for each highest-criticality AI system (target outcome, measure, owner), and the latest re-evaluation with its date.",
+      "2": "The record of business purpose chosen for each vendor AI feature in use, the approver, and one example of a feature declined or switched off for lacking a purpose."
+    },
+    "MAP 1.6": {
+      "1": "The requirements document for the latest model build or tuning (privacy, security, trustworthiness), showing who the requirements came from and the build decisions that trace to them.",
+      "2": "The retrieval access requirements (who may see which content) for each highest-criticality AI system, the owner, and the permission configuration that implements them."
+    },
+    "MAP 2.1": {
+      "1": "The model design record stating its task and chosen method (built from scratch or tuned), the approval and approver, and the latest change to either.",
+      "2": "The agent specification for each highest-criticality AI system listing its tasks, tools and systems it uses, the record owner, and the last update date."
+    },
+    "MAP 2.2": {
+      "1": "The limitations document or user guidance for each highest-criticality AI system (known output limits, out-of-scope situations), where reviewers can find it, and the latest revision.",
+      "2": "A screenshot or text of the customer-facing notice about AI limits and possible errors, the screens where it appears, and its last change.",
+      "3": "The vendor AI documentation per feature (model provider, sub-processors, stated limits), the owner, and the date it was last refreshed.",
+      "4": "The model card or equivalent listing the model's limits and settings outside its intended use, its maintainer, and the latest version date.",
+      "5": "The release notes or model documentation sent with the latest model release to others, showing the limits and out-of-scope settings communicated, and the distribution channel, if any.",
+      "6": "The notice or documentation of topics the retrieval data does not cover, the place users see it in each highest-criticality AI system, and its last update.",
+      "7": "The diagram or list of external servers, networks and endpoints each highest-criticality AI system connects to, the data flowing to each, its owner, and the last review."
+    },
+    "MAP 2.3": {
+      "1": "The dataset documentation for the model's training, tuning, evaluation and test sets (sources, selection criteria, representativeness checks) for the latest model version.",
+      "2": "The test-data separation record for the latest evaluation (de-duplication or overlap check result, how test cases are held apart) and the name of the person who checked it.",
+      "3": "The source selection record for the retrieval content of each highest-criticality AI system (suitability, quality and trust checks per source), and the latest source added or removed."
+    },
+    "MAP 3.1": {
+      "1": "The latest benefit assessment for each highest-criticality AI system, such as a comparison of AI results against a person doing the task, with user input gathered and the owner.",
+      "2": "Customer feedback or research records (surveys, interviews, usage analysis) on benefit and valued features for each customer-facing AI system, and the latest results.",
+      "3": "The build-versus-existing-model assessment for the latest model the organisation built or tuned, showing the benefits compared, the sign-off and its date.",
+      "4": "The latest findings on why staff use unapproved AI tools (survey, interview or usage-review notes), the approved alternatives assessed against them, and the follow-up owner."
+    },
+    "MAP 3.2": {
+      "1": "The cost-of-error estimate for each highest-criticality AI system in internal decisions, with the past incidents or feedback it draws on, and where it is recorded.",
+      "2": "The likelihood and impact ratings (benefits and harms) for AI in internal decisions of each highest-criticality AI system, the reviewer, and the latest review date.",
+      "3": "The customer and business cost analysis of wrong, harmful or leaked answers for each customer-facing AI system, the reviewer, and its latest revision.",
+      "4": "The assessment of cost and affected groups from wrong, manipulated or biased answers for each highest-criticality AI system, where recorded, and the date.",
+      "5": "The impact analysis of hosting compromise, outage and cost abuse for each highest-criticality hosted AI system, compared with the stated risk tolerance, and the owner."
+    },
+    "MAP 3.3": {
+      "1": "The scope statement for each highest-criticality AI system listing decisions and workflows its output may drive and those out of bounds, plus the latest scope change and its approval.",
+      "2": "The code-generation policy or standard listing where AI-generated code is allowed and prohibited (authentication, cryptography, regulated code), and the enforcement mechanism such as a repository rule.",
+      "3": "The scope definition for each customer-facing AI system (what it may answer or do, restrictions against public misuse), its reviewer, and the latest review date.",
+      "4": "The register of vendor AI features with the systems, data classes and uses each is limited to, and the setting or approval that enforces each limit.",
+      "5": "The release scope specification (users, products, regions) for the latest model release given to others, and the approval for any release outside it, if any.",
+      "6": "The record of contexts where each highest-criticality AI system's answers were shown trustworthy (evaluation results), the current scope, and the latest decision on widening it.",
+      "7": "The tool scope list for each highest-criticality AI system (permitted reads, writes, actions and credentials per tool), compared to the use case need, with the approver and date.",
+      "8": "The autonomy specification for each agent (permitted systems, actions, data, and actions never delegated), its location, and the latest change."
+    },
+    "MAP 3.5": {
+      "1": "The oversight procedure for each highest-criticality AI system (when to check, challenge or override output), the training attendance records for staff, and the latest update.",
+      "2": "The code review policy for AI-generated code, plus a recent merge record or pull request showing the review and its approver.",
+      "3": "The guidance given to reviewers of AI-generated code on likely weaknesses and what not to rely on it for, where it is published, and its last update.",
+      "4": "The oversight procedure for catching high-impact answers on each customer-facing AI system (before or after delivery), its assessment results, the named reviewers, and a recent example.",
+      "5": "The list of tool actions that need human confirmation (writes, deletes, payments, external sends) for each highest-criticality AI system, its location, owner, and last change.",
+      "6": "The configuration or workflow showing that confirmation is enforced before high-impact tool actions run, a log extract of a recent confirmation with the confirming person, and the list of confirmers.",
+      "7": "The definition of which agent steps require human approval or review in each highest-criticality AI system, the reviewer roster, and a recent approval record.",
+      "8": "The training material and attendance records for agent action reviewers, and the latest oversight test (date, scenario, result) for each highest-criticality AI system."
+    },
+    "MAP 4.1": {
+      "1": "The record of AI-suggested packages and libraries (name, source, check result for made-up names), its location, and the latest case where a non-existent package was caught, if any.",
+      "2": "The vendor AI risk assessment for each vendor (model provider, data retention and training use, terms of service), its owner, and the latest reassessment date.",
+      "3": "The security and resilience evaluation for each vendor AI (data separation from other customers, unavailability fallback), its latest date, and the repeat schedule.",
+      "4": "The legal, licence and IP risk assessment of the base model or component used in the latest model build or tuning, and where the result is recorded.",
+      "5": "The discovery list of unapproved AI tools, features, experiments and local models, the data each receives, the discovery method (such as network or expense review), the list owner, and last update.",
+      "6": "The list of outside AI agents connecting to your systems, the discovery method (such as access log or API review), its owner, and the latest review date.",
+      "7": "The review of provider terms on keeping or reusing prompts and files for each outside provider used by highest-criticality AI systems, where it is recorded, and the review date.",
+      "8": "The register of third-party and licensed data used for training, tuning and testing (source, usage rights, licence risk), with its owner and the latest addition.",
+      "9": "The decision record on weights and version ownership and the release licence, including infringement risk review notes, the decision maker, and the latest review date.",
+      "10": "The rights record for third-party or external content feeding each highest-criticality AI system's retrieval data (licence or permission per source), its location, and the latest check.",
+      "11": "The inventory of tools and MCP servers each highest-criticality AI system can call, including who runs each, its owner, and the date it was last reconciled with actual configuration.",
+      "12": "The inventory of servers, GPUs, registries and serving software for each hosted highest-criticality AI system, with the mapped risks, its owner, and the last update."
+    },
+    "MAP 4.2": {
+      "1": "The package check procedure and a recent result (existence, source and vulnerability check on AI-suggested packages), the approved source list, and the person responsible.",
+      "2": "The control settings per vendor AI feature (training off, history retention off, permitted data classes), the document recording the decision, and the latest verification of the settings.",
+      "3": "The approved list of base models and components for building, the decision record behind it, its owner, and the latest addition or removal.",
+      "4": "The configuration of controls limiting staff AI services, extensions and software (safelist, DNS or extension policy), the maintaining team, and the latest change.",
+      "5": "The review record for third-party datasets and reused feedback or logs before they entered a training, tuning or test set (bias, privacy, poisoning checks), and the approver.",
+      "6": "The retrieval access rules for each highest-criticality AI system (for example by content classification), a test showing a restricted item not returned, and the approver.",
+      "7": "The approval records for tools and MCP servers in each highest-criticality AI system, the allowed-version list, and where these controls are documented.",
+      "8": "The component inventory for each agent (models, orchestration frameworks, libraries, executors) with approved versions, its owner, and the latest drift check.",
+      "9": "The licence, IP and supply-chain review of models, frameworks and libraries behind each agent, with the reviewer, date, and any issue raised.",
+      "10": "The review and approval records for third-party hosting material (base images, serving software, models, packages) with the scan result, the approver, and the latest approval."
+    },
+    "MAP 5.1": {
+      "1": "The risk ratings (likelihood, severity, data sensitivity) for found unapproved AI use and outside agents, the prioritised list, and the person who decides order of handling.",
+      "2": "The exposure assessment of prompts and files for each highest-criticality AI system, based on actual sent data (such as log or sample analysis), its owner, and the latest date.",
+      "3": "The latest red-team or test report on wrong or manipulated answers (including prompt injection) per highest-criticality AI system, the harm ratings, and the reviewer's sign-off.",
+      "4": "The assessment of harm from AI actions on your systems (injected instructions, excess permissions, irreversible changes) per highest-criticality AI system, with its owner and date.",
+      "5": "The risk assessment of cost abuse and compromise of serving endpoints and GPUs for each hosted system, the past incidents drawn on, and how results set priorities."
+    },
+    "MAP 5.2": {
+      "1": "The customer reporting channel for harmful or wrong answers (form or contact), the feedback log with actions taken, the named reviewer, and a recent example resolved."
+    }
+  },
+  "review": [
+    {
+      "subcategory_id": "MAP 1.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 1.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 1.1",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 1.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 1.4",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 4: asserts a re-evaluation took place (\"the latest re-evaluation\") without \"if any\"; the question asks only how value is defined and owned."
+    },
+    {
+      "subcategory_id": "MAP 1.4",
+      "question_number": 2,
+      "verdict": "fail",
+      "reason": "Check 4: asserts a vendor AI feature was declined or switched off (\"one example\") without \"if any\"."
+    },
+    {
+      "subcategory_id": "MAP 1.6",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 1.6",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 2.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 2.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 2.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 2.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 2.2",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 2.2",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 2.2",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 2.2",
+      "question_number": 6,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 2.2",
+      "question_number": 7,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 2.3",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 2.3",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 2.3",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.1",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.1",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.2",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.2",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.2",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.3",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 4: asserts a scope change has occurred and was approved (\"the latest scope change and its approval\") without \"if any\"."
+    },
+    {
+      "subcategory_id": "MAP 3.3",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.3",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.3",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.3",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.3",
+      "question_number": 6,
+      "verdict": "fail",
+      "reason": "Check 4: asserts a decision on widening scope was taken (\"the latest decision on widening it\") without \"if any\"."
+    },
+    {
+      "subcategory_id": "MAP 3.3",
+      "question_number": 7,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.3",
+      "question_number": 8,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.5",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.5",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.5",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.5",
+      "question_number": 4,
+      "verdict": "fail",
+      "reason": "Check 4: asserts a recent high-impact answer was caught (\"a recent example\") without \"if any\"."
+    },
+    {
+      "subcategory_id": "MAP 3.5",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.5",
+      "question_number": 6,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.5",
+      "question_number": 7,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.5",
+      "question_number": 8,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.1",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.1",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.1",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.1",
+      "question_number": 6,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.1",
+      "question_number": 7,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.1",
+      "question_number": 8,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.1",
+      "question_number": 9,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.1",
+      "question_number": 10,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.1",
+      "question_number": 11,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.1",
+      "question_number": 12,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.2",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.2",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.2",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.2",
+      "question_number": 6,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.2",
+      "question_number": 7,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.2",
+      "question_number": 8,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.2",
+      "question_number": 9,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 4.2",
+      "question_number": 10,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 5.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 5.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 5.1",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 5.1",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 5.1",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 5.2",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 4: asserts a customer report was received and resolved (\"a recent example resolved\") without \"if any\"."
+    }
+  ]
+}

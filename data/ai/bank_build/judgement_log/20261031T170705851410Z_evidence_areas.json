@@ -1,0 +1,553 @@
+{
+  "recorded_at": "2026-10-31T17:07:05.850858+00:00",
+  "step": "record_ai_bank_evidence",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_evidence_writer.md",
+      "sha": "b52251ad784d602b"
+    },
+    {
+      "path": "prompts/ai_rmf_evidence_evaluator.md",
+      "sha": "0ec2bf14b1319526"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/evidence_areas_MEASURE.json",
+    "sha": "9d8856351c185f35"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_areas.json",
+    "sha": "60e25f89924d33fd"
+  },
+  "output_snapshot": {
+    "MEASURE 1.3": {
+      "1": "The latest TEVV review record or sign-off for one top-criticality AI system, showing the reviewer's name, role and independence from the build team, the date, and the findings raised. Include the list of AI systems this review covers."
+    },
+    "MEASURE 2.1": {
+      "1": "The TEVV documentation for one top-criticality AI system: the test sets, metrics and tools used for accuracy, consistency and bias, and the date they were last updated. Say which AI systems have this documentation and which do not.",
+      "2": "A test plan or design note for one top-criticality AI system giving the rationale for the chosen test data and what each test is meant to measure, with the reviewer's approval and its date. Say which AI systems have such a note.",
+      "3": "The version history or repository log for the evaluation and test sets, metric definitions and test tools of one critical model, showing version tags tied to model releases and the latest change. Say which models this covers."
+    },
+    "MEASURE 2.2": {
+      "1": "The most recent gap analysis comparing the people and situations in the test cases with those actually affected, for one top-criticality AI system, with the findings, the reviewer and any follow-up actions. Say which systems it covers.",
+      "2": "The approval record and consent or data-protection check for the latest evaluation set drawn from people (user feedback, human-subject data), with the approver and the consent basis. If none is used, the rule that governs when one would be."
+    },
+    "MEASURE 2.3": {
+      "1": "The latest performance test report for one top-criticality AI system showing realistic and messy inputs (real prompts, edge cases) alongside ideal ones, the results, and where they are stored. Say which systems and which deployment conditions it covers."
+    },
+    "MEASURE 2.4": {
+      "1": "The production monitoring configuration for one public-facing AI system (abuse-pattern and unusual-answer detections), the alert routing to named recipients, and the latest alert with how it was handled. Say which systems are covered.",
+      "2": "The vendor-change tracking record for approved vendor AI features (release notes watched, model or feature change alerts, periodic re-checks), and the latest detected change with who followed it up. Say which vendors are in scope.",
+      "3": "A recent report or alert from network, DNS, proxy or provider telemetry flagging AI tools or features used without approval, the detection rules or categories used, who received it, and what was done. Say which parts of the estate are covered.",
+      "4": "The detection rules or dashboard for AI agents or AI clients reaching your systems from outside (unusual sign-ins, API call patterns, traffic), the alert recipients, and the latest case investigated. Say which systems and endpoints are covered.",
+      "5": "The quality monitoring dashboard or report for one top-criticality AI system showing the measures tracked, thresholds for drift, anomalies and error rates, the alert recipients, and the latest alert acted on. Say which systems are covered.",
+      "6": "The API usage monitoring rules for one critical model (query rate, repetition and volume thresholds), the alert routing, and the latest flagged case with its review outcome. Say which models and endpoints are covered.",
+      "7": "The model version monitoring or registry-comparison output for one critical model showing the deployed version against the approved one, the alert recipient, and the latest mismatch or change event, if any, with its review.",
+      "8": "The monitoring configuration for the data one top-criticality AI system retrieves from (change detection, integrity or content checks), the alert recipients, and the latest finding with who was told. Say which data stores are covered.",
+      "9": "The tool and MCP server monitoring rules for one top-criticality AI system (unexpected calls, new capabilities on a known server, volume thresholds), the alert recipients, and a recent alert or review. Say which servers are covered.",
+      "10": "The agent monitoring configuration for one top-criticality agent (action-chain, tool-use and approved-scope drift checks), a recent flagged event with the reviewer's notes, and the review frequency. Say which agents are covered.",
+      "11": "The file integrity or configuration monitoring settings on the hosts for one critical model (model files, serving configuration), the alert recipients, and the latest alert or review record. Say which hosts are covered."
+    },
+    "MEASURE 2.5": {
+      "1": "The pre-release validation report for one top-criticality AI system showing accuracy and consistency results, and the document stating the conditions and limits beyond which its answers cannot be trusted, with the approval date.",
+      "2": "The pre-release test results for one top-criticality agent under realistic tasks, and the document stating what the agent must not do on its own (autonomy limits, approvals needed), with its owner and approval date. Say which agents are covered."
+    },
+    "MEASURE 2.6": {
+      "1": "The fail-safe test record for one top-criticality AI-supported internal process, showing the manual fallback or hand-off procedure, the scenarios tried (wrong, unavailable, out-of-limits output), the date of the last test and its result.",
+      "2": "The latest test report showing a top-criticality AI system declining, flagging or handing over when outside its knowledge limits, with the test cases, results, date and who reviewed it. Say which systems are covered.",
+      "3": "The latest abuse-resistance test report for one public-facing AI system (hostile and manipulative prompts), with the test cases, results, fixes made, date and who reviewed it. Say which customer-facing systems are covered.",
+      "4": "The latest test record showing retrieval refusing restricted content when permission or classification checks fail or the data store misbehaves, for one top-criticality AI system, with the date, results and any fixes. Say which stores are covered.",
+      "5": "The latest test record for one top-criticality AI system showing behaviour when a tool or MCP server errors, times out or returns unexpected output (stop, no retry loop, no partial changes), with the date, results and fixes.",
+      "6": "The latest stress test report for one top-criticality agent showing loop and runaway action-chain cases, the limits or kill switch that stopped them, the results, the date and who reviewed it. Say which agents are covered.",
+      "7": "The latest recovery test record for the servers hosting one critical model, showing the restore of the model and configuration, the verification step, the date, the outcome, and the test schedule. Say which hosting environments are covered."
+    },
+    "MEASURE 2.7": {
+      "1": "The latest security test report for the AI coding assistant (non-existent or malicious package suggestions, poisoned context), with the test cases, results, date and follow-up actions. Say which assistants and teams are covered.",
+      "2": "The latest prompt injection test report for one top-criticality AI system, covering user input and retrieved content, with the test cases, results, fixes, date and tester. Say which systems are covered.",
+      "3": "The latest test or exercise record for how your systems cope with outside AI agents, scrapers or MCP clients at machine speed (sign-in checks, rate limits, filtering), with the results and date. Say which services are covered.",
+      "4": "The access control list and change log for the datasets used to build and evaluate one critical model, with integrity checks or hashes and the latest change review showing the reviewer. Say which models and datasets are covered.",
+      "5": "The latest security test report for one critical model covering theft, API extraction and version tampering, with the test cases, results, date and where it is stored. Say which models are covered.",
+      "6": "The latest test report for one top-criticality AI system showing attempts to retrieve content a user should not reach, with the test users, results, fixes and date. Say which data stores are covered.",
+      "7": "The latest security test report for the tools and MCP servers one top-criticality AI system can call (injection-driven tool calls, permission abuse), with the results, fixes and date. Say which servers are covered.",
+      "8": "The latest red-team report for one top-criticality agent with manipulated-input scenarios that trigger actions, the findings, fixes and retest, and the date. Say which agents have been red-teamed.",
+      "9": "The latest vulnerability scan or adversarial exercise report for the servers and exposed endpoints hosting one model, with the findings, owners and remediation status. Say which hosts are covered."
+    },
+    "MEASURE 2.8": {
+      "1": "A sample record for one high-impact decision or answer from a top-criticality AI system showing the AI output, the human review or override, and the output relied on, plus the log retention setting and the reviewer. Say which systems are covered.",
+      "2": "An extract of the AI code generation log (user, tool, prompt, generated code, merge link), the list of tools and teams it covers, who can read it, and the retention setting.",
+      "3": "The vendor's activity log or your own log extract showing what a vendor AI feature did with your data, the review schedule, and the latest review record. Say which vendor AI features are covered.",
+      "4": "An extract of the model build, tuning and release log (who, what, when) for one model, the list of models covered, and the latest review record with the reviewer.",
+      "5": "A log extract or report showing staff access to AI services and outside AI agents or tools calling your systems, including the identity recorded, the sources covered, and the latest review record.",
+      "6": "An extract of the prompt and response log for one top-criticality AI system showing sender, content and time, the access list for the logs, and the retention setting. Say which systems are covered.",
+      "7": "A recent incident or trace of a wrong or manipulated AI answer showing how the logs identified the model version, instructions, sources and the user or system that relied on it, with the named owner. Say which systems keep this trail.",
+      "8": "An extract of the change and access log for the training, tuning and evaluation data and the test harness, showing named individuals, plus the latest review record and who reviewed it. Say which datasets are covered.",
+      "9": "An extract of the access and change log for one model's weights, system prompts, configuration and version changes, tied to named people, plus the retention setting and latest review record.",
+      "10": "An extract of the retrieval and data-change log for one top-criticality AI system (requester, query, content returned, changes to the store), the latest review record, and the stores covered.",
+      "11": "An extract of the action log for one top-criticality AI system showing each tool or system action with the identity or credentials used, the originating request and the approval, plus the retention setting and latest review. Say which agents and servers are covered.",
+      "12": "A log extract of administrative actions, model registry changes, secret access and serving endpoint activity for one hosted AI system, the review frequency and latest review record. Say which hosted systems are covered."
+    },
+    "MEASURE 2.9": {
+      "1": "Screenshots or samples of how one top-criticality AI system presents answers (basis, confidence level, known limits), the design decision record saying who decided what context is shown, and the date. Say which systems are covered."
+    },
+    "MEASURE 2.10": {
+      "1": "The configuration of secret detection for AI code assistant prompts (scanner, rules, blocking or alerts), the latest finding and who followed it up. Say which assistants and teams are covered.",
+      "2": "The monitoring rules for personal or confidential data in answers from one public-facing AI system, the latest detected leak or review with its outcome, and the reviewer. Say which customer-facing systems are covered.",
+      "3": "The data loss prevention policy or report covering traffic to unapproved AI tools, the data types it detects, the latest incident and its follow-up, and who followed it up. Say which channels and users are covered.",
+      "4": "The detection configuration for personal or sensitive data in prompts and files sent to one top-criticality AI system, the alert routing, and the latest alert with the response. Say which systems are covered.",
+      "5": "A dashboard or report of production input to one top-criticality AI system (volumes, file types, unexpected input) compared with the pre-launch test profile, the alert thresholds, and the latest difference raised with who was alerted.",
+      "6": "The privacy review or data minimisation record for one model's training and tuning data (discovery scan, removal or masking steps), and the document recording reuse of feedback or logs for tuning. Say which models are covered.",
+      "7": "The classification or discovery scan report for the data store one top-criticality AI system retrieves from, showing personal and sensitive data found, the exposure assessment and the named owner. Say which stores are covered.",
+      "8": "The privacy risk assessment for one top-criticality AI system's tool and MCP server use, showing what personal data goes to which servers or outside services, with the reviewer and date. Say which servers are covered.",
+      "9": "The privacy risk assessment for one top-criticality agent covering memory kept across sessions and data moved between systems, with retention settings, the named owner and date. Say which agents are covered."
+    },
+    "MEASURE 2.11": {
+      "1": "The latest bias test report for one top-criticality AI system comparing treatment of people or groups, with the method, groups compared, results, date and where it is stored. Say which systems are covered."
+    },
+    "MEASURE 2.12": {
+      "1": "The environmental impact assessment or compute and energy usage report for training and tuning runs of one critical model, with the method used, the latest figures and where it is recorded. Say which models are covered."
+    },
+    "MEASURE 2.13": {
+      "1": "The most recent review of the accuracy, consistency and bias tests for one top-criticality AI system, showing whether they catch known bad answers, the reviewer, the date, and the review schedule. Say which systems are covered.",
+      "2": "The latest review record for the evaluation set and test harness of one model, showing refresh dates, checks that the set has not leaked into training, the reviewer, and the review schedule."
+    },
+    "MEASURE 3.3": {
+      "1": "The channel staff use to report AI output problems or challenge decisions (form, ticket queue, procedure), a recent report with its handling, and the analysis report with the named analyst. Say which internal systems are covered.",
+      "2": "The customer feedback or appeal channel for one customer-facing AI system (form, contact route, appeal procedure), the latest summary of counted and analysed reports, and the named owner. Say which systems are covered.",
+      "3": "The issue reporting channel for a released model (repository issues, contact route), a recent report and the resulting change to building or tuning, and the named owner. If no model has been released, say so.",
+      "4": "The channel for reporting agent misbehaviour (form, ticket queue), a recent report and how it fed into the agent's evaluation, and the named analyst. Say which agents are covered."
+    },
+    "MEASURE 4.2": {
+      "1": "The latest staff feedback survey results or override-rate report for one top-criticality internal AI system, showing over- or under-reliance measures, the reviewer and date. Say which systems are covered.",
+      "2": "The latest summary of user feedback (positive and negative) and override rates for one top-criticality AI system, with the review record and the named reviewer. Say which systems and user groups are covered.",
+      "3": "The latest validation record from domain experts or users for one top-criticality AI system (sample answers checked, results, consistency), the names and roles of those involved, the date, and the schedule."
+    },
+    "MEASURE 4.3": {
+      "1": "The baseline definition and the latest trend report for answer quality of one top-criticality AI system, showing improvements or declines over time, the dates compared, and where the results are stored. Say which systems are covered."
+    }
+  },
+  "review": [
+    {
+      "subcategory_id": "MEASURE 1.3",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.1",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.3",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (latest alert) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 2,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (a detected vendor change) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 3,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (a report or alert that flagged unapproved AI use) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 4,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (an investigated case) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 5,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (an alert acted on) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 6,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (a flagged extraction case) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 7,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 8,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (a finding on retrieved data) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 9,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 10,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (a flagged agent event) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 11,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.5",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.5",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.6",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.6",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.6",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.6",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.6",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.6",
+      "question_number": 6,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.6",
+      "question_number": 7,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.7",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.7",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.7",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.7",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.7",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.7",
+      "question_number": 6,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.7",
+      "question_number": 7,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.7",
+      "question_number": 8,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.7",
+      "question_number": 9,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.8",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.8",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.8",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.8",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.8",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.8",
+      "question_number": 6,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.8",
+      "question_number": 7,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (an incident or wrong/manipulated answer to trace) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 2.8",
+      "question_number": 8,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.8",
+      "question_number": 9,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.8",
+      "question_number": 10,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.8",
+      "question_number": 11,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.8",
+      "question_number": 12,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.9",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.10",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (a secret-detection finding) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 2.10",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.10",
+      "question_number": 3,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (a DLP incident) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 2.10",
+      "question_number": 4,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (a sensitive-data alert) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 2.10",
+      "question_number": 5,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (a raised input difference) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 2.10",
+      "question_number": 6,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.10",
+      "question_number": 7,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.10",
+      "question_number": 8,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.10",
+      "question_number": 9,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.11",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.12",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.13",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.13",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 3.3",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (a staff report) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 3.3",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 3.3",
+      "question_number": 3,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (a report from model recipients; the release caveat does not cover no reports) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 3.3",
+      "question_number": 4,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an event the organisation may not have had (an agent misbehaviour report) without 'if any' or an alternative record."
+    },
+    {
+      "subcategory_id": "MEASURE 4.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 4.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 4.2",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 4.3",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    }
+  ]
+}

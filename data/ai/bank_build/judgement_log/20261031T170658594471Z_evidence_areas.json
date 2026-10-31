@@ -1,0 +1,467 @@
+{
+  "recorded_at": "2026-10-31T17:06:58.593783+00:00",
+  "step": "record_ai_bank_evidence",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_evidence_writer.md",
+      "sha": "b52251ad784d602b"
+    },
+    {
+      "path": "prompts/ai_rmf_evidence_evaluator.md",
+      "sha": "0ec2bf14b1319526"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/evidence_areas_MANAGE.json",
+    "sha": "b4ebc541eea21381"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_areas.json",
+    "sha": "80cfa952c055d136"
+  },
+  "output_snapshot": {
+    "MANAGE 1.1": {
+      "1": "The register of vendor AI features that touch your data with each feature's keep/disable decision, risk rationale and named owner, plus the latest record where a vendor change (new feature or terms) was reviewed, and the feature's data settings.",
+      "2": "The release approval record for the latest model version you built or tuned: the intended-purpose criteria, evaluation results against them, the go/no-go decision, approver and date. Say which models it covers and the release gate procedure.",
+      "3": "For each highest-criticality AI system, the latest evaluation report against its stated purpose and acceptance thresholds, the continue/stop decision with decision-maker and date, and the procedure that sets how often this is reviewed.",
+      "4": "For each highest-criticality agent, the latest review combining test and monitoring results (task success, errors, overrides), the decision on keeping or changing its autonomy level, the named decider and date, and the review schedule."
+    },
+    "MANAGE 2.2": {
+      "1": "The business rules, second-approval steps or output limits configured for each highest-criticality internal-decision AI system, the list of decisions they cover, the latest log or sample showing a blocked or escalated case, and who last confirmed them.",
+      "2": "The guardrail configuration (output filters, throttling, action limits) for each highest-criticality AI system, the latest test or log extract showing a block firing, and the record of the last check that these controls still work.",
+      "3": "The data-handling rule and the filter, redaction or DLP configuration applied to prompts for each highest-criticality AI system, a recent log extract of blocked or masked sensitive data, and the latest check of its effectiveness.",
+      "4": "The data management procedure for training, tuning and test data covering quality checks, minimisation, retention schedule and deletion on request, the named owner, and the latest example of a deletion or quality check carried out, if any.",
+      "5": "The access list for model weights, fine-tuned versions and system prompts with the latest access review (reviewer, date, removals), the encryption setting on their storage, and the backup configuration with its latest restore or integrity check.",
+      "6": "For each highest-criticality retrieval-based AI system, the source content inventory with owners and review dates, the retirement or refresh procedure, and the latest example of outdated material removed from the index.",
+      "7": "The permission settings and credential configuration (scopes, expiry, rate limits) of each tool and MCP server the highest-criticality AI systems call, compared to user permissions, and the record of the latest review of them.",
+      "8": "The identity and permission configuration of each highest-criticality agent, its approval rule for irreversible actions, rate and cost caps, and the latest review record (reviewer, date, changes made).",
+      "9": "For each self-hosted highest-criticality AI system, the serving endpoint configuration (authentication gateway, network isolation rules, rate limits), the list of who can reach it, and the latest review or scan of this setup."
+    },
+    "MANAGE 2.3": {
+      "1": "The procedure for responding to a decision based on wrong or misused AI output, with the named response lead, and the latest incident or exercise record showing how the decision was reversed, the AI's use corrected and lessons captured, if any.",
+      "2": "The response procedure for a secret leaked into a prompt or a bad dependency introduced by an AI coding tool (rotation, removal, dependency review), and the latest incident or exercise record with lead, actions and date, if any.",
+      "3": "The response procedure for customer-reported AI problems and newly found risks in each highest-criticality customer-facing AI system, the named owner, and the latest case record from report to closure, if any.",
+      "4": "The procedure for handling a new risk in a vendor's AI feature (changed data practice, vendor-side leak), the vendor contact and notification terms in the contract or DPA, and the latest case or exercise record, if any.",
+      "5": "The response and rebuild procedure for a problem in a released model, naming the lead, the steps to retrain, restore or withdraw the version, and the latest incident or exercise record showing the rebuild, if any.",
+      "6": "The procedure and reporting channel for staff to report data leaving via an unapproved AI tool or an outside agent misusing access, the named responder, awareness material that points staff to it, and the latest case record, if any.",
+      "7": "The procedure for sensitive data found sent to a model or provider (containment, provider deletion request, recovery), the named lead, and the latest incident or exercise record, with the provider's response, if any.",
+      "8": "The response procedure for newly found output problems (injection route, bias, drift) in each highest-criticality AI system, the named lead, and the latest incident record showing detection, fix, re-test and closure, if any.",
+      "9": "The procedure for restoring a clean verified copy of training, tuning and evaluation data and test cases after poisoning or tampering, the backup and integrity-check records, and the latest restore test or incident record, if any.",
+      "10": "The response procedure for a stolen, leaked or tampered model or configuration (revocation, rollback, rebuild), the named lead, and the latest incident or exercise record, if any.",
+      "11": "The runbook for putting a poisoned or leaked retrieval store right (removal of content, re-indexing, access review), the named runner, and the latest incident or exercise record covering each highest-criticality retrieval system, if any.",
+      "12": "The incident procedure for tool or MCP server incidents (misused credential, injected call, compromised server) covering credential rotation and server isolation, the named lead, and the latest incident or exercise record, if any.",
+      "13": "The agent incident runbook including how the agent's changes are listed and reversed, the named lead, the agent's action log used for it, and the latest incident or exercise record showing a rollback, if any.",
+      "14": "The recovery procedure for a compromised, failed or abused self-hosted AI endpoint, backup and restore settings with the latest restore test, the named lead, and the latest incident or exercise record, if any."
+    },
+    "MANAGE 2.4": {
+      "1": "For each highest-criticality AI system, the documented bypass or switch-off procedure and any trigger thresholds, the list of people authorised to use it, and the latest test or actual use of the switch-off with date and result.",
+      "2": "The procedure and settings to disable an AI coding assistant or revoke its access, the named decider, the secret-leak or bad-package trigger criteria, and the latest test or actual use of the switch-off, if any.",
+      "3": "For each vendor AI feature on your data, the admin setting or contract clause allowing it to be turned off or access revoked, the named person who can do so, and the latest instance or test of disabling a feature, if any.",
+      "4": "The withdrawal and supersession procedure for released models, the recipient contact list and notice template, the named owner, and the latest withdrawal or version-supersession notice sent, if any.",
+      "5": "The blocking and access revocation procedure for unapproved AI tools and outside agents or MCP clients (network, identity and gateway controls), the named authorised people, and the latest case where access was blocked and revoked, if any.",
+      "6": "For each highest-criticality AI system, the control that stops input going to a model or provider (egress block, key disablement), the named decider, and the latest test or actual use with date and result.",
+      "7": "The rollback procedure to a trusted model version, the model registry or version history showing approved versions, the access revocation steps, and the latest rollback test or actual withdrawal record, if any.",
+      "8": "For each highest-criticality retrieval-based system, the steps and settings to disconnect a source or the whole store from retrieval, the named decider, and the latest test or actual disconnection record, if any.",
+      "9": "The procedure and settings to disable a tool or MCP server or revoke its credentials for each highest-criticality AI system, the named owner, the dormant-credential review, and the latest use or test of the switch-off, if any.",
+      "10": "For each highest-criticality agent, the stop or kill-switch setting, the access revocation steps for its identity, the list of people authorised to use them, and the latest test or actual use with date and outcome.",
+      "11": "For each self-hosted AI endpoint, the procedure and settings to disable or isolate it and revoke its API keys, the people authorised to do so, any cost or abuse alert thresholds, and the latest test or actual use."
+    },
+    "MANAGE 3.1": {
+      "1": "The vendor AI change-monitoring record (new AI features, model provider changes, terms updates) with the date of the latest review, the check that agreed data controls still apply, the named owner, and the vendor list it covers.",
+      "2": "For each highest-criticality retrieval-based system, the list of third-party and external content sources feeding the index, the schedule and record of their latest re-review, any risk found, and the named owner.",
+      "3": "The inventory of outside MCP servers and tool suppliers for each highest-criticality AI system, the change-monitoring record (new versions, changed permissions) with its latest date, and where the risk controls applied to each are documented.",
+      "4": "The list of third-party hosting providers (cloud, GPU, model registry) used by each highest-criticality AI system, their latest risk review or assurance report, the issues found, and the reviewer."
+    },
+    "MANAGE 3.2": {
+      "1": "The inventory of pre-trained base models you build on with source, version and owner, the vulnerability or advisory monitoring method and its latest review record, and any action taken on a finding, if any."
+    },
+    "MANAGE 4.1": {
+      "1": "For each highest-criticality customer-facing AI application, the channel for customer feedback, appeals and human-override requests, a recent log extract of items received and their outcomes, and the named reviewer and review frequency.",
+      "2": "The post-go-live re-test plan for each highest-criticality AI system (accuracy, bias, security, red teaming), its frequency, the latest test report with findings and actions, and the date of the last run.",
+      "3": "The procedure for passing a deletion or correction request to the source data and the retrieval index of each highest-criticality system, the log where such requests are recorded, and the latest request traced through to the index.",
+      "4": "The change approval records for the latest change to tools, permissions or configuration (including removals) of each highest-criticality AI system, the approver, the change procedure, and the post-change check.",
+      "5": "The change procedure for hosting stack updates (servers, GPU drivers, serving software), the post-update behaviour test results for the latest update to each highest-criticality AI system, and the rollout approval with approver and date."
+    },
+    "MANAGE 4.2": {
+      "1": "For each highest-criticality customer-facing AI application, the log of customer feedback with decisions on what to act on and who decided, the improvement measures set, and the latest release note showing a measured result.",
+      "2": "The change and release approval procedure for models behind the most critical AI systems, the latest approval record for a change to model build, tuning or version (approver, date, test evidence), and the secure configuration baseline used.",
+      "3": "The communication to recipients of the latest released model version (release notes, change summary, feedback channel), the log of feedback collected, and the procedure that sets how recipients are engaged before a release, if any.",
+      "4": "For the latest wrong, biased or inconsistent answer found in each highest-criticality AI system, the fix record (prompt, data, model or rule change), the before/after re-test results showing improvement, and the sign-off with name and date."
+    },
+    "MANAGE 4.3": {
+      "1": "The AI error and incident register or ticket category for the highest-criticality AI systems, the latest recorded entry with cause analysis and reviewer, and the reporting procedure that covers the areas in scope, such as agents, tools and code generation.",
+      "2": "The procedure and decision rule for telling people affected by wrong or harmful AI results or unexpected actions, the named decider, and the latest notification sent or drafted, if any, covering the AI systems in scope.",
+      "3": "The route by which vendor AI problems reach you (vendor contact, notification clause in the contract or DPA), the latest vendor-reported issue recorded in your incident log, and the named person who followed it up, if any.",
+      "4": "The notification procedure for recipients of a released model with error or incident, the named decider, the recipient contact list, and the latest notice sent, if any.",
+      "5": "The change log or model registry history for the most critical models showing each change to the model or setup, the reason, the approver and date, and where the log is kept and who can edit it.",
+      "6": "The record of incidents and near-misses from unapproved AI use or outside agents reaching your systems, the latest entry showing who was told and the post-incident review, and the procedure for recording and communicating them, if any.",
+      "7": "The notification procedure for exposed sensitive data sent to an AI, the decision record on who must be told (affected people, providers, regulators) with the decider, and the latest notification or exercise record, if any.",
+      "8": "For infrastructure hosting the most critical AI models, the incident log entries for compromise, outage or cost abuse, the communication sent to those affected, and the latest post-incident review with its lead, if any."
+    }
+  },
+  "review": [
+    {
+      "subcategory_id": "MANAGE 1.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 1.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 1.1",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 1.1",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.2",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.2",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.2",
+      "question_number": 5,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an encryption setting and a backup with restore/integrity check exist; the question gives these only as examples, no 'if any'."
+    },
+    {
+      "subcategory_id": "MANAGE 2.2",
+      "question_number": 6,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.2",
+      "question_number": 7,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.2",
+      "question_number": 8,
+      "verdict": "fail",
+      "reason": "Check 4: asserts an approval rule for irreversible actions and rate and cost caps exist; the question offers these only as examples, no 'if any'."
+    },
+    {
+      "subcategory_id": "MANAGE 2.2",
+      "question_number": 9,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 4,
+      "verdict": "fail",
+      "reason": "Check 4: assumes vendor notification terms exist in the contract or DPA, without 'if any'."
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 6,
+      "verdict": "fail",
+      "reason": "Check 4: assumes staff awareness material exists (not asked by the question), without 'if any'."
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 7,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 8,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 9,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 10,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 11,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 12,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 13,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 14,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.4",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.4",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.4",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.4",
+      "question_number": 4,
+      "verdict": "fail",
+      "reason": "Check 4: assumes a notice template exists, without 'if any'."
+    },
+    {
+      "subcategory_id": "MANAGE 2.4",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.4",
+      "question_number": 6,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.4",
+      "question_number": 7,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.4",
+      "question_number": 8,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.4",
+      "question_number": 9,
+      "verdict": "fail",
+      "reason": "Check 1/4: adds a dormant-credential review the question does not ask about and assumes it exists."
+    },
+    {
+      "subcategory_id": "MANAGE 2.4",
+      "question_number": 10,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.4",
+      "question_number": 11,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 3.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 3.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 3.1",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 3.1",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 3.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.1",
+      "question_number": 3,
+      "verdict": "fail",
+      "reason": "Check 4: asks for the latest deletion/correction request traced to the index, assuming one was received; no 'if any'."
+    },
+    {
+      "subcategory_id": "MANAGE 4.1",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.1",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.2",
+      "question_number": 2,
+      "verdict": "fail",
+      "reason": "Check 1/4: adds a secure configuration baseline, which the question (change review and approval) does not ask about, and assumes it exists."
+    },
+    {
+      "subcategory_id": "MANAGE 4.2",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.2",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.3",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.3",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.3",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.3",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.3",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.3",
+      "question_number": 6,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.3",
+      "question_number": 7,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.3",
+      "question_number": 8,
+      "verdict": "pass",
+      "reason": ""
+    }
+  ]
+}

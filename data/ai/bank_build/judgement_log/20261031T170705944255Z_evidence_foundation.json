@@ -1,0 +1,679 @@
+{
+  "recorded_at": "2026-10-31T17:07:05.943675+00:00",
+  "step": "record_ai_bank_evidence",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_evidence_writer.md",
+      "sha": "b52251ad784d602b"
+    },
+    {
+      "path": "prompts/ai_rmf_evidence_evaluator.md",
+      "sha": "0ec2bf14b1319526"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/evidence_foundation.json",
+    "sha": "7bc19630e21298da"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_foundation.json",
+    "sha": "5e135bccf7f3ecc4"
+  },
+  "output_snapshot": {
+    "GOVERN 1.1": {
+      "1": "The register or list of laws, regulations and contract duties that touch the AI systems in scope (if any is kept), its owner and last update, and the latest notice, training slide or announcement that told affected staff about one of them.",
+      "2": "The most recent regulatory change log or horizon-scan note covering AI, the person or forum named as decider, and the minutes or ticket showing a resulting change to how AI is used or built, if any."
+    },
+    "GOVERN 1.2": {
+      "1": "The current AI risk management policy with version and approval date, plus onboarding or training content, acknowledgement records or the latest change announcement, and which staff groups and vendor account owners they reached.",
+      "2": "The clause or procedure extending AI rules to bought or embedded AI, the procurement or contract checklist for it, and the latest review record showing who checked one such third-party AI tool.",
+      "3": "The pre-go-live and in-use procedure for AI (test, validation, legal and risk review, monitoring steps) and the completed checklist, sign-offs and monitoring record for the most recent AI system put into use.",
+      "4": "The AI policy sections on safety, security, fairness, explainability and privacy, and the assessment or review record showing them applied to one recent AI system, with its date.",
+      "5": "The data quality and model training standard for in-house models, and the data checks, training records and approvals for the latest model built, if any is built."
+    },
+    "GOVERN 1.3": {
+      "1": "The AI risk rating method (scales for impact and likelihood, tiers and the oversight each tier requires), and the rating record with approver for the latest AI system assessed, across the systems in scope.",
+      "2": "The common AI risk register or rating table covering all AI systems, the review frequency set in the procedure, and the most recent re-rating after a change in a system or its use."
+    },
+    "GOVERN 1.4": {
+      "1": "Two or three AI system records (model card, fact sheet or inventory entry) showing purpose, limits, known risks and test results, and the location where they are kept and who maintains them.",
+      "2": "The schedule or report of the last review of the AI risk management process, with findings, named owners for follow-up actions and their status.",
+      "3": "The disclosure procedure or communication approval record for AI use and risks to customers, regulators or the public, and the latest published statement or notice, if any, with its approver.",
+      "4": "The index or repository listing of AI risk policies and procedures with version dates, plus onboarding, training or announcement evidence showing how the audiences were told of the latest change."
+    },
+    "GOVERN 1.5": {
+      "1": "The latest monitoring report or dashboard extract for live AI systems covering performance, bias and security checks, the list of systems monitored, and the monitoring frequency set.",
+      "2": "The AI incident handling procedure with version date, plus training attendance, drill record or announcement showing how the involved roles learned it and its latest change.",
+      "3": "The RACI, role description or policy section assigning AI monitoring and incident response to roles or teams, with its approval date and the named contacts.",
+      "4": "Minutes or a report of the latest review of AI monitoring and incident results, the reviewer names, the review frequency in the procedure, and any resulting change to AI risk management."
+    },
+    "GOVERN 1.6": {
+      "1": "The 'AI systems' sheet as completed, covering in-house, bought and embedded AI, with each system's purpose, data involved, owner and worst realistic outcome, and the date it was last updated.",
+      "2": "The procedure or workflow for adding or changing an entry in the AI inventory (intake form, change ticket), the named owner, and the most recent entry added or changed through it.",
+      "3": "The inventory field standard or policy showing which details and review frequency apply by criticality, with two entries of different criticality showing the difference, and their last review dates."
+    },
+    "GOVERN 1.7": {
+      "1": "The AI system retirement or replacement procedure or checklist, and the completed record for the latest retirement, if any (dependency check, migration steps, sign-off with approver and date).",
+      "2": "The retention and disposal rules for retired AI models, training data, logs and records, and evidence for the latest retired system (deletion or archive record, retention period set), if any.",
+      "3": "The AI retirement procedure with version date, and the onboarding, training or announcement evidence showing how the people it applies to learned of it and its latest change."
+    },
+    "GOVERN 2.1": {
+      "1": "The AI risk roles and responsibilities document (policy, RACI or charter) from senior management to buying, building, testing and running teams, its approval date, and where staff find who to contact.",
+      "2": "Recent meeting minutes, forum agendas or the escalation procedure for AI risk, plus one concern raised and how it was routed, covering the teams involved in AI risk.",
+      "3": "The rule or procedure separating AI builders or buyers from reviewers and approvers, the conflict-of-interest declaration register for AI decisions, and the latest approval showing the independent approver."
+    },
+    "GOVERN 2.2": {
+      "1": "The AI risk training curriculum or course list by role (general staff, technical, oversight, partners), completion records for the latest cycle, and the date of the last content update.",
+      "2": "The acknowledgement records for AI responsibilities (signed policy or system confirmation), and the latest communication about a significant AI system or policy change with its audience.",
+      "3": "The documented AI risk escalation route (contacts, channel, procedure), where staff and partners are shown it (intranet, onboarding, contract), and the latest escalation raised through it, if any."
+    },
+    "GOVERN 2.3": {
+      "1": "The executive-approved AI risk appetite or tolerance statement with approval date and approver, and the minutes or decision record where leadership set it.",
+      "2": "The minutes or paper of the latest leadership or board committee review of AI risks, with the review frequency in its charter and the approval record for one high-risk AI use, if any."
+    },
+    "GOVERN 3.1": {
+      "1": "The membership or attendance record for the latest AI risk decision forum or review, showing disciplines represented (legal, security, business, technical), and the rule requiring them.",
+      "2": "The procedure or log of use of outside experts, advisers or reviewers for AI risk, the trigger and named decider, and the latest engagement or approval record, if any."
+    },
+    "GOVERN 3.2": {
+      "1": "The document defining roles for people who use, oversee or monitor AI systems (human-in-the-loop duties, override authority), the systems it covers, and the evidence staff were told, with latest change date.",
+      "2": "The competency requirements and training or skills check records for people who operate or oversee AI, the named owner, and the latest completion or assessment results.",
+      "3": "The log, register or ticket queue where over-reliance, misleading outputs or confusing interface issues are captured, with its owner and two recent entries and their status, if any."
+    },
+    "GOVERN 4.1": {
+      "1": "The AI project lifecycle or stage-gate document showing when legal, compliance and risk join, and the sign-off or review record for the latest AI project showing their involvement and date.",
+      "2": "The independent review, audit or red-team procedure for AI build or deploy decisions, and the report or challenge record for the latest AI decision challenged, with reviewer identity, if any.",
+      "3": "The whistleblowing or concern-reporting channel and its non-reprisal policy statement, the register of AI concerns raised (if any) with outcomes, and how staff are told about the channel."
+    },
+    "GOVERN 4.2": {
+      "1": "The AI impact or harm assessment procedure and template, the triggers for re-assessment on change, and the latest completed assessment for one AI system with assessor and date.",
+      "2": "The repository or register holding AI impact assessment results, and the risk register entry or report showing how the results feed the wider AI risk view, with the latest update date.",
+      "3": "The latest communication of AI impacts beyond the team (leadership report, customer notice or user documentation), the rule on what is shared and who approves it, and the approval record."
+    },
+    "GOVERN 4.3": {
+      "1": "The AI test plan or test report for the latest AI system covering pre-deployment and in-use testing, the testing schedule, the systems covered, and where results are stored.",
+      "2": "The AI incident reporting and handling steps, with version date, and the training, intranet notice or announcement showing how staff learned them and the latest change.",
+      "3": "The information-sharing procedure or a recent example of sharing AI limitations or incident lessons internally or with outside parties (customer notice, regulator report, sector group), with the approver."
+    },
+    "GOVERN 5.1": {
+      "1": "The channels collecting outside feedback on AI (customer form, support tickets, complaints, surveys), the log or register where it is recorded, and a recent extract by AI system covered.",
+      "2": "The feedback triage or review procedure for AI, the minutes or ticket showing the latest review and prioritisation, the named decider, and one resulting change or decision, if any."
+    },
+    "GOVERN 5.2": {
+      "1": "The list of groups invited to give feedback on AI system design or set-up (builders, operators, users, overseers), the mechanisms used (reviews, surveys, forums), and the latest feedback collected for one system.",
+      "2": "The procedure or log where AI feedback is weighed, with accepted or rejected decisions, rationale and the named decider, and the most recent entry with its date.",
+      "3": "A recent change ticket or release note for an AI system traced to user or affected-person feedback, with the original feedback, the decision and the date implemented, if any."
+    },
+    "GOVERN 6.1": {
+      "1": "The third-party AI use policy or procurement rules covering models, AI services and data, with version date, and the onboarding, training or announcement evidence showing how buyers and users learned them and the latest change.",
+      "2": "The due diligence record for the latest third-party AI or data source onboarded (vendor documentation review, training data and limits notes, own test results, sign-off with approver and date), if any.",
+      "3": "The intellectual property and rights review for third-party AI or training data (contract clauses, licence review, indemnity terms), the outcome record for the latest review, and who recorded it, if any.",
+      "4": "The review record or change log for the third-party AI rules, showing the triggers (vendor change, incident, new law), the latest review date, and the named owner.",
+      "5": "The selection and monitoring record for the base or foundation model underlying an in-house model (source, licence, known weaknesses, update watch), its owner and the latest check date, if any."
+    },
+    "GOVERN 6.2": {
+      "1": "The incident response plan sections covering third-party AI or data source failure, the named owner, and the latest exercise or real incident record involving a third-party AI service, if any.",
+      "2": "The contingency or fallback plan for critical third-party AI services (alternate provider, manual process), which services it covers, the approval record showing who judged it sufficient, and the last test, if any."
+    },
+    "MAP 1.3": {
+      "1": "The AI system purpose statements held in the inventory or system documents, showing the link to mission and goals, the owner of each, and the systems covered with the last update date.",
+      "2": "The purpose review record for an AI system (minutes, review form) showing how organisational principles and affected people's values were considered, and where the outcome was recorded, with date."
+    },
+    "MAP 1.5": {
+      "1": "The documented AI risk tolerance statement or thresholds by type of harm and impact level, its approver and approval date, and where it is published to staff.",
+      "2": "The record of the latest case where an AI system exceeded tolerance or was used outside its approved purpose (incident, exception or decision log), with the decision, decider and date, if any."
+    },
+    "MAP 3.4": {
+      "1": "The skills and training requirements matrix for people operating AI systems, how it was determined, the training records for operators of the latest system deployed, and the records location.",
+      "2": "The user guides, intranet pages, acceptable-use notes or onboarding material stating what each AI system can and cannot do and what is out of bounds, with last update date and systems covered."
+    },
+    "MEASURE 1.1": {
+      "1": "The AI risk measurement plan or metrics register showing how risks were prioritised, the metrics selected for the most significant risks, the systems covered, and its latest approval or update date.",
+      "2": "The register of AI risks not measured or not measurable, with the reason, the acceptance record showing who accepted each, and the date of its last review, if any.",
+      "3": "The acceptable limits (error rate or similar thresholds) for an AI system and the record of the latest breach, with the decision taken, decider and date, if any."
+    },
+    "MEASURE 1.2": {
+      "1": "The schedule or report of the latest review of AI metrics and controls effectiveness, the reviewer, the frequency set, and the systems covered, with any changes made.",
+      "2": "A recent AI error, incident or harm report with its log entry, and the resulting change to a metric or control (change ticket or updated measurement plan), with dates, if any."
+    },
+    "MEASURE 3.1": {
+      "1": "The post-deployment AI risk tracking record (risk register entries, monitoring reports, emerging risk log) for the systems in use, showing unexpected risks found, owner and latest update.",
+      "2": "A comparison record or report setting user and affected-person feedback against performance measures for one AI system, with date, who prepared it and where it is stored."
+    },
+    "MEASURE 3.2": {
+      "1": "The tracking approach for hard-to-measure AI risks (user feedback channel, output challenge route, external testing report), its owner, and the latest entry or report, for the systems it covers.",
+      "2": "The approval or change decision record for an AI system showing how unmeasured risks were weighed, with decider and date, and the template or policy requiring it, if any."
+    },
+    "MEASURE 4.1": {
+      "1": "The channels used to collect feedback from AI users on how well it works in daily tasks (survey, interviews, support tickets), the log where it is held, and the latest results by AI system.",
+      "2": "A recent change to the AI risk measures, metrics or test cases that came from user feedback, with the feedback source, change ticket or updated measurement plan, and date, if any."
+    },
+    "MANAGE 1.2": {
+      "1": "The AI risk prioritisation method or criteria, the priority ranking in the risk register for current AI systems, and the named deciders for treatment and oversight level.",
+      "2": "The AI risk priorities and limits review schedule, the triggers for an earlier review, and the record (minutes, updated register) of the latest review with date and attendees."
+    },
+    "MANAGE 1.3": {
+      "1": "The risk register entries for high-priority AI risks showing the chosen response (reduce, transfer, avoid, accept), the rationale, the plan owner and due date, for the systems covered.",
+      "2": "The repository or access list for AI risk responses and system documentation, showing where they are stored, who has access, and the date of the last update."
+    },
+    "MANAGE 1.4": {
+      "1": "The residual risk statement or register entries for an AI system, showing remaining risk after controls, the accepter's name and the acceptance date, for the systems covered.",
+      "2": "The documentation given to customers, staff or downstream recipients stating remaining risks, known limits and safe-use requirements (user guide, release notes, contract schedule), with its date and audience."
+    },
+    "MANAGE 2.1": {
+      "1": "The resourcing check in the AI project proposal or approval form (staff, skills, budget for risk management), the decider, and the completed form for the latest AI project approved.",
+      "2": "The business case or option analysis for the latest AI adoption showing a non-AI or manual alternative considered, the decision and its approver, if any.",
+      "3": "The lessons-learned log or post-incident review of a past AI failure, with the resulting change to policy, design or testing, the owner and date, and the process requiring such reviews, if any.",
+      "4": "The engagement record for outside AI expertise (contract, statement of work, advisory report), the trigger for using it, the decider, and the latest case with its date, if any."
+    }
+  },
+  "review": [
+    {
+      "subcategory_id": "GOVERN 1.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.2",
+      "question_number": 2,
+      "verdict": "fail",
+      "reason": "Check 4: asserts a procurement or contract checklist for third-party AI exists, without 'if any'."
+    },
+    {
+      "subcategory_id": "GOVERN 1.2",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.2",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.2",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.3",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 4: asserts a tiered rating method with per-tier oversight; the question gives rating only as an example and the prompt has no 'if any'."
+    },
+    {
+      "subcategory_id": "GOVERN 1.3",
+      "question_number": 2,
+      "verdict": "fail",
+      "reason": "Check 4: assumes a re-rating after a system or use change has happened, without 'if any'."
+    },
+    {
+      "subcategory_id": "GOVERN 1.4",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.4",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.4",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.4",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.5",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.5",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.5",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.5",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.6",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 3: asks for the completed sheet itself, repeating the question, and adds an owner field; does not anchor to the organisation's own source inventory."
+    },
+    {
+      "subcategory_id": "GOVERN 1.6",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.6",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.7",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.7",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.7",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 2.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 2.1",
+      "question_number": 2,
+      "verdict": "fail",
+      "reason": "Check 4: assumes a concern has been raised and routed, without 'if any'; the question asks only for a record of communication."
+    },
+    {
+      "subcategory_id": "GOVERN 2.1",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 2.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 2.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 2.2",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 2.3",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 2.3",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 3.1",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 4: asserts a rule requiring diverse disciplines exists, without 'if any'."
+    },
+    {
+      "subcategory_id": "GOVERN 3.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 3.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 3.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 3.2",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 4.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 4.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 4.1",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 4.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 4.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 4.2",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 4.3",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 4.3",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 4.3",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 5.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 5.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 5.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 5.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 5.2",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 6.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 6.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 6.1",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 6.1",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 6.1",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 6.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 6.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 1.3",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 1.3",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 1.5",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 1.5",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.4",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 3: 'how it was determined' asks for an explanation rather than naming an artefact."
+    },
+    {
+      "subcategory_id": "MAP 3.4",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 1.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 1.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 1.1",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 1.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 1.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 3.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 3.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 3.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 3.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 4.1",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 4.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 1.2",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 4: assumes a risk register with a priority ranking for AI systems, without alternatives or 'if any'."
+    },
+    {
+      "subcategory_id": "MANAGE 1.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 1.3",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 4: assumes high-priority AI risks are held in a risk register, without alternatives or 'if any'."
+    },
+    {
+      "subcategory_id": "MANAGE 1.3",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 1.4",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 1.4",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.1",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 4: asserts the AI project proposal or approval form contains a resourcing check, without 'if any'."
+    },
+    {
+      "subcategory_id": "MANAGE 2.1",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.1",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.1",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    }
+  ]
+}

@@ -16,7 +16,8 @@
             "GOVERN 1.1 — suggested action 1",
             "GOVERN 1.1 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The register or list of laws, regulations and contract duties that touch the AI systems in scope (if any is kept), its owner and last update, and the latest notice, training slide or announcement that told affected staff about one of them."
         },
         {
           "question_text": "How does your organisation keep track of new or changing laws and regulations that affect its AI? Who decides what must change in how AI is used or built?",
@@ -29,7 +30,8 @@
             "GOVERN 1.1 — suggested action 1",
             "GOVERN 1.1 — suggested action 2"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The most recent regulatory change log or horizon-scan note covering AI, the person or forum named as decider, and the minutes or ticket showing a resulting change to how AI is used or built, if any."
         }
       ]
     },
@@ -49,7 +51,8 @@
             "consumer",
             "producer"
           ],
-          "producer_flags": []
+          "producer_flags": [],
+          "evidence_prompt": "The current AI risk management policy with version and approval date, plus onboarding or training content, acknowledgement records or the latest change announcement, and which staff groups and vendor account owners they reached."
         },
         {
           "question_text": "How do your AI rules apply to AI that others built or sold to you, as well as AI you run yourself, so that it meets your existing legal obligations and risk controls? Who checks this?",
@@ -76,7 +79,8 @@
             "consumer",
             "producer"
           ],
-          "producer_flags": []
+          "producer_flags": [],
+          "evidence_prompt": "The pre-go-live and in-use procedure for AI (test, validation, legal and risk review, monitoring steps) and the completed checklist, sign-offs and monitoring record for the most recent AI system put into use."
         },
         {
           "question_text": "How do your AI policies and procedures address qualities such as safety, security, fairness, explainability and privacy for your AI systems, and where can we see this applied to a recent AI system?",
@@ -88,7 +92,8 @@
             "consumer",
             "producer"
           ],
-          "producer_flags": []
+          "producer_flags": [],
+          "evidence_prompt": "The AI policy sections on safety, security, fairness, explainability and privacy, and the assessment or review record showing them applied to one recent AI system, with its date."
         },
         {
           "question_text": "How do your rules for building and training your own models set standards for data quality and model training? Where can we see them applied to your latest model?",
@@ -99,7 +104,8 @@
           "roles": [
             "producer"
           ],
-          "producer_flags": []
+          "producer_flags": [],
+          "evidence_prompt": "The data quality and model training standard for in-house models, and the data checks, training records and approvals for the latest model built, if any is built."
         }
       ],
       "decided_by": "human"
@@ -151,7 +157,8 @@
             "GOVERN 1.4 — suggested action 1",
             "GOVERN 1.4 — suggested action 16"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "Two or three AI system records (model card, fact sheet or inventory entry) showing purpose, limits, known risks and test results, and the location where they are kept and who maintains them."
         },
         {
           "question_text": "How often do you check whether your AI risk management process is working? Who is responsible for acting on what the check finds?",
@@ -164,7 +171,8 @@
             "GOVERN 1.4 — suggested action 17",
             "GOVERN 1.4 — suggested action 18"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The schedule or report of the last review of the AI risk management process, with findings, named owners for follow-up actions and their status."
         },
         {
           "question_text": "How do you decide what to tell customers, regulators or the public about your use of AI and its risks, and who approves what is shared?",
@@ -176,7 +184,8 @@
           "playbook_refs": [
             "GOVERN 1.4 — suggested action 19"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The disclosure procedure or communication approval record for AI use and risks to customers, regulators or the public, and the latest published statement or notice, if any, with its approver."
         },
         {
           "question_text": "Where are your AI risk management policies and procedures kept, and how do the people they apply to come to know them and their changes (for example onboarding, training, announcements)?",
@@ -189,7 +198,8 @@
             "GOVERN 1.4 — suggested action 1",
             "GOVERN 1.4 — suggested action 15"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The index or repository listing of AI risk policies and procedures with version dates, plus onboarding, training or announcement evidence showing how the audiences were told of the latest change."
         }
       ]
     },
@@ -207,7 +217,8 @@
           "playbook_refs": [
             "GOVERN 1.5 — suggested action 2"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The latest monitoring report or dashboard extract for live AI systems covering performance, bias and security checks, the list of systems monitored, and the monitoring frequency set."
         },
         {
           "question_text": "Where is your procedure for handling AI incidents kept, and how do the people involved come to know it and its changes (for example training, drills, announcements)?",
@@ -219,7 +230,8 @@
           "playbook_refs": [
             "GOVERN 1.5 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The AI incident handling procedure with version date, plus training attendance, drill record or announcement showing how the involved roles learned it and its latest change."
         },
         {
           "question_text": "Which roles or teams are responsible for monitoring your AI and responding to AI incidents, and where is that assignment written down?",
@@ -231,7 +243,8 @@
           "playbook_refs": [
             "GOVERN 1.5 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The RACI, role description or policy section assigning AI monitoring and incident response to roles or teams, with its approval date and the named contacts."
         },
         {
           "question_text": "How often do you review the results of your AI monitoring and incidents to decide whether your AI risk management needs to change? Who carries out the review?",
@@ -244,7 +257,8 @@
             "GOVERN 1.5 — suggested action 2",
             "GOVERN 1.5 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "Minutes or a report of the latest review of AI monitoring and incident results, the reviewer names, the review frequency in the procedure, and any resulting change to AI risk management."
         }
       ]
     },
@@ -276,7 +290,8 @@
             "consumer",
             "producer"
           ],
-          "producer_flags": []
+          "producer_flags": [],
+          "evidence_prompt": "The procedure or workflow for adding or changing an entry in the AI inventory (intake form, change ticket), the named owner, and the most recent entry added or changed through it."
         },
         {
           "question_text": "How does an AI system's criticality decide how much goes into its inventory entry — which details are recorded and how often it is reviewed — and where is that shown?",
@@ -289,7 +304,8 @@
             "consumer",
             "producer"
           ],
-          "producer_flags": []
+          "producer_flags": [],
+          "evidence_prompt": "The inventory field standard or policy showing which details and review frequency apply by criticality, with two entries of different criticality showing the difference, and their last review dates."
         }
       ],
       "decided_by": "human"
@@ -310,7 +326,8 @@
             "GOVERN 1.7 — suggested action 7",
             "GOVERN 1.7 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The AI system retirement or replacement procedure or checklist, and the completed record for the latest retirement, if any (dependency check, migration steps, sign-off with approver and date)."
         },
         {
           "question_text": "What happens to the models, data and records of a retired AI system, and for how long are they kept?",
@@ -323,7 +340,8 @@
             "GOVERN 1.7 — suggested action 8",
             "GOVERN 1.7 — suggested action 10"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The retention and disposal rules for retired AI models, training data, logs and records, and evidence for the latest retired system (deletion or archive record, retention period set), if any."
         },
         {
           "question_text": "Where is your procedure for retiring AI systems kept, and how do the people it applies to come to know it and its changes (for example onboarding, training, announcements)?",
@@ -335,7 +353,8 @@
           "playbook_refs": [
             "GOVERN 1.7 — suggested action 1"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The AI retirement procedure with version date, and the onboarding, training or announcement evidence showing how the people it applies to learned of it and its latest change."
         }
       ]
     },
@@ -354,7 +373,8 @@
             "GOVERN 2.1 — suggested action 1",
             "GOVERN 2.1 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The AI risk roles and responsibilities document (policy, RACI or charter) from senior management to buying, building, testing and running teams, its approval date, and where staff find who to contact."
         },
         {
           "question_text": "How do the people involved in AI risk talk to each other and raise concerns, for example regular meetings or an escalation route? What record shows it happening?",
@@ -379,7 +399,8 @@
             "GOVERN 2.1 — suggested action 15",
             "GOVERN 2.1 — suggested action 16"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The rule or procedure separating AI builders or buyers from reviewers and approvers, the conflict-of-interest declaration register for AI decisions, and the latest approval showing the independent approver."
         }
       ]
     },
@@ -398,7 +419,8 @@
             "GOVERN 2.2 — suggested action 1",
             "GOVERN 2.2 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The AI risk training curriculum or course list by role (general staff, technical, oversight, partners), completion records for the latest cycle, and the date of the last content update."
         },
         {
           "question_text": "How do staff acknowledge their AI responsibilities and learn of significant changes to AI systems or policies?",
@@ -411,7 +433,8 @@
             "GOVERN 2.2 — suggested action 8",
             "GOVERN 2.2 — suggested action 9"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The acknowledgement records for AI responsibilities (signed policy or system confirmation), and the latest communication about a significant AI system or policy change with its audience."
         },
         {
           "question_text": "Who do staff and partners escalate AI risk concerns to, and how do they know that route?",
@@ -423,7 +446,8 @@
           "playbook_refs": [
             "GOVERN 2.2 — suggested action 10"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The documented AI risk escalation route (contacts, channel, procedure), where staff and partners are shown it (intranet, onboarding, contract), and the latest escalation raised through it, if any."
         }
       ]
     },
@@ -442,7 +466,8 @@
             "GOVERN 2.3 — suggested action 2",
             "GOVERN 2.3 — suggested action 5"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The executive-approved AI risk appetite or tolerance statement with approval date and approver, and the minutes or decision record where leadership set it."
         },
         {
           "question_text": "How often does leadership or a board committee review AI risks and approve decisions on high-risk AI use? What record, such as minutes or a report, shows this?",
@@ -455,7 +480,8 @@
             "GOVERN 2.3 — suggested action 3",
             "GOVERN 2.3 — suggested action 7"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The minutes or paper of the latest leadership or board committee review of AI risks, with the review frequency in its charter and the approval record for one high-risk AI use, if any."
         }
       ]
     },
@@ -486,7 +512,8 @@
           "playbook_refs": [
             "GOVERN 3.1 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The procedure or log of use of outside experts, advisers or reviewers for AI risk, the trigger and named decider, and the latest engagement or approval record, if any."
         }
       ]
     },
@@ -505,7 +532,8 @@
             "GOVERN 3.2 — suggested action 1",
             "GOVERN 3.2 — suggested action 5"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The document defining roles for people who use, oversee or monitor AI systems (human-in-the-loop duties, override authority), the systems it covers, and the evidence staff were told, with latest change date."
         },
         {
           "question_text": "How do you train and check the skills of the people who operate or oversee your AI systems? Who owns this?",
@@ -518,7 +546,8 @@
             "GOVERN 3.2 — suggested action 3",
             "GOVERN 3.2 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The competency requirements and training or skills check records for people who operate or oversee AI, the named owner, and the latest completion or assessment results."
         },
         {
           "question_text": "How are problems in the way people work with AI, such as over-reliance on its answers or confusing screens, captured and tracked? Where are they recorded?",
@@ -531,7 +560,8 @@
             "GOVERN 3.2 — suggested action 2",
             "GOVERN 3.2 — suggested action 8"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The log, register or ticket queue where over-reliance, misleading outputs or confusing interface issues are captured, with its owner and two recent entries and their status, if any."
         }
       ]
     },
@@ -549,7 +579,8 @@
           "playbook_refs": [
             "GOVERN 4.1 — suggested action 1"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The AI project lifecycle or stage-gate document showing when legal, compliance and risk join, and the sign-off or review record for the latest AI project showing their involvement and date."
         },
         {
           "question_text": "How are decisions to build or deploy AI challenged before they go ahead, for example by an independent review, audit or red-teaming? Who carries out the challenge?",
@@ -562,7 +593,8 @@
             "GOVERN 4.1 — suggested action 2",
             "GOVERN 4.1 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The independent review, audit or red-team procedure for AI build or deploy decisions, and the report or challenge record for the latest AI decision challenged, with reviewer identity, if any."
         },
         {
           "question_text": "How can staff raise a concern about an AI system without fear of reprisal? Where are concerns recorded?",
@@ -574,7 +606,8 @@
           "playbook_refs": [
             "GOVERN 4.1 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The whistleblowing or concern-reporting channel and its non-reprisal policy statement, the register of AI concerns raised (if any) with outcomes, and how staff are told about the channel."
         }
       ]
     },
@@ -593,7 +626,8 @@
             "consumer",
             "producer"
           ],
-          "producer_flags": []
+          "producer_flags": [],
+          "evidence_prompt": "The AI impact or harm assessment procedure and template, the triggers for re-assessment on change, and the latest completed assessment for one AI system with assessor and date."
         },
         {
           "question_text": "Where are the results of these assessments recorded, and how are they used in your wider view of AI risk?",
@@ -606,7 +640,8 @@
             "consumer",
             "producer"
           ],
-          "producer_flags": []
+          "producer_flags": [],
+          "evidence_prompt": "The repository or register holding AI impact assessment results, and the risk register entry or report showing how the results feed the wider AI risk view, with the latest update date."
         },
         {
           "question_text": "How are the impacts you have assessed for your AI systems shared beyond the team, for example with leadership, affected users or customers? Who decides what is shared?",
@@ -618,7 +653,8 @@
             "consumer",
             "producer"
           ],
-          "producer_flags": []
+          "producer_flags": [],
+          "evidence_prompt": "The latest communication of AI impacts beyond the team (leadership report, customer notice or user documentation), the rule on what is shared and who approves it, and the approval record."
         }
       ],
       "decided_by": "human"
@@ -637,7 +673,8 @@
           "playbook_refs": [
             "GOVERN 4.3 — suggested action 1"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The AI test plan or test report for the latest AI system covering pre-deployment and in-use testing, the testing schedule, the systems covered, and where results are stored."
         },
         {
           "question_text": "Where are the steps for reporting and handling an AI incident kept, and how do staff come to know them and any changes?",
@@ -650,7 +687,8 @@
             "GOVERN 4.3 — suggested action 3",
             "GOVERN 4.3 — suggested action 5"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The AI incident reporting and handling steps, with version date, and the training, intranet notice or announcement showing how staff learned them and the latest change."
         },
         {
           "question_text": "How do you share what you learn about the limits of your AI systems and about incidents, inside the organisation and with outside parties where needed? Who decides what is shared?",
@@ -663,7 +701,8 @@
             "GOVERN 4.3 — suggested action 2",
             "GOVERN 4.3 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The information-sharing procedure or a recent example of sharing AI limitations or incident lessons internally or with outside parties (customer notice, regulator report, sector group), with the approver."
         }
       ]
     },
@@ -682,7 +721,8 @@
             "consumer",
             "producer"
           ],
-          "producer_flags": []
+          "producer_flags": [],
+          "evidence_prompt": "The channels collecting outside feedback on AI (customer form, support tickets, complaints, surveys), the log or register where it is recorded, and a recent extract by AI system covered."
         },
         {
           "question_text": "How is outside feedback about your AI reviewed and prioritised, and who decides what is changed as a result?",
@@ -694,7 +734,8 @@
             "consumer",
             "producer"
           ],
-          "producer_flags": []
+          "producer_flags": [],
+          "evidence_prompt": "The feedback triage or review procedure for AI, the minutes or ticket showing the latest review and prioritisation, the named decider, and one resulting change or decision, if any."
         }
       ],
       "decided_by": "human"
@@ -713,7 +754,8 @@
           "playbook_refs": [
             "GOVERN 5.2 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The list of groups invited to give feedback on AI system design or set-up (builders, operators, users, overseers), the mechanisms used (reviews, surveys, forums), and the latest feedback collected for one system."
         },
         {
           "question_text": "When feedback on an AI system is received, how is it weighed and accepted or rejected before anything changes? Who decides?",
@@ -725,7 +767,8 @@
           "playbook_refs": [
             "GOVERN 5.2 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The procedure or log where AI feedback is weighed, with accepted or rejected decisions, rationale and the named decider, and the most recent entry with its date."
         },
         {
           "question_text": "How does feedback from the people who use or are affected by an AI system lead to changes in how it is designed or run? Can you give a recent example?",
@@ -737,7 +780,8 @@
           "playbook_refs": [
             "GOVERN 5.2 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "A recent change ticket or release note for an AI system traced to user or affected-person feedback, with the original feedback, the decision and the date implemented, if any."
         }
       ]
     },
@@ -756,7 +800,8 @@
             "GOVERN 6.1 — suggested action 1",
             "GOVERN 6.1 — suggested action 7"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The third-party AI use policy or procurement rules covering models, AI services and data, with version date, and the onboarding, training or announcement evidence showing how buyers and users learned them and the latest change."
         },
         {
           "question_text": "Before your organisation starts using a third-party AI system or data source, how is it checked for what it does, what it was trained on and its known limits, for example through vendor documentation and your own testing? Who signs off?",
@@ -770,7 +815,8 @@
             "GOVERN 6.1 — suggested action 4",
             "GOVERN 6.1 — suggested action 5"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The due diligence record for the latest third-party AI or data source onboarded (vendor documentation review, training data and limits notes, own test results, sign-off with approver and date), if any."
         },
         {
           "question_text": "How do you check that third-party AI and the data it was built on do not infringe someone else's intellectual property or other rights, for example through contract terms or licence reviews? Where is the outcome recorded?",
@@ -783,7 +829,8 @@
             "GOVERN 6.1 — suggested action 2",
             "GOVERN 6.1 — suggested action 7"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The intellectual property and rights review for third-party AI or training data (contract clauses, licence review, indemnity terms), the outcome record for the latest review, and who recorded it, if any."
         },
         {
           "question_text": "How are your rules for third-party AI reviewed and updated, for example after a vendor change, an incident or a new law? Who owns that review?",
@@ -795,7 +842,8 @@
           "playbook_refs": [
             "GOVERN 6.1 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The review record or change log for the third-party AI rules, showing the triggers (vendor change, incident, new law), the latest review date, and the named owner."
         },
         {
           "question_text": "How do you choose, check and keep watching the existing model your own model is built on, for example its source, licence and known weaknesses? Who owns this?",
@@ -809,7 +857,8 @@
             "GOVERN 6.1 — suggested action 3",
             "GOVERN 6.1 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The selection and monitoring record for the base or foundation model underlying an in-house model (source, licence, known weaknesses, update watch), its owner and the latest check date, if any."
         }
       ]
     },
@@ -827,7 +876,8 @@
           "playbook_refs": [
             "GOVERN 6.2 — suggested action 2"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The incident response plan sections covering third-party AI or data source failure, the named owner, and the latest exercise or real incident record involving a third-party AI service, if any."
         },
         {
           "question_text": "For the third-party AI services you cannot do without, what backup exists (for example another provider or a manual process)? Who decided it was enough?",
@@ -839,7 +889,8 @@
           "playbook_refs": [
             "GOVERN 6.2 — suggested action 1"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The contingency or fallback plan for critical third-party AI services (alternate provider, manual process), which services it covers, the approval record showing who judged it sufficient, and the last test, if any."
         }
       ]
     },
@@ -857,7 +908,8 @@
           "playbook_refs": [
             "MAP 1.3 — suggested action 5"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The AI system purpose statements held in the inventory or system documents, showing the link to mission and goals, the owner of each, and the systems covered with the last update date."
         },
         {
           "question_text": "When the purpose of an AI system is reviewed, how are the organisation's stated principles and the values of the people affected taken into account, and where is the outcome recorded?",
@@ -870,7 +922,8 @@
             "MAP 1.3 — suggested action 2",
             "MAP 1.3 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The purpose review record for an AI system (minutes, review form) showing how organisational principles and affected people's values were considered, and where the outcome was recorded, with date."
         }
       ]
     },
@@ -889,7 +942,8 @@
             "MAP 1.5 — suggested action 2",
             "MAP 1.5 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The documented AI risk tolerance statement or thresholds by type of harm and impact level, its approver and approval date, and where it is published to staff."
         },
         {
           "question_text": "What happens when an AI system goes beyond the risk your organisation is willing to accept, or is used for a purpose it was not approved for? Can you give a recent example and the record of the decision?",
@@ -902,7 +956,8 @@
             "MAP 1.5 — suggested action 4",
             "MAP 1.5 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The record of the latest case where an AI system exceeded tolerance or was used outside its approved purpose (incident, exception or decision log), with the decision, decider and date, if any."
         }
       ]
     },
@@ -936,7 +991,8 @@
             "MAP 3.4 — suggested action 3",
             "MAP 3.4 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The user guides, intranet pages, acceptable-use notes or onboarding material stating what each AI system can and cannot do and what is out of bounds, with last update date and systems covered."
         }
       ]
     },
@@ -956,7 +1012,8 @@
             "MEASURE 1.1 — suggested action 2",
             "MEASURE 1.1 — suggested action 8"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The AI risk measurement plan or metrics register showing how risks were prioritised, the metrics selected for the most significant risks, the systems covered, and its latest approval or update date."
         },
         {
           "question_text": "How are AI risks you decided not to measure, or cannot yet measure, recorded, and who accepted that decision?",
@@ -968,7 +1025,8 @@
           "playbook_refs": [
             "MEASURE 1.1 — suggested action 12"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The register of AI risks not measured or not measurable, with the reason, the acceptance record showing who accepted each, and the date of its last review, if any."
         },
         {
           "question_text": "What happens when an AI system performs beyond the acceptable limits you have set for it, for example on error rates? Where is the decision recorded?",
@@ -980,7 +1038,8 @@
           "playbook_refs": [
             "MEASURE 1.1 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The acceptable limits (error rate or similar thresholds) for an AI system and the record of the latest breach, with the decision taken, decider and date, if any."
         }
       ]
     },
@@ -999,7 +1058,8 @@
             "MEASURE 1.2 — suggested action 2",
             "MEASURE 1.2 — suggested action 1"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The schedule or report of the latest review of AI metrics and controls effectiveness, the reviewer, the frequency set, and the systems covered, with any changes made."
         },
         {
           "question_text": "When errors, incidents or harm from AI are reported, how are they recorded and used to change the measures or controls? Can you show a recent example?",
@@ -1013,7 +1073,8 @@
             "MEASURE 1.2 — suggested action 4",
             "MEASURE 1.2 — suggested action 7"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "A recent AI error, incident or harm report with its log entry, and the resulting change to a metric or control (change ticket or updated measurement plan), with dates, if any."
         }
       ]
     },
@@ -1031,7 +1092,8 @@
           "playbook_refs": [
             "MEASURE 3.1 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The post-deployment AI risk tracking record (risk register entries, monitoring reports, emerging risk log) for the systems in use, showing unexpected risks found, owner and latest update."
         },
         {
           "question_text": "How is feedback from users and affected people about AI compared with your own measures of how the AI performs? Where is the comparison recorded?",
@@ -1043,7 +1105,8 @@
           "playbook_refs": [
             "MEASURE 3.1 — suggested action 5"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "A comparison record or report setting user and affected-person feedback against performance measures for one AI system, with date, who prepared it and where it is stored."
         }
       ]
     },
@@ -1062,7 +1125,8 @@
             "MEASURE 3.2 — suggested action 1",
             "MEASURE 3.2 — suggested action 2"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The tracking approach for hard-to-measure AI risks (user feedback channel, output challenge route, external testing report), its owner, and the latest entry or report, for the systems it covers."
         },
         {
           "question_text": "How does the organisation weigh AI risks that cannot be measured when deciding to approve, change or stop an AI system? Where is that decision recorded?",
@@ -1075,7 +1139,8 @@
             "MEASURE 3.2 — suggested action 8",
             "MEASURE 3.2 — suggested action 12"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The approval or change decision record for an AI system showing how unmeasured risks were weighed, with decider and date, and the template or policy requiring it, if any."
         }
       ]
     },
@@ -1093,7 +1158,8 @@
           "playbook_refs": [
             "MEASURE 4.1 — suggested action 1"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The channels used to collect feedback from AI users on how well it works in daily tasks (survey, interviews, support tickets), the log where it is held, and the latest results by AI system."
         },
         {
           "question_text": "How does feedback from the people who use your AI systems lead to changes in how you measure AI risk? Can you show a recent change that came from it?",
@@ -1106,7 +1172,8 @@
             "MEASURE 4.1 — suggested action 10",
             "MEASURE 4.1 — suggested action 11"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "A recent change to the AI risk measures, metrics or test cases that came from user feedback, with the feedback source, change ticket or updated measurement plan, and date, if any."
         }
       ]
     },
@@ -1137,7 +1204,8 @@
           "playbook_refs": [
             "MANAGE 1.2 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The AI risk priorities and limits review schedule, the triggers for an earlier review, and the record (minutes, updated register) of the latest review with date and attendees."
         }
       ]
     },
@@ -1168,7 +1236,8 @@
           "playbook_refs": [
             "MANAGE 1.3 — suggested action 5"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The repository or access list for AI risk responses and system documentation, showing where they are stored, who has access, and the date of the last update."
         }
       ]
     },
@@ -1186,7 +1255,8 @@
           "playbook_refs": [
             "MANAGE 1.4 — suggested action 1"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The residual risk statement or register entries for an AI system, showing remaining risk after controls, the accepter's name and the acceptance date, for the systems covered."
         },
         {
           "question_text": "How do you tell the people who rely on your AI systems (customers, staff, or those who receive them from you) about remaining risks, known limits and safe-use requirements? Where is this communicated?",
@@ -1199,7 +1269,8 @@
             "MANAGE 1.4 — suggested action 2",
             "MANAGE 1.4 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The documentation given to customers, staff or downstream recipients stating remaining risks, known limits and safe-use requirements (user guide, release notes, contract schedule), with its date and audience."
         }
       ]
     },
@@ -1230,7 +1301,8 @@
           "playbook_refs": [
             "MANAGE 2.1 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The business case or option analysis for the latest AI adoption showing a non-AI or manual alternative considered, the decision and its approver, if any."
         },
         {
           "question_text": "How do you use past AI failures and negative impacts to avoid repeating them? Can you show a recent example?",
@@ -1242,7 +1314,8 @@
           "playbook_refs": [
             "MANAGE 2.1 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The lessons-learned log or post-incident review of a past AI failure, with the resulting change to policy, design or testing, the owner and date, and the process requiring such reviews, if any."
         },
         {
           "question_text": "Where your own team lacks the expertise to manage AI risks, how do you bring in outside expertise? Can you show a recent example?",
@@ -1254,7 +1327,8 @@
           "playbook_refs": [
             "MANAGE 2.1 — suggested action 12"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The engagement record for outside AI expertise (contract, statement of work, advisory report), the trigger for using it, the decider, and the latest case with its date, if any."
         }
       ]
     }
@@ -1273,5 +1347,5 @@
     "needs_human_review": 0,
     "questions": 84
   },
-  "source_sha": "cb676b2067bbb980"
+  "source_sha": "1bf5bc5bc5d4852c"
 }

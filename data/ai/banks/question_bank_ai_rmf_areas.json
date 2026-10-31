@@ -41,7 +41,8 @@
             "MAP 1.1 — suggested action 4",
             "MAP 1.1 — suggested action 9"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The intended-purpose record for each customer-facing AI system (customer types, settings, applicable laws), its named owner, and the date of its last review."
         },
         {
           "question_text": "How do you identify which products from your vendors use AI on your organisation's data, for example what data each feature processes and what it is used for? Where is this recorded?",
@@ -59,7 +60,8 @@
           ],
           "cis_refs": [
             "LLM-3.2"
-          ]
+          ],
+          "evidence_prompt": "The register of vendor products with AI features, showing per feature the data processed and its use, plus the most recent addition found and how it was found."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is a correct answer defined for what the AI is meant to do? Who owns that definition?",
@@ -75,7 +77,8 @@
             "MAP 1.1 — suggested action 4",
             "MAP 1.1 — suggested action 8"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The written definition of a correct answer for each highest-criticality AI system (acceptance criteria or reference examples), its owner, and when it was last updated."
         }
       ]
     },
@@ -104,7 +107,8 @@
           "playbook_refs": [
             "MAP 1.2 — suggested action 1"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The roster or meeting record for the latest model build or tuning review, showing participants' roles, domains and user-experience backgrounds, and any bias or misuse concern they raised."
         }
       ]
     },
@@ -202,7 +206,8 @@
           ],
           "cis_refs": [
             "LLM-16.1"
-          ]
+          ],
+          "evidence_prompt": "The requirements document for the latest model build or tuning (privacy, security, trustworthiness), showing who the requirements came from and the build decisions that trace to them."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are the AI's retrieval permissions based on requirements for who may see which content? Who owns those requirements?",
@@ -218,7 +223,8 @@
             "MAP 1.6 — suggested action 1",
             "MAP 1.6 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The retrieval access requirements (who may see which content) for each highest-criticality AI system, the owner, and the permission configuration that implements them."
         }
       ]
     },
@@ -254,7 +260,8 @@
           "playbook_refs": [
             "MAP 2.1 — suggested action 1"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The model design record stating its task and chosen method (built from scratch or tuned), the approval and approver, and the latest change to either."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are the tasks each agent performs, and the tools and systems it uses to do them, defined and documented? Who owns that record?",
@@ -272,7 +279,8 @@
           "cis_refs": [
             "AGENT-1.1",
             "AGENT-2.1"
-          ]
+          ],
+          "evidence_prompt": "The agent specification for each highest-criticality AI system listing its tasks, tools and systems it uses, the record owner, and the last update date."
         }
       ]
     },
@@ -358,7 +366,8 @@
           ],
           "cis_refs": [
             "LLM-14.1"
-          ]
+          ],
+          "evidence_prompt": "The limitations document or user guidance for each highest-criticality AI system (known output limits, out-of-scope situations), where reviewers can find it, and the latest revision."
         },
         {
           "question_text": "For your highest-criticality customer-facing AI systems, how are customers told what the AI cannot do and that its answers may be wrong? Where is this shown to them?",
@@ -374,7 +383,8 @@
             "MAP 2.2 — suggested action 1",
             "MAP 2.2 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "A screenshot or text of the customer-facing notice about AI limits and possible errors, the screens where it appears, and its last change."
         },
         {
           "question_text": "For the vendor AI features you use, how is what stands behind each one documented, for example the model provider, sub-processors and the limits the vendor states? Who keeps this up to date?",
@@ -392,7 +402,8 @@
           ],
           "cis_refs": [
             "LLM-15.1"
-          ]
+          ],
+          "evidence_prompt": "The vendor AI documentation per feature (model provider, sub-processors, stated limits), the owner, and the date it was last refreshed."
         },
         {
           "question_text": "How are the limits of the model you build, and the settings outside its intended use, documented? Who maintains that documentation?",
@@ -406,7 +417,8 @@
           "playbook_refs": [
             "MAP 2.2 — suggested action 1"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The model card or equivalent listing the model's limits and settings outside its intended use, its maintainer, and the latest version date."
         },
         {
           "question_text": "When you release a model to others, how are the recipients told its limits and the settings outside its intended use? Where is this communicated to them?",
@@ -423,7 +435,8 @@
             "MAP 2.2 — suggested action 1",
             "MAP 2.2 — suggested action 2"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The release notes or model documentation sent with the latest model release to others, showing the limits and out-of-scope settings communicated, and the distribution channel, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are the topics and content that the data the AI retrieves from does not cover documented and told to users? Where do users see this?",
@@ -439,7 +452,8 @@
             "MAP 2.2 — suggested action 1",
             "MAP 2.2 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The notice or documentation of topics the retrieval data does not cover, the place users see it in each highest-criticality AI system, and its last update."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are the outside servers, networks and endpoints the AI connects to, and the data that flows to them, documented? Who keeps this current?",
@@ -460,7 +474,8 @@
             "MCP-12.4",
             "MCP-15.1",
             "LLM-12.4"
-          ]
+          ],
+          "evidence_prompt": "The diagram or list of external servers, networks and endpoints each highest-criticality AI system connects to, the data flowing to each, its owner, and the last review."
         }
       ]
     },
@@ -499,7 +514,8 @@
           ],
           "cis_refs": [
             "LLM-3.2"
-          ]
+          ],
+          "evidence_prompt": "The dataset documentation for the model's training, tuning, evaluation and test sets (sources, selection criteria, representativeness checks) for the latest model version."
         },
         {
           "question_text": "How do you keep the test cases you measure your model with separate from the data it was trained on? Who checks this?",
@@ -514,7 +530,8 @@
             "MAP 2.3 — suggested action 5",
             "MAP 2.3 — suggested action 12"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The test-data separation record for the latest evaluation (de-duplication or overlap check result, how test cases are held apart) and the name of the person who checked it."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is the content collected into the data the AI retrieves from chosen and checked for suitability, quality and trustworthiness of source? Where is this documented?",
@@ -532,7 +549,8 @@
           ],
           "cis_refs": [
             "LLM-3.1"
-          ]
+          ],
+          "evidence_prompt": "The source selection record for the retrieval content of each highest-criticality AI system (suitability, quality and trust checks per source), and the latest source added or removed."
         }
       ]
     },
@@ -589,7 +607,8 @@
             "MAP 3.1 — suggested action 1",
             "MAP 3.1 — suggested action 5"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The latest benefit assessment for each highest-criticality AI system, such as a comparison of AI results against a person doing the task, with user input gathered and the owner."
         },
         {
           "question_text": "For your highest-criticality AI systems that face customers, how do you find out what benefit customers get from the AI and what they value in it? Where is that recorded?",
@@ -605,7 +624,8 @@
             "MAP 3.1 — suggested action 1",
             "MAP 3.1 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "Customer feedback or research records (surveys, interviews, usage analysis) on benefit and valued features for each customer-facing AI system, and the latest results."
         },
         {
           "question_text": "Before your organisation builds or tunes its own model, how are the benefits of doing so, compared with using an existing model, examined and documented? Who signs that off?",
@@ -620,7 +640,8 @@
             "MAP 3.1 — suggested action 1",
             "MAP 3.1 — suggested action 5"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The build-versus-existing-model assessment for the latest model the organisation built or tuned, showing the benefits compared, the sign-off and its date."
         },
         {
           "question_text": "How does your organisation find out why staff use AI tools nobody approved, and check whether an approved alternative meets that need? Who follows this up?",
@@ -637,7 +658,8 @@
             "MAP 3.1 — suggested action 1",
             "MAP 3.1 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The latest findings on why staff use unapproved AI tools (survey, interview or usage-review notes), the approved alternatives assessed against them, and the follow-up owner."
         }
       ]
     },
@@ -688,7 +710,8 @@
           "producer_flags": [],
           "rows": [
             "internal_process|MAP 3.2"
-          ]
+          ],
+          "evidence_prompt": "The cost-of-error estimate for each highest-criticality AI system in internal decisions, with the past incidents or feedback it draws on, and where it is recorded."
         },
         {
           "question_text": "For your highest-criticality AI systems, how do you rate how likely and how large the effects of AI in internal decisions are, benefits as well as harms? Who reviews these ratings?",
@@ -703,7 +726,8 @@
           "producer_flags": [],
           "rows": [
             "internal_process|MAP 3.2"
-          ]
+          ],
+          "evidence_prompt": "The likelihood and impact ratings (benefits and harms) for AI in internal decisions of each highest-criticality AI system, the reviewer, and the latest review date."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are the costs to customers and to the business of wrong, harmful or leaked answers reaching customers examined and documented? Who reviews this?",
@@ -718,7 +742,8 @@
           "producer_flags": [],
           "rows": [
             "customer_facing|MAP 3.2"
-          ]
+          ],
+          "evidence_prompt": "The customer and business cost analysis of wrong, harmful or leaked answers for each customer-facing AI system, the reviewer, and its latest revision."
         },
         {
           "question_text": "For your highest-criticality AI systems, how do you work out the cost of wrong, manipulated or biased AI answers and who could be harmed by acting on them? Where is this recorded?",
@@ -733,7 +758,8 @@
           "producer_flags": [],
           "rows": [
             "output|MAP 3.2"
-          ]
+          ],
+          "evidence_prompt": "The assessment of cost and affected groups from wrong, manipulated or biased answers for each highest-criticality AI system, where recorded, and the date."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are the costs of a hosting compromise, outage or cost abuse (stolen compute, runaway spend, downtime) examined and compared with your risk tolerance? Who owns this?",
@@ -748,7 +774,8 @@
           "producer_flags": [],
           "rows": [
             "hosting|MAP 3.2"
-          ]
+          ],
+          "evidence_prompt": "The impact analysis of hosting compromise, outage and cost abuse for each highest-criticality hosted AI system, compared with the stated risk tolerance, and the owner."
         }
       ],
       "decided_by": "human"
@@ -840,7 +867,8 @@
           "playbook_refs": [
             "MAP 3.3 — suggested action 1"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The code-generation policy or standard listing where AI-generated code is allowed and prohibited (authentication, cryptography, regulated code), and the enforcement mechanism such as a repository rule."
         },
         {
           "question_text": "For your highest-criticality AI systems that face customers, how is the scope of what the AI may answer or do narrowed and documented, taking public misuse into account? Who reviews that scope?",
@@ -856,7 +884,8 @@
             "MAP 3.3 — suggested action 1",
             "MAP 3.3 — suggested action 5"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The scope definition for each customer-facing AI system (what it may answer or do, restrictions against public misuse), its reviewer, and the latest review date."
         },
         {
           "question_text": "How is each vendor AI feature your organisation uses limited to the systems, data classes and uses it may touch? Where is that recorded?",
@@ -872,7 +901,8 @@
             "MAP 3.3 — suggested action 1",
             "MAP 3.3 — suggested action 7"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The register of vendor AI features with the systems, data classes and uses each is limited to, and the setting or approval that enforces each limit."
         },
         {
           "question_text": "For the models behind your most critical AI systems that you give to others, how is the scope each release is meant for, for example users, products or regions, specified and documented? Who approves a release outside it?",
@@ -889,7 +919,8 @@
             "MAP 3.3 — suggested action 1",
             "MAP 3.3 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The release scope specification (users, products, regions) for the latest model release given to others, and the approval for any release outside it, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is the AI kept to the uses and contexts where its answers have been shown to be trustworthy? Who decides when that scope may widen?",
@@ -923,7 +954,8 @@
           "cis_refs": [
             "MCP-6.8",
             "MCP-5.5"
-          ]
+          ],
+          "evidence_prompt": "The tool scope list for each highest-criticality AI system (permitted reads, writes, actions and credentials per tool), compared to the use case need, with the approver and date."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is what each agent may do on its own specified, for example which systems, actions and data it may use and which actions are never left to it? Where is that recorded?",
@@ -941,7 +973,8 @@
           ],
           "cis_refs": [
             "AGENT-6.8"
-          ]
+          ],
+          "evidence_prompt": "The autonomy specification for each agent (permitted systems, actions, data, and actions never delegated), its location, and the latest change."
         }
       ]
     },
@@ -1001,7 +1034,8 @@
           "producer_flags": [],
           "rows": [
             "internal_process|MAP 3.5"
-          ]
+          ],
+          "evidence_prompt": "The oversight procedure for each highest-criticality AI system (when to check, challenge or override output), the training attendance records for staff, and the latest update."
         },
         {
           "question_text": "What human review must AI-generated code pass before it is merged or reaches production? Where is it recorded that the review took place?",
@@ -1019,7 +1053,8 @@
           "producer_flags": [],
           "rows": [
             "code_generation|MAP 3.5"
-          ]
+          ],
+          "evidence_prompt": "The code review policy for AI-generated code, plus a recent merge record or pull request showing the review and its approver."
         },
         {
           "question_text": "How are the people who review AI-generated code told where the AI is likely to be wrong or insecure and what it should not be relied on for? Where is that documented?",
@@ -1035,7 +1070,8 @@
           "producer_flags": [],
           "rows": [
             "code_generation|MAP 3.5"
-          ]
+          ],
+          "evidence_prompt": "The guidance given to reviewers of AI-generated code on likely weaknesses and what not to rely on it for, where it is published, and its last update."
         },
         {
           "question_text": "For your highest-criticality AI systems that face customers, how are the oversight steps that catch high-impact answers before or after they reach customers defined, assessed and documented? Who carries them out?",
@@ -1066,7 +1102,8 @@
           "producer_flags": [],
           "rows": [
             "mcp_tools|MAP 3.5"
-          ]
+          ],
+          "evidence_prompt": "The list of tool actions that need human confirmation (writes, deletes, payments, external sends) for each highest-criticality AI system, its location, owner, and last change."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is a person's confirmation enforced before a high-impact tool action (for example a write, delete, payment or external send) runs, so the AI cannot skip it? Who confirms?",
@@ -1081,7 +1118,8 @@
           "producer_flags": [],
           "rows": [
             "mcp_tools|MAP 3.5"
-          ]
+          ],
+          "evidence_prompt": "The configuration or workflow showing that confirmation is enforced before high-impact tool actions run, a log extract of a recent confirmation with the confirming person, and the list of confirmers."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is it defined which agent steps need a person's approval or review? Who does that review?",
@@ -1096,7 +1134,8 @@
           "producer_flags": [],
           "rows": [
             "agent|MAP 3.5"
-          ]
+          ],
+          "evidence_prompt": "The definition of which agent steps require human approval or review in each highest-criticality AI system, the reviewer roster, and a recent approval record."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are the people who approve or review agent actions trained for that role? How often is the oversight itself tested?",
@@ -1112,7 +1151,8 @@
           "producer_flags": [],
           "rows": [
             "agent|MAP 3.5"
-          ]
+          ],
+          "evidence_prompt": "The training material and attendance records for agent action reviewers, and the latest oversight test (date, scenario, result) for each highest-criticality AI system."
         }
       ],
       "decided_by": "human"
@@ -1202,7 +1242,8 @@
           "producer_flags": [],
           "rows": [
             "code_generation|MAP 4.1"
-          ]
+          ],
+          "evidence_prompt": "The record of AI-suggested packages and libraries (name, source, check result for made-up names), its location, and the latest case where a non-existent package was caught, if any."
         },
         {
           "question_text": "Before and during use, how are the risks of each vendor's AI assessed and documented, for example its model provider, whether it keeps or trains on your data, and its terms of service? Who owns that assessment?",
@@ -1220,7 +1261,8 @@
           "producer_flags": [],
           "rows": [
             "vendor_ai|MAP 4.1"
-          ]
+          ],
+          "evidence_prompt": "The vendor AI risk assessment for each vendor (model provider, data retention and training use, terms of service), its owner, and the latest reassessment date."
         },
         {
           "question_text": "How do you evaluate and document the security and resilience of each vendor's AI, for example separation of your data from other customers' and what you do if the feature is unavailable? How often is this redone?",
@@ -1238,7 +1280,8 @@
           "producer_flags": [],
           "rows": [
             "vendor_ai|MAP 4.1"
-          ]
+          ],
+          "evidence_prompt": "The security and resilience evaluation for each vendor AI (data separation from other customers, unavailability fallback), its latest date, and the repeat schedule."
         },
         {
           "question_text": "Before your organisation uses a base model or other component to build or tune its own model, how is it assessed for legal, licence and IP risk? Where is the result recorded?",
@@ -1256,7 +1299,8 @@
           "producer_flags": [],
           "rows": [
             "model_building|MAP 4.1"
-          ]
+          ],
+          "evidence_prompt": "The legal, licence and IP risk assessment of the base model or component used in the latest model build or tuning, and where the result is recorded."
         },
         {
           "question_text": "How does your organisation find and list the AI tools, features, experiments and local models that staff use without approval, and what data they receive? Who keeps that list current?",
@@ -1277,7 +1321,8 @@
           "producer_flags": [],
           "rows": [
             "invisible_usage|MAP 4.1"
-          ]
+          ],
+          "evidence_prompt": "The discovery list of unapproved AI tools, features, experiments and local models, the data each receives, the discovery method (such as network or expense review), the list owner, and last update."
         },
         {
           "question_text": "How do you identify the outside AI agents that connect to your systems? Who keeps that list current?",
@@ -1297,7 +1342,8 @@
           "producer_flags": [],
           "rows": [
             "invisible_usage|MAP 4.1"
-          ]
+          ],
+          "evidence_prompt": "The list of outside AI agents connecting to your systems, the discovery method (such as access log or API review), its owner, and the latest review date."
         },
         {
           "question_text": "For your highest-criticality AI systems, how do you review what the terms of each outside provider that receives your prompts and files say about keeping or reusing them? Where is that review recorded?",
@@ -1314,7 +1360,8 @@
           "producer_flags": [],
           "rows": [
             "input|MAP 4.1"
-          ]
+          ],
+          "evidence_prompt": "The review of provider terms on keeping or reusing prompts and files for each outside provider used by highest-criticality AI systems, where it is recorded, and the review date."
         },
         {
           "question_text": "For the models behind your most critical AI systems, how are the sources of third-party and licensed data used for training, tuning and testing identified, together with the rights to use them and any licence risk? Where is that recorded?",
@@ -1331,7 +1378,8 @@
           "producer_flags": [],
           "rows": [
             "test_tuning_data|MAP 4.1"
-          ]
+          ],
+          "evidence_prompt": "The register of third-party and licensed data used for training, tuning and testing (source, usage rights, licence risk), with its owner and the latest addition."
         },
         {
           "question_text": "For the models behind your most critical AI systems, how are the ownership of the model's weights and versions, and the licence you release them under, decided and reviewed for infringement risk? Who decides?",
@@ -1348,7 +1396,8 @@
           "producer_flags": [],
           "rows": [
             "model|MAP 4.1"
-          ]
+          ],
+          "evidence_prompt": "The decision record on weights and version ownership and the release licence, including infringement risk review notes, the decision maker, and the latest review date."
         },
         {
           "question_text": "For your highest-criticality AI systems, how do you check that you have the right to use the third-party or external content that feeds the data the AI retrieves? Where is that recorded?",
@@ -1366,7 +1415,8 @@
           "producer_flags": [],
           "rows": [
             "source_data|MAP 4.1"
-          ]
+          ],
+          "evidence_prompt": "The rights record for third-party or external content feeding each highest-criticality AI system's retrieval data (licence or permission per source), its location, and the latest check."
         },
         {
           "question_text": "For your highest-criticality AI systems, how do you keep a list of the tools and MCP servers the AI can call, for example who runs each one? Who keeps it current?",
@@ -1385,7 +1435,8 @@
           "producer_flags": [],
           "rows": [
             "mcp_tools|MAP 4.1"
-          ]
+          ],
+          "evidence_prompt": "The inventory of tools and MCP servers each highest-criticality AI system can call, including who runs each, its owner, and the date it was last reconciled with actual configuration."
         },
         {
           "question_text": "For your highest-criticality AI systems you host, how are the servers, GPUs, registries and serving software you rely on inventoried and their risks mapped? Who keeps the inventory current?",
@@ -1404,7 +1455,8 @@
           "producer_flags": [],
           "rows": [
             "hosting|MAP 4.1"
-          ]
+          ],
+          "evidence_prompt": "The inventory of servers, GPUs, registries and serving software for each hosted highest-criticality AI system, with the mapped risks, its owner, and the last update."
         }
       ],
       "decided_by": "human"
@@ -1490,7 +1542,8 @@
           "cis_refs": [
             "LLM-16.4",
             "LLM-16.5"
-          ]
+          ],
+          "evidence_prompt": "The package check procedure and a recent result (existence, source and vulnerability check on AI-suggested packages), the approved source list, and the person responsible."
         },
         {
           "question_text": "How are the controls for each vendor AI feature decided and documented, for example turning off training on your data, switching off history retention, and limiting which data classes may go to it? Who checks they are still set?",
@@ -1507,7 +1560,8 @@
           ],
           "cis_refs": [
             "LLM-15.4"
-          ]
+          ],
+          "evidence_prompt": "The control settings per vendor AI feature (training off, history retention off, permitted data classes), the document recording the decision, and the latest verification of the settings."
         },
         {
           "question_text": "For the models behind your most critical AI systems, how is it decided which base models and components may be used for building? Where is the approved list kept?",
@@ -1525,7 +1579,8 @@
           "cis_refs": [
             "LLM-2.1",
             "LLM-2.3"
-          ]
+          ],
+          "evidence_prompt": "The approved list of base models and components for building, the decision record behind it, its owner, and the latest addition or removal."
         },
         {
           "question_text": "How does your organisation decide which AI services, browser extensions and software staff may use, for example through safelists or DNS and extension limits? Who maintains those controls?",
@@ -1546,7 +1601,8 @@
             "LLM-2.5",
             "LLM-9.2",
             "LLM-9.4"
-          ]
+          ],
+          "evidence_prompt": "The configuration of controls limiting staff AI services, extensions and software (safelist, DNS or extension policy), the maintaining team, and the latest change."
         },
         {
           "question_text": "For the models behind your most critical AI systems, how are third-party datasets and feedback or logs reused for tuning reviewed for bias, privacy and poisoning risk before they enter a training, tuning or test set? Who approves them?",
@@ -1562,7 +1618,8 @@
           ],
           "cis_refs": [
             "LLM-3.1"
-          ]
+          ],
+          "evidence_prompt": "The review record for third-party datasets and reused feedback or logs before they entered a training, tuning or test set (bias, privacy, poisoning checks), and the approver."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is it controlled that the AI only retrieves and shows content the person asking is allowed to see, for example based on how the content is classified? Who approves those rules?",
@@ -1580,7 +1637,8 @@
           "cis_refs": [
             "LLM-3.3",
             "LLM-3.7"
-          ]
+          ],
+          "evidence_prompt": "The retrieval access rules for each highest-criticality AI system (for example by content classification), a test showing a restricted item not returned, and the approver."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is each tool or MCP server approved before use and held to allowed versions? Where are these controls documented?",
@@ -1599,7 +1657,8 @@
           "cis_refs": [
             "MCP-6.1",
             "MCP-2.5"
-          ]
+          ],
+          "evidence_prompt": "The approval records for tools and MCP servers in each highest-criticality AI system, the allowed-version list, and where these controls are documented."
         },
         {
           "question_text": "For the AI agents behind your highest-criticality AI systems, how are the components they are built on (models, orchestration frameworks, libraries, executors) inventoried and held to approved versions? Who owns that inventory?",
@@ -1619,7 +1678,8 @@
             "AGENT-2.1",
             "AGENT-2.5",
             "AGENT-2.6"
-          ]
+          ],
+          "evidence_prompt": "The component inventory for each agent (models, orchestration frameworks, libraries, executors) with approved versions, its owner, and the latest drift check."
         },
         {
           "question_text": "For the AI agents behind your highest-criticality AI systems, how are the licence, IP and supply-chain risks of the models, frameworks and libraries they are built on reviewed and documented? Who reviews them?",
@@ -1639,7 +1699,8 @@
           "cis_refs": [
             "AGENT-16.4",
             "AGENT-16.5"
-          ]
+          ],
+          "evidence_prompt": "The licence, IP and supply-chain review of models, frameworks and libraries behind each agent, with the reviewer, date, and any issue raised."
         },
         {
           "question_text": "For your highest-criticality AI systems you host, how is third-party hosting material (base images, serving software, models and packages pulled from registries) reviewed for vulnerabilities and approved before use? Who approves it?",
@@ -1657,7 +1718,8 @@
           "cis_refs": [
             "LLM-2.5",
             "LLM-2.6"
-          ]
+          ],
+          "evidence_prompt": "The review and approval records for third-party hosting material (base images, serving software, models, packages) with the scan result, the approver, and the latest approval."
         }
       ]
     },
@@ -1724,7 +1786,8 @@
             "MAP 5.1 — suggested action 1",
             "MAP 5.1 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The risk ratings (likelihood, severity, data sensitivity) for found unapproved AI use and outside agents, the prioritised list, and the person who decides order of handling."
         },
         {
           "question_text": "For your highest-criticality AI systems, how do you judge how likely and how serious the exposure of data through prompts and files is, based on what staff and systems actually send? Who owns that assessment?",
@@ -1743,7 +1806,8 @@
           "cis_refs": [
             "LLM-3.7",
             "LLM-3.2"
-          ]
+          ],
+          "evidence_prompt": "The exposure assessment of prompts and files for each highest-criticality AI system, based on actual sent data (such as log or sample analysis), its owner, and the latest date."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are the likelihood and size of harm from wrong or manipulated answers assessed, for example through red teaming for prompt injection? Who reviews the results?",
@@ -1761,7 +1825,8 @@
           ],
           "cis_refs": [
             "LLM-16.3"
-          ]
+          ],
+          "evidence_prompt": "The latest red-team or test report on wrong or manipulated answers (including prompt injection) per highest-criticality AI system, the harm ratings, and the reviewer's sign-off."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are the likelihood and size of harm from the AI's actions on your systems assessed, for example injected instructions, over-broad permissions or irreversible changes? Who owns that assessment?",
@@ -1780,7 +1845,8 @@
           "cis_refs": [
             "MCP-16.14",
             "AGENT-16.14"
-          ]
+          ],
+          "evidence_prompt": "The assessment of harm from AI actions on your systems (injected instructions, excess permissions, irreversible changes) per highest-criticality AI system, with its owner and date."
         },
         {
           "question_text": "For your highest-criticality AI systems you host, how are the likelihood and size of harm from cost abuse or compromise of your model serving endpoints and GPUs assessed, drawing on past incidents? Who uses the result to set priorities?",
@@ -1798,7 +1864,8 @@
           ],
           "cis_refs": [
             "LLM-17.8"
-          ]
+          ],
+          "evidence_prompt": "The risk assessment of cost abuse and compromise of serving endpoints and GPUs for each hosted system, the past incidents drawn on, and how results set priorities."
         }
       ]
     },
@@ -1861,7 +1928,8 @@
             "MEASURE 1.3 — suggested action 2",
             "MEASURE 1.3 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The latest TEVV review record or sign-off for one top-criticality AI system, showing the reviewer's name, role and independence from the build team, the date, and the findings raised. Include the list of AI systems this review covers."
         }
       ]
     },
@@ -1897,7 +1965,8 @@
           "playbook_refs": [
             "MEASURE 2.1 — suggested action 1"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The TEVV documentation for one top-criticality AI system: the test sets, metrics and tools used for accuracy, consistency and bias, and the date they were last updated. Say which AI systems have this documentation and which do not."
         },
         {
           "question_text": "For your highest-criticality AI systems, how do you record the reasoning behind the tests, for example why the test data was chosen and what the tests are meant to measure? Who reviews this?",
@@ -1913,7 +1982,8 @@
             "MAP 2.3 — suggested action 4",
             "MAP 2.3 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "A test plan or design note for one top-criticality AI system giving the rationale for the chosen test data and what each test is meant to measure, with the reviewer's approval and its date. Say which AI systems have such a note."
         },
         {
           "question_text": "For the models behind your most critical AI systems, how are the evaluation and test sets, metrics and test tools versioned? Where is this recorded?",
@@ -1930,7 +2000,8 @@
           "cis_refs": [
             "LLM-3.2",
             "LLM-11.2"
-          ]
+          ],
+          "evidence_prompt": "The version history or repository log for the evaluation and test sets, metric definitions and test tools of one critical model, showing version tags tied to model releases and the latest change. Say which models this covers."
         }
       ]
     },
@@ -1967,7 +2038,8 @@
             "MEASURE 2.2 — suggested action 2",
             "MEASURE 2.2 — suggested action 3"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The most recent gap analysis comparing the people and situations in the test cases with those actually affected, for one top-criticality AI system, with the findings, the reviewer and any follow-up actions. Say which systems it covers."
         },
         {
           "question_text": "When your evaluation sets are drawn from people (for example human-subject data or user feedback), how do you make sure consent and protection requirements are met? Who approves their use?",
@@ -1982,7 +2054,8 @@
             "MEASURE 2.2 — suggested action 1",
             "MEASURE 2.2 — suggested action 14"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The approval record and consent or data-protection check for the latest evaluation set drawn from people (user feedback, human-subject data), with the approver and the consent basis. If none is used, the rule that governs when one would be."
         }
       ]
     },
@@ -2029,7 +2102,8 @@
             "MEASURE 2.3 — suggested action 3",
             "MEASURE 2.3 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The latest performance test report for one top-criticality AI system showing realistic and messy inputs (real prompts, edge cases) alongside ideal ones, the results, and where they are stored. Say which systems and which deployment conditions it covers."
         }
       ]
     },
@@ -2219,7 +2293,8 @@
           "producer_flags": [],
           "rows": [
             "model|MEASURE 2.4"
-          ]
+          ],
+          "evidence_prompt": "The model version monitoring or registry-comparison output for one critical model showing the deployed version against the approved one, the alert recipient, and the latest mismatch or change event, if any, with its review."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is the content of the data the AI retrieves from monitored in production, for example for unexpected changes or poisoned material? Who is told when something is found?",
@@ -2255,7 +2330,8 @@
           "producer_flags": [],
           "rows": [
             "mcp_tools|MEASURE 2.4"
-          ]
+          ],
+          "evidence_prompt": "The tool and MCP server monitoring rules for one top-criticality AI system (unexpected calls, new capabilities on a known server, volume thresholds), the alert recipients, and a recent alert or review. Say which servers are covered."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is agent behaviour in production monitored for unexpected action chains, tool use and drift from what was approved? Who reviews what is flagged?",
@@ -2292,7 +2368,8 @@
           "producer_flags": [],
           "rows": [
             "hosting|MEASURE 2.4"
-          ]
+          ],
+          "evidence_prompt": "The file integrity or configuration monitoring settings on the hosts for one critical model (model files, serving configuration), the alert recipients, and the latest alert or review record. Say which hosts are covered."
         }
       ],
       "decided_by": "human"
@@ -2331,7 +2408,8 @@
             "MEASURE 2.5 — suggested action 1",
             "MEASURE 2.5 — suggested action 2"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The pre-release validation report for one top-criticality AI system showing accuracy and consistency results, and the document stating the conditions and limits beyond which its answers cannot be trusted, with the approval date."
         },
         {
           "question_text": "For your highest-criticality AI agents, how is the agent shown to complete its tasks within its autonomy limits under realistic conditions? Where is it documented what the agent must not do on its own?",
@@ -2349,7 +2427,8 @@
           ],
           "cis_refs": [
             "AGENT-16.13"
-          ]
+          ],
+          "evidence_prompt": "The pre-release test results for one top-criticality agent under realistic tasks, and the document stating what the agent must not do on its own (autonomy limits, approvals needed), with its owner and approval date. Say which agents are covered."
         }
       ]
     },
@@ -2419,7 +2498,8 @@
           "playbook_refs": [
             "MEASURE 2.6 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The fail-safe test record for one top-criticality AI-supported internal process, showing the manual fallback or hand-off procedure, the scenarios tried (wrong, unavailable, out-of-limits output), the date of the last test and its result."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is it tested that the AI declines, flags or hands over to a person when it is outside its knowledge limits, rather than giving a confident wrong answer? Where are the results recorded?",
@@ -2438,7 +2518,8 @@
           ],
           "cis_refs": [
             "LLM-16.13"
-          ]
+          ],
+          "evidence_prompt": "The latest test report showing a top-criticality AI system declining, flagging or handing over when outside its knowledge limits, with the test cases, results, date and who reviewed it. Say which systems are covered."
         },
         {
           "question_text": "For your highest-criticality customer-facing AI, how is it tested that the AI stays within bounds when the public tries to abuse it, for example with hostile or manipulative prompts? Where are the results recorded?",
@@ -2456,7 +2537,8 @@
           ],
           "cis_refs": [
             "LLM-16.13"
-          ]
+          ],
+          "evidence_prompt": "The latest abuse-resistance test report for one public-facing AI system (hostile and manipulative prompts), with the test cases, results, fixes made, date and who reviewed it. Say which customer-facing systems are covered."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is it tested that retrieval refuses to return restricted content when permission or classification checks fail or the data store misbehaves? Where are the results recorded?",
@@ -2472,7 +2554,8 @@
             "MEASURE 2.6 — suggested action 3",
             "MEASURE 2.6 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The latest test record showing retrieval refusing restricted content when permission or classification checks fail or the data store misbehaves, for one top-criticality AI system, with the date, results and any fixes. Say which stores are covered."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is it tested that the AI stops safely when a tool or MCP server errors, times out or returns something unexpected, instead of retrying or leaving partial changes? Where are the results recorded?",
@@ -2488,7 +2571,8 @@
             "MEASURE 2.6 — suggested action 3",
             "MEASURE 2.6 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The latest test record for one top-criticality AI system showing behaviour when a tool or MCP server errors, times out or returns unexpected output (stop, no retry loop, no partial changes), with the date, results and fixes."
         },
         {
           "question_text": "For your highest-criticality AI agents, how are agents tested under stress and unexpected conditions to show that loops and runaway action chains are stopped? Where are the results recorded?",
@@ -2508,7 +2592,8 @@
             "AGENT-16.10",
             "AGENT-17.9",
             "AGENT-16.13"
-          ]
+          ],
+          "evidence_prompt": "The latest stress test report for one top-criticality agent showing loop and runaway action-chain cases, the limits or kill switch that stopped them, the results, the date and who reviewed it. Say which agents are covered."
         },
         {
           "question_text": "For the servers hosting your most critical AI models, how is it tested that the service recovers after a failure, with the model and its configuration restored and verified? How often is this done?",
@@ -2526,7 +2611,8 @@
           ],
           "cis_refs": [
             "LLM-11.5"
-          ]
+          ],
+          "evidence_prompt": "The latest recovery test record for the servers hosting one critical model, showing the restore of the model and configuration, the verification step, the date, the outcome, and the test schedule. Say which hosting environments are covered."
         }
       ]
     },
@@ -2618,7 +2704,8 @@
           "producer_flags": [],
           "rows": [
             "code_generation|MEASURE 2.7"
-          ]
+          ],
+          "evidence_prompt": "The latest security test report for the AI coding assistant (non-existent or malicious package suggestions, poisoned context), with the test cases, results, date and follow-up actions. Say which assistants and teams are covered."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are the answers tested against prompt injection and other attempts to steer the AI, for example through user input or retrieved content? Where are the results recorded?",
@@ -2639,7 +2726,8 @@
           "rows": [
             "customer_facing|MEASURE 2.7",
             "output|MEASURE 2.7"
-          ]
+          ],
+          "evidence_prompt": "The latest prompt injection test report for one top-criticality AI system, covering user input and retrieved content, with the test cases, results, fixes, date and tester. Say which systems are covered."
         },
         {
           "question_text": "How do you test how your systems hold up when other people's AI agents, scrapers or MCP clients act on users' behalf at machine speed, for example through sign-in checks, rate limits or filtering? How often is this tested?",
@@ -2659,7 +2747,8 @@
           "producer_flags": [],
           "rows": [
             "invisible_usage|MEASURE 2.7"
-          ]
+          ],
+          "evidence_prompt": "The latest test or exercise record for how your systems cope with outside AI agents, scrapers or MCP clients at machine speed (sign-in checks, rate limits, filtering), with the results and date. Say which services are covered."
         },
         {
           "question_text": "For the models behind your most critical AI systems, how are the data sets used to build and evaluate the model protected against poisoning and tampering, for example changes made to hide failures? Who reviews changes to them?",
@@ -2677,7 +2766,8 @@
           "producer_flags": [],
           "rows": [
             "test_tuning_data|MEASURE 2.7"
-          ]
+          ],
+          "evidence_prompt": "The access control list and change log for the datasets used to build and evaluate one critical model, with integrity checks or hashes and the latest change review showing the reviewer. Say which models and datasets are covered."
         },
         {
           "question_text": "For the models behind your most critical AI systems, how is the model tested against theft, extraction through the API and tampering with versions? Where are the results documented?",
@@ -2691,7 +2781,8 @@
           "producer_flags": [],
           "rows": [
             "model|MEASURE 2.7"
-          ]
+          ],
+          "evidence_prompt": "The latest security test report for one critical model covering theft, API extraction and version tampering, with the test cases, results, date and where it is stored. Say which models are covered."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is the data the AI retrieves tested so that users only see what they are entitled to, for example by trying to pull out content they should not reach? Where are the results recorded?",
@@ -2709,7 +2800,8 @@
           "producer_flags": [],
           "rows": [
             "source_data|MEASURE 2.7"
-          ]
+          ],
+          "evidence_prompt": "The latest test report for one top-criticality AI system showing attempts to retrieve content a user should not reach, with the test users, results, fixes and date. Say which data stores are covered."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are the tools and MCP servers the AI can call tested for security, for example prompt injection driving tool calls or permission abuse? Where are the results recorded?",
@@ -2726,7 +2818,8 @@
           "producer_flags": [],
           "rows": [
             "mcp_tools|MEASURE 2.7"
-          ]
+          ],
+          "evidence_prompt": "The latest security test report for the tools and MCP servers one top-criticality AI system can call (injection-driven tool calls, permission abuse), with the results, fixes and date. Say which servers are covered."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are your AI agents red-teamed, for example with manipulated input that triggers actions? Where are the results documented?",
@@ -2746,7 +2839,8 @@
           "producer_flags": [],
           "rows": [
             "agent|MEASURE 2.7"
-          ]
+          ],
+          "evidence_prompt": "The latest red-team report for one top-criticality agent with manipulated-input scenarios that trigger actions, the findings, fixes and retest, and the date. Say which agents have been red-teamed."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are the servers and exposed endpoints where you host a model tested for security and resilience, for example through vulnerability scans or adversarial exercises? Who acts on the findings?",
@@ -2764,7 +2858,8 @@
           "producer_flags": [],
           "rows": [
             "hosting|MEASURE 2.7"
-          ]
+          ],
+          "evidence_prompt": "The latest vulnerability scan or adversarial exercise report for the servers and exposed endpoints hosting one model, with the findings, owners and remediation status. Say which hosts are covered."
         }
       ],
       "decided_by": "human"
@@ -2889,7 +2984,8 @@
           "rows": [
             "internal_process|MEASURE 2.8",
             "customer_facing|MEASURE 2.8"
-          ]
+          ],
+          "evidence_prompt": "A sample record for one high-impact decision or answer from a top-criticality AI system showing the AI output, the human review or override, and the output relied on, plus the log retention setting and the reviewer. Say which systems are covered."
         },
         {
           "question_text": "For AI code generation, how is its use logged, including who used which tool, what was generated and what was merged, so that AI-written code and the prompts behind it can be traced? Who can look at these records?",
@@ -2908,7 +3004,8 @@
           "producer_flags": [],
           "rows": [
             "code_generation|MEASURE 2.8"
-          ]
+          ],
+          "evidence_prompt": "An extract of the AI code generation log (user, tool, prompt, generated code, merge link), the list of tools and teams it covers, who can read it, and the retention setting."
         },
         {
           "question_text": "For the AI features your vendors run on your data, how can you trace what the AI did with your data, through the vendor's own logs or your own? How often does someone review that activity, and what evidence of the review exists?",
@@ -2927,7 +3024,8 @@
           "producer_flags": [],
           "rows": [
             "vendor_ai|MEASURE 2.8"
-          ]
+          ],
+          "evidence_prompt": "The vendor's activity log or your own log extract showing what a vendor AI feature did with your data, the review schedule, and the latest review record. Say which vendor AI features are covered."
         },
         {
           "question_text": "For the model you build or tune, how are build, tuning and release events logged, showing who did what and when, so that changes to the model and its releases can be traced and accounted for? Who reviews these records?",
@@ -2944,7 +3042,8 @@
           "producer_flags": [],
           "rows": [
             "model_building|MEASURE 2.8"
-          ]
+          ],
+          "evidence_prompt": "An extract of the model build, tuning and release log (who, what, when) for one model, the list of models covered, and the latest review record with the reviewer."
         },
         {
           "question_text": "How do your logs show AI use you did not choose — AI services your staff reach, and outside AI agents or tools calling your systems — and under whose identity? Who reviews this?",
@@ -2965,7 +3064,8 @@
           "producer_flags": [],
           "rows": [
             "invisible_usage|MEASURE 2.8"
-          ]
+          ],
+          "evidence_prompt": "A log extract or report showing staff access to AI services and outside AI agents or tools calling your systems, including the identity recorded, the sources covered, and the latest review record."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are prompts and responses logged as a record of who sent what? Who can read those logs, and how long are they kept?",
@@ -2985,7 +3085,8 @@
           "producer_flags": [],
           "rows": [
             "input|MEASURE 2.8"
-          ]
+          ],
+          "evidence_prompt": "An extract of the prompt and response log for one top-criticality AI system showing sender, content and time, the access list for the logs, and the retention setting. Say which systems are covered."
         },
         {
           "question_text": "For your highest-criticality AI systems, when an answer turns out to be wrong or manipulated, how do your records let you trace how it came about — which model version, instructions and sources produced it — and who or what relied on it? Who owns this?",
@@ -3020,7 +3121,8 @@
           "producer_flags": [],
           "rows": [
             "test_tuning_data|MEASURE 2.8"
-          ]
+          ],
+          "evidence_prompt": "An extract of the change and access log for the training, tuning and evaluation data and the test harness, showing named individuals, plus the latest review record and who reviewed it. Say which datasets are covered."
         },
         {
           "question_text": "For your own model, how are access to its weights, system prompts and configurations, and changes to model versions, logged so that copying or tampering can be traced to a person? Who reviews these records and how long are they kept?",
@@ -3038,7 +3140,8 @@
           "producer_flags": [],
           "rows": [
             "model|MEASURE 2.8"
-          ]
+          ],
+          "evidence_prompt": "An extract of the access and change log for one model's weights, system prompts, configuration and version changes, tied to named people, plus the retention setting and latest review record."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are retrievals from the data your AI looks up, and changes to that data, logged, showing who asked and what was returned, so that access to sensitive content through the AI can be traced? Who reviews these logs?",
@@ -3056,7 +3159,8 @@
           "producer_flags": [],
           "rows": [
             "source_data|MEASURE 2.8"
-          ]
+          ],
+          "evidence_prompt": "An extract of the retrieval and data-change log for one top-criticality AI system (requester, query, content returned, changes to the store), the latest review record, and the stores covered."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is each action the AI takes through tools or on your systems logged, with the credentials or identity it used and what it did, so that it can be traced back to the request and approval behind it? Who reviews these logs, and how long are they kept?",
@@ -3080,7 +3184,8 @@
           "rows": [
             "mcp_tools|MEASURE 2.8",
             "agent|MEASURE 2.8"
-          ]
+          ],
+          "evidence_prompt": "An extract of the action log for one top-criticality AI system showing each tool or system action with the identity or credentials used, the originating request and the approval, plus the retention setting and latest review. Say which agents and servers are covered."
         },
         {
           "question_text": "For your highest-criticality AI systems that you host, how are administrative actions, model registry changes, secret access and serving endpoint activity logged so that actions can be traced and accounted for? Who reviews them, and how often?",
@@ -3099,7 +3204,8 @@
           "producer_flags": [],
           "rows": [
             "hosting|MEASURE 2.8"
-          ]
+          ],
+          "evidence_prompt": "A log extract of administrative actions, model registry changes, secret access and serving endpoint activity for one hosted AI system, the review frequency and latest review record. Say which hosted systems are covered."
         }
       ],
       "decided_by": "human"
@@ -3131,7 +3237,8 @@
           "playbook_refs": [
             "MEASURE 2.9 — suggested action 1"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "Screenshots or samples of how one top-criticality AI system presents answers (basis, confidence level, known limits), the design decision record saying who decided what context is shown, and the date. Say which systems are covered."
         }
       ]
     },
@@ -3223,7 +3330,8 @@
           "producer_flags": [],
           "rows": [
             "customer_facing|MEASURE 2.10"
-          ]
+          ],
+          "evidence_prompt": "The monitoring rules for personal or confidential data in answers from one public-facing AI system, the latest detected leak or review with its outcome, and the reviewer. Say which customer-facing systems are covered."
         },
         {
           "question_text": "How do you check whether personal, regulated or confidential data is being sent to AI tools nobody approved, for example through data loss prevention on AI traffic? Who follows up what is found?",
@@ -3295,7 +3403,8 @@
           "producer_flags": [],
           "rows": [
             "test_tuning_data|MEASURE 2.10"
-          ]
+          ],
+          "evidence_prompt": "The privacy review or data minimisation record for one model's training and tuning data (discovery scan, removal or masking steps), and the document recording reuse of feedback or logs for tuning. Say which models are covered."
         },
         {
           "question_text": "For your highest-criticality AI systems, that retrieve from a data store, how do you check whether personal and sensitive data in that store could be exposed through the AI, for example by classifying what it holds? Who owns that check?",
@@ -3313,7 +3422,8 @@
           "producer_flags": [],
           "rows": [
             "source_data|MEASURE 2.10"
-          ]
+          ],
+          "evidence_prompt": "The classification or discovery scan report for the data store one top-criticality AI system retrieves from, showing personal and sensitive data found, the exposure assessment and the named owner. Say which stores are covered."
         },
         {
           "question_text": "For your highest-criticality AI systems, that call tools or MCP servers, how is the privacy risk examined of personal data flowing to those servers and outside services, for example what leaves and to whom? Who reviews it?",
@@ -3331,7 +3441,8 @@
           "producer_flags": [],
           "rows": [
             "mcp_tools|MEASURE 2.10"
-          ]
+          ],
+          "evidence_prompt": "The privacy risk assessment for one top-criticality AI system's tool and MCP server use, showing what personal data goes to which servers or outside services, with the reviewer and date. Say which servers are covered."
         },
         {
           "question_text": "For your highest-criticality AI systems, that act as agents, how is the privacy risk examined of personal data the agent keeps in memory across sessions or moves between systems by its actions? Who owns that review?",
@@ -3346,7 +3457,8 @@
           "producer_flags": [],
           "rows": [
             "agent|MEASURE 2.10"
-          ]
+          ],
+          "evidence_prompt": "The privacy risk assessment for one top-criticality agent covering memory kept across sessions and data moved between systems, with retention settings, the named owner and date. Say which agents are covered."
         }
       ],
       "decided_by": "human"
@@ -3378,7 +3490,8 @@
             "MEASURE 2.11 — suggested action 1",
             "MEASURE 2.11 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The latest bias test report for one top-criticality AI system comparing treatment of people or groups, with the method, groups compared, results, date and where it is stored. Say which systems are covered."
         }
       ]
     },
@@ -3408,7 +3521,8 @@
             "MEASURE 2.12 — suggested action 2",
             "MEASURE 2.12 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The environmental impact assessment or compute and energy usage report for training and tuning runs of one critical model, with the method used, the latest figures and where it is recorded. Say which models are covered."
         }
       ]
     },
@@ -3444,7 +3558,8 @@
           "playbook_refs": [
             "MEASURE 2.13 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The most recent review of the accuracy, consistency and bias tests for one top-criticality AI system, showing whether they catch known bad answers, the reviewer, the date, and the review schedule. Say which systems are covered."
         },
         {
           "question_text": "How often are the evaluation set and test harness for your models reviewed to confirm they still catch real failures, for example that they are refreshed and have not leaked into training? Who does the review?",
@@ -3458,7 +3573,8 @@
           "playbook_refs": [
             "MEASURE 2.13 — suggested action 1"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The latest review record for the evaluation set and test harness of one model, showing refresh dates, checks that the set has not leaked into training, the reviewer, and the review schedule."
         }
       ]
     },
@@ -3523,7 +3639,8 @@
           "playbook_refs": [
             "MEASURE 3.3 — suggested action 2"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The customer feedback or appeal channel for one customer-facing AI system (form, contact route, appeal procedure), the latest summary of counted and analysed reports, and the named owner. Say which systems are covered."
         },
         {
           "question_text": "How can recipients of a model you have released report problems with it? Who turns those reports into changes in building and tuning?",
@@ -3606,7 +3723,8 @@
             "MEASURE 4.2 — suggested action 1",
             "MEASURE 4.2 — suggested action 5"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The latest staff feedback survey results or override-rate report for one top-criticality internal AI system, showing over- or under-reliance measures, the reviewer and date. Say which systems are covered."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is feedback from the people who use them, positive and negative, used to judge whether the AI performs as intended, for example alongside how often its output is overridden? Who reviews it?",
@@ -3623,7 +3741,8 @@
             "MEASURE 4.2 — suggested action 1",
             "MEASURE 4.2 — suggested action 5"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The latest summary of user feedback (positive and negative) and override rates for one top-criticality AI system, with the review record and the named reviewer. Say which systems and user groups are covered."
         },
         {
           "question_text": "For your highest-criticality AI systems, how do domain experts and users confirm that answers are valid, reliable and consistent in real use? How often is this done?",
@@ -3639,7 +3758,8 @@
             "MEASURE 4.2 — suggested action 3",
             "MEASURE 4.2 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The latest validation record from domain experts or users for one top-criticality AI system (sample answers checked, results, consistency), the names and roles of those involved, the date, and the schedule."
         }
       ]
     },
@@ -3671,7 +3791,8 @@
             "MEASURE 4.3 — suggested action 1",
             "MEASURE 4.3 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The baseline definition and the latest trend report for answer quality of one top-criticality AI system, showing improvements or declines over time, the dates compared, and where the results are stored. Say which systems are covered."
         }
       ]
     },
@@ -3724,7 +3845,8 @@
           ],
           "cis_refs": [
             "LLM-15.6"
-          ]
+          ],
+          "evidence_prompt": "The register of vendor AI features that touch your data with each feature's keep/disable decision, risk rationale and named owner, plus the latest record where a vendor change (new feature or terms) was reviewed, and the feature's data settings."
         },
         {
           "question_text": "Before you release a model version you built or tuned, how is the decision made on whether it meets its intended purpose and should go ahead? Who signs it off?",
@@ -3741,7 +3863,8 @@
           ],
           "cis_refs": [
             "LLM-16.8"
-          ]
+          ],
+          "evidence_prompt": "The release approval record for the latest model version you built or tuned: the intended-purpose criteria, evaluation results against them, the go/no-go decision, approver and date. Say which models it covers and the release gate procedure."
         },
         {
           "question_text": "For your highest-criticality AI systems, how do you decide from test results whether the AI's answers are good enough for the intended purpose to keep using it? Who makes that call?",
@@ -3757,7 +3880,8 @@
             "MANAGE 1.1 — suggested action 2",
             "MANAGE 1.1 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "For each highest-criticality AI system, the latest evaluation report against its stated purpose and acceptance thresholds, the continue/stop decision with decision-maker and date, and the procedure that sets how often this is reviewed."
         },
         {
           "question_text": "For your highest-criticality AI agents, how do you decide from test and monitoring results whether an agent still achieves its purpose and should keep its current autonomy? Who decides?",
@@ -3773,7 +3897,8 @@
             "MANAGE 1.1 — suggested action 3",
             "MANAGE 1.1 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "For each highest-criticality agent, the latest review combining test and monitoring results (task success, errors, overrides), the decision on keeping or changing its autonomy level, the named decider and date, and the review schedule."
         }
       ]
     },
@@ -3863,7 +3988,8 @@
           "playbook_refs": [
             "MANAGE 2.2 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The business rules, second-approval steps or output limits configured for each highest-criticality internal-decision AI system, the list of decisions they cover, the latest log or sample showing a blocked or escalated case, and who last confirmed them."
         },
         {
           "question_text": "For your highest-criticality AI systems, how do business rules or output guardrails limit what the AI can say or do in a given context, for example filters, throttling or stopping an answer from triggering a payment? Who checks they keep working?",
@@ -3883,7 +4009,8 @@
           "cis_refs": [
             "LLM-13.10",
             "LLM-16.11"
-          ]
+          ],
+          "evidence_prompt": "The guardrail configuration (output filters, throttling, action limits) for each highest-criticality AI system, the latest test or log extract showing a block firing, and the record of the last check that these controls still work."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is sensitive data kept out of what is sent to the model, for example by removing or blocking it? Who checks that this works?",
@@ -3901,7 +4028,8 @@
           "cis_refs": [
             "LLM-3.1",
             "LLM-3.13"
-          ]
+          ],
+          "evidence_prompt": "The data-handling rule and the filter, redaction or DLP configuration applied to prompts for each highest-criticality AI system, a recent log extract of blocked or masked sensitive data, and the latest check of its effectiveness."
         },
         {
           "question_text": "For the data you use to train, tune and test your models, how are controls such as quality checks, minimisation, retention and deletion on request applied in practice? Who owns them?",
@@ -3919,7 +4047,8 @@
             "LLM-3.1",
             "LLM-3.4",
             "LLM-3.5"
-          ]
+          ],
+          "evidence_prompt": "The data management procedure for training, tuning and test data covering quality checks, minimisation, retention schedule and deletion on request, the named owner, and the latest example of a deletion or quality check carried out, if any."
         },
         {
           "question_text": "How is access to your model weights, fine-tuned versions and system prompts restricted and protected, for example by encryption and protected backups? Who reviews who has access?",
@@ -3956,7 +4085,8 @@
           "cis_refs": [
             "LLM-3.4",
             "LLM-3.5"
-          ]
+          ],
+          "evidence_prompt": "For each highest-criticality retrieval-based AI system, the source content inventory with owners and review dates, the retirement or refresh procedure, and the latest example of outdated material removed from the index."
         },
         {
           "question_text": "For your highest-criticality AI systems, how do you keep what the tools and MCP servers the AI calls can do within bounds, for example permissions narrower than the user's, short-lived credentials or rate limits? Who checks these still work?",
@@ -3975,7 +4105,8 @@
             "MCP-5.2",
             "MCP-6.7",
             "MCP-6.8"
-          ]
+          ],
+          "evidence_prompt": "The permission settings and credential configuration (scopes, expiry, rate limits) of each tool and MCP server the highest-criticality AI systems call, compared to user permissions, and the record of the latest review of them."
         },
         {
           "question_text": "For your highest-criticality AI agents, how are limits on what an agent can do applied, for example least-privilege identities, approval for irreversible steps and caps on rate and cost? Who reviews them?",
@@ -4012,7 +4143,8 @@
           "cis_refs": [
             "LLM-12.3",
             "LLM-12.2"
-          ]
+          ],
+          "evidence_prompt": "For each self-hosted highest-criticality AI system, the serving endpoint configuration (authentication gateway, network isolation rules, rate limits), the list of who can reach it, and the latest review or scan of this setup."
         }
       ]
     },
@@ -4133,7 +4265,8 @@
           "cis_refs": [
             "LLM-17.4",
             "LLM-17.3"
-          ]
+          ],
+          "evidence_prompt": "The procedure for responding to a decision based on wrong or misused AI output, with the named response lead, and the latest incident or exercise record showing how the decision was reversed, the AI's use corrected and lessons captured, if any."
         },
         {
           "question_text": "When a secret leaks into a prompt, or an invented or malicious dependency reaches your code base through an AI coding tool, how do you respond and recover? Who leads the response?",
@@ -4151,7 +4284,8 @@
           "cis_refs": [
             "LLM-17.4",
             "LLM-17.3"
-          ]
+          ],
+          "evidence_prompt": "The response procedure for a secret leaked into a prompt or a bad dependency introduced by an AI coding tool (rotation, removal, dependency review), and the latest incident or exercise record with lead, actions and date, if any."
         },
         {
           "question_text": "For your highest-criticality customer-facing AI systems, how do you respond to and recover from a problem a customer reports or a newly found risk? Who owns the response?",
@@ -4169,7 +4303,8 @@
           ],
           "cis_refs": [
             "LLM-17.4"
-          ]
+          ],
+          "evidence_prompt": "The response procedure for customer-reported AI problems and newly found risks in each highest-criticality customer-facing AI system, the named owner, and the latest case record from report to closure, if any."
         },
         {
           "question_text": "When a new risk appears in a vendor's AI feature, such as a changed data practice or a vendor-side leak, how do you respond and recover? Who leads the response?",
@@ -4205,7 +4340,8 @@
           "cis_refs": [
             "LLM-17.4",
             "LLM-17.8"
-          ]
+          ],
+          "evidence_prompt": "The response and rebuild procedure for a problem in a released model, naming the lead, the steps to retrain, restore or withdraw the version, and the latest incident or exercise record showing the rebuild, if any."
         },
         {
           "question_text": "If data leaves through an AI tool nobody approved, or an outside agent misuses access to your systems, how do you respond and recover? Who do staff report it to?",
@@ -4243,7 +4379,8 @@
           "cis_refs": [
             "LLM-17.4",
             "LLM-17.3"
-          ]
+          ],
+          "evidence_prompt": "The procedure for sensitive data found sent to a model or provider (containment, provider deletion request, recovery), the named lead, and the latest incident or exercise record, with the provider's response, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, how do you respond to and recover from a newly found problem with its answers, such as an injection route, a bias or a drift? Who leads the response?",
@@ -4261,7 +4398,8 @@
           ],
           "cis_refs": [
             "LLM-17.4"
-          ]
+          ],
+          "evidence_prompt": "The response procedure for newly found output problems (injection route, bias, drift) in each highest-criticality AI system, the named lead, and the latest incident record showing detection, fix, re-test and closure, if any."
         },
         {
           "question_text": "When poisoned or tampered training, tuning or evaluation data is found, how do you respond and restore a clean, verified copy of the data and the test cases? Who leads the response?",
@@ -4279,7 +4417,8 @@
             "LLM-17.4",
             "LLM-11.1",
             "LLM-11.5"
-          ]
+          ],
+          "evidence_prompt": "The procedure for restoring a clean verified copy of training, tuning and evaluation data and test cases after poisoning or tampering, the backup and integrity-check records, and the latest restore test or incident record, if any."
         },
         {
           "question_text": "When your model or its configuration is found stolen, leaked or tampered with, how do you respond and recover? Who leads the response?",
@@ -4296,7 +4435,8 @@
           "cis_refs": [
             "LLM-17.4",
             "LLM-17.3"
-          ]
+          ],
+          "evidence_prompt": "The response procedure for a stolen, leaked or tampered model or configuration (revocation, rollback, rebuild), the named lead, and the latest incident or exercise record, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems that retrieve from your own data, when content is found poisoned or leaked, how is the store put right and back in service, for example by re-indexing and an access review? Who runs that?",
@@ -4313,7 +4453,8 @@
           ],
           "cis_refs": [
             "LLM-17.4"
-          ]
+          ],
+          "evidence_prompt": "The runbook for putting a poisoned or leaked retrieval store right (removal of content, re-indexing, access review), the named runner, and the latest incident or exercise record covering each highest-criticality retrieval system, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, when a tool or MCP server incident happens, such as a misused credential, an injected call or a compromised server, how do you respond and recover? Who leads the response?",
@@ -4331,7 +4472,8 @@
           "cis_refs": [
             "MCP-17.4",
             "MCP-17.3"
-          ]
+          ],
+          "evidence_prompt": "The incident procedure for tool or MCP server incidents (misused credential, injected call, compromised server) covering credential rotation and server isolation, the named lead, and the latest incident or exercise record, if any."
         },
         {
           "question_text": "For your highest-criticality AI agents, how do you respond to an agent incident, including reversing the changes the agent made? Who leads the response?",
@@ -4350,7 +4492,8 @@
           "cis_refs": [
             "AGENT-17.4",
             "AGENT-17.5"
-          ]
+          ],
+          "evidence_prompt": "The agent incident runbook including how the agent's changes are listed and reversed, the named lead, the agent's action log used for it, and the latest incident or exercise record showing a rollback, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems that you host yourself, how do you respond to and recover hosting from compromise, outage or abuse, including restoring from backups? Who leads the response?",
@@ -4369,7 +4512,8 @@
           "cis_refs": [
             "LLM-17.4",
             "LLM-11.1"
-          ]
+          ],
+          "evidence_prompt": "The recovery procedure for a compromised, failed or abused self-hosted AI endpoint, backup and restore settings with the latest restore test, the named lead, and the latest incident or exercise record, if any."
         }
       ]
     },
@@ -4484,7 +4628,8 @@
           ],
           "cis_refs": [
             "LLM-17.9"
-          ]
+          ],
+          "evidence_prompt": "For each highest-criticality AI system, the documented bypass or switch-off procedure and any trigger thresholds, the list of people authorised to use it, and the latest test or actual use of the switch-off with date and result."
         },
         {
           "question_text": "If an AI coding assistant leaks secrets or keeps suggesting invented or malicious packages, how can it be switched off or its access revoked quickly? Who decides?",
@@ -4503,7 +4648,8 @@
           "cis_refs": [
             "LLM-17.9",
             "LLM-17.4"
-          ]
+          ],
+          "evidence_prompt": "The procedure and settings to disable an AI coding assistant or revoke its access, the named decider, the secret-leak or bad-package trigger criteria, and the latest test or actual use of the switch-off, if any."
         },
         {
           "question_text": "How can you switch off a vendor's AI feature, or revoke the vendor's access to your data, when it behaves outside intended use or its terms change? Who can do that?",
@@ -4522,7 +4668,8 @@
           "cis_refs": [
             "LLM-15.7",
             "LLM-17.9"
-          ]
+          ],
+          "evidence_prompt": "For each vendor AI feature on your data, the admin setting or contract clause allowing it to be turned off or access revoked, the named person who can do so, and the latest instance or test of disabling a feature, if any."
         },
         {
           "question_text": "When a model release you gave to others performs against its intended use, how can it be withdrawn or superseded and recipients told? Who is responsible?",
@@ -4563,7 +4710,8 @@
             "LLM-6.2",
             "MCP-1.2",
             "AGENT-1.2"
-          ]
+          ],
+          "evidence_prompt": "The blocking and access revocation procedure for unapproved AI tools and outside agents or MCP clients (network, identity and gateway controls), the named authorised people, and the latest case where access was blocked and revoked, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, how can sending input to a model or provider be stopped quickly when sensitive data is found leaving? Who decides?",
@@ -4581,7 +4729,8 @@
           ],
           "cis_refs": [
             "LLM-17.9"
-          ]
+          ],
+          "evidence_prompt": "For each highest-criticality AI system, the control that stops input going to a model or provider (egress block, key disablement), the named decider, and the latest test or actual use with date and result."
         },
         {
           "question_text": "When a model version is found tampered with or leaked, how is it withdrawn from use, for example rolled back to a trusted version with access to it revoked? Who does that?",
@@ -4599,7 +4748,8 @@
           "cis_refs": [
             "LLM-11.1",
             "LLM-6.2"
-          ]
+          ],
+          "evidence_prompt": "The rollback procedure to a trusted model version, the model registry or version history showing approved versions, the access revocation steps, and the latest rollback test or actual withdrawal record, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems that retrieve from your own data, how can a source or the whole store be disconnected from retrieval quickly when found poisoned or over-exposed? Who decides?",
@@ -4617,7 +4767,8 @@
           ],
           "cis_refs": [
             "LLM-17.9"
-          ]
+          ],
+          "evidence_prompt": "For each highest-criticality retrieval-based system, the steps and settings to disconnect a source or the whole store from retrieval, the named decider, and the latest test or actual disconnection record, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, how can a tool, credential or MCP server the AI uses be switched off or revoked quickly when it misbehaves? Who owns that?",
@@ -4656,7 +4807,8 @@
           "cis_refs": [
             "AGENT-6.2",
             "AGENT-17.9"
-          ]
+          ],
+          "evidence_prompt": "For each highest-criticality agent, the stop or kill-switch setting, the access revocation steps for its identity, the list of people authorised to use them, and the latest test or actual use with date and outcome."
         },
         {
           "question_text": "For your highest-criticality AI systems that you host yourself, how can a hosted endpoint be disabled or isolated, or its keys revoked, when compromise or cost abuse is detected? Who may do that?",
@@ -4674,7 +4826,8 @@
           ],
           "cis_refs": [
             "LLM-17.9"
-          ]
+          ],
+          "evidence_prompt": "For each self-hosted AI endpoint, the procedure and settings to disable or isolate it and revoke its API keys, the people authorised to do so, any cost or abuse alert thresholds, and the latest test or actual use."
         }
       ]
     },
@@ -4725,7 +4878,8 @@
           ],
           "cis_refs": [
             "LLM-15.6"
-          ]
+          ],
+          "evidence_prompt": "The vendor AI change-monitoring record (new AI features, model provider changes, terms updates) with the date of the latest review, the check that agreed data controls still apply, the named owner, and the vendor list it covers."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is third-party and external content that feeds the data the AI retrieves monitored over time for new risks, not only checked when it is first added? Who owns this?",
@@ -4740,7 +4894,8 @@
           "playbook_refs": [
             "MANAGE 3.1 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "For each highest-criticality retrieval-based system, the list of third-party and external content sources feeding the index, the schedule and record of their latest re-review, any risk found, and the named owner."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are outside MCP servers and tool suppliers monitored for changes and risks, for example new versions or changed permissions? Where are the risk controls applied to them recorded?",
@@ -4758,7 +4913,8 @@
           ],
           "cis_refs": [
             "MCP-15.6"
-          ]
+          ],
+          "evidence_prompt": "The inventory of outside MCP servers and tool suppliers for each highest-criticality AI system, the change-monitoring record (new versions, changed permissions) with its latest date, and where the risk controls applied to each are documented."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are the risks from third-party hosting infrastructure, for example cloud, GPU and model registry providers, monitored? Who reviews what is found?",
@@ -4773,7 +4929,8 @@
           "playbook_refs": [
             "MANAGE 3.1 — suggested action 9"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The list of third-party hosting providers (cloud, GPU, model registry) used by each highest-criticality AI system, their latest risk review or assurance report, the issues found, and the reviewer."
         }
       ]
     },
@@ -4808,7 +4965,8 @@
           "cis_refs": [
             "LLM-16.2",
             "LLM-2.1"
-          ]
+          ],
+          "evidence_prompt": "The inventory of pre-trained base models you build on with source, version and owner, the vulnerability or advisory monitoring method and its latest review record, and any action taken on a finding, if any."
         }
       ]
     },
@@ -4871,7 +5029,8 @@
           "producer_flags": [],
           "rows": [
             "customer_facing|MANAGE 4.1"
-          ]
+          ],
+          "evidence_prompt": "For each highest-criticality customer-facing AI application, the channel for customer feedback, appeals and human-override requests, a recent log extract of items received and their outcomes, and the named reviewer and review frequency."
         },
         {
           "question_text": "For your highest-criticality AI systems, how are answers re-tested after go-live for accuracy, bias and security, for example through red teaming? How often is this done?",
@@ -4887,7 +5046,8 @@
           "producer_flags": [],
           "rows": [
             "output|MANAGE 4.1"
-          ]
+          ],
+          "evidence_prompt": "The post-go-live re-test plan for each highest-criticality AI system (accuracy, bias, security, red teaming), its frequency, the latest test report with findings and actions, and the date of the last run."
         },
         {
           "question_text": "For your highest-criticality AI systems, how does a deletion or correction request reach the data the AI retrieves and its index? Where is this recorded?",
@@ -4923,7 +5083,8 @@
           "rows": [
             "mcp_tools|MANAGE 4.1",
             "agent|MANAGE 4.1"
-          ]
+          ],
+          "evidence_prompt": "The change approval records for the latest change to tools, permissions or configuration (including removals) of each highest-criticality AI system, the approver, the change procedure, and the post-change check."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is the model's behaviour re-checked after an update to the hosting stack, for example servers, GPU drivers or serving software? Who approves the rollout?",
@@ -4941,7 +5102,8 @@
           "producer_flags": [],
           "rows": [
             "hosting|MANAGE 4.1"
-          ]
+          ],
+          "evidence_prompt": "The change procedure for hosting stack updates (servers, GPU drivers, serving software), the post-update behaviour test results for the latest update to each highest-criticality AI system, and the rollout approval with approver and date."
         }
       ],
       "decided_by": "human"
@@ -4985,7 +5147,8 @@
           "playbook_refs": [
             "MANAGE 4.2 — suggested action 2"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "For each highest-criticality customer-facing AI application, the log of customer feedback with decisions on what to act on and who decided, the improvement measures set, and the latest release note showing a measured result."
         },
         {
           "question_text": "For the models behind your most critical AI systems, how are changes to how the model is built or tuned, and new versions, reviewed and approved before release? Who approves them?",
@@ -5018,7 +5181,8 @@
           "playbook_refs": [
             "MANAGE 4.2 — suggested action 2"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The communication to recipients of the latest released model version (release notes, change summary, feedback channel), the log of feedback collected, and the procedure that sets how recipients are engaged before a release, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, when answers are found to be wrong, biased or inconsistent, how is each fix, for example a change to prompts, data, the model or rules, re-tested to show a measurable improvement? Who signs it off?",
@@ -5036,7 +5200,8 @@
           ],
           "cis_refs": [
             "LLM-18.3"
-          ]
+          ],
+          "evidence_prompt": "For the latest wrong, biased or inconsistent answer found in each highest-criticality AI system, the fix record (prompt, data, model or rule change), the before/after re-test results showing improvement, and the sign-off with name and date."
         }
       ]
     },
@@ -5144,7 +5309,8 @@
             "output|MANAGE 4.3",
             "mcp_tools|MANAGE 4.3",
             "agent|MANAGE 4.3"
-          ]
+          ],
+          "evidence_prompt": "The AI error and incident register or ticket category for the highest-criticality AI systems, the latest recorded entry with cause analysis and reviewer, and the reporting procedure that covers the areas in scope, such as agents, tools and code generation."
         },
         {
           "question_text": "For your highest-criticality AI systems, when the AI gives a wrong or harmful result or takes an unexpected action, how are the people affected told? Who decides what is communicated?",
@@ -5164,7 +5330,8 @@
             "output|MANAGE 4.3",
             "mcp_tools|MANAGE 4.3",
             "agent|MANAGE 4.3"
-          ]
+          ],
+          "evidence_prompt": "The procedure and decision rule for telling people affected by wrong or harmful AI results or unexpected actions, the named decider, and the latest notification sent or drafted, if any, covering the AI systems in scope."
         },
         {
           "question_text": "How does a problem with a vendor's AI feature, for example a wrong result or an exposure of your data, get from the vendor to your organisation and into your incident records? Who on your side follows it up?",
@@ -5183,7 +5350,8 @@
           "producer_flags": [],
           "rows": [
             "vendor_ai|MANAGE 4.3"
-          ]
+          ],
+          "evidence_prompt": "The route by which vendor AI problems reach you (vendor contact, notification clause in the contract or DPA), the latest vendor-reported issue recorded in your incident log, and the named person who followed it up, if any."
         },
         {
           "question_text": "When an error or incident is found in a model you have released, how are the people who received it told? Who decides what is communicated?",
@@ -5199,7 +5367,8 @@
           ],
           "rows": [
             "model_building|MANAGE 4.3"
-          ]
+          ],
+          "evidence_prompt": "The notification procedure for recipients of a released model with error or incident, the named decider, the recipient contact list, and the latest notice sent, if any."
         },
         {
           "question_text": "For the models behind your most critical AI systems, how do you keep a record of changes to the model or its setup and the reason for each change? Where is it kept?",
@@ -5214,7 +5383,8 @@
           "producer_flags": [],
           "rows": [
             "model_building|MANAGE 4.3"
-          ]
+          ],
+          "evidence_prompt": "The change log or model registry history for the most critical models showing each change to the model or setup, the reason, the approver and date, and where the log is kept and who can edit it."
         },
         {
           "question_text": "How are incidents and near-misses from AI use nobody approved, or from other people's agents reaching your systems, recorded and communicated to those affected? Who reviews them afterwards?",
@@ -5234,7 +5404,8 @@
           "producer_flags": [],
           "rows": [
             "invisible_usage|MANAGE 4.3"
-          ]
+          ],
+          "evidence_prompt": "The record of incidents and near-misses from unapproved AI use or outside agents reaching your systems, the latest entry showing who was told and the post-incident review, and the procedure for recording and communicating them, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, when sensitive data sent to the AI is found to have been exposed, how are the affected people, providers and regulators told? Who decides who must be told?",
@@ -5249,7 +5420,8 @@
           "producer_flags": [],
           "rows": [
             "input|MANAGE 4.3"
-          ]
+          ],
+          "evidence_prompt": "The notification procedure for exposed sensitive data sent to an AI, the decision record on who must be told (affected people, providers, regulators) with the decider, and the latest notification or exercise record, if any."
         },
         {
           "question_text": "For the infrastructure that hosts your most critical AI models, how are incidents such as compromise, outage or cost abuse recorded, communicated to those affected and reviewed afterwards? Who leads the review?",
@@ -5268,7 +5440,8 @@
           "producer_flags": [],
           "rows": [
             "hosting|MANAGE 4.3"
-          ]
+          ],
+          "evidence_prompt": "For infrastructure hosting the most critical AI models, the incident log entries for compromise, outage or cost abuse, the communication sent to those affected, and the latest post-incident review with its lead, if any."
         }
       ],
       "decided_by": "human"
@@ -5288,5 +5461,5 @@
     "needs_human_review": 0,
     "questions": 203
   },
-  "source_sha": "d2b9efc37761d707"
+  "source_sha": "d22069d6e01db529"
 }
