@@ -199,6 +199,33 @@ class Recording(unittest.TestCase):
         n = json.loads(R.CSF_IMPACT_NOTES.read_text())["notes"]["PR.AA-05"]
         self.assertEqual(set(n), {"exposure", "use"})
 
+    def test_notes_review(self):
+        long = "x" * 40
+        self.assertEqual(self.run_mode("notes", {"PR.AA-05": {"exposure": long},
+                                                 "DE.CM-01": {"exposure": long}}), 0)
+        notes = lambda: json.loads(R.CSF_IMPACT_NOTES.read_text())["notes"]   # noqa: E731
+        bad = {
+            "unknown subcategory": [{"subcategory_id": "PR.AA-01", "note": "exposure", "reason": "x"}],
+            "use note without a use layer": [{"subcategory_id": "PR.AA-05", "note": "base_rag", "reason": "x"}],
+            "unknown note": [{"subcategory_id": "PR.AA-05", "note": "title", "reason": "x"}],
+            "no reason": [{"subcategory_id": "PR.AA-05", "note": "exposure", "reason": " "}],
+            "not a list": {"PR.AA-05": "x"},
+        }
+        for name, data in bad.items():
+            self.assertEqual(self.run_mode("notes-review", data), 1, name)
+        self.assertEqual(self.run_mode("notes-review", [{"subcategory_id": "PR.AA-05", "note": "use",
+                                                         "reason": "Check 5: use layer missing."}]), 0)
+        self.assertEqual((notes()["PR.AA-05"]["status"], notes()["DE.CM-01"]["status"]), ("needs_human_review", "pass"))
+        self.assertEqual(notes()["PR.AA-05"]["review_reason"], "use: Check 5: use layer missing.")
+        self.assertEqual(self.run_mode("notes", {"PR.AA-05": {"exposure": long + " rewritten"}}), 0)
+        self.assertNotIn("status", notes()["PR.AA-05"])                 # rewritten: to be reviewed again
+        doc = json.loads(R.CSF_IMPACT_NOTES.read_text())
+        doc["notes"]["DE.CM-01"]["decided_by"] = "human"
+        R.CSF_IMPACT_NOTES.write_text(json.dumps(doc))
+        self.assertEqual(self.run_mode("notes", {"DE.CM-01": {"exposure": long + " overwritten"}}), 1)
+        self.assertEqual(self.run_mode("notes-review", [{"subcategory_id": "DE.CM-01", "note": "exposure",
+                                                         "reason": "x"}]), 1)
+
 
     def test_prepare_batch_areas(self):
         P.mapping_status = lambda: (True, "accepted")

@@ -1,0 +1,233 @@
+{
+  "recorded_at": "2026-10-31T10:59:28.571701+00:00",
+  "step": "record_ai_bank_notes-review",
+  "decided_by": "agent",
+  "model": "claude-opus-5-5",
+  "session": null,
+  "prompts": [
+    {
+      "path": "prompts/ai_impact_notes_evaluator.md",
+      "sha": "11822991fda4a232"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/notes_review.json",
+    "sha": "3a9c7ae5c940c6d3"
+  },
+  "store": {
+    "path": "data/csf/ai_impact_notes.json",
+    "sha": "28fa4ef1ef3252bd"
+  },
+  "output_snapshot": [
+    {
+      "subcategory_id": "DE.AE-02",
+      "note": "exposure",
+      "reason": "Check 1: 'succeed technically while breaking intent' describes the org's own autonomous agents (AGENT-8.11), not external agents; misapplied to the exposure audience."
+    },
+    {
+      "subcategory_id": "DE.CM-01",
+      "note": "use",
+      "reason": "Check 5: MCP-13.1/AGENT-13.1 are about centralizing the org's own tool invocations, OAuth events and agent telemetry; AI use clearly changes monitoring, yet no use layer."
+    },
+    {
+      "subcategory_id": "DE.CM-03",
+      "note": "use",
+      "reason": "Check 5: AGENT-10.7 is about behavioral monitoring of the org's agent runtimes and scanning generated code before execution; a use layer is missing."
+    },
+    {
+      "subcategory_id": "DE.CM-06",
+      "note": "use",
+      "reason": "Check 5: AGENT-15.6/15.2 cover monitoring the org's own model calls, tool requests and data sent to providers; this changes with AI use but there is no use layer."
+    },
+    {
+      "subcategory_id": "DE.CM-09",
+      "note": "exposure",
+      "reason": "Check 3: assumes the org runs agents that ingest content and MCP tool servers on its endpoints; not true for orgs that use no AI."
+    },
+    {
+      "subcategory_id": "DE.CM-09",
+      "note": "use",
+      "reason": "Check 5: MCP-10.1 (scan MCP server endpoints/artifacts) and AGENT-10.1 (CDR at agent ingestion) are clearly use-dependent; a use layer is missing."
+    },
+    {
+      "subcategory_id": "GV.RR-01",
+      "note": "exposure",
+      "reason": "Check 4: second sentence is awareness-training content near-identical to PR.AT-01; nothing specific to leadership accountability, and 'machine speed' is not in the mapped safeguard text."
+    },
+    {
+      "subcategory_id": "GV.RR-02",
+      "note": "exposure",
+      "reason": "Check 3: assigning roles to approve, enable and disable AI tools 'even if the org uses no AI' is contradictory; MCP-14.9/AGENT-14.9 roles (registry writes, server approval) assume AI in use."
+    },
+    {
+      "subcategory_id": "GV.RR-02",
+      "note": "use",
+      "reason": "Check 5: role-specific privileges for registry writes, third-party server approval and emergency disable only exist with MCP/agents; a use layer is missing."
+    },
+    {
+      "subcategory_id": "GV.SC-05",
+      "note": "exposure",
+      "reason": "Check 3: signed code and recorded authorization scopes are terms for the org's own MCP server providers (MCP-15.4), not for orgs that use no AI; this belongs in mcp_agentic, which already says it."
+    },
+    {
+      "subcategory_id": "GV.SC-06",
+      "note": "use",
+      "reason": "Check 5: AGENT-15.5 is about assessing providers before integrating them into the org's agent workflows (runtime isolation, post-conversion multimodal filters); a use layer is missing."
+    },
+    {
+      "subcategory_id": "GV.SC-07",
+      "note": "use",
+      "reason": "Check 5: AGENT-15.6 monitors the org's own model calls, tool requests and retrieval pipelines to providers; GV.SC-04/05 with the same supplier theme have a use layer, this one does not."
+    },
+    {
+      "subcategory_id": "GV.SC-09",
+      "note": "exposure",
+      "reason": "Check 1: AGENT-15.6 is about the org's agents interacting with providers, not 'suppliers' agents and tools interacting with your data'; otherwise restates GV.SC-07."
+    },
+    {
+      "subcategory_id": "ID.AM-01",
+      "note": "use",
+      "reason": "Check 5: MCP-1.1/AGENT-1.1 require owners, connectivity paths, authorized tools and risk tiers for the org's own agent assets; a use layer is missing."
+    },
+    {
+      "subcategory_id": "ID.AM-03",
+      "note": "exposure",
+      "reason": "Check 3: flows from back-end systems into retrieval stores and model context only exist when the org uses AI; duplicates the use notes."
+    },
+    {
+      "subcategory_id": "ID.AM-04",
+      "note": "use",
+      "reason": "Check 5: same safeguards (MCP-15.1/AGENT-15.1) as GV.SC-04, which has a use layer; inventory of model providers and MCP servers depends on AI use."
+    },
+    {
+      "subcategory_id": "ID.AM-05",
+      "note": "exposure",
+      "reason": "Check 3: classifying tool responses, memory entries and session artifacts assumes the org runs tools and agents; it is the mcp_agentic note restated."
+    },
+    {
+      "subcategory_id": "ID.AM-07",
+      "note": "exposure",
+      "reason": "Check 3: memory stores, vector databases and tool-reachable sources exist only if the org uses AI; exposure note assumes AI use."
+    },
+    {
+      "subcategory_id": "ID.AM-08",
+      "note": "exposure",
+      "reason": "Check 3: disposal of agent/MCP caches, tokens and memory stores assumes the org runs them; no 'where these exist' qualifier."
+    },
+    {
+      "subcategory_id": "ID.IM-02",
+      "note": "exposure",
+      "reason": "Check 1/3: safeguards are remediation SLAs, not exercises; 'agree remediation times with suppliers' is unsupported and the sentence is broken; testing internet-accessible MCP servers assumes the org runs them."
+    },
+    {
+      "subcategory_id": "ID.IM-02",
+      "note": "use",
+      "reason": "Check 5: prioritizing fixes by agent privileges and disabling vulnerable tools (MCP-7.2/AGENT-7.2) is use-dependent; a use layer is missing."
+    },
+    {
+      "subcategory_id": "ID.RA-01",
+      "note": "exposure",
+      "reason": "Check 1: 'attackers can scan for them automatically' is not in MCP-7.1/AGENT-7.1; the note also assumes the org runs agent frameworks and MCP servers."
+    },
+    {
+      "subcategory_id": "ID.RA-01",
+      "note": "use",
+      "reason": "Check 5: tracking vulnerability sources for the org's own agent frameworks, tool adapters and MCP SDKs depends on AI use; a use layer is missing."
+    },
+    {
+      "subcategory_id": "PR.AT-01",
+      "note": "exposure",
+      "reason": "Check 3: 'work alongside autonomous agents, even where the org uses no AI' is contradictory; recursive loops and tool-driven chains are risks of the org's own agents."
+    },
+    {
+      "subcategory_id": "PR.AT-02",
+      "note": "exposure",
+      "reason": "Check 3: training on registry management, emergency disable and rollback assumes the org runs MCP and agents."
+    },
+    {
+      "subcategory_id": "PR.AT-02",
+      "note": "use",
+      "reason": "Check 5: MCP-14.9/AGENT-14.9 role training applies only to orgs administering MCP/agents; a use layer is missing."
+    },
+    {
+      "subcategory_id": "PR.DS-01",
+      "note": "exposure",
+      "reason": "Check 1/3: 'supplier-side agent can reach them' is not in the safeguard text; encrypting agent memory and vector stores assumes the org has them."
+    },
+    {
+      "subcategory_id": "PR.DS-02",
+      "note": "exposure",
+      "reason": "Check 4: near-verbatim duplicate of the mcp_agentic note (TLS 1.2, certificate validation); this is use guidance placed in the exposure layer."
+    },
+    {
+      "subcategory_id": "PR.IR-01",
+      "note": "exposure",
+      "reason": "Check 3: segmenting agent runtimes and MCP servers assumes the org runs them; exposure note restates the use notes."
+    },
+    {
+      "subcategory_id": "PR.PS-01",
+      "note": "exposure",
+      "reason": "Check 3: baselines for prompts, tool lists and file access roots assume the org runs agent/MCP setups."
+    },
+    {
+      "subcategory_id": "PR.PS-02",
+      "note": "exposure",
+      "reason": "Check 1: 'can be exploited automatically' is not in MCP-2.2/AGENT-2.2; removing outdated agent frameworks also assumes the org runs them."
+    },
+    {
+      "subcategory_id": "PR.PS-02",
+      "note": "use",
+      "reason": "Check 5: supported-version baselines for MCP specs/SDKs and agent frameworks are use-dependent; a use layer is missing."
+    },
+    {
+      "subcategory_id": "PR.PS-03",
+      "note": "exposure",
+      "reason": "Check 3: 'new tools or capabilities added to a known server' assumes the org has approved MCP servers; nothing about hardware, the CSF outcome."
+    },
+    {
+      "subcategory_id": "PR.PS-06",
+      "note": "base_rag",
+      "reason": "Check 1: model-generated code is not in MCP-16.1/AGENT-16.1, which are about building MCP handlers and agent pipelines."
+    },
+    {
+      "subcategory_id": "RC.CO-04",
+      "note": "exposure",
+      "reason": "Check 1/2: safeguards are incident contact lists; 'approved public messaging' is the CSF outcome restated, not supported AI-specific content."
+    },
+    {
+      "subcategory_id": "RC.RP-03",
+      "note": "exposure",
+      "reason": "Check 3: restoring agent memory, retrieval pipelines and MCP configurations assumes the org runs them."
+    },
+    {
+      "subcategory_id": "RC.RP-03",
+      "note": "use",
+      "reason": "Check 5: AGENT-11.5 (do not reintroduce poisoned content) and MCP-11.5 (capability negotiation matches baseline) clearly depend on AI use; a use layer is missing."
+    },
+    {
+      "subcategory_id": "RS.CO-02",
+      "note": "exposure",
+      "reason": "Check 3: authorization server operators, gateway operators and MCP library maintainers matter only to orgs running MCP."
+    },
+    {
+      "subcategory_id": "RS.CO-03",
+      "note": "exposure",
+      "reason": "Check 2/4: 'contacts agreed in advance allow rapid coordination' is generic, restates the outcome and duplicates RS.CO-02/RC.CO-04."
+    },
+    {
+      "subcategory_id": "RS.MA-01",
+      "note": "exposure",
+      "reason": "Check 3: containment by tool disabling, server isolation and human confirmation enforcement assumes the org runs tools and MCP servers."
+    },
+    {
+      "subcategory_id": "RS.MA-05",
+      "note": "exposure",
+      "reason": "Check 3: cost spikes, API rate limits and data exfiltration through tools are signals from the org's own agents."
+    },
+    {
+      "subcategory_id": "RS.MA-05",
+      "note": "use",
+      "reason": "Check 5: MCP-17.9/AGENT-17.9 thresholds for runaway agents and confused-deputy escalation depend on AI use; a use layer is missing."
+    }
+  ]
+}

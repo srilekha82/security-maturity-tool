@@ -48,6 +48,7 @@ AI_QUESTION_RULES = AI / "question_rules.json"   # question banks: roles, produc
 AI_BANK_FOUNDATION = AI_BANKS / "question_bank_ai_rmf_foundation.json"   # foundation questions (record_ai_bank.py questions)
 AI_BANK_AREAS = AI_BANKS / "question_bank_ai_rmf_areas.json"             # area questions (record_ai_bank.py questions)
 AI_QUESTIONS_FOUNDATION_XLSX = AI_AUTHORING / "questions_foundation.xlsx"   # the foundation bank for review (sheet_io.py)
+AI_IMPACT_NOTES_XLSX = AI_AUTHORING / "impact_notes.xlsx"                # the CSF AI impact notes for review
 AI_QUESTIONS_AREAS_XLSX = AI_AUTHORING / "questions_areas.xlsx"             # the area bank for review (sheet_io.py)
 SHEET_SPECS = COMMON / "sheet_specs.json"   # columns and allowed values of every spreadsheet sheet_io.py converts
 

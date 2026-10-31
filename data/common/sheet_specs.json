@@ -152,6 +152,49 @@
          "help": "Do not edit. agent, or human once you changed the subcategory in this sheet."}
       ]
     },
+    "impact_notes": {
+      "xlsx": "AI_IMPACT_NOTES_XLSX",
+      "json": "CSF_IMPACT_NOTES",
+      "audit": "AI_BUILD",
+      "sheet": "Impact notes",
+      "shape": "notes",
+      "decision": "json",
+      "list_key": "notes",
+      "key": null,
+      "freeze": "C2",
+      "readme": [
+        "The CSF AI impact notes for review: one line per CSF 2.0 subcategory that has notes. They are shown with the CSF questions in Stage 2.",
+        "Exposure is shown to every organisation (outside AI agents and AI-enabled attackers reach any org). The two use notes are shown only when the client uses AI: model / RAG without tools or agents, or with tools, MCP or agents.",
+        "Filter Status = needs_human_review for what the notes evaluator flagged.",
+        "data/csf/ai_impact_notes.json is the decision; this sheet is exported from it. After editing, run",
+        "  .venv/bin/python ./scripts/sheet_io.py import impact_notes",
+        "which checks every line with the same rules as recording (notes of at least 30 characters, both use notes or neither, no subcategory added or dropped) and writes the notes. If anything is wrong it lists the problems and writes nothing.",
+        "A subcategory you change (or whose Status you set) is stored as decided_by human; a later writer run does not overwrite it.",
+        "Refresh the sheet after notes are recorded or reviewed with",
+        "  .venv/bin/python ./scripts/sheet_io.py export impact_notes",
+        "which refuses to overwrite edits you have not imported."
+      ],
+      "columns": [
+        {"key": "subcategory", "header": "CSF subcategory", "type": "text", "required": true, "width": 13,
+         "help": "Do not edit. The CSF 2.0 subcategory the notes belong to."},
+        {"key": "outcome", "header": "CSF outcome", "type": "text", "required": false, "width": 40, "in_json": false,
+         "help": "Do not edit. The CSF 2.0 outcome."},
+        {"key": "exposure", "header": "Exposure (every org)", "type": "text", "required": true, "width": 55,
+         "help": "How this outcome changes when outside AI agents, MCP clients and AI-enabled attackers can reach the org, even one that uses no AI. 1 to 3 sentences."},
+        {"key": "base_rag", "header": "Use: model / RAG", "type": "text", "required": false, "width": 45,
+         "help": "Only for orgs that use AI without tools or agents (data leakage, retrieval permissions). Leave both use notes blank where AI use changes nothing."},
+        {"key": "mcp_agentic", "header": "Use: tools / agents", "type": "text", "required": false, "width": 45,
+         "help": "Only for orgs with tools, MCP or agents (AI tools as identities, scoped credentials, approval for write actions). Give both use notes or neither."},
+        {"key": "status", "header": "Status", "type": "enum", "required": true, "width": 14,
+         "allowed": ["pass", "needs_human_review"],
+         "help": "pass, or needs_human_review (the notes evaluator flagged a note). Set pass once you have decided."},
+        {"key": "review_reason", "header": "Evaluator's reason", "type": "text", "required": false, "width": 40,
+         "in_json": false,
+         "help": "Do not edit. Which note the evaluator flagged and why."},
+        {"key": "decided_by", "header": "Decided by", "type": "text", "required": false, "width": 10, "in_json": false,
+         "help": "Do not edit. agent, or human once you changed the line."}
+      ]
+    },
     "foundation_questions": {
       "xlsx": "AI_QUESTIONS_FOUNDATION_XLSX",
       "json": "AI_BANK_FOUNDATION",

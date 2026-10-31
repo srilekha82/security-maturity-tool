@@ -12,6 +12,7 @@ from paths import AI_CORE, AI_SAFEGUARDS, REPO_ROOT  # noqa: E402
 DEFAULT_PROMPTS = {
     "questions": ["prompts/ai_rmf_question_generator.md", "prompts/ai_rmf_question_evaluator.md"],
     "notes": ["prompts/ai_impact_notes_writer.md"],
+    "notes-review": ["prompts/ai_impact_notes_evaluator.md"],
     "mapping": ["prompts/ai_rmf_mapping_drafter.md", "prompts/ai_rmf_mapping_evaluator.md"],
 }
 

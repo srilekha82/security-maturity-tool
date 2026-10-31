@@ -200,7 +200,18 @@ It joins the CIS → CSF 2.0 mapping to the MCP and agents guide safeguards and 
 2. Layer 2 (use): write `data/ai/bank_build/notes_layer2.json` for the subset where use changes the reading, then
    the same command with that file.
 
-Fix-and-rerun on problems. Delete the pending and patch files once recorded.
+Fix-and-rerun on problems. A note a person decided in the review sheet is refused; leave it out of the patch.
+
+3. Review (a fresh subagent, Opus, `model: "opus"`; it must not see the writer's prompt): follow
+   `prompts/ai_impact_notes_evaluator.md` with `impact_pending.json` and `data/csf/ai_impact_notes.json`, writing the
+   flagged notes to `data/ai/bank_build/notes_review.json`, then
+   `.venv/bin/python ./scripts/record_ai_bank.py notes-review data/ai/bank_build/notes_review.json --model <model id>`
+   (every note not decided by a person gets status pass or needs_human_review).
+4. Refresh the review sheet: `.venv/bin/python ./scripts/sheet_io.py export impact_notes`
+   (`data/ai/authoring/impact_notes.xlsx`; the user decides flagged notes in chat, Claude applies them and runs
+   `sheet_io.py import impact_notes`).
+
+Delete the pending, patch and review files once recorded.
 
 ## Step 8 — Report
 

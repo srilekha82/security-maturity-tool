@@ -311,6 +311,61 @@ class MappingSheet(unittest.TestCase):
             S.export_sheet(self.spec, self.xlsx, self.json, self.log)
 
 
+class NotesSheet(unittest.TestCase):
+    """The impact notes review sheet: notes -> one line per CSF subcategory -> back."""
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp())
+        long = "Agents can call APIs at machine speed, so permissions sized for humans may be too broad."
+        self.doc = {"notes": {
+            "PR.AA-05": {"exposure": long, "use": {"base_rag": long, "mcp_agentic": long},
+                         "status": "needs_human_review", "review_reason": "use: Check 5: x"},
+            "DE.CM-01": {"exposure": long, "status": "pass"}}}
+        self.spec = S.load_spec("impact_notes")
+        self.xlsx, self.js = self.tmp / "notes.xlsx", self.tmp / "notes.json"
+        self.js.write_text(json.dumps(self.doc))
+        S.export_sheet(self.spec, self.xlsx, self.js, self.tmp / "audit.jsonl", force=True)
+
+    def edit(self, line, **cells):
+        wb = openpyxl.load_workbook(self.xlsx)
+        ws = wb[self.spec["sheet"]]
+        heads = [c.value for c in ws[1]]
+        for header, value in cells.items():
+            ws.cell(row=line + 1, column=heads.index(header) + 1, value=value)
+        wb.save(self.xlsx)
+
+    def do_import(self):
+        try:
+            S.import_sheet(self.spec, self.xlsx, self.js, self.tmp / "audit.jsonl")
+            return 0
+        except SystemExit as e:
+            return e.code
+
+    def notes(self):
+        return json.loads(self.js.read_text())["notes"]
+
+    def test_round_trip_changes_nothing(self):
+        before = self.notes()
+        self.assertEqual(self.do_import(), 0)
+        self.assertEqual(self.notes(), before)
+
+    def test_an_edit_is_a_human_decision_and_bad_edits_are_rejected(self):
+        line = 1 + list(self.doc["notes"]).index("DE.CM-01")
+        self.edit(line, **{"Use: model / RAG": "Retrieval must respect the asking user's permissions."})
+        self.assertEqual(self.do_import(), 1)                          # one use note without the other
+        self.edit(line, **{"Use: tools / agents": "Give each AI tool its own scoped credentials, never a user's."})
+        self.assertEqual(self.do_import(), 0)
+        self.assertEqual((set(self.notes()["DE.CM-01"]["use"]), self.notes()["DE.CM-01"]["decided_by"]),
+                         ({"base_rag", "mcp_agentic"}, "human"))
+        pr = 1 + list(self.doc["notes"]).index("PR.AA-05")
+        self.edit(pr, Status="pass", **{"Use: model / RAG": "", "Use: tools / agents": ""})
+        self.assertEqual(self.do_import(), 0)                          # use layer removed, flag cleared
+        self.assertEqual(self.notes()["PR.AA-05"], {"exposure": self.doc["notes"]["PR.AA-05"]["exposure"],
+                                                     "status": "pass", "decided_by": "human"})
+        self.edit(pr, **{"Exposure (every org)": "too short"})
+        self.assertEqual(self.do_import(), 1)
+
+
 if __name__ == "__main__":
     unittest.main()
 
