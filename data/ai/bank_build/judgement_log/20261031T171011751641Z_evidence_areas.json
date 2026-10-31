@@ -1,0 +1,265 @@
+{
+  "recorded_at": "2026-10-31T17:10:11.751104+00:00",
+  "step": "record_ai_bank_evidence",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_evidence_writer.md",
+      "sha": "f77afc6a40a41175"
+    },
+    {
+      "path": "prompts/ai_rmf_evidence_evaluator.md",
+      "sha": "0ec2bf14b1319526"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/evidence_areas.json",
+    "sha": "edb247256decfb79"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_areas.json",
+    "sha": "02e92607db2df882"
+  },
+  "output_snapshot": {
+    "MAP 1.4": {
+      "1": "The business-value statement or use-case record for each highest-criticality AI system (internal and customer-facing), showing the named owner, the success measures and the date of its last review.",
+      "2": "The register or approval record for AI features inside vendor products, showing the stated business purpose and named decision owner for each, and the last time those purposes were reviewed."
+    },
+    "MAP 3.3": {
+      "1": "The scope document or system card for each highest-criticality internal AI system listing permitted and out-of-bounds decisions and workflows, plus the approval record of the latest scope change, if any.",
+      "6": "The documented trusted-use boundary for each highest-criticality AI system, with the test or evaluation results supporting it and the approval record for the latest scope widening, if any."
+    },
+    "MAP 3.5": {
+      "4": "The oversight procedure for each highest-criticality customer-facing AI system (review points, escalation, named reviewers), its last assessment record, and a recent extract of reviewed or intercepted answers."
+    },
+    "MAP 5.2": {
+      "1": "The customer feedback channel for each highest-criticality customer-facing AI system (form, button or contact route), the reviewer roster, and the latest triage record showing action taken on a reported answer, if any."
+    },
+    "MEASURE 2.4": {
+      "1": "The monitoring rules and alert routing for public-facing AI systems (abuse patterns, unusual answers), the named alert recipients, and an extract from the latest monitoring review or alert, if any.",
+      "2": "The vendor AI change-monitoring procedure (release notes feeds, provider logs, model version checks), the vendor feature settings reviewed, and the latest follow-up record of an unannounced change, if any.",
+      "3": "The detection configuration for unapproved AI use (DNS, network or provider telemetry rules), the alert routing, and the latest review or alert record, if any, covering the whole organisation.",
+      "4": "The detection rules or dashboards for external AI agents or clients reaching your systems (sign-in, API and traffic patterns), the alert recipients, and the latest alert and its follow-up, if any.",
+      "5": "The production quality-monitoring dashboard or report for each highest-criticality AI system (drift, anomaly and error-rate thresholds), the alert routing, and the latest review record from the last quarter.",
+      "6": "The API usage monitoring rules for models behind critical AI systems (rate and repetition thresholds), a log extract showing flagged usage, if any, and the record of who reviewed it.",
+      "8": "The monitoring configuration for the retrieval data behind each highest-criticality AI system (content change or integrity checks), the alert routing, and the latest finding and notification record, if any.",
+      "10": "The agent monitoring configuration for each highest-criticality agent (action chain, tool-use and drift rules against the approved profile), the incident thresholds, and the latest flagged-behaviour review record, if any."
+    },
+    "MEASURE 2.8": {
+      "7": "A recent trace for one answer from a highest-criticality AI system, linking model version, instruction set, retrieved sources and downstream users from logs, the log retention setting, and the named owner of the tracing records."
+    },
+    "MEASURE 2.10": {
+      "1": "The secret-detection setting or data loss prevention rule applied to prompts in code assistants, the teams and tools it covers, and the latest detection and follow-up record, if any.",
+      "3": "The data loss prevention policy or rule set covering traffic to unapproved AI tools, the data types and users it covers, and the latest alert with its follow-up record, if any.",
+      "4": "The monitoring and alert configuration for personal or sensitive data in prompts and uploaded files for each highest-criticality AI system, the responder roster, and the latest alert and response, if any.",
+      "5": "The input monitoring report for each highest-criticality AI system (volumes, file types, unexpected input) compared with the pre-launch test profile, the alert threshold settings, and the latest deviation alert, if any."
+    },
+    "MEASURE 3.3": {
+      "1": "The staff channel for reporting or challenging AI output in internal processes (form, ticket queue or contact route), the reviewers, and the latest analysis report or trend summary of submitted reports, if any.",
+      "3": "The problem-reporting route published with each released model (contact, issue tracker or model card section), and the latest report, if any, with the resulting change to building or tuning.",
+      "4": "The channel for reporting agent misbehaviour (form, ticket type or contact route), who receives it, and the latest agent evaluation record that used such reports, if any."
+    },
+    "MANAGE 2.2": {
+      "5": "The access list and role definitions for model weights, fine-tuned versions and system prompts, the encryption and backup settings protecting them, and the latest access review record for the whole model estate.",
+      "8": "The permission and identity settings for each highest-criticality agent (least-privilege roles, approval gates for irreversible steps, rate and cost caps), and the latest review record of those limits."
+    },
+    "MANAGE 2.3": {
+      "4": "The response procedure for new risks in vendor AI features (changed data practice, vendor-side leak) with the named lead, vendor contact terms or DPA clauses, and the latest response record, if any.",
+      "6": "The incident response and staff reporting procedure for data leaving through unapproved AI tools or outside agents misusing access, the named reporting contact, and the latest such incident record, if any."
+    },
+    "MANAGE 2.4": {
+      "4": "The withdrawal or supersession procedure for released model versions, including how recipients are notified, the named responsible owner, and the latest withdrawal or recipient notice, if any.",
+      "9": "The documented procedure and tooling settings for disabling or revoking a tool, credential or MCP server used by each highest-criticality AI system, the named owner, and the latest revocation or test of it."
+    },
+    "MANAGE 4.1": {
+      "3": "The deletion and correction request procedure showing how it reaches retrieval data and its index for each highest-criticality AI system, and the latest request log entry showing completion, if any."
+    },
+    "MANAGE 4.2": {
+      "2": "The change and release approval records for models behind critical AI systems (build or tuning changes, new versions), the named approvers, and the latest approved release with its review evidence."
+    }
+  },
+  "review": [
+    {
+      "subcategory_id": "MAP 1.4",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 4: assumes success measures and a dated last review exist (not asked by the question) without 'if any'."
+    },
+    {
+      "subcategory_id": "MAP 1.4",
+      "question_number": 2,
+      "verdict": "fail",
+      "reason": "Check 4: assumes vendor AI purposes are periodically reviewed ('last time reviewed') without 'if any'; the question asks only how purpose is decided and owned."
+    },
+    {
+      "subcategory_id": "MAP 3.3",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MAP 3.3",
+      "question_number": 6,
+      "verdict": "fail",
+      "reason": "Check 1: anchors the boundary document and test results but no artefact showing how the AI is actually kept within that scope (enforcement controls, usage restrictions)."
+    },
+    {
+      "subcategory_id": "MAP 3.5",
+      "question_number": 4,
+      "verdict": "fail",
+      "reason": "Check 4: assumes a recent extract of reviewed or intercepted answers exists, without 'if any'."
+    },
+    {
+      "subcategory_id": "MAP 5.2",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 5,
+      "verdict": "fail",
+      "reason": "Check 4: assumes a review record from the last quarter exists (quarterly cadence), without 'if any'."
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 6,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 8,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.4",
+      "question_number": 10,
+      "verdict": "fail",
+      "reason": "Check 4: asserts defined agent incident thresholds exist, which the question does not ask about, without 'if any'."
+    },
+    {
+      "subcategory_id": "MEASURE 2.8",
+      "question_number": 7,
+      "verdict": "fail",
+      "reason": "Check 4: assumes a complete end-to-end trace from logs can be produced, without 'if any'."
+    },
+    {
+      "subcategory_id": "MEASURE 2.10",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.10",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.10",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 2.10",
+      "question_number": 5,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 3.3",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 3.3",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MEASURE 3.3",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.2",
+      "question_number": 5,
+      "verdict": "fail",
+      "reason": "Check 4: asserts encryption and backup settings exist for weights and prompts (examples in the question), without 'if any'."
+    },
+    {
+      "subcategory_id": "MANAGE 2.2",
+      "question_number": 8,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.3",
+      "question_number": 6,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.4",
+      "question_number": 4,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.4",
+      "question_number": 9,
+      "verdict": "fail",
+      "reason": "Check 4: assumes a latest revocation or test of it exists, without 'if any'."
+    },
+    {
+      "subcategory_id": "MANAGE 4.1",
+      "question_number": 3,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 4.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    }
+  ]
+}

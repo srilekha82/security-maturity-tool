@@ -65,7 +65,8 @@
             "consumer",
             "producer"
           ],
-          "producer_flags": []
+          "producer_flags": [],
+          "evidence_prompt": "The AI policy's scope clause and any procurement or third-party review checklist showing it covers externally supplied AI, plus the latest compliance check or review record across in-house and vendor AI systems."
         },
         {
           "question_text": "What do your procedures require to happen before an AI system goes live and while it is in use (testing and validation, legal and risk review, ongoing monitoring), and what record shows these steps were followed for a recent AI system?",
@@ -977,7 +978,8 @@
             "MAP 3.4 — suggested action 3",
             "MAP 3.4 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The role-based skills and training requirements for people who operate AI systems, the training records or completion report for those operators, and any certification or competency assessment, with dates."
         },
         {
           "question_text": "How do you tell the people who use your AI systems what the systems can and cannot do, and what is out of bounds? Where do they find this information?",
@@ -1224,7 +1226,8 @@
             "MANAGE 1.3 — suggested action 2",
             "MANAGE 1.3 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The risk response plans for the current high-priority AI risks (chosen response, rationale, named owner, due dates), the response decision criteria, and the approval record of the most recent plan or acceptance."
         },
         {
           "question_text": "Where are AI risk responses and system documentation kept, and who can access them?",
@@ -1347,5 +1350,5 @@
     "needs_human_review": 0,
     "questions": 84
   },
-  "source_sha": "1bf5bc5bc5d4852c"
+  "source_sha": "d0faa5855f8bb770"
 }

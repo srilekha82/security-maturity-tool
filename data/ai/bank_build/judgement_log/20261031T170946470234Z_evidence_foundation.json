@@ -1,0 +1,117 @@
+{
+  "recorded_at": "2026-10-31T17:09:46.469714+00:00",
+  "step": "record_ai_bank_evidence",
+  "decided_by": "agent",
+  "model": "claude-sonnet-5-5",
+  "session": "evaluator=claude-opus-5-5",
+  "prompts": [
+    {
+      "path": "prompts/ai_rmf_evidence_writer.md",
+      "sha": "f77afc6a40a41175"
+    },
+    {
+      "path": "prompts/ai_rmf_evidence_evaluator.md",
+      "sha": "0ec2bf14b1319526"
+    }
+  ],
+  "input_file": {
+    "path": "data/ai/bank_build/work/evidence_foundation.json",
+    "sha": "e00b05ec20cfce63"
+  },
+  "store": {
+    "path": "data/ai/banks/question_bank_ai_rmf_foundation.json",
+    "sha": "90180bd4a4b63b23"
+  },
+  "output_snapshot": {
+    "GOVERN 1.2": {
+      "2": "The AI policy's scope clause and any procurement or third-party review checklist showing it covers externally supplied AI, plus the latest compliance check or review record across in-house and vendor AI systems."
+    },
+    "GOVERN 1.3": {
+      "1": "The AI risk-rating procedure (impact and likelihood criteria, tiers, required oversight per tier), the approval record for one recently onboarded AI system, and the list of roles authorised to assign ratings.",
+      "2": "The common AI risk scale and a register showing every AI system's current rating, with the rating review dates and the trigger rules for re-rating after changes in the system or its use."
+    },
+    "GOVERN 1.6": {
+      "1": "The AI systems inventory sheet covering in-house, vendor and embedded AI, showing for each its purpose, data involved, owner, worst realistic outcome and the date of the last inventory update."
+    },
+    "GOVERN 2.1": {
+      "2": "The charter or schedule of the AI risk forum or meeting, the escalation procedure with named contacts, and minutes or tickets from the most recent period showing concerns raised across the teams involved."
+    },
+    "GOVERN 3.1": {
+      "1": "The AI risk decision-body membership list with roles and disciplines, the selection or composition rules, and attendance or sign-off records for the most recent AI risk decisions across the AI systems in scope."
+    },
+    "MAP 3.4": {
+      "1": "The role-based skills and training requirements for people who operate AI systems, the training records or completion report for those operators, and any certification or competency assessment, with dates."
+    },
+    "MANAGE 1.2": {
+      "1": "The AI risk prioritisation method (criteria and weighting), the current prioritised AI risk register with owners, and the minutes or approval record of the latest prioritisation review."
+    },
+    "MANAGE 1.3": {
+      "1": "The risk response plans for the current high-priority AI risks (chosen response, rationale, named owner, due dates), the response decision criteria, and the approval record of the most recent plan or acceptance."
+    },
+    "MANAGE 2.1": {
+      "1": "The pre-adoption checklist or business case template for new AI use covering staffing, skills, budget and non-AI alternatives, and the completed assessment and approval for the most recent AI project."
+    }
+  },
+  "review": [
+    {
+      "subcategory_id": "GOVERN 1.2",
+      "question_number": 2,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "GOVERN 1.3",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 4: asserts a tiered risk-rating procedure (the question gives risk rating only as an example) and a recently onboarded AI system, with no 'if any'."
+    },
+    {
+      "subcategory_id": "GOVERN 1.3",
+      "question_number": 2,
+      "verdict": "fail",
+      "reason": "Check 4: assumes a register of every system's rating and written re-rating trigger rules exist; the question only asks how often ratings are revisited."
+    },
+    {
+      "subcategory_id": "GOVERN 1.6",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 3/4: mostly restates the fields the question already asks for in the sheet, and assumes a maintained inventory with owners and update dates exists without 'if any'."
+    },
+    {
+      "subcategory_id": "GOVERN 2.1",
+      "question_number": 2,
+      "verdict": "fail",
+      "reason": "Check 4: asserts both an AI risk forum and an escalation procedure with named contacts; the question offers these only as examples."
+    },
+    {
+      "subcategory_id": "GOVERN 3.1",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 4: assumes a formal AI risk decision body with composition rules; the question asks only about the people who decide."
+    },
+    {
+      "subcategory_id": "MAP 3.4",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 1.2",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 4: assumes a weighted prioritisation method and a periodic prioritisation review with minutes, without 'if any'."
+    },
+    {
+      "subcategory_id": "MANAGE 1.3",
+      "question_number": 1,
+      "verdict": "pass",
+      "reason": ""
+    },
+    {
+      "subcategory_id": "MANAGE 2.1",
+      "question_number": 1,
+      "verdict": "fail",
+      "reason": "Check 1/4: adds non-AI alternatives, which the question does not ask about, and assumes a pre-adoption checklist or template exists without 'if any'."
+    }
+  ]
+}

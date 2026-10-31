@@ -28,7 +28,10 @@ removed. **Both AI RMF question banks and the CSF AI impact notes are built (202
       reviewer adds the frame only where required; `record_judgements.py` locks those fields and the AI question
       count. Evidence prompts in the banks: a new stage (`/build-ai-bank` Step 6b, `prepare_ai_bank.py evidence`,
       `prompts/ai_rmf_evidence_writer.md` / `_evaluator.md`, `record_ai_bank.py evidence`), editable in the question
-      review sheets. **Not run yet**: the 287 bank questions have no evidence prompt until Step 6b is run (agents).
+      review sheets. Step 6b run 2026-10-31 (Sonnet writers, Opus evaluators), plus one re-run after the writer prompt
+      was fixed to ask events as "the latest one, if any": 271 of 287 bank questions have their own evidence prompt
+      (foundation 77 of 84, areas 194 of 203); the 16 left keep the generic line (they imply a formal structure the
+      org may not have: rating tiers, a forum, a prioritisation method), which the engagement reviewer sharpens.
    e. The finance CSF bank is weak: 38 subcategories use the generic fallback and many bank questions test a
       neighbouring topic (the reviewer replaced them). `/build-csf-bank finance` again, then the other domains.
    Then (after Step 6b and e) re-run the test client to compare (fewer changes, fewer round-1 failures, lower cost).

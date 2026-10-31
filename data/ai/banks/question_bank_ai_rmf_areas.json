@@ -852,7 +852,8 @@
             "MAP 3.3 — suggested action 1",
             "MAP 3.3 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The scope document or system card for each highest-criticality internal AI system listing permitted and out-of-bounds decisions and workflows, plus the approval record of the latest scope change, if any."
         },
         {
           "question_text": "How is it decided and documented where AI code generation is allowed and where it is not, for example authentication, cryptography or regulated code? Who enforces that?",
@@ -1896,7 +1897,8 @@
             "MAP 5.2 — suggested action 3",
             "MAP 5.2 — suggested action 6"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The customer feedback channel for each highest-criticality customer-facing AI system (form, button or contact route), the reviewer roster, and the latest triage record showing action taken on a reported answer, if any."
         }
       ]
     },
@@ -2189,7 +2191,8 @@
           "producer_flags": [],
           "rows": [
             "customer_facing|MEASURE 2.4"
-          ]
+          ],
+          "evidence_prompt": "The monitoring rules and alert routing for public-facing AI systems (abuse patterns, unusual answers), the named alert recipients, and an extract from the latest monitoring review or alert, if any."
         },
         {
           "question_text": "After a vendor's AI feature has been approved, how do you notice unannounced changes to its features or underlying model while it is in use? Who follows up?",
@@ -2207,7 +2210,8 @@
           "producer_flags": [],
           "rows": [
             "vendor_ai|MEASURE 2.4"
-          ]
+          ],
+          "evidence_prompt": "The vendor AI change-monitoring procedure (release notes feeds, provider logs, model version checks), the vendor feature settings reviewed, and the latest follow-up record of an unannounced change, if any."
         },
         {
           "question_text": "How do you watch for new AI tools or features that staff use without approval, for example through network, DNS or provider telemetry? Who gets the alerts?",
@@ -2228,7 +2232,8 @@
           "producer_flags": [],
           "rows": [
             "invisible_usage|MEASURE 2.4"
-          ]
+          ],
+          "evidence_prompt": "The detection configuration for unapproved AI use (DNS, network or provider telemetry rules), the alert routing, and the latest review or alert record, if any, covering the whole organisation."
         },
         {
           "question_text": "How do you watch for other people's AI agents or AI clients reaching your systems, for example through unusual sign-ins, API calls or traffic patterns? Who gets the alerts?",
@@ -2245,7 +2250,8 @@
           "producer_flags": [],
           "rows": [
             "invisible_usage|MEASURE 2.4"
-          ]
+          ],
+          "evidence_prompt": "The detection rules or dashboards for external AI agents or clients reaching your systems (sign-in, API and traffic patterns), the alert recipients, and the latest alert and its follow-up, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is the quality of the AI's answers monitored in production so that drift, anomalies and rising error rates are noticed? Who gets the alerts?",
@@ -2279,7 +2285,8 @@
           "producer_flags": [],
           "rows": [
             "model|MEASURE 2.4"
-          ]
+          ],
+          "evidence_prompt": "The API usage monitoring rules for models behind critical AI systems (rate and repetition thresholds), a log extract showing flagged usage, if any, and the record of who reviewed it."
         },
         {
           "question_text": "For the models behind your most critical AI systems, how do you notice an unexpected change to a deployed model version? Who reviews what is flagged?",
@@ -2311,7 +2318,8 @@
           "producer_flags": [],
           "rows": [
             "source_data|MEASURE 2.4"
-          ]
+          ],
+          "evidence_prompt": "The monitoring configuration for the retrieval data behind each highest-criticality AI system (content change or integrity checks), the alert routing, and the latest finding and notification record, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is the AI's use of tools and MCP servers monitored in production for unexpected calls, new capabilities on a known server and unusual volume? Who gets the alerts?",
@@ -3313,7 +3321,8 @@
           "producer_flags": [],
           "rows": [
             "code_generation|MEASURE 2.10"
-          ]
+          ],
+          "evidence_prompt": "The secret-detection setting or data loss prevention rule applied to prompts in code assistants, the teams and tools it covers, and the latest detection and follow-up record, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, that answer customers, how do you monitor answers for leaks of personal or confidential data? Who reviews what is found?",
@@ -3350,7 +3359,8 @@
           "producer_flags": [],
           "rows": [
             "invisible_usage|MEASURE 2.10"
-          ]
+          ],
+          "evidence_prompt": "The data loss prevention policy or rule set covering traffic to unapproved AI tools, the data types and users it covers, and the latest alert with its follow-up record, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, how do you monitor the prompts and files sent to the AI for personal or sensitive data, with an alert when it appears or leaves the organisation? Who responds to the alerts?",
@@ -3368,7 +3378,8 @@
           "producer_flags": [],
           "rows": [
             "input|MEASURE 2.10"
-          ]
+          ],
+          "evidence_prompt": "The monitoring and alert configuration for personal or sensitive data in prompts and uploaded files for each highest-criticality AI system, the responder roster, and the latest alert and response, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, how do you monitor what staff and systems send to the AI in production, for example volumes, file types or unexpected input, and compare it with what was tested before launch? Who is alerted when it differs?",
@@ -3386,7 +3397,8 @@
           "producer_flags": [],
           "rows": [
             "input|MEASURE 2.10"
-          ]
+          ],
+          "evidence_prompt": "The input monitoring report for each highest-criticality AI system (volumes, file types, unexpected input) compared with the pre-launch test profile, the alert threshold settings, and the latest deviation alert, if any."
         },
         {
           "question_text": "For the data used to train and tune your models, how are personal and sensitive data found and then minimised or removed, for example in feedback or logs reused for tuning? Where is that use documented?",
@@ -3624,7 +3636,8 @@
           ],
           "cis_refs": [
             "LLM-17.3"
-          ]
+          ],
+          "evidence_prompt": "The staff channel for reporting or challenging AI output in internal processes (form, ticket queue or contact route), the reviewers, and the latest analysis report or trend summary of submitted reports, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, that customers use, how can customers report problems or appeal an outcome? Who counts and analyses these reports?",
@@ -3656,7 +3669,8 @@
           "playbook_refs": [
             "MEASURE 3.3 — suggested action 4"
           ],
-          "cis_refs": []
+          "cis_refs": [],
+          "evidence_prompt": "The problem-reporting route published with each released model (contact, issue tracker or model card section), and the latest report, if any, with the resulting change to building or tuning."
         },
         {
           "question_text": "For your highest-criticality AI systems, that act as agents, how can staff and others report agent misbehaviour or unexpected actions? Who uses those reports when evaluating the agent?",
@@ -3673,7 +3687,8 @@
           ],
           "cis_refs": [
             "AGENT-17.3"
-          ]
+          ],
+          "evidence_prompt": "The channel for reporting agent misbehaviour (form, ticket type or contact route), who receives it, and the latest agent evaluation record that used such reports, if any."
         }
       ]
     },
@@ -4125,7 +4140,8 @@
             "AGENT-6.8",
             "AGENT-6.1",
             "AGENT-2.7"
-          ]
+          ],
+          "evidence_prompt": "The permission and identity settings for each highest-criticality agent (least-privilege roles, approval gates for irreversible steps, rate and cost caps), and the latest review record of those limits."
         },
         {
           "question_text": "For your highest-criticality AI systems that you host yourself, how is access to the serving endpoint protected, for example authenticated gateways, network isolation and throttling? Who reviews the setup?",
@@ -4322,7 +4338,8 @@
           "cis_refs": [
             "LLM-17.4",
             "LLM-17.9"
-          ]
+          ],
+          "evidence_prompt": "The response procedure for new risks in vendor AI features (changed data practice, vendor-side leak) with the named lead, vendor contact terms or DPA clauses, and the latest response record, if any."
         },
         {
           "question_text": "When a problem is found in a model you have released, how do you respond and recover, including rebuilding and restoring it? Who leads the response?",
@@ -4361,7 +4378,8 @@
             "LLM-17.3",
             "LLM-17.4",
             "LLM-14.6"
-          ]
+          ],
+          "evidence_prompt": "The incident response and staff reporting procedure for data leaving through unapproved AI tools or outside agents misusing access, the named reporting contact, and the latest such incident record, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, when sensitive data is found to have been sent to a model or provider, how do you respond, contain and recover? Who leads the response?",
@@ -4688,7 +4706,8 @@
           ],
           "cis_refs": [
             "LLM-17.9"
-          ]
+          ],
+          "evidence_prompt": "The withdrawal or supersession procedure for released model versions, including how recipients are notified, the named responsible owner, and the latest withdrawal or recipient notice, if any."
         },
         {
           "question_text": "If you find staff using an AI tool nobody approved, or an outside agent or MCP client reaching your systems, how can you block it and revoke the access it holds? Who can do that?",
@@ -5064,7 +5083,8 @@
           "producer_flags": [],
           "rows": [
             "source_data|MANAGE 4.1"
-          ]
+          ],
+          "evidence_prompt": "The deletion and correction request procedure showing how it reaches retrieval data and its index for each highest-criticality AI system, and the latest request log entry showing completion, if any."
         },
         {
           "question_text": "For your highest-criticality AI systems, how is a change to what the AI can do, for example a new tool, a new permission, a changed configuration or the removal of something no longer needed, approved and made after go-live? Who approves it?",
@@ -5165,7 +5185,8 @@
           ],
           "cis_refs": [
             "LLM-4.1"
-          ]
+          ],
+          "evidence_prompt": "The change and release approval records for models behind critical AI systems (build or tuning changes, new versions), the named approvers, and the latest approved release with its review evidence."
         },
         {
           "question_text": "Before you release a new version of your model to others, how are the people who receive it engaged, for example to collect their feedback or tell them what changed?",
@@ -5461,5 +5482,5 @@
     "needs_human_review": 0,
     "questions": 203
   },
-  "source_sha": "d22069d6e01db529"
+  "source_sha": "ff6b4132c64e3109"
 }
