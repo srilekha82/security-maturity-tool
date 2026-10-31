@@ -189,6 +189,44 @@ class Recording(unittest.TestCase):
         self.assertFalse(ok)
         self.assertIn(f"mapping rows changed since written: {sid}", text)
 
+    def test_evidence_prompts_are_added_to_bank_questions_once_checked(self):
+        sid = "MEASURE 2.8"                                           # two questions (roles differ by area)
+        good = {sid: {"status": "pass", "turns": 1, "questions": self.area_questions(sid)}}
+        self.assertEqual(self.run_mode("questions", good, "areas"), 0)
+        path = R.AI_BANKS / "question_bank_ai_rmf_areas.json"
+        n = len(good[sid]["questions"])
+        text = "The intended-use record for one AI system, who owns it, and the list of AI systems it covers."
+
+        def go(data, review):
+            f, rv = self.tmp / "evidence.json", self.tmp / "evidence_review.json"
+            f.write_text(json.dumps(data))
+            rv.write_text(json.dumps(review))
+            a = argparse.Namespace(file=str(f), bank="areas", review=str(rv), model="m", session=None, prompt=None)
+            try:
+                R.record("evidence", a)
+                return 0
+            except SystemExit as e:
+                return e.code
+        ok = [{"subcategory_id": sid, "question_number": 1, "verdict": "pass", "reason": ""}]
+        for name, data, review in (("unknown question", {sid: {"99": text}}, ok),
+                                   ("too short", {sid: {"1": "Records."}}, ok),
+                                   ("no verdict", {sid: {"1": text}}, []),
+                                   ("fail without reason", {sid: {"1": text}}, [dict(ok[0], verdict="fail")])):
+            self.assertEqual(go(data, review), 1, name)
+        data = {sid: {str(k): text for k in range(1, n + 1)}}
+        review = [dict(ok[0], question_number=k) for k in range(1, n + 1)]
+        self.assertGreater(n, 1)
+        review[-1] = dict(review[-1], verdict="fail", reason="Check 2: generic.")
+        self.assertEqual(go(data, review), 0)
+        qs = json.loads(path.read_text())["subcategories"][sid]["questions"]
+        self.assertEqual(qs[0]["evidence_prompt"], text)                  # a passing prompt is stored
+        self.assertNotIn("evidence_prompt", qs[-1])                       # a failing one is not
+        self.assertEqual(go({sid: {"1": text + " Again."}}, ok), 1)       # never overwrites an evidence prompt
+        P.AI_BANKS = R.AI_BANKS
+        doc = json.loads(P.prepare_evidence(self.inp, "areas").read_text())
+        self.assertEqual([q["number"] for q in doc["items"].get(sid, {}).get("questions", [])],
+                         [n])                                             # only questions still without one
+
     def test_notes(self):
         long = "x" * 40
         self.assertEqual(self.run_mode("notes", {"NOT.AA-99": {"exposure": long}}), 1)
@@ -440,6 +478,16 @@ class Scope(unittest.TestCase):
         self.assertEqual(e["question_type"], "full_discovery")
         f = json.loads((self.run / "ai_questions_draft_foundation.json").read_text())
         self.assertTrue(all(q["applies_to"] == "Whole organisation" for x in f for q in x["questions"]))
+        self.assertEqual({q["criticality_frame"] for x in f for q in x["questions"]}, {"none"})
+        self.assertEqual((shared["criticality_frame"], single["criticality_frame"]), ("required", "optional"))
+
+    def test_a_bank_evidence_prompt_replaces_the_generic_line(self):
+        doc = json.loads(self.banks["areas"].read_text())
+        doc["subcategories"]["MEASURE 2.8"]["questions"][0]["evidence_prompt"] = "An extract of the agent action log."
+        self.banks["areas"].write_text(json.dumps(doc))
+        self.assertEqual(self.go(self.profile()), 0)
+        e = json.loads((self.run / "ai_questions_draft_areas.json").read_text())[0]
+        self.assertEqual(e["questions"][0]["evidence_prompt"], "An extract of the agent action log.")
 
     def test_a_shared_question_names_only_the_clients_areas(self):
         self.assertEqual(self.go(self.profile(ai_areas=["invisible_usage", "input", "output", "agent"])), 0)

@@ -183,6 +183,23 @@ Both `bank foundation` and `bank areas` must show `current`. `incomplete` lists 
 subcategories whose mapping rows changed after their questions were written: go back to Step 5 (`--missing`, or
 `--ids` for the changed ones).
 
+### Step 6b — Evidence prompts (agents; only questions without one)
+Each bank question gets its own evidence prompt once, so an engagement's reviewer does not rewrite a generic line on
+every entry (decided 2026-10-31). Per bank (`foundation`, then `areas`):
+
+1. `.venv/bin/python ./scripts/prepare_ai_bank.py evidence <bank>` writes
+   `data/ai/bank_build/evidence_input_<bank>.json` (only questions with no evidence prompt; it says how many).
+   Nothing to do when it says 0.
+2. **Writer** (a fresh subagent, Sonnet): follow `prompts/ai_rmf_evidence_writer.md` with that input; write
+   `work/evidence_<bank>.json`. For the area bank, split by function (MAP, MEASURE, MANAGE) if the input is large.
+3. **Evaluator** (a fresh subagent, Opus; it must not see the writer's prompt): follow
+   `prompts/ai_rmf_evidence_evaluator.md` with the input and the writer's file; write `work/evidence_<bank>_eval.json`.
+4. Record: `.venv/bin/python ./scripts/record_ai_bank.py evidence <bank> data/ai/bank_build/work/evidence_<bank>.json
+   --review data/ai/bank_build/work/evidence_<bank>_eval.json --model <writer model id> --session "evaluator=<model id>"`.
+   A failed prompt is not stored (the question keeps the generic line from `data/ai/evidence_prompts.json`, which the
+   engagement's reviewer sharpens); one pass, no revision turn. Then refresh the review sheet
+   (`sheet_io.py export area_questions` / `foundation_questions`) and delete the work and input files.
+
 ## Step 7 — AI impact notes (agent; skip if sources are unchanged and notes exist)
 
 Notes for orgs reached by external agents or AI-enabled attackers, and where AI use changes the reading.

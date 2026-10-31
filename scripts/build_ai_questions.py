@@ -112,7 +112,10 @@ def evidence_for(bank: str, rec: dict, rows: list, evidence: dict, impact_order:
 
 
 def build_entry(bank: str, sid: str, rec: dict, picked: list, outcome: str, names: dict, rules: dict,
-                evidence: dict, impact_order: list, note: str) -> dict:
+                evidence: dict, impact_order: list, note: str, optional: set = frozenset()) -> dict:
+    """One draft entry. `criticality_frame` per question tells the reviewer whether "for your highest-criticality AI
+    systems" is required (an area the org runs systems in) or optional (question_rules.json criticality_frame_optional;
+    none for foundation questions)."""
     questions = []
     for q, rows in picked:
         client_areas = [names[rec["rows"][r]["area"]] for r in rows]
@@ -124,7 +127,9 @@ def build_entry(bank: str, sid: str, rec: dict, picked: list, outcome: str, name
                            rules["covers_note"].format(areas="; ".join(client_areas)) if len(q["rows"]) > 1
                            else client_areas[0]),
             "rows": rows,
-            "evidence_prompt": evidence_for(bank, rec, rows, evidence, impact_order),
+            "criticality_frame": ("none" if bank == "foundation" else
+                                  "optional" if all(rec["rows"][r]["area"] in optional for r in rows) else "required"),
+            "evidence_prompt": q.get("evidence_prompt") or evidence_for(bank, rec, rows, evidence, impact_order),
         })
     return {
         "subcategory_id": sid, "bank": bank, "function": sid.split()[0], "outcome": outcome,
@@ -185,7 +190,7 @@ def main():
                             "No question of this subcategory applies to the client's role, flags or AI areas"})
             if picked:
                 e = build_entry(bank, sid, rec, picked, outcomes[sid], names, rules, evidence, list(qrules["impacts"]),
-                                note)
+                                note, set(qrules["criticality_frame_optional"]["areas"]))
                 e["scope_reason"] = reason
                 out.append(e)
         out.sort(key=lambda q: (AI_FUNCTION_ORDER.get(q["function"], 99), list(outcomes).index(q["subcategory_id"])))

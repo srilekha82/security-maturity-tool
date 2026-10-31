@@ -158,6 +158,23 @@ class RecordLog(unittest.TestCase):
         self.assertEqual(json.loads((run / "assessed.json").read_text())[0]["assessor_note"], "Reworded.")
         self.assertEqual(len(list((run / "judgement_log").glob("*_assessor.json"))), 1)
 
+    def test_a_reviewer_cannot_change_the_facts_it_is_given(self):
+        import record_judgements as RJ
+        csf = {"subcategory_id": "GV.RM-01", "function": "GV", "outcome": "o", "client": "Sector: Financial.",
+               "questions": [{"question_text": "How is risk managed?"}], "question_type": "full_discovery",
+               "assessor_note": None}
+        self.assertTrue(RJ.validate_patch([csf], [dict(csf, client="Sector: Healthcare.", assessor_note="x")]))
+        ai = {"subcategory_id": "MAP 1.1", "bank": "areas", "function": "MAP", "outcome": "o",
+              "question_type": "full_discovery", "assessor_note": None,
+              "questions": [{"question_text": "How?", "applies_to": "Agents", "rows": ["agent|MAP 1.1"],
+                             "criticality_frame": "required"}]}
+        reworded = dict(ai, assessor_note="Reworded.", questions=[dict(ai["questions"][0], question_text="How now?")])
+        self.assertEqual(RJ.validate_patch([ai], [reworded]), [])
+        for change in ({"criticality_frame": "optional"}, {"applies_to": "Model"}, {"rows": []}):
+            bad = dict(reworded, questions=[dict(reworded["questions"][0], **change)])
+            self.assertTrue(RJ.validate_patch([ai], [bad]), change)
+        self.assertTrue(RJ.validate_patch([ai], [dict(reworded, questions=reworded["questions"] * 2)]))
+
     def test_the_checker_flags_rewrites_it_does_not_confirm(self):
         import record_judgements as RJ
         run = Path(tempfile.mkdtemp())

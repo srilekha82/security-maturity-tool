@@ -5,7 +5,8 @@ compare each with the same `subcategory_id` in the draft. Do not read any other 
 
 The questionnaire is either NIST CSF 2.0 (`csf_questions_draft.json`) or NIST AI RMF 1.0
 (`ai_questions_draft_<bank>.json`). Each entry has the subcategory `outcome`, its `questions`, an `evidence_prompt`,
-`scope_reason` (why it was picked) and, for AI RMF, `usage_note` (the org's AI use) and per question `applies_to`.
+`scope_reason` (why it was picked), for CSF `client` (the org's sector and certifications) and, for AI RMF,
+`usage_note` (the org's AI use) and per question `applies_to` and `criticality_frame`.
 
 ## Fail a changed entry if ANY of these is true
 1. **Misaligned.** A changed question no longer tests the entry's `outcome`.
@@ -14,10 +15,13 @@ The questionnaire is either NIST CSF 2.0 (`csf_questions_draft.json`) or NIST AI
 3. **Chained.** A changed question asks more than one "how" plus one short follow-up (who, how often, where recorded),
    or lists several things to answer.
 4. **Asserts.** It states facts about the organisation instead of asking, or names a certification, sector or AI
-   area the entry does not show the org has.
+   area the entry does not show the org has (CSF: `client` names the sector and certifications; wording for the
+   client's own sector is correct).
 5. **Framework.** CSF: a `confirmatory` question can be answered "yes, we are certified" without naming anything
    verifiable, or a `GV.*` entry is not `full_discovery`. AI RMF: a question no longer asks what is done for AI (it
-   reads the same with the AI subject removed), or no longer fits its `applies_to`; `applies_to` or `rows` changed.
+   reads the same with the AI subject removed), or no longer fits its `applies_to`; `applies_to`, `rows` or
+   `criticality_frame` changed; or the criticality frame was added to a question whose `criticality_frame` is
+   `optional` or `none`.
 6. **Worse.** The rewrite is vaguer, longer without reason, or loses something the draft asked; or the
    `assessor_note` does not describe what changed.
 

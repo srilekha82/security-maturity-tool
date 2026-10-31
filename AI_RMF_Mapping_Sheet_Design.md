@@ -258,6 +258,18 @@ mapping rows changed is shown incomplete by the freshness check).
   `decided_by: human`; agent output is refused for them unless `--replace-human`. The freshness check shows a sheet
   edited but not imported.
 
+- **Evidence prompts in the banks** (decided 2026-10-31 after the end-to-end test, where the engagement reviewer
+  rewrote every AI entry because the draft's evidence line was generic): each bank question may carry its own
+  `evidence_prompt`, written once by an evidence writer and checked by an evidence evaluator (`/build-ai-bank` Step 6b,
+  `record_ai_bank.py evidence`). A prompt the evaluator fails is not stored and there is no revision turn: the
+  question keeps the generic line of `data/ai/evidence_prompts.json`, which the engagement's (checked) reviewer
+  sharpens, so a failure loses nothing. The question generator and evaluator prompts are unchanged, so the accepted
+  pilot stays valid. Editable in the question review sheets (a blank cell keeps the bank's prompt).
+- **What the reviewer is told** (decided 2026-10-31): each AI draft question carries `criticality_frame` (`required`,
+  `optional` for the areas in `criticality_frame_optional`, `none` for foundation) and the CSF draft carries `client`
+  (sector and certifications); the reviewer may not change them, nor add or remove AI questions
+  (`record_judgements.py` rejects it). The reviewer prompts follow the rewrite checker's question form: one "how" plus
+  at most one short follow-up; coverage, artefacts and frequency go in the evidence prompt.
 ## Code review findings from the same review (not fixed yet)
 1. `parse_soa.py`: numeric control ids collapse (5.10 -> 5.1, 8.10 -> 8.1) and `compute_scope.py` then overwrites one
    row with the other. Reproduced. Fail on duplicate ids after parsing.

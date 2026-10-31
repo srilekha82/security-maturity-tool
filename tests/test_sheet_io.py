@@ -420,6 +420,24 @@ class QuestionSheets(unittest.TestCase):
     def bank(self, bank):
         return json.loads(self.files[bank][2].read_text())["subcategories"]
 
+    def test_evidence_prompts_are_edited_in_the_sheet_and_a_blank_cell_keeps_them(self):
+        spec, xlsx, _ = self.files["foundation"]
+        text = "The AI policy, where it is published, and the last record of staff acknowledging it."
+
+        def set_evidence(value):
+            wb = openpyxl.load_workbook(xlsx)
+            ws = wb[spec["sheet"]]
+            heads = [c.value for c in ws[1]]
+            ws.cell(row=2, column=heads.index("Evidence prompt") + 1, value=value)
+            wb.save(xlsx)
+        set_evidence(text)
+        self.assertEqual(self.do_import("foundation"), 0)
+        self.assertEqual(self.bank("foundation")["GOVERN 1.2"]["questions"][0]["evidence_prompt"], text)
+        S.export_sheet(spec, xlsx, self.files["foundation"][2], self.tmp / "audit.jsonl", force=True)
+        set_evidence("")
+        self.assertEqual(self.do_import("foundation"), 0)
+        self.assertEqual(self.bank("foundation")["GOVERN 1.2"]["questions"][0]["evidence_prompt"], text)
+
     def do_import(self, bank):
         spec, xlsx, js = self.files[bank]
         try:

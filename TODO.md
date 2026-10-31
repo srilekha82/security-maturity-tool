@@ -22,19 +22,16 @@ removed. **Both AI RMF question banks and the CSF AI impact notes are built (202
    reviewers changed almost every entry (CSF 103 of 106, AI 31 of 31 and 41 of 41) and the rewrite checker failed 82,
    10 and 12 in round 1. About 1.3M subagent tokens; hit the 5-hour limit once and resumed. Freshness cannot run in
    the cloud container (CIS and CSET sources are only in the codespace). Fix before a real client, in order:
-   a. Align the reviewer prompts (`prompts/questionnaire_assessor.md`, `prompts/ai_rmf_questionnaire_assessor.md`) with
-      the rewrite checker's check 3 (one "how" plus at most one short follow-up): the reviewers add coverage, "how
-      often" and owner clauses that the checker then fails as chained (all 82 CSF round-1 failures). Coverage and
-      artefacts go in the evidence prompt.
-   b. Write specific evidence prompts once, in the AI banks (generator, per question), instead of one generic line per
-      bank or impact (`data/ai/evidence_prompts.json`) that every engagement's reviewer rewrites on every entry.
-   c. Give the CSF draft the client's domain: the reviewer removed financial-sector wording (FS-ISAC, "institution")
-      for a financial client because the draft does not say the sector and the prompt forbids assuming one.
-   d. Tell the AI reviewer which areas have the criticality frame optional (`question_rules.json`
-      `criticality_frame_optional`): it added "highest-criticality" to Model, Model building and Test data questions.
+   a.–d. ~~done 2026-10-31~~: reviewer prompts follow the checker's question form (coverage, artefacts and frequency
+      in the evidence prompt); the CSF draft carries `client` (sector, certifications) and wording for the client's
+      own sector is kept; each AI draft question carries `criticality_frame` (required / optional / none) and the
+      reviewer adds the frame only where required; `record_judgements.py` locks those fields and the AI question
+      count. Evidence prompts in the banks: a new stage (`/build-ai-bank` Step 6b, `prepare_ai_bank.py evidence`,
+      `prompts/ai_rmf_evidence_writer.md` / `_evaluator.md`, `record_ai_bank.py evidence`), editable in the question
+      review sheets. **Not run yet**: the 287 bank questions have no evidence prompt until Step 6b is run (agents).
    e. The finance CSF bank is weak: 38 subcategories use the generic fallback and many bank questions test a
       neighbouring topic (the reviewer replaced them). `/build-csf-bank finance` again, then the other domains.
-   Then re-run the test client to compare (fewer changes, fewer round-1 failures, lower cost).
+   Then (after Step 6b and e) re-run the test client to compare (fewer changes, fewer round-1 failures, lower cost).
 4. Optional: skim the ~280 passing questions in the two question review sheets.
 5. `/build-csf-bank all` (after 3e).
 6. Later: step 5 (severity), Stage 2 (maturity XLS and answer session), the parked items below.

@@ -171,9 +171,12 @@ def bank_freshness(bank: str, doc: dict, inp: dict) -> tuple[bool, str]:
 def check_question(tag: str, sid: str, q, bank: str, inp: dict, ctx: dict) -> list[str]:
     """Problems of one question (fields, refs, roles, flags; area bank: the rows it covers)."""
     need = {"question_text", "playbook_refs", "cis_refs", "roles", "producer_flags"} | ({"rows"} if bank == "areas" else set())
-    if not isinstance(q, dict) or set(q) != need:
-        return [f"{tag}: fields must be exactly {sorted(need)}"
+    if not isinstance(q, dict) or not need <= set(q) <= need | {"evidence_prompt"}:
+        return [f"{tag}: fields must be exactly {sorted(need)} (and an optional evidence_prompt)"
                 + (f"; diff {sorted(set(q) ^ need)}" if isinstance(q, dict) else "")]
+    if "evidence_prompt" in q and (not isinstance(q["evidence_prompt"], str)
+                                   or len(q["evidence_prompt"].strip()) < MIN_QUESTION_CHARS):
+        return [f"{tag}: evidence_prompt must be text of at least {MIN_QUESTION_CHARS} characters"]
     if not all(isinstance(q[k], list) for k in need - {"question_text"}):
         return [f"{tag}: {sorted(need - {'question_text'})} must be lists"]
     errors = []
@@ -268,6 +271,52 @@ def validate_questions(data, bank: str, inp: dict, ctx: dict) -> list[str]:
     return errors
 
 
+EVIDENCE_MAX_CHARS = 400
+
+
+def evidence_targets(bank: str) -> dict[tuple[str, int], dict]:
+    """{(subcategory, question number 1-based): question} for the bank's questions with no evidence_prompt yet."""
+    doc = load_json(AI_BANKS / f"question_bank_ai_rmf_{bank}.json", f"{bank} bank")
+    return {(sid, n): q for sid, e in doc["subcategories"].items() for n, q in enumerate(e["questions"], 1)
+            if not q.get("evidence_prompt")}
+
+
+def validate_evidence(data, review, bank: str) -> list[str]:
+    """The evidence writer's file {subcategory: {"<question number>": "evidence prompt"}}, only for questions with no
+    evidence_prompt yet, and the evidence evaluator's verdicts [{subcategory_id, question_number, verdict, reason}], one
+    per written prompt."""
+    if not isinstance(data, dict) or not data:
+        return ["the file must be a non-empty JSON object {subcategory: {question number: evidence prompt}}"]
+    targets, errors, written = evidence_targets(bank), [], set()
+    for sid, per in data.items():
+        if not isinstance(per, dict) or not per:
+            errors.append(f"{sid}: must map question numbers to evidence prompts")
+            continue
+        for n, text in per.items():
+            key = (sid, int(n)) if str(n).isdigit() else None
+            if key not in targets:
+                errors.append(f"{sid} question {n}: not a {bank} bank question without an evidence prompt")
+            elif not isinstance(text, str) or not MIN_QUESTION_CHARS <= len(text.strip()) <= EVIDENCE_MAX_CHARS:
+                errors.append(f"{sid} question {n}: evidence prompt must be {MIN_QUESTION_CHARS} to "
+                              f"{EVIDENCE_MAX_CHARS} characters")
+            else:
+                written.add(key)
+    if not isinstance(review, list):
+        return errors + ["--review must be the evaluator's JSON list of verdicts"]
+    got = []
+    for v in review:
+        key = (v.get("subcategory_id"), v.get("question_number")) if isinstance(v, dict) else None
+        got.append(key)
+        if key not in written:
+            errors.append(f"verdict {v!r}: not an evidence prompt in this file")
+        elif v.get("verdict") not in ("pass", "fail") or (v["verdict"] == "fail" and not str(v.get("reason", "")).strip()):
+            errors.append(f"verdict {key}: must be pass or fail, and a fail needs a reason")
+    if sorted(written) != sorted(k for k in got if k in written) or len(got) != len(set(got)):
+        errors.append(f"the review needs exactly one verdict per written evidence prompt "
+                      f"(missing {sorted(written - set(got))})")
+    return errors
+
+
 def human_decided(data, args) -> list[str]:
     """A subcategory a person decided in the review sheet is not overwritten by agent output unless --replace-human."""
     path = AI_BANKS / f"question_bank_ai_rmf_{args.bank}.json"
@@ -342,7 +391,8 @@ def question_sheet_rows(bank: str, doc: dict, inp: dict) -> list[dict]:
                 "subcategory": sid, "outcome": inp["subs"][sid]["outcome"], "q": str(n), "areas": areas,
                 "area_names": "; ".join(names.get(a, a) for a in areas), "roles": q["roles"],
                 "producer_flags": q["producer_flags"], "question_text": q["question_text"],
-                "playbook_refs": q["playbook_refs"], "cis_refs": q["cis_refs"], "status": status,
+                "playbook_refs": q["playbook_refs"], "cis_refs": q["cis_refs"],
+                "evidence_prompt": q.get("evidence_prompt", ""), "status": status,
                 "review_reason": reason, "decided_by": entry.get("decided_by", "agent")})
     return lines
 
@@ -371,12 +421,16 @@ def questions_from_sheet(bank: str, lines: list[dict], doc: dict, inp: dict) -> 
     data, changed = {}, []
     for sid, sub_lines in by_sub.items():
         old = review_view(bank, doc["subcategories"][sid], sid, ctx)
+        old_evidence = {q["question_text"]: q["evidence_prompt"] for q in old["questions"] if q.get("evidence_prompt")}
         qs = []
         for ln in sub_lines:
             q = {"question_text": ln["question_text"], "playbook_refs": ln["playbook_refs"], "cis_refs": ln["cis_refs"],
                  "roles": ln["roles"], "producer_flags": ln["producer_flags"]}
             if bank == "areas":
                 q["rows"] = [row_id(a, sid) for a in ln["areas"]]
+            evidence = str(ln.get("evidence_prompt") or "").strip() or old_evidence.get(ln["question_text"])
+            if evidence:   # a blank cell keeps what the bank has for the same question
+                q["evidence_prompt"] = evidence
             qs.append(q)
         parts = reason_from_lines(sub_lines)
         status = "needs_human_review" if parts else "pass"
@@ -1022,6 +1076,21 @@ def store(mode: str, data: dict, args, inp: dict) -> tuple[Path, str]:
         path.write_text(json.dumps(bank, indent=2, ensure_ascii=False))
         return path, (f"{args.bank} bank: recorded {len(data)} subcategories; bank has {passed} passed, {review} needing "
                       f"human review, {bank['summary']['questions']} questions")
+    if mode == "evidence":
+        review = load_json(Path(args.review), "review file")
+        failed = {(v["subcategory_id"], v["question_number"]) for v in review if v["verdict"] == "fail"}
+        path = AI_BANKS / f"question_bank_ai_rmf_{args.bank}.json"
+        bank = load_json(path, path.name)
+        stored = 0
+        for sid, per in data.items():
+            for n, text in per.items():
+                if (sid, int(n)) not in failed:   # a failed prompt is not stored: the generic line stays for it
+                    bank["subcategories"][sid]["questions"][int(n) - 1]["evidence_prompt"] = text.strip()
+                    stored += 1
+        path.write_text(json.dumps(bank, indent=2, ensure_ascii=False))
+        left = len(evidence_targets(args.bank))
+        return path, (f"{args.bank} bank: {stored} evidence prompts stored, {len(failed)} failed the check (not "
+                      f"stored); {left} questions still without one. Refresh the review sheet (sheet_io.py export).")
     if mode == "notes-review":
         store_doc = load_json(CSF_IMPACT_NOTES, "ai_impact_notes.json")
         flagged: dict[str, list[str]] = {}
@@ -1076,11 +1145,13 @@ def record(mode: str, args) -> None:
         extra = {"review_file": args.review, "review": review}
         log_name = lambda d: f"mapping_{d.get('area', 'unknown')}" if isinstance(d, dict) else "mapping"  # noqa: E731
     else:
+        review = load_json(Path(args.review), "review file") if getattr(args, "review", None) else None
         validate = {"questions": lambda d: (validate_questions(d, args.bank, inp, question_context(inp))
                                             + human_decided(d, args)),
+                    "evidence": lambda d: validate_evidence(d, review, args.bank),
                     "notes": validate_notes, "notes-review": validate_notes_review}[mode]
-        store_fn, extra = (lambda d: store(mode, d, args, inp)), None
-        log_name = f"{mode}_{args.bank}" if mode == "questions" else mode
+        store_fn, extra = (lambda d: store(mode, d, args, inp)), ({"review": review} if mode == "evidence" else None)
+        log_name = f"{mode}_{args.bank}" if mode in ("questions", "evidence") else mode
     audit.record_agent_output(
         log_path=AI_BUILD / "audit.jsonl", log_dir=LOG_DIR, step=f"record_ai_bank_{mode}",
         args={"file": args.file, "bank": getattr(args, "bank", None)}, file=args.file,
@@ -1099,15 +1170,18 @@ def main():
     pa.add_argument("--out", required=True)
     sub.add_parser("revalidate")
 
-    for m in ("questions", "notes", "notes-review", "mapping"):
+    for m in ("questions", "evidence", "notes", "notes-review", "mapping"):
         p = sub.add_parser(m)
-        if m == "questions":
+        if m in ("questions", "evidence"):
             p.add_argument("bank", choices=AI_QUESTION_BANKS)
+        if m == "questions":
             p.add_argument("--replace-human", action="store_true",
                            help="overwrite subcategories a person decided in the review sheet (only when they agreed)")
         p.add_argument("file")
         if m == "mapping":
             p.add_argument("--review", help="the evaluator's last list of failures (rows stored as needs_human_review)")
+        if m == "evidence":
+            p.add_argument("--review", required=True, help="the evidence evaluator's verdicts (failed prompts are not stored)")
         p.add_argument("--model", required=True, help="model id of the agent that produced the file")
         p.add_argument("--session")
         p.add_argument("--prompt", nargs="*", help="prompt file(s) the agent followed, relative to the repo root")

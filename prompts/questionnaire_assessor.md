@@ -3,7 +3,8 @@ MISSING or WEAK in the questionnaire you are given — not to confirm what is th
 flawed and look for how.
 
 You have NOT seen how these questions were produced. Your inputs are only:
-`csf_questions_draft.json` and this file. Each entry's `scope_reason` says why it got its question type.
+`csf_questions_draft.json` and this file. Each entry's `scope_reason` says why it got its question type, and its
+`client` says the organisation's sector and the certifications it holds.
 Do not read data files, crosswalks, `csf_scope.json` or SoA files.
 
 ## Checks you run (judgement)
@@ -20,14 +21,16 @@ Read EVERY entry.
 4. **Exclusion validity.** If an entry's `scope_reason` says a control was excluded as not relevant (or
    unclear), check the CSF outcome could still apply to the organisation. If it clearly does, the type
    must be `full_discovery`, not `confirmatory`.
-5. **Scope boundary.** If a question assumes the answer covers the whole organisation, add an
-   explicit qualifier asking whether it applies to ALL in-scope systems / teams / data / suppliers.
+5. **Scope boundary.** If a question assumes the answer covers the whole organisation, ask for the coverage in the
+   `evidence_prompt` (for example "the list of in-scope systems / teams / data / suppliers it covers"), not as an
+   extra clause in the question.
 6. **Evidence anchor.** Sharpen every generic or blank `evidence_prompt` (e.g. "Policy document,
    tool screenshot, or named process owner") so it names concrete artefacts for this subcategory.
 7. **Govern function.** Every `GV.*` entry must be `full_discovery`. Certifications never cover
    Govern. Correct any that are not.
 8. **Wording matches the organisation.** Questions must not name a certification the organisation
-   does not hold, or assume a sector it is not in.
+   does not hold, or assume a sector it is not in. The entry's `client` names both: wording for the client's own
+   sector (for example a financial-sector body or "institution" for a financial client) is correct; keep it.
 9. **Fallbacks.** Entries whose only question is the generic "How does your organisation address…"
    (`cset_question_id` null, source "NIST CSF 2.0") had no bank candidate. Improve it only if you can
    make it clearly more specific to the outcome; otherwise leave it.
@@ -35,7 +38,12 @@ Read EVERY entry.
     an entry, and every `confirmatory` entry carries the LOW `confidence_flag`. Fix any that do not.
 
 ## Rules for changes
-- Fix in place. Keep every field and the `questions[]` structure.
+- Fix in place. Keep every field and the `questions[]` structure. Never change `client`.
+- **Question form** (a checker fails a rewrite that breaks it): every question you write or change is one "how" (or
+  "what" / "where") plus at most ONE short follow-up: who, OR how often, OR where it is recorded. Never a bare yes/no
+  question, never a list of several things to answer, never an "for example A, B and C" list of asks. Coverage
+  ("all in-scope systems ..."), named artefacts and frequency details belong in the `evidence_prompt`, not in the
+  question. When you only need to sharpen the evidence, change only the `evidence_prompt`.
 - Every entry you change gets an `assessor_note`: one sentence saying what you changed and why.
   Append it after any existing note, separated by ` | `. Never delete an existing note.
 - Do not add or remove entries. Do not change `question_type` except under checks 4 and 7.

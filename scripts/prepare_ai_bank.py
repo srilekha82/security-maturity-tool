@@ -159,9 +159,28 @@ def prepare_mapping(inp: dict, area_id: str) -> Path:
     return out
 
 
+def prepare_evidence(inp: dict, bank: str) -> Path:
+    """The evidence writer's input: every question of the bank with no evidence_prompt yet, numbered as in the bank,
+    with its outcome, the areas and impacts it is asked for (area bank) and the titles of the safeguards it cites."""
+    doc = json.loads((AI_BANKS / f"question_bank_ai_rmf_{bank}.json").read_text())
+    names = {a["id"]: a["name"] for a in json.loads(AI_AREAS.read_text())["ai_areas"]}
+    items = {}
+    for sid, e in doc["subcategories"].items():
+        qs = [{"number": n, "question_text": q["question_text"],
+               **({"areas": [{"area": names[e["rows"][r]["area"]], "impact": e["rows"][r]["impact"]} for r in q["rows"]]}
+                  if bank == "areas" else {}),
+               "cis": [f"{c}: {inp['safeguards'][c]['title']}" for c in q["cis_refs"] if c in inp["safeguards"]]}
+              for n, q in enumerate(e["questions"], 1) if not q.get("evidence_prompt")]
+        if qs:
+            items[sid] = {"outcome": inp["subs"][sid]["outcome"], "questions": qs}
+    out = AI_BUILD / f"evidence_input_{bank}.json"
+    out.write_text(json.dumps({"bank": bank, "items": items}, indent=2, ensure_ascii=False))
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["batch", "mapping"])
+    ap.add_argument("what", choices=["batch", "mapping", "evidence"])
     ap.add_argument("bank", nargs="?", choices=QUESTION_BANKS)
     ap.add_argument("--ids", nargs="*", default=[])
     ap.add_argument("--function", choices=AI_FUNCTION_ORDER)
@@ -174,6 +193,15 @@ def main():
     ev = audit.begin(AI_BUILD / "audit.jsonl", f"prepare_{args.what}",
                      {"bank": args.bank, "ids": args.ids, "function": args.function, "all": args.all, "area": args.area})
     inp = load_inputs()
+    if args.what == "evidence":
+        if not args.bank:
+            ev.fail("[prepare_ai_bank] ERROR: evidence needs a bank (areas|foundation)")
+        out = prepare_evidence(inp, args.bank)
+        n = sum(len(i["questions"]) for i in json.loads(out.read_text())["items"].values())
+        ev.finish(inputs=[AI_BANKS / f"question_bank_ai_rmf_{args.bank}.json", AI_AREAS], outputs=[out],
+                  detail=f"prepared {out.name}: {n} questions without an evidence prompt")
+        print(f"[prepare_ai_bank] wrote {rel(out)}: {n} questions without an evidence prompt")
+        return
     if args.what == "mapping":
         if not args.area:
             ev.fail("[prepare_ai_bank] ERROR: mapping needs --area ID")

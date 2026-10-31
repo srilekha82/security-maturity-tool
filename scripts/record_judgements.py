@@ -114,9 +114,17 @@ def validate_patch(base: list, patch: list) -> list[str]:
         if set(e) != set(old):
             errors.append(f"{sid}: must be the complete entry with the same fields (diff: {sorted(set(e) ^ set(old))})")
             continue
-        for k in ("function", "outcome"):
-            if e[k] != old[k]:
+        for k in ("function", "outcome", "client", "bank"):   # facts about the entry and the client, not judgement
+            if k in old and e[k] != old[k]:
                 errors.append(f"{sid}: {k} must not change")
+        if "bank" in old:   # AI RMF: the questions stay the same questions (what each answer counts for)
+            if not isinstance(e["questions"], list) or len(e["questions"]) != len(old["questions"]):
+                errors.append(f"{sid}: AI RMF questions may be reworded, not added or removed")
+            else:
+                for n, (q, o) in enumerate(zip(e["questions"], old["questions"]), 1):
+                    changed = [k for k in ("applies_to", "rows", "criticality_frame") if k in o and q.get(k) != o[k]]
+                    if changed:
+                        errors.append(f"{sid} question {n}: {', '.join(changed)} must not change")
         if e["question_type"] not in QUESTION_TYPES:
             errors.append(f"{sid}: question_type must be one of {sorted(QUESTION_TYPES)}")
         if not isinstance(e["questions"], list) or not e["questions"] or not all(

@@ -12,6 +12,7 @@ from paths import AI_QUESTION_RULES, AI_SCOPE_RULES, INTAKE_OPTIONS, SCOPE_RULES
 _common = json.loads(INTAKE_OPTIONS.read_text())
 
 DOMAINS = [d["value"] for d in _common["domains"]]
+DOMAIN_LABELS = {d["value"]: d["label"] for d in _common["domains"]}
 WEIGHT_KEY = {d["value"]: d["weight_key"] for d in _common["domains"]}     # key of the domain in domain_weights.json
 CERTS = [c["value"] for c in _common["certs"] if c["value"] != "none"]     # certifications with a crosswalk
 CERT_LABELS = {c["value"]: c["label"] for c in _common["certs"] if c["value"] != "none"}

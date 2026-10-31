@@ -26,7 +26,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from paths import CSF_CORE, EVIDENCE_PROMPTS, SCOPE_RULES, bank_path  # noqa: E402
-from options import CERT_LABELS, CSF_FUNCTION_ORDER, load_intake  # noqa: E402
+from options import CERT_LABELS, CSF_FUNCTION_ORDER, DOMAIN_LABELS, load_intake  # noqa: E402
 import audit  # noqa: E402
 
 RULES = json.loads(SCOPE_RULES.read_text())  # policy and wording live in scope_rules.json
@@ -66,6 +66,8 @@ def main():
     run_dir = Path(args.run_dir)
     intake = load_intake(run_dir)
     domain, certs = intake["domain"], intake["certs"]
+    client = (f"Sector: {DOMAIN_LABELS.get(domain, domain)}. Certifications held: "
+              f"{', '.join(CERT_LABELS.get(c, c) for c in certs if c in CERT_LABELS) or 'none'}.")  # for the reviewer
     ev = audit.begin(audit.run_log(run_dir), "build_questions", {"domain": domain, "certs": certs})
     bank_file = bank_path(domain)
     core_path = CSF_CORE
@@ -132,6 +134,7 @@ def main():
             "questions": framed,
             "evidence_prompt": evidence_prompt(sid),
             "scope_reason": entry.get("reason", ""),
+            "client": client,
             "confidence_flag": confidence_flag,
             "assessor_note": None,
         })

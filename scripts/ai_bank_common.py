@@ -11,6 +11,7 @@ from paths import AI_CORE, AI_SAFEGUARDS, REPO_ROOT  # noqa: E402
 # The prompts each agent step follows. `questions` (generator and evaluator) is also what the pilot acceptance is tied to.
 DEFAULT_PROMPTS = {
     "questions": ["prompts/ai_rmf_question_generator.md", "prompts/ai_rmf_question_evaluator.md"],
+    "evidence": ["prompts/ai_rmf_evidence_writer.md", "prompts/ai_rmf_evidence_evaluator.md"],
     "notes": ["prompts/ai_impact_notes_writer.md"],
     "notes-review": ["prompts/ai_impact_notes_evaluator.md"],
     "mapping": ["prompts/ai_rmf_mapping_drafter.md", "prompts/ai_rmf_mapping_evaluator.md"],
