@@ -8,7 +8,7 @@ removed. **Both AI RMF question banks and the CSF AI impact notes are built (202
 `judgement_log/`) is kept.
 
 ## Start here next session
-**Next, in order:**
+**Next, in order (updated 2026-10-31 after the end-to-end test):**
 1. ~~Impact notes~~ done 2026-10-31: `exposure` is optional (written only where the safeguard text supports something
    real for an org with no AI); the 19 flagged notes lost their exposure note, ID.IM-02's model note points to Output,
    PR.PS-03 and RC.CO-04 lost their use layer too and have no note. 46 notes, all pass (29 exposure, 43 use layers).
@@ -16,10 +16,27 @@ removed. **Both AI RMF question banks and the CSF AI impact notes are built (202
    asks sharing impacts beyond the team; GOVERN 5.1 dropped the published-principles question; MAP 3.5, MAP 4.1 (two),
    MEASURE 2.10 reworded; MEASURE 2.4 dropped LLM-13.1; MANAGE 4.1 cites action 9 only; MANAGE 4.3 has its own
    hosting question. Both banks pass (foundation 84 questions, areas 203).
-3. Optional: skim the ~280 passing questions in the two question review sheets.
-4. `/generate-questions` end to end on a test client in `finance` (the only CSF bank built; another sector would build
-   its bank on the fly). First real look at the client labels and the "AI systems" sheet.
-5. `/build-csf-bank all`.
+3. ~~`/generate-questions` end to end~~ done 2026-10-31 in the cloud session on a test client (`runs/TestBank_2026-10-31`,
+   not committed: finance, no certs, role both, 11 AI areas). The workbook is complete: CSF 106 subcategories / 220
+   questions, AI RMF 72 / 254 (foundation 84, areas 170), the AI systems sheet; 14 entries LOW (CSF 5, AI 3 + 6). The
+   reviewers changed almost every entry (CSF 103 of 106, AI 31 of 31 and 41 of 41) and the rewrite checker failed 82,
+   10 and 12 in round 1. About 1.3M subagent tokens; hit the 5-hour limit once and resumed. Freshness cannot run in
+   the cloud container (CIS and CSET sources are only in the codespace). Fix before a real client, in order:
+   a. Align the reviewer prompts (`prompts/questionnaire_assessor.md`, `prompts/ai_rmf_questionnaire_assessor.md`) with
+      the rewrite checker's check 3 (one "how" plus at most one short follow-up): the reviewers add coverage, "how
+      often" and owner clauses that the checker then fails as chained (all 82 CSF round-1 failures). Coverage and
+      artefacts go in the evidence prompt.
+   b. Write specific evidence prompts once, in the AI banks (generator, per question), instead of one generic line per
+      bank or impact (`data/ai/evidence_prompts.json`) that every engagement's reviewer rewrites on every entry.
+   c. Give the CSF draft the client's domain: the reviewer removed financial-sector wording (FS-ISAC, "institution")
+      for a financial client because the draft does not say the sector and the prompt forbids assuming one.
+   d. Tell the AI reviewer which areas have the criticality frame optional (`question_rules.json`
+      `criticality_frame_optional`): it added "highest-criticality" to Model, Model building and Test data questions.
+   e. The finance CSF bank is weak: 38 subcategories use the generic fallback and many bank questions test a
+      neighbouring topic (the reviewer replaced them). `/build-csf-bank finance` again, then the other domains.
+   Then re-run the test client to compare (fewer changes, fewer round-1 failures, lower cost).
+4. Optional: skim the ~280 passing questions in the two question review sheets.
+5. `/build-csf-bank all` (after 3e).
 6. Later: step 5 (severity), Stage 2 (maturity XLS and answer session), the parked items below.
 - Pilot accepted 2026-10-29 (four rounds; GOVERN 1.2, 1.6, 6.1; MAP 1.4, MAP 3.2, MEASURE 2.7, MEASURE 2.8, MANAGE 3.2).
 - Full run 2026-10-29 to 2026-10-31 (Sonnet generator, Opus evaluator, 9 batches, two rounds each; interrupted once by
